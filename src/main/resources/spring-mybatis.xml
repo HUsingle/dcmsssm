@@ -47,8 +47,27 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- 自动扫描mapping.xml文件 -->
-        <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+        <!--<property name="configLocation" value="classpath:mybatisPlugin.xml"/>-->
+        <property name="mapperLocations" value="classpath:mapping/*.xml"/>
+        <property name="typeAliasesPackage" value="com.dcms.model"/>
+        <!-- 配置分页插件 -->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
+                        <value></value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
+    <!-- 使用MapperScannerConfigurer自动配置basePackage下面的所有映射器 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.dcms.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
 
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
         <constructor-arg index="0" ref="sqlSessionFactory"/>

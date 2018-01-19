@@ -18,13 +18,13 @@ public class Test {
     @RequestMapping(value = "/test")
     public @ResponseBody Student hello(){
         Student student=new Student();
-        student.setId(1);
+        student.setId(1l);
         student.setName("ha");
         return student;
     }
     @RequestMapping(value = "/getStudent")
     public @ResponseBody Student getStudent(){
-        return studentMapper.getStudent(1);
+        return studentMapper.getStudent(114583010106l);
     }
 
     @RequestMapping(value = "/login")

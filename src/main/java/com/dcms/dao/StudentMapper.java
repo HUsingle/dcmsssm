@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface StudentMapper {
-    public Student getStudent(Integer id);
+    //public List<Student> getAllStudent();
+     Student getStudent(Long id);
 }
