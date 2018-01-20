@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +18,8 @@
     </style>
 </head>
 <body>
-
-<form class="form-horizontal" id="myFrom">
+<div id="myDiv">
+<form class="form-horizontal" >
     <div class="col-sm-3">
     <div class="from-group">
     <input type="text" class="form-control" placeholder="学号/姓名/班级">
@@ -28,8 +30,86 @@
 <a class="btn bg-purple bt-flat "><i class="fa fa-edit"></i> 修改</a> 
 <a class="btn bg-purple bt-flat "><i class="fa fa-trash-o"></i> 删除</a> 
 </form>
-    
-  
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-hover" style="margin-top: 15px;margin-left: 14px;">
+			<thread>
+			<tr>
+				<th class="text-center"><input type="checkbox"></th>
+				<th class="text-center">学号</th>
+				<th class="text-center">名字</th>
+				<th class="text-center">密码</th>
+				<th class="text-center">班级</th>
+				<th class="text-center">学院</th>
+				<th class="text-center">手机号码</th>
+				<th class="text-center">电子邮箱</th>
+			</tr>
+			</thread>
+			<tbody>
+			<c:forEach items="${studentList}" var="student">
+				<tr>
+					<th class="text-center"><input type="checkbox"></th>
+					<td class="text-center">${student.id}</td>
+					<td class="text-center">${student.name}</td>
+					<td class="text-center">${student.password}</td>
+					<td class="text-center">${student.studentClass}</td>
+					<td class="text-center">${student.college}</td>
+					<td class="text-center">${student.phone}</td>
+					<td class="text-center">${student.email}</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+	</div>
+</div>
+	<!-- 分页 -->
+	<div class="row" style="margin-left: 14px;">
+		<%--<div class="col-md-6">
+			当前${pageInfo.pageNum }页，总共${pageInfo.pages }页，总共${pageInfo.total }条记录
+		</div>--%>
+		<div class="col-md-6">
+			<nav aria-lable="Page navigation">
+				<ul class="pagination" style="margin-top: -10px;">
+
+					<li><a href="/student/getAllStudent?pageNow=1">首页</a></li>
+                     <%--  是否有前一页--%>
+					<c:if test="${pageInfo.hasPreviousPage}">
+						<li>
+							<a href="/student/getAllStudent?pageNow=${pageInfo.pageNum-1}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					</c:if>
+
+                    <%--所有导航页号 int[] navigatepageNums，pageNum为当前页--%>
+					<c:forEach items="${pageInfo.navigatepageNums}" var="page">
+						<%--如果是当前页，则显示背景为紫色--%>
+						<c:if test="${page==pageInfo.pageNum}">
+							<li class="active" ><a href="/student/getAllStudent?pageNow=${page}">${page}</a></li>
+						</c:if>
+						<%--如果不是当前页，则背景为白色--%>
+						<c:if test="${page!=pageInfo.pageNum}">
+							<li><a href="/student/getAllStudent?pageNow=${page}">${page}</a></li>
+						</c:if>
+					</c:forEach>
+                    <%--是否有下一页--%>
+					<c:if test="${pageInfo.hasNextPage }">
+						<li>
+							<a href="/student/getAllStudent?pageNow=${pageInfo.pageNum+1}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</c:if>
+                            <%--pages为总页数--%>
+					<li><a href="/student/getAllStudent?pageNow=${pageInfo.pages}">末页</a></li>
+
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+</div>
 <div class="box box-default" id="myBox" style="display: none;">
             <div class="box-header with-border">
               <h3 class="box-title">添加学生</h3>
@@ -92,21 +172,18 @@
             </div>
             <!-- /.box-body -->
           </div>
-         
-        
-    
     
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
 <script>
 	$(document).ready(function () {
 		$("#addCourse").click(function () {
-			$("#myFrom").hide();
+			$("#myDiv").hide();
 			$("#myBox").show();
         });
         $("#quit").click(function () {
             $("#myBox").hide();
-            $("#myFrom").show();
+            $("#myDiv").show();
         });
     });
 

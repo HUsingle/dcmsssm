@@ -46,7 +46,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">导航菜单</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li><a href="/views/studentManage.html" target="myFrame"><i class="fa fa-users"></i><span>学生管理</span></a></li>
+                <li><a href="/student/getAllStudent" target="myFrame"><i class="fa fa-users"></i><span>学生管理</span></a></li>
                 <li><a href="#"><i class="fa fa-user"></i><span>老师管理</span></a></li>
                 <li><a href="#"><i class="fa fa-list-alt"></i><span>竞赛管理</span></a></li>
                 <li><a href="#"><i class="fa fa-university"></i><span>考场管理</span></a></li>
@@ -85,7 +85,7 @@
 
 
         <section class="content">
-            <iframe scrolling="yes" frameborder="0" style="width:100%;height:505px; overflow:visible;" src="/views/main.html"
+            <iframe scrolling="yes" frameborder="0" style="width:100%;height:540px; overflow:visible;" src="/views/main.html"
                     name="myFrame"></iframe>
         </section>
 
@@ -97,7 +97,7 @@
     <!-- Main Footer -->
     <footer class="main-footer" style="padding: 6px;">
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2018 College of software.</strong> All rights reserved.
+        <strong>Copyright &copy; 2018 ZHAOXU WANGHU.</strong> All rights reserved.
     </footer>
 
     <!-- /.control-sidebar -->
