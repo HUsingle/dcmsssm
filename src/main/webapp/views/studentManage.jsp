@@ -29,11 +29,18 @@
 <a class="btn bg-purple bt-flat " id="addCourse"><i class="fa fa-plus"></i> 添加</a>
 <a class="btn bg-purple bt-flat "><i class="fa fa-edit"></i> 修改</a> 
 <a class="btn bg-purple bt-flat "><i class="fa fa-trash-o"></i> 删除</a> 
-</form>
+</form><%--
+	<table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+		<thead>
+		<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="渲染引擎: activate to sort column descending">渲染引擎</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="浏览器: activate to sort column ascending">浏览器</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="平台: activate to sort column ascending">平台</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="引擎版本: activate to sort column ascending">引擎版本</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS 等级: activate to sort column ascending">CSS 等级</th></tr>
+		</thead>
+		<tbody>
 
+
+	</table>--%>
 <div class="row">
 	<div class="col-md-12">
-		<table class="table table-hover" style="margin-top: 15px;margin-left: 14px;">
+		<table class="table table-bordered table-hover dataTable" style="margin-top: 15px;margin-left: 15px;">
 			<thread>
 			<tr>
 				<th class="text-center"><input type="checkbox"></th>
@@ -64,7 +71,7 @@
 	</div>
 </div>
 	<!-- 分页 -->
-	<div class="row" style="margin-left: 14px;">
+	<div class="row" style="margin-left: 0px;">
 		<%--<div class="col-md-6">
 			当前${pageInfo.pageNum }页，总共${pageInfo.pages }页，总共${pageInfo.total }条记录
 		</div>--%>

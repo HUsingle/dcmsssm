@@ -23,10 +23,9 @@ public class StudentController {
 
     @RequestMapping(value = "/getAllStudent")
     public String getAllStudent(Model model,
-                                @RequestParam(defaultValue = "1") Integer pageNow,
-                                @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+                                @RequestParam(defaultValue = "1") Integer pageNow) {
         //获取第pageNow页，pageSize条内容
-        PageHelper.startPage(pageNow, pageSize);
+        PageHelper.startPage(pageNow, 10);
         //查询所有学生信息,分页
         List<Student> studentList=studentService.findAllStudent();
         //用pageInfo包装studentList,papeInfo有详细的分页信息
