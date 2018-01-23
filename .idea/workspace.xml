@@ -1,41 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="563187a7-e5cd-4219-ac25-df916ba5c156" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/views/studentMan.jsp" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/controller/Test.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/mybatisPlugin.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/resources/fonts/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/resources/fonts/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/resources/fonts/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/resources/fonts/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/resources/fonts/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/dcms/controller/Test.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/com/dcms/controller/Test.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/dcms-ssm/resources/images/test.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/dcms/dao/StudentMapper.class" afterPath="$PROJECT_DIR$/target/classes/com/dcms/dao/StudentMapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/dcms/model/Student.class" afterPath="$PROJECT_DIR$/target/classes/com/dcms/model/Student.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/dcms/service/StudentService.class" afterPath="$PROJECT_DIR$/target/classes/com/dcms/service/StudentService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/com/dcms/dao/StudentMapper.class" afterPath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/com/dcms/dao/StudentMapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/com/dcms/model/Student.class" afterPath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/com/dcms/model/Student.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/com/dcms/service/StudentService.class" afterPath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/com/dcms/service/StudentService.class" />
+    <list default="true" id="563187a7-e5cd-4219-ac25-df916ba5c156" name="Default" comment="更新">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/resources/images/test.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/controller/StudentController.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/controller/StudentController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/dao/StudentMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/dao/StudentMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/model/Student.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/model/Student.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/service/StudentService.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/service/StudentService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/service/StudentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/service/StudentServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/jdbc.properties" afterPath="$PROJECT_DIR$/src/main/resources/jdbc.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapping/StudentMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapping/StudentMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/views/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/views/index.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/views/studentManage.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/views/studentManage.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/jdbc.properties" afterPath="$PROJECT_DIR$/target/classes/jdbc.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/mapping/StudentMapper.xml" afterPath="$PROJECT_DIR$/target/classes/mapping/StudentMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/jdbc.properties" afterPath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/jdbc.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/mapping/StudentMapper.xml" afterPath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/mapping/StudentMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/resources/js/jquery.min.js" afterPath="$PROJECT_DIR$/target/dcms-ssm/resources/js/jquery.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/views/index.jsp" afterPath="$PROJECT_DIR$/target/dcms-ssm/views/index.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/views/studentMan.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/views/studentMan.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -61,14 +32,66 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="studentMan.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="studentMan.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/views/studentMan.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="14" column="15" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+            <state relative-caret-position="338">
+              <caret line="25" column="18" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="25" selection-end-column="18" />
               <folding>
-                <element signature="e#984#2063#0#JSP" expanded="false" />
+                <element signature="e#1339#2418#0#JSP" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create-table.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="33" column="25" lean-forward="false" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bootstrap-table.min.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/bootstrap-table.min.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2172">
+              <caret line="173" column="26" lean-forward="false" selection-start-line="173" selection-start-column="26" selection-end-line="173" selection-end-column="26" />
+              <folding>
+                <element signature="e#2362#2660#2" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/controller/StudentController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-44">
+              <caret line="44" column="32" lean-forward="false" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/views/index.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="709">
+              <caret line="88" column="79" lean-forward="false" selection-start-line="88" selection-start-column="79" selection-end-line="88" selection-end-column="79" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="studentManage.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/views/studentManage.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="29" column="83" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="29" selection-end-column="83" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -143,9 +166,10 @@
         <option value="$PROJECT_DIR$/src/main/webapp/views/studentManage.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/createtable.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/views/index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/controller/StudentController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/views/index.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/resources/css/bootstrap-table.min.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/views/studentMan.jsp" />
       </list>
     </option>
@@ -1380,7 +1404,7 @@
       <workItem from="1516589909930" duration="1456000" />
       <workItem from="1516609410854" duration="4092000" />
       <workItem from="1516672116505" duration="16797000" />
-      <workItem from="1516701200831" duration="13916000" />
+      <workItem from="1516701200831" duration="16604000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1516372964644</created>
@@ -1403,11 +1427,18 @@
       <option name="project" value="LOCAL" />
       <updated>1516507822076</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="更新">
+      <created>1516717076727</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1516717076727</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183129000" />
+    <option name="totallyTimeSpent" value="185817000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1434,8 +1465,8 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5327869" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19508196" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17868853" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2912254" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1510,7 +1541,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/Student.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/StudentMapper.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mybatis.xml" />
@@ -1559,13 +1589,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="4" column="78936" lean-forward="false" selection-start-line="4" selection-start-column="78936" selection-end-line="4" selection-end-column="78936" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="92" lean-forward="false" selection-start-line="15" selection-start-column="92" selection-end-line="15" selection-end-column="92" />
         </state>
       </provider>
     </entry>
@@ -1643,17 +1666,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="33" column="45" lean-forward="true" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/StudentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
-          <folding>
-            <element signature="e#587#588#0" expanded="false" />
-            <element signature="e#636#637#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1714,62 +1727,89 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/bootstrap-table.min.js">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/views/apply_index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14763">
+        <state relative-caret-position="-4092">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/views/index.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1936">
-          <caret line="88" column="79" lean-forward="false" selection-start-line="88" selection-start-column="79" selection-end-line="88" selection-end-column="79" />
+        <state relative-caret-position="330">
+          <caret line="15" column="62" lean-forward="true" selection-start-line="15" selection-start-column="62" selection-end-line="15" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/StudentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+          <folding>
+            <element signature="e#587#588#0" expanded="true" />
+            <element signature="e#636#637#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/bootstrap-table.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/views/studentManage.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="36" column="65" lean-forward="false" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/bootstrap-table.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="3064" lean-forward="false" selection-start-line="0" selection-start-column="3064" selection-end-line="0" selection-end-column="3064" />
-          <folding>
-            <element signature="e#1977#2275#2" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="36" lean-forward="false" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+        <state relative-caret-position="237">
+          <caret line="29" column="83" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="29" selection-end-column="83" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/controller/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="40" column="78" lean-forward="true" selection-start-line="40" selection-start-column="78" selection-end-line="40" selection-end-column="78" />
+        <state relative-caret-position="-44">
+          <caret line="44" column="32" lean-forward="false" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/views/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="709">
+          <caret line="88" column="79" lean-forward="false" selection-start-line="88" selection-start-column="79" selection-end-line="88" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="33" column="25" lean-forward="false" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/views/studentMan.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="14" column="15" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+        <state relative-caret-position="338">
+          <caret line="25" column="18" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="25" selection-end-column="18" />
           <folding>
-            <element signature="e#984#2063#0#JSP" expanded="false" />
+            <element signature="e#1339#2418#0#JSP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/bootstrap-table.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2172">
+          <caret line="173" column="26" lean-forward="false" selection-start-line="173" selection-start-column="26" selection-end-line="173" selection-end-column="26" />
+          <folding>
+            <element signature="e#2362#2660#2" expanded="true" />
           </folding>
         </state>
       </provider>

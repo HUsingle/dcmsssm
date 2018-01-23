@@ -18,11 +18,19 @@
 </head>
 <body>
 <div id="toolbar">
-    <a class="btn bg-purple bt-flat " id="addCourse"><i class="fa fa-plus"></i> 添加</a>
-    <a class="btn bg-purple bt-flat "><i class="fa fa-edit"></i> 修改</a>
-    <a class="btn bg-purple bt-flat "><i class="fa fa-trash-o"></i> 删除</a>
+    <%--<form class="form-horizontal">--%>
+        <%--<div class="col-sm-3">
+            <div class="from-group">
+                <input type="text" class="form-control" placeholder="学号/姓名/班级">
+            </div>
+        </div>--%>
+        <a class="btn bg-purple bt-flat " type="submit"><i class="fa fa-search"></i> 查询</a>
+        <a class="btn bg-purple bt-flat " id="addCourse"><i class="fa fa-plus"></i> 添加</a>
+        <a class="btn bg-purple bt-flat "><i class="fa fa-edit"></i> 修改</a>
+        <a class="btn bg-purple bt-flat "><i class="fa fa-trash-o"></i> 删除</a>
+    <%--</form>--%>
 </div>
-<table   id="myTable"/>
+<table id="myTable"/>
 <%--<table id="listTable" data-click-to-select="true"
        data-toggle="table"
        data-side-pagination="server"
@@ -67,15 +75,18 @@
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/bootstrap-table.min.js"></script>
 <script src="/resources/js/bootstrap-table-zh-CN.min.js"></script>
-
+<script src="/resources/js/create-table.js"></script>
 <script>
     $(function () {
-          /*  init('#myTable', "http://localhost:8080/student/getStudentList",
-                ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
-                ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true, '#toolbar');*/
-          init();
-        });
-    function init() {
+        init('#myTable', "/student/getStudentList",
+            ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
+            ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true, '#toolbar');
+        /*  init('#myTable', "http://localhost:8080/student/getStudentList",
+         ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
+         ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true, '#toolbar');*/
+        //init();
+    });
+ /*   function init() {
         $("#myTable").bootstrapTable({
             url: "/student/getStudentList",//请求后台的url
             method: 'post',
@@ -88,7 +99,7 @@
             sortOrder: "asc",//排序方式
 //            height: 600,
             toolbar: "#toolbar",//一个jQuery 选择器，指明自定义的toolbar
-            queryParams:  function (params) {
+            queryParams: function (params) {
                 //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                 var temp = {
                     limit: params.limit,                         //页面大小
@@ -105,7 +116,7 @@
             searchOnEnterKey: true,//设置是否回车响应搜索
             clickToSelect: true,//是否启用点击选中行
             minimumCountColumns: 2,//最少允许的列数
-             uniqueId: "username",//每一行的唯一标识，一般为主键列
+            uniqueId: "username",//每一行的唯一标识，一般为主键列
             showToggle: false,//是否显示详细视图和列表视图的切换按钮
             cardView: false,//是否显示详细视图
             detailView: false,//是否显示父子表
@@ -144,20 +155,10 @@
                 field: 'email',
                 title: '电子邮箱',
                 align: "center"
-               // formatter: emailFormatter
+                // formatter: emailFormatter
             }]
         });
-    }
-//    function queryParam(params){
-//        var param = {
-//            limit : params.limit, // 页面大小
-//            offset : params.offset, // 页码
-//
-//         /*   pageNumber : params.pageNumber,
-//            pageSize : params.pageSize*/
-//        };
-//        return param;
-//    }
+    }*/
 
 </script>
 
