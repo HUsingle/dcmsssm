@@ -46,7 +46,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">导航菜单</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li><a href="/student/getAllStudent" target="myFrame"><i class="fa fa-users"></i><span>学生管理</span></a></li>
+                <li><a href="/views/studentMan.jsp" target="myFrame"><i class="fa fa-users"></i><span>学生管理</span></a></li>
                 <li><a href="#"><i class="fa fa-user"></i><span>老师管理</span></a></li>
                 <li><a href="#"><i class="fa fa-list"></i><span>报名管理</span></a></li>
                 <li><a href="#"><i class="fa fa-list-alt"></i><span>竞赛管理</span></a></li>

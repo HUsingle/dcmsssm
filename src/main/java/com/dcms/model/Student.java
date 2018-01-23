@@ -5,20 +5,20 @@ package com.dcms.model;
  */
 
 public class Student {
-    private Long id;
+    private Long username;
     private String name;
     private String college;
     private String password;
-    private String phone;
+    private Long phone;
     private String email;
     private String studentClass;
 
-    public Long getId() {
-        return id;
+    public Long getUsername() {
+        return username;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUsername(Long username) {
+        this.username = username;
     }
 
     public String getCollege() {
@@ -37,14 +37,12 @@ public class Student {
         this.password = password;
     }
 
-    public String getPhone() {
+    public Long getPhone() {
         return phone;
     }
-
-    public void setPhone(String phone) {
+    public void setPhone(Long phone) {
         this.phone = phone;
     }
-
     public String getEmail() {
         return email;
     }

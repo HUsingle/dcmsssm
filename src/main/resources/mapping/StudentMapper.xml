@@ -3,10 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.StudentMapper">
-    <select id="getAllStudent"  resultType="student">
-        select * from student
+    <select id="getAllStudent" resultType="student">
+        select s_number as username, s_name as name, s_phone as phone,
+        s_major_class as studentClass, s_password as password, s_email as email,
+        s_college as college from db_student
     </select>
-    <select id="getStudent" parameterType="long" resultType="student">
-        select * from student where id= #{id}
-    </select>
+     <insert id="addStudent" parameterType="student">
+         insert db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
+         values(#{username},#{name},#{phone},#{studentClass},#{password},#{email},#{college})
+     </insert>
 </mapper>

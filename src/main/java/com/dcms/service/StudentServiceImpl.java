@@ -19,4 +19,8 @@ public class StudentServiceImpl implements StudentService {
         List<Student> studentList = studentMapper.getAllStudent();
         return studentList;
     }
+
+    public void addStudent(Student student) {
+        studentMapper.addStudent(student);
+    }
 }

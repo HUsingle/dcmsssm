@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -29,19 +31,11 @@
 <a class="btn bg-purple bt-flat " id="addCourse"><i class="fa fa-plus"></i> 添加</a>
 <a class="btn bg-purple bt-flat "><i class="fa fa-edit"></i> 修改</a> 
 <a class="btn bg-purple bt-flat "><i class="fa fa-trash-o"></i> 删除</a> 
-</form><%--
-	<table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-		<thead>
-		<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="渲染引擎: activate to sort column descending">渲染引擎</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="浏览器: activate to sort column ascending">浏览器</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="平台: activate to sort column ascending">平台</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="引擎版本: activate to sort column ascending">引擎版本</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS 等级: activate to sort column ascending">CSS 等级</th></tr>
-		</thead>
-		<tbody>
-
-
-	</table>--%>
+</form>
 <div class="row">
 	<div class="col-md-12">
 		<table class="table table-bordered table-hover dataTable" style="margin-top: 15px;margin-left: 15px;">
-			<thread>
+			<thread >
 			<tr>
 				<th class="text-center"><input type="checkbox"></th>
 				<th class="text-center">学号</th>
@@ -57,7 +51,7 @@
 			<c:forEach items="${studentList}" var="student">
 				<tr>
 					<th class="text-center"><input type="checkbox"></th>
-					<td class="text-center">${student.id}</td>
+					<td class="text-center">${student.username}</td>
 					<td class="text-center">${student.name}</td>
 					<td class="text-center">${student.password}</td>
 					<td class="text-center">${student.studentClass}</td>
@@ -71,6 +65,7 @@
 	</div>
 </div>
 	<!-- 分页 -->
+	<c:if test="${pageInfo.total>10}">
 	<div class="row" style="margin-left: 0px;">
 		<%--<div class="col-md-6">
 			当前${pageInfo.pageNum }页，总共${pageInfo.pages }页，总共${pageInfo.total }条记录
@@ -115,7 +110,7 @@
 			</nav>
 		</div>
 	</div>
-
+	</c:if>
 </div>
 <div class="box box-default" id="myBox" style="display: none;">
             <div class="box-header with-border">
@@ -125,53 +120,54 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-         <form class="form-horizontal">
+
+         <form class="form-horizontal" action="/student/addStudent" method="post">
 			<div class="form-group">
 			   	<div class="col-sm-1 control-label">学号</div>
 			   	<div class="col-sm-3">
-			      <input type="text" class="form-control"  placeholder="学生编号"/>
+			      <input type="text" class="form-control"  name="username" placeholder="学生编号"/>
 			    </div>
 			</div>
 			<div class="form-group">
 			   	<div class="col-sm-1 control-label">姓名</div>
 			   	<div class="col-sm-3">
-			      <input type="text" class="form-control"  placeholder="姓名"/>
+			      <input type="text" class="form-control" name="name" placeholder="姓名"/>
 			    </div>
 			</div>
 			 <div class="form-group">
 				 <div class="col-sm-1 control-label">密码</div>
 				 <div class="col-sm-3">
-					 <input type="text" class="form-control"  placeholder="密码"/>
+					 <input type="text" class="form-control"  name="password" placeholder="密码"/>
 				 </div>
 			 </div>
 			<div class="form-group">
 			   	<div class="col-sm-1 control-label">学院</div>
 			   	<div class="col-sm-3">
-			      <input type="text" class="form-control"  placeholder="学院"/>
+			      <input type="text" class="form-control"  name="college" placeholder="学院"/>
 			    </div>
 			</div>
 			<div class="form-group">
 			   	<div class="col-sm-1 control-label">手机号</div>
 			   	<div class="col-sm-3">
-			      <input type="text" class="form-control" placeholder="手机号"/>
+			      <input type="text" class="form-control" name="phone" placeholder="手机号"/>
 			    </div>
 			</div>
 			<div class="form-group">
 			   	<div class="col-sm-1 control-label">专业班级</div>
 			   	<div class="col-sm-3">
-			      <input type="text" class="form-control" placeholder="专业班级"/>
+			      <input type="text" class="form-control" name="studentClass" placeholder="专业班级"/>
 			    </div>
 			</div>
         <div class="form-group">
 			   	<div class="col-sm-1 control-label">电子邮箱</div>
 			   	<div class="col-sm-3">
-			      <input type="text" class="form-control" placeholder="电子邮箱"/>
+			      <input type="text" class="form-control" name="email" placeholder="电子邮箱"/>
 			    </div>
 			</div>
-		
+
 			<div class="form-group">
-				<div class="col-sm-1 control-label"></div> 
-                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" >确定</button>
+				<div class="col-sm-1 control-label"></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn bg-purple bt-flat"  >确定</button>
                 &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="quit" >取消</button>
 				&nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" >导入表格</button>
 			</div>
@@ -189,6 +185,10 @@
 			$("#myBox").show();
         });
         $("#quit").click(function () {
+            $("#myBox").hide();
+            $("#myDiv").show();
+        });
+        $("tr").click(function () {
             $("#myBox").hide();
             $("#myDiv").show();
         });

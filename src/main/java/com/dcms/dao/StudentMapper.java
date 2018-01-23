@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface StudentMapper {
      List<Student> getAllStudent();
-     Student getStudent(Long id);
+     void addStudent(Student student);
 }
