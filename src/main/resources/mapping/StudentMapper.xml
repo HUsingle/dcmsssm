@@ -12,4 +12,7 @@
          insert db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
          values(#{username},#{name},#{phone},#{studentClass},#{password},#{email},#{college})
      </insert>
+    <delete id="deleteStudent" parameterType="long">
+        delete from db_student where id=#{id}
+    </delete>
 </mapper>

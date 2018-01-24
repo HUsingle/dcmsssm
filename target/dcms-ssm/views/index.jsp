@@ -86,7 +86,7 @@
 
 
         <section class="content">
-            <iframe scrolling="yes" frameborder="0" style="width:100%;height:540px; overflow:visible;" src="/views/main.html"
+            <iframe scrolling="yes" frameborder="0" style="width:100%;height:550px; overflow:visible;" src="/views/main.html"
                     name="myFrame"></iframe>
         </section>
 

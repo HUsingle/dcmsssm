@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -9,28 +10,28 @@
     <link rel="stylesheet" href="/resources/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/resources/css/bootstrap-table.min.css">
-    <style>
-        a {
-            margin-left: 4px;
-            margin-right: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="/resources/css/messenger.css">
+    <link rel="stylesheet" href="/resources/css/messenger-theme-future.css">
+    <link rel="stylesheet" href="/resources/css/myCss.css">
 </head>
 <body>
-<div id="toolbar">
-    <%--<form class="form-horizontal">--%>
-        <%--<div class="col-sm-3">
+<div id="myDiv">
+    <form class="form-horizontal" style="margin-left: -14px;margin-bottom: 15px;">
+        <div class="col-sm-3">
             <div class="from-group">
                 <input type="text" class="form-control" placeholder="学号/姓名/班级">
             </div>
-        </div>--%>
+        </div>
         <a class="btn bg-purple bt-flat " type="submit"><i class="fa fa-search"></i> 查询</a>
         <a class="btn bg-purple bt-flat " id="addCourse"><i class="fa fa-plus"></i> 添加</a>
-        <a class="btn bg-purple bt-flat "><i class="fa fa-edit"></i> 修改</a>
-        <a class="btn bg-purple bt-flat "><i class="fa fa-trash-o"></i> 删除</a>
-    <%--</form>--%>
+        <a class="btn bg-purple bt-flat " id="updateCourse" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> 修改</a>
+        <a class="btn bg-purple bt-flat " id="deleteCourse"><i class="fa fa-trash-o"></i> 删除</a>
+        <a class="btn bg-purple bt-flat "><i class="fa fa-upload"></i> 导入表格</a>
+        <a class="btn bg-purple bt-flat "><i class="fa fa-download"></i> 导出表格</a>
+    </form>
+    <table id="myTable">
+    </table>
 </div>
-<table id="myTable"/>
 <%--<table id="listTable" data-click-to-select="true"
        data-toggle="table"
        data-side-pagination="server"
@@ -58,110 +59,87 @@
     </tr>
     </thead>
 </table>--%>
-<%-- <table data-toggle="table" data-url="">
-     <thead>
-     <tr>
-         <th class="text-center">学号</th>
-         <th class="text-center">名字</th>
-         <th class="text-center">密码</th>
-         <th class="text-center">班级</th>
-         <th class="text-center">学院</th>
-         <th class="text-center">手机号码</th>
-         <th class="text-center">电子邮箱</th>
-     </tr>
-     </thead>
- </table>--%>
+<div class="box box-default" id="myBox" style="display: none;">
+    <div class="box-header with-border">
+        <h3 class="box-title" id="myBoxTitle"></h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <form class="form-horizontal" method="post">
+            <div class="form-group">
+                <div class="col-sm-1 control-label">学号</div>
+                <div class="col-sm-3">
+                    <input type="text" id="username" class="form-control" name="username" placeholder="学生编号"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">姓名</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="姓名"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">密码</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="password" name="password" placeholder="密码"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">学院</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="college" name="college" placeholder="学院"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">手机号</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="手机号"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">专业班级</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="studentClass" name="studentClass" placeholder="专业班级"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">电子邮箱</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="电子邮箱"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1 control-label"></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn bg-purple bt-flat">确定</button>
+                &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="quit">返回</button>
+            </div>
+        </form>
+    </div>
+    <!-- /.box-body -->
+</div>
+
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/bootstrap-table.min.js"></script>
 <script src="/resources/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="/resources/js/messenger.min.js"></script>
+
 <script src="/resources/js/create-table.js"></script>
 <script>
     $(function () {
-        init('#myTable', "/student/getStudentList",
+        initTable('#myTable', "/student/getStudentList",
             ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
-            ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true, '#toolbar');
-        /*  init('#myTable', "http://localhost:8080/student/getStudentList",
-         ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
-         ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true, '#toolbar');*/
-        //init();
+            ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true);
     });
- /*   function init() {
-        $("#myTable").bootstrapTable({
-            url: "/student/getStudentList",//请求后台的url
-            method: 'post',
-            contentType: "application/x-www-form-urlencoded",
-            dataType: "json",
-            striped: true,  //是否显示行间隔色
-            cache: false,//是否使用缓存，默认为true
-            pagination: true,//是否显示分页
-            sortable: false,//是否启用排序
-            sortOrder: "asc",//排序方式
-//            height: 600,
-            toolbar: "#toolbar",//一个jQuery 选择器，指明自定义的toolbar
-            queryParams: function (params) {
-                //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-                var temp = {
-                    limit: params.limit,                         //页面大小
-                    offset: (params.offset / params.limit) + 1   //页码
-                };
-                return temp;
-            },//传递参数
-            sidePagination: "server",//设置分页方式
-            pageNumber: 1,//初始化加载第一页，默认第一页
-            pageSize: 10,  //每页显示记录数
-            pageList: [5, 10],//可选择每页显示记录数
-            search: false, //是否显示表格搜索，为客户端搜索
-            strictSearch: false,//设置是否精确查询
-            searchOnEnterKey: true,//设置是否回车响应搜索
-            clickToSelect: true,//是否启用点击选中行
-            minimumCountColumns: 2,//最少允许的列数
-            uniqueId: "username",//每一行的唯一标识，一般为主键列
-            showToggle: false,//是否显示详细视图和列表视图的切换按钮
-            cardView: false,//是否显示详细视图
-            detailView: false,//是否显示父子表
-            // colums: createCols(param, titles, hasCheckbox),//列配置项
-            columns: [{
-                checkbox: true,
-                visible: true                  //是否显示复选框
-            }, {
-                field: 'username',
-                title: '学号',
-                align: "center"
-
-            }, {
-                field: 'name',
-                title: '姓名',
-                align: "center"
-            }, {
-                field: 'password',
-                title: '密码',
-                align: "center"
-
-            }, {
-                field: 'college',
-                title: '学院',
-                align: "center"
-
-            }, {
-                field: 'studentClass',
-                title: '班级',
-                align: "center"
-            }, {
-                field: 'phone',
-                title: '手机号码',
-                align: "center"
-            }, {
-                field: 'email',
-                title: '电子邮箱',
-                align: "center"
-                // formatter: emailFormatter
-            }]
-        });
-    }*/
-
+    $("document").ready(
+        function () {
+            initUpdateInformation("添加学生","修改学生",['username','name','password','studentClass','college','phone','email'])
+        }
+    );
 </script>
 
 
 </body>
 </html>
+
