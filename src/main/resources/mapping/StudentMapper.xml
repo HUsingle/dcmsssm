@@ -12,7 +12,17 @@
          insert db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
          values(#{username},#{name},#{phone},#{studentClass},#{password},#{email},#{college})
      </insert>
+    <update id="updateStudent" parameterType="student">
+        update db_student set s_name=#{name},s_phone=#{phone},s_major_class=#{studentClass},
+        s_password=#{password},s_email=#{email},s_college=#{college}  where s_number=#{username}
+    </update>
     <delete id="deleteStudent" parameterType="long">
-        delete from db_student where id=#{id}
+        delete from db_student where s_number in
+        <foreach collection="array" item="username" open="(" separator="," close=")">
+            #{username}
+        </foreach>
+        <!--collection传人集合的参数名称
+            item为每一项的名称
+            open,close是以什么元素将这个集合包围，separator为分割符-->
     </delete>
 </mapper>

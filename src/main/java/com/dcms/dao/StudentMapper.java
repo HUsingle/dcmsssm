@@ -12,5 +12,6 @@ import java.util.List;
 public interface StudentMapper {
      List<Student> getAllStudent();
      int addStudent(Student student);
-     int deleteStudent(Long id);
+     int deleteStudent(Long[] userArray);
+     int updateStudent(Student student);
 }

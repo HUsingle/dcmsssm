@@ -7,7 +7,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +23,7 @@ public class StudentController {
     @Autowired
     private StudentServiceImpl studentService;
 
-    @RequestMapping(value = "/getAllStudent")
+   /* @RequestMapping(value = "/getAllStudent")
     public String getAllStudent(Model model,
                                 @RequestParam(defaultValue = "1") Integer pageNow) {
         //获取第pageNow页，pageSize条内容
@@ -36,8 +35,8 @@ public class StudentController {
         model.addAttribute(studentList);
         model.addAttribute(pageInfo);
         return "studentManage";
-    }
-    @RequestMapping(value = "/getStudentList",produces = "application/json;charset=UTF-8")
+    }*/
+    @RequestMapping(value = "/getStudentList",produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     public @ResponseBody String getAllStudent(@RequestParam(defaultValue = "1") Integer offset,
                                               @RequestParam(defaultValue = "10") Integer limit){
         PageHelper.startPage(offset,limit);
@@ -51,6 +50,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/addStudent", method = RequestMethod.POST)
+    @ResponseBody
     public String addStudent(@RequestParam("username") Long username, @RequestParam("name") String name,
                              @RequestParam("password") String password, @RequestParam("college") String college,
                              @RequestParam("phone") Long phone, @RequestParam("email") String email,
@@ -63,7 +63,30 @@ public class StudentController {
         student.setEmail(email);
         student.setStudentClass(studentClass);
         student.setName(name);
-        studentService.addStudent(student);
-        return "redirect:/student/getAllStudent";
+        return studentService.addStudent(student);
+    }
+    @RequestMapping(value = "/updateStudent", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateStudent(@RequestParam("username") Long username, @RequestParam("name") String name,
+                             @RequestParam("password") String password, @RequestParam("college") String college,
+                             @RequestParam("phone") Long phone, @RequestParam("email") String email,
+                             @RequestParam("studentClass") String studentClass) {
+        Student student=new Student();
+        student.setUsername(username);
+        student.setPassword(password);
+        student.setCollege(college);
+        student.setPhone(phone);
+        student.setEmail(email);
+        student.setStudentClass(studentClass);
+        student.setName(name);
+        return studentService.updateStudent(student);
+
+    }
+
+    @RequestMapping(value = "/deleteStudent", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteStudent(@RequestParam("username") String username) {
+       return studentService.deleteStudent(username);
+
     }
 }

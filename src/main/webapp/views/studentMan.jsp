@@ -23,9 +23,10 @@
             </div>
         </div>
         <a class="btn bg-purple bt-flat " type="submit"><i class="fa fa-search"></i> 查询</a>
-        <a class="btn bg-purple bt-flat " id="addCourse"><i class="fa fa-plus"></i> 添加</a>
-        <a class="btn bg-purple bt-flat " id="updateCourse" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> 修改</a>
-        <a class="btn bg-purple bt-flat " id="deleteCourse"><i class="fa fa-trash-o"></i> 删除</a>
+        <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 添加</a>
+        <a class="btn bg-purple bt-flat " id="update" data-toggle="modal" data-target="#myModal"><i
+                class="fa fa-edit"></i> 修改</a>
+        <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat "><i class="fa fa-upload"></i> 导入表格</a>
         <a class="btn bg-purple bt-flat "><i class="fa fa-download"></i> 导出表格</a>
     </form>
@@ -65,7 +66,8 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <form class="form-horizontal" method="post">
+        <form id="myFrom" class="form-horizontal" method="post" action="##" onsubmit="return false">
+            <%--onsubmit="return false"防止自动提交--%>
             <div class="form-group">
                 <div class="col-sm-1 control-label">学号</div>
                 <div class="col-sm-3">
@@ -111,7 +113,8 @@
 
             <div class="form-group">
                 <div class="col-sm-1 control-label"></div>
-                &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn bg-purple bt-flat">确定</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="submitButton" class="btn btn bg-purple bt-flat">确定
+            </button>
                 &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="quit">返回</button>
             </div>
         </form>
@@ -134,7 +137,46 @@
     });
     $("document").ready(
         function () {
-            initUpdateInformation("添加学生","修改学生",['username','name','password','studentClass','college','phone','email'])
+            initUpdateInformation("添加学生", "修改学生", ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
+                "/student/deleteStudent", "username");
+            $("#submitButton").click(function () {
+                if ($("#username").val().length == 0) {
+                    initMessage("学号不能为空!", "error");
+                } else {
+                    if ($("#myBoxTitle").text() == "添加学生") {
+                        $.ajax({
+                            type: "POST",
+                            url: "/student/addStudent",
+                            dataType: "json",
+                            data: $("#myFrom").serialize(),
+                            success: function (data) {
+                                if (data['result'] > 0) {
+                                    initMessage("添加成功！", 'success');
+                                    $("#myTable").bootstrapTable('refresh');
+                                } else {
+                                    initMessage("添加失败！", 'error');
+                                }
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/student/updateStudent",
+                            dataType: "json",
+                            data: "username=" + $("#username").val() + "&" + $("#myFrom").serialize(),
+                            success: function (data) {
+                                if (data['result'] > 0) {
+                                    initMessage("修改成功！", 'success');
+                                    $("#myTable").bootstrapTable('refresh');
+                                    showTable();
+                                } else {
+                                    initMessage("修改失败！", 'error');
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         }
     );
 </script>

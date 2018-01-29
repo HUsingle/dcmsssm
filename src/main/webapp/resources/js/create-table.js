@@ -12,6 +12,8 @@ function initTable(table, url, params, titles, hasCheckbox) {
         pagination: true,//是否显示分页
         sortable: false,//是否启用排序
         sortOrder: "asc",//排序方式
+      //  sortClass:"username",
+        //sortName:"username",
         // toolbar: toolbar,//一个jQuery 选择器，指明自定义的toolbar
         queryParams: function (params) { //传递参数
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
@@ -30,7 +32,7 @@ function initTable(table, url, params, titles, hasCheckbox) {
         searchOnEnterKey: false,//设置是否回车响应搜索
         clickToSelect: true,//是否启用点击选中行
         minimumCountColumns: 2,//最少允许的列数
-        // uniqueId: "username",//每一行的唯一标识，一般为主键列
+        //uniqueId: "username",//每一行的唯一标识，一般为主键列
         showToggle: false,//是否显示详细视图和列表视图的切换按钮
         cardView: false,//是否显示详细视图
         detailView: false,//是否显示父子表
@@ -55,8 +57,21 @@ function initTable(table, url, params, titles, hasCheckbox) {
         return arr;
     }
 }
-function initUpdateInformation(titleOne,titleTwo,inputFields) {
-    $("#addCourse").click(function () {
+function initMessage(message,state) {
+    $.globalMessenger().post({
+        message: message,//提示信息
+        type: state,//消息类型。error、info、success
+        hideAfter: 3,//多长时间消失
+        showCloseButton: true,//是否显示关闭按钮
+        hideOnNavigate: true //是否隐藏导航
+    });
+}
+function showTable() {
+    $("#myBox").hide();
+    $("#myDiv").show();
+}
+function initUpdateInformation(titleOne,titleTwo,inputFields,deleteUrl,id) {
+    $("#add").click(function () {
         $("#myBoxTitle").text(titleOne);
         for(var i=0;i<inputFields.length;i++)
             $('#'+inputFields[i]).val("");
@@ -64,21 +79,12 @@ function initUpdateInformation(titleOne,titleTwo,inputFields) {
         $("#myDiv").hide();
         $("#myBox").show();
     });
-    function initMessage(message) {
-        $.globalMessenger().post({
-            message: message,//提示信息
-            type: 'error',//消息类型。error、info、success
-            hideAfter: 3,//多长时间消失
-            showCloseButton: true,//是否显示关闭按钮
-            hideOnNavigate: true //是否隐藏导航
-        });
-    }
-    $("#updateCourse").click(function () {
+    $("#update").click(function () {
         var jsonArray=$("#myTable").bootstrapTable('getSelections');
         if (jsonArray.length < 1) {
-          initMessage("请选择一条数据!");
+          initMessage("请选择一条数据!",'error');
         } else if (jsonArray.length > 1) {
-           initMessage("请选择一条数据,不要多选!");
+           initMessage("请选择一条数据,不要多选!",'error');
         } else {
             $("#myBoxTitle").text(titleTwo);
             for(var i=0;i<inputFields.length;i++){
@@ -91,18 +97,34 @@ function initUpdateInformation(titleOne,titleTwo,inputFields) {
 
         }
     });
-    $("#deleteCourse").click(function () {
+    $("#delete").click(function () {
         var jsonArray=$("#myTable").bootstrapTable('getSelections');
         if (jsonArray.length < 1) {
-         initMessage("请至少选择一条记录!");
+         initMessage("请至少选择一条记录!",'error');
         } else  {
-
+            var ids='';
+            for (var i=0;i<jsonArray.length;i++)
+                ids+=jsonArray[i][id]+',';
+          $.ajax({
+              type:'POST',
+              url:deleteUrl,
+              data:{
+                  'username':ids
+              },
+              dataType:"json",
+              success:function (data) {
+                  if(data['result']>0){
+                      initMessage("删除成功！",'success');
+                      $("#myTable").bootstrapTable('refresh');
+                  }else{
+                      initMessage("删除失败！",'error');
+                  }
+              }
+          });
         }
     });
-    $("#quit").click(function () {
-        $("#myBox").hide();
-        $("#myDiv").show();
-    });
+
+    $("#quit").click(showTable());
 }
 
 

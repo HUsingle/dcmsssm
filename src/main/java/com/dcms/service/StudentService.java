@@ -11,5 +11,7 @@ import java.util.List;
 @Service
 public interface StudentService {
     List<Student> findAllStudent();
-    void addStudent(Student student);
+    String addStudent(Student student);
+    String deleteStudent(String username);
+    String updateStudent(Student student);
 }
