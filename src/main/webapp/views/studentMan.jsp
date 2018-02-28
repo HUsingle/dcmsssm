@@ -148,7 +148,7 @@
                 window.parent.openModel("${path}/student/importStudentExcel","导入表格");
             });
             initAddAndUpdate("${path}/student/addStudent","${path}/student/updateStudent","username=",
-               "学号不能为空!",$("#username"));
+               "学号不能为空!",$("#username"),"添加学生");
             $("#searchButton").click(function () {
                 $("#myTable").bootstrapTable("destroy");
                 initTable('#myTable', "${path}/student/getSearchStudentList",
@@ -207,10 +207,6 @@
             });*/
         }
     );
-    function refreshTable() {
-        $("#myTable").bootstrapTable('refresh');
-    }
-
 </script>
 
 

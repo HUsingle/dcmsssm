@@ -118,7 +118,7 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
               type:'POST',
               url:deleteUrl,
               data:{
-                  'username':ids
+                  id:ids
               },
               dataType:"json",
               success:function (data) {
@@ -141,7 +141,7 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
      });*/
 }
 
-function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key) {
+function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key,addTitle) {
     $("#quit").click(function () {
         $("#myBox").hide();
         $("#myDiv").show();
@@ -151,7 +151,7 @@ function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key) {
         if (id.length === 0) {
             initMessage(errorMessage, "error");
         } else {
-            if ($("#myBoxTitle").text() === "添加学生") {
+            if ($("#myBoxTitle").text() ===addTitle ) {
                 $.ajax({
                     type: "POST",
                     url: addUrl,
@@ -185,13 +185,17 @@ function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key) {
                             $("#myBox").hide();
                             $("#myDiv").show();
                         } else {
-                            initMessage("修改失败！", 'error');
+                            initMessage("修改失败,修改的数据存在错误或者服务器异常！", 'error');
                         }
                     }
                 });
             }
         }
     });
+}
+
+function refreshTable() {
+    $("#myTable").bootstrapTable('refresh');
 }
 
 

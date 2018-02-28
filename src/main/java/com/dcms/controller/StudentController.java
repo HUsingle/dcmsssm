@@ -1,11 +1,8 @@
 package com.dcms.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dcms.excel.ExcelData;
-import com.dcms.excel.StudentExcelData;
 import com.dcms.model.Student;
-import com.dcms.service.StudentServiceImpl;
-import com.dcms.utils.ExcelUtil;
+import com.dcms.service.StudentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ import java.util.List;
 @RequestMapping(value = "/student")
 public class StudentController {
     @Autowired
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
 
     /* @RequestMapping(value = "/getAllStudent")
      public String getAllStudent(Model model,
@@ -100,16 +97,12 @@ public class StudentController {
 
     @RequestMapping(value = "/exportStudentExcelModel")
     public void exportStudentExcelModel(HttpServletResponse response) {
-        String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
-        ExcelUtil.exportModeExcel(head, "学生信息模板.xls", response,true,null,null);
+        studentService.exportStudentExcelModel(response);
     }
 
     @RequestMapping(value = "/exportStudentExcel")
     public void exportStudentExcel(HttpServletResponse response) {
-        String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
-        List list=studentService.findAllStudent("asc");
-        ExcelData excelData=new StudentExcelData();
-        ExcelUtil.exportModeExcel(head, "学生信息.xls", response,false,excelData,list);
+       studentService.exportStudentExcel(response);
     }
 
     @RequestMapping(value = "/importStudentExcel",  produces = "application/json;charset=UTF-8",method = RequestMethod.POST)

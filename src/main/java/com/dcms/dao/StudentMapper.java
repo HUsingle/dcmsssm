@@ -13,7 +13,7 @@ import java.util.List;
 public interface StudentMapper {
      List<Student> getAllStudent(@Param("sort") String sort);
      List<Student> getSearchStudent(@Param("search") String search,@Param("sort") String sort);
-     int addStudent(Student student);
+    // int addStudent(Student student);
      int deleteStudent(Long[] userArray);
      int updateStudent(Student student);
      //插入数据如果主键存在则更新

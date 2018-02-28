@@ -18,10 +18,10 @@
         where s_major_class like concat('%',#{search},'%')
         order by username ${sort}
     </select>
-     <insert id="addStudent" parameterType="student">
+     <!--<insert id="addStudent" parameterType="student">
          insert into db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
          values(#{username},#{name},#{phone},#{studentClass},#{password},#{email},#{college})
-     </insert>
+     </insert>-->
     <update id="updateStudent" parameterType="student">
         update db_student set s_name=#{name},s_phone=#{phone},s_major_class=#{studentClass},
         s_password=#{password},s_email=#{email},s_college=#{college}  where s_number=#{username}

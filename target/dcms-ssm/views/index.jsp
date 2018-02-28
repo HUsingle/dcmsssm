@@ -61,7 +61,7 @@
                 <!-- Optionally, you can add icons to the links -->
                 <li><a href="${path}/views/studentMan.jsp" target="myFrame"><i class="fa fa-users"></i><span>学生管理</span></a>
                 </li>
-                <li><a href="#"><i class="fa fa-user"></i><span>老师管理</span></a></li>
+                <li><a href="${path}/views/teacherManage.jsp" target="myFrame"><i class="fa fa-user"></i><span>老师管理</span></a></li>
                 <li><a href="#"><i class="fa fa-list"></i><span>报名管理</span></a></li>
                 <li><a href="#"><i class="fa fa-list-alt"></i><span>竞赛管理</span></a></li>
                 <li><a href="#"><i class="fa fa-university"></i><span>考场管理</span></a></li>
@@ -221,6 +221,7 @@
             $('#excelModal').modal('hide');
             $(this).fileinput('destroy');
             if (result === "导入成功!") {
+                $('#myFrame')[0].contentWindow.refreshTable();
                 $('#myFrame')[0].contentWindow.refreshTable();
                 initMessage(result, "success");
             } else {

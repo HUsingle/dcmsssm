@@ -1,15 +1,18 @@
-package com.dcms.service;
+package com.dcms.service.imp;
 
 import com.dcms.dao.StudentMapper;
 import com.dcms.excel.ExcelData;
 import com.dcms.excel.StudentExcelData;
 import com.dcms.model.Student;
+import com.dcms.service.StudentService;
 import com.dcms.utils.ExcelUtil;
 import com.dcms.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,15 +43,18 @@ public class StudentServiceImpl implements StudentService {
          }
          student.setPassword(password);
          student.setCollege(college);
-         if(Tool.isNumber(phone)){
+         if(Tool.isNumber(phone)&&phone.length()!=0){
              student.setPhone(Long.parseLong(phone));
-         }else{
+         }
+         if(!Tool.isNumber(phone)){
              return Tool.result(0);
          }
          student.setEmail(email);
          student.setStudentClass(studentClass);
          student.setName(name);
-         int result = studentMapper.addStudent(student);
+         List<Student> list=new ArrayList<Student>();
+         list.add(student);
+         int result = studentMapper.addOrUpdateStudent(list);
         return Tool.result(result);
     }
 
@@ -63,16 +69,13 @@ public class StudentServiceImpl implements StudentService {
 
     public String updateStudent(String username, String name, String password, String college, String phone, String email, String studentClass) {
         Student student = new Student();
-        if (Tool.isNumber(username)) {
-            student.setUsername(Long.parseLong(username));
-        } else {
-            return Tool.result(0);
-        }
+        student.setUsername(Long.parseLong(username));
         student.setPassword(password);
         student.setCollege(college);
-        if(Tool.isNumber(phone)){
+        if(Tool.isNumber(phone)&&phone.length()!=0){
             student.setPhone(Long.parseLong(phone));
-        }else{
+        }
+        if(!Tool.isNumber(phone)){
             return Tool.result(0);
         }
         student.setEmail(email);
@@ -82,9 +85,16 @@ public class StudentServiceImpl implements StudentService {
         return Tool.result(result);
     }
 
-    public String addOrUpdateStudent(List<Student> list) {
-        int result = studentMapper.addOrUpdateStudent(list);
-        return Tool.result(result);
+    public void exportStudentExcelModel(HttpServletResponse response) {
+        String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
+        ExcelUtil.exportModeExcel(head, "学生信息模板.xls", response,true,null,null);
+    }
+
+    public void exportStudentExcel(HttpServletResponse response) {
+        String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
+        List list=studentMapper.getAllStudent("asc");
+        ExcelData excelData=new StudentExcelData();
+        ExcelUtil.exportModeExcel(head, "学生信息.xls", response,false,excelData,list);
     }
 
     public String importStudentExcel(MultipartFile excelFile) {
