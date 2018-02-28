@@ -1,7 +1,7 @@
 /**
  * Created by single on 2018/1/23.
  */
-function initTable(table, url, params, titles, hasCheckbox) {
+function initTable(table, url, params, titles, hasCheckbox,sortNum) {
     $(table).bootstrapTable({
         url: url,//请求后台的url
         method: 'post',
@@ -10,16 +10,18 @@ function initTable(table, url, params, titles, hasCheckbox) {
         striped: true,  //是否显示行间隔色
         cache: false,//是否使用缓存，默认为true
         pagination: true,//是否显示分页
-        sortable: false,//是否启用排序
+        sortable: true,//是否启用排序
         sortOrder: "asc",//排序方式
-      //  sortClass:"username",
-        //sortName:"username",
+        //  sortClass:"username",
+         //sortName:"username",
         // toolbar: toolbar,//一个jQuery 选择器，指明自定义的toolbar
         queryParams: function (params) { //传递参数
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
                 limit: params.limit,                         //页面大小
-                offset: (params.offset / params.limit) + 1   //页码
+                offset: (params.offset / params.limit) + 1 , //页码
+                sort: params.order,
+                search: $("#search").val()
             };
             return temp;
         },
@@ -34,9 +36,16 @@ function initTable(table, url, params, titles, hasCheckbox) {
         minimumCountColumns: 2,//最少允许的列数
         //uniqueId: "username",//每一行的唯一标识，一般为主键列
         showToggle: false,//是否显示详细视图和列表视图的切换按钮
+        //showRefresh: true,//是否显示刷新按钮
         cardView: false,//是否显示详细视图
         detailView: false,//是否显示父子表
-        columns: createCols(params, titles, hasCheckbox)//列配置项
+        columns: createCols(params, titles, hasCheckbox),//列配置项
+        onLoadSuccess: function(data){ //加载成功时执行
+                if (data.total && !data.rows.length) {
+                    $(table).bootstrapTable('prevPage').bootstrapTable('refresh');
+                }
+        }
+
     });
     function createCols(params, titles, hasCheckbox) {
         if (params.length != titles.length)
@@ -51,13 +60,16 @@ function initTable(table, url, params, titles, hasCheckbox) {
             var obje = {};
             obje.field = params[i];
             obje.title = titles[i];
+            if(i===sortNum){
+            obje.sortable=true;
+            }
             obje.align = 'center';
             arr.push(obje);
         }
         return arr;
     }
 }
-function initMessage(message,state) {
+function initMessage(message, state) {
     $.globalMessenger().post({
         message: message,//提示信息
         type: state,//消息类型。error、info、success
@@ -66,16 +78,13 @@ function initMessage(message,state) {
         hideOnNavigate: true //是否隐藏导航
     });
 }
-function showTable() {
-    $("#myBox").hide();
-    $("#myDiv").show();
-}
-function initUpdateInformation(titleOne,titleTwo,inputFields,deleteUrl,id) {
+
+function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
     $("#add").click(function () {
         $("#myBoxTitle").text(titleOne);
-        for(var i=0;i<inputFields.length;i++)
-            $('#'+inputFields[i]).val("");
-        $('#'+inputFields[0]).attr("disabled",false);
+        for (var i = 0; i < inputFields.length; i++)
+            $('#' + inputFields[i]).val("");
+        $('#' + inputFields[0]).attr("disabled", false);
         $("#myDiv").hide();
         $("#myBox").show();
     });
@@ -90,8 +99,8 @@ function initUpdateInformation(titleOne,titleTwo,inputFields,deleteUrl,id) {
             for(var i=0;i<inputFields.length;i++){
                 $('#'+inputFields[i]).val(jsonArray[0][inputFields[i]]);
             }
-           // if(inputFields[0]=='username')
-            $('#'+inputFields[0]).attr("disabled",true);
+            // if(inputFields[0]=='username')
+            $('#' + inputFields[0]).attr("disabled", true);
             $("#myDiv").hide();
             $("#myBox").show();
 
@@ -115,7 +124,9 @@ function initUpdateInformation(titleOne,titleTwo,inputFields,deleteUrl,id) {
               success:function (data) {
                   if(data['result']>0){
                       initMessage("删除成功！",'success');
+
                       $("#myTable").bootstrapTable('refresh');
+
                   }else{
                       initMessage("删除失败！",'error');
                   }
@@ -124,7 +135,63 @@ function initUpdateInformation(titleOne,titleTwo,inputFields,deleteUrl,id) {
         }
     });
 
-    $("#quit").click(showTable());
+    /* $("#quit").click(function () {
+     $("#myBox").hide();
+     $("#myDiv").show();
+     });*/
+}
+
+function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key) {
+    $("#quit").click(function () {
+        $("#myBox").hide();
+        $("#myDiv").show();
+    });
+    $("#submitButton").click(function () {
+        var id=key.val();
+        if (id.length === 0) {
+            initMessage(errorMessage, "error");
+        } else {
+            if ($("#myBoxTitle").text() === "添加学生") {
+                $.ajax({
+                    type: "POST",
+                    url: addUrl,
+                    dataType: "json",
+                    data: $("#myFrom").serialize(),
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            if (data['result'] === 1) {
+                                initMessage("添加成功！", 'success');
+                            } else {
+                                initMessage("该数据已经存在，更新成功！", 'success');
+                            }
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("添加失败，插入数据存在错误或者服务器异常！", 'error');
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: UpdateUrl,
+                    dataType: "json",
+                    data:  UpdateParams + id + "&" + $("#myFrom").serialize(),
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            initMessage("修改成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("修改失败！", 'error');
+                        }
+                    }
+                });
+            }
+        }
+    });
 }
 
 

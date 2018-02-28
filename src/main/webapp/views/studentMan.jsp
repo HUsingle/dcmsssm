@@ -6,29 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>学生管理</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/resources/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-table.min.css">
-    <link rel="stylesheet" href="/resources/css/messenger.css">
-    <link rel="stylesheet" href="/resources/css/messenger-theme-future.css">
-    <link rel="stylesheet" href="/resources/css/myCss.css">
+    <%
+        pageContext.setAttribute("path", request.getContextPath());
+    %>
+    <link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${path}/resources/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${path}/resources/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="${path}/resources/css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="${path}/resources/css/messenger.css">
+    <link rel="stylesheet" href="${path}/resources/css/messenger-theme-future.css">
+    <link rel="stylesheet" href="${path}/resources/css/myCss.css">
 </head>
 <body>
 <div id="myDiv">
     <form class="form-horizontal" style="margin-left: -14px;margin-bottom: 15px;">
         <div class="col-sm-3">
             <div class="from-group">
-                <input type="text" class="form-control" placeholder="学号/姓名/班级">
+                <input id="search" type="text" class="form-control" placeholder="姓名/班级">
             </div>
         </div>
-        <a class="btn bg-purple bt-flat " type="submit"><i class="fa fa-search"></i> 查询</a>
+        <a class="btn bg-purple bt-flat " id="searchButton" type="submit"><i class="fa fa-search"></i> 查询</a>
         <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 添加</a>
         <a class="btn bg-purple bt-flat " id="update" data-toggle="modal" data-target="#myModal"><i
                 class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
-        <a class="btn bg-purple bt-flat "><i class="fa fa-upload"></i> 导入表格</a>
-        <a class="btn bg-purple bt-flat "><i class="fa fa-download"></i> 导出表格</a>
+        <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
+        <a class="btn bg-purple bt-flat " href="${path}/student/exportStudentExcel"><i class="fa fa-download"></i> 导出学生信息</a>
+        <a class="btn bg-purple bt-flat " href="${path}/student/exportStudentExcelModel"><i
+                class="fa fa-file-excel-o"></i> 下载导入表格模板</a>
     </form>
     <table id="myTable">
     </table>
@@ -122,37 +127,59 @@
     <!-- /.box-body -->
 </div>
 
-<script src="/resources/js/jquery.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/bootstrap-table.min.js"></script>
-<script src="/resources/js/bootstrap-table-zh-CN.min.js"></script>
-<script src="/resources/js/messenger.min.js"></script>
 
-<script src="/resources/js/create-table.js"></script>
+<script src="${path}/resources/js/jquery.min.js"></script>
+<script src="${path}/resources/js/bootstrap.min.js"></script>
+<script src="${path}/resources/js/bootstrap-table.min.js"></script>
+<script src="${path}/resources/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="${path}/resources/js/messenger.min.js"></script>
+<script src="${path}/resources/js/create-table.js"></script>
 <script>
     $(function () {
-        initTable('#myTable', "/student/getStudentList",
+        initTable('#myTable', "${path}/student/getSearchStudentList",
             ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
-            ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true);
+            ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true,0);
     });
     $("document").ready(
         function () {
             initUpdateInformation("添加学生", "修改学生", ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
-                "/student/deleteStudent", "username");
+                "${path}/student/deleteStudent", "username");
+            $("#importExcel").click(function () {
+                window.parent.openModel("${path}/student/importStudentExcel","导入表格");
+            });
+            initAddAndUpdate("${path}/student/addStudent","${path}/student/updateStudent","username=",
+               "学号不能为空!",$("#username"));
+            $("#searchButton").click(function () {
+                $("#myTable").bootstrapTable("destroy");
+                initTable('#myTable', "${path}/student/getSearchStudentList",
+                    ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
+                    ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true,0);
+            });
+      /*      $("#quit").click(function () {
+                $("#myBox").hide();
+                $("#myDiv").show();
+            });
             $("#submitButton").click(function () {
-                if ($("#username").val().length == 0) {
+                var username=$("#username").val();
+                if (username.length === 0) {
                     initMessage("学号不能为空!", "error");
                 } else {
-                    if ($("#myBoxTitle").text() == "添加学生") {
+                    if ($("#myBoxTitle").text() === "添加学生") {
                         $.ajax({
                             type: "POST",
-                            url: "/student/addStudent",
+                            url: "{path}/student/addStudent",
                             dataType: "json",
                             data: $("#myFrom").serialize(),
                             success: function (data) {
                                 if (data['result'] > 0) {
-                                    initMessage("添加成功！", 'success');
+                                    if (data['result'] === 1) {
+                                        initMessage("添加成功！", 'success');
+                                    } else {
+                                        initMessage("该数据已经存在，更新成功！", 'success');
+                                    }
                                     $("#myTable").bootstrapTable('refresh');
+                                    $("#myBox").hide();
+                                    $("#myDiv").show();
                                 } else {
                                     initMessage("添加失败！", 'error');
                                 }
@@ -161,14 +188,15 @@
                     } else {
                         $.ajax({
                             type: "POST",
-                            url: "/student/updateStudent",
+                            url: "{path}/student/updateStudent",
                             dataType: "json",
-                            data: "username=" + $("#username").val() + "&" + $("#myFrom").serialize(),
+                            data: "username=" + username + "&" + $("#myFrom").serialize(),
                             success: function (data) {
                                 if (data['result'] > 0) {
                                     initMessage("修改成功！", 'success');
                                     $("#myTable").bootstrapTable('refresh');
-                                    showTable();
+                                    $("#myBox").hide();
+                                    $("#myDiv").show();
                                 } else {
                                     initMessage("修改失败！", 'error');
                                 }
@@ -176,9 +204,13 @@
                         });
                     }
                 }
-            });
+            });*/
         }
     );
+    function refreshTable() {
+        $("#myTable").bootstrapTable('refresh');
+    }
+
 </script>
 
 
