@@ -105,21 +105,7 @@
             <span id="span_icon _context" >公告	</span>
             <a href="#" class="text-muted" style="">更多</a>
         </h5>
-        <!--<div id="news_body">
-            <ul class="list-group">
-                <li class="list-group-item">免费域名注册</li>
-                <li class="list-group-item">免费 Window 空间托管</li>
-                <li class="list-group-item">图像的数量</li>
-                <li class="list-group-item">
-                    <span class="badge " style="background-color: red;">new!</span>
-                    24*7 支持
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">新</span>
-                    折扣优惠
-                </li>
-            </ul>
-    </div>-->
+
 
         <div class="news_body">
             <div class="jumbotron">
@@ -171,7 +157,7 @@
                 </tr>
                 <tr>
                     <th>竞赛时间</td>
-                    <td>2018年03月10日 10:00 ~ 11:30 </td>
+                    <td>2018年03月10日 10:00 ~ 12:30 </td>
                 </tr>
                 <tr>
                     <th>附件</td>
