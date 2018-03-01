@@ -36,10 +36,10 @@ public class ExcelUtil {
             font.setFontHeightInPoints((short) 10);
         }
         cellStyle.setFont(font); //设置字体
-     /*   cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        /*cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
         cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
         cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);*/
+        cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);*///设置边框
         return cellStyle;
     }
 
@@ -188,7 +188,7 @@ public class ExcelUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return excelData.insertExcelData(lists);
+        return excelData.getExcelData(lists);
     }
 
 

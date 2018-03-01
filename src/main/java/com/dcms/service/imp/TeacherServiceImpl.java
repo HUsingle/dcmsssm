@@ -29,11 +29,6 @@ public class TeacherServiceImpl implements TeacherService {
 
     public String addTeacher(String id, String name, String password, String college, String phone, String email) {
         Teacher teacher = new Teacher();
-        if (Tool.isNumber(id)) {
-            teacher.setId(Long.parseLong(id));
-        } else {
-            return Tool.result(0);
-        }
         teacher.setName(name);
         teacher.setPassword(password);
         teacher.setCollege(college);
@@ -75,7 +70,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     public String importTeacherExcel(MultipartFile file) {
         ExcelData teacherInsertExcelData = new TeacherExcelData();
-        String[] head = {"老师编号", "姓名", "密码", "学院", "手机号码", "电子邮箱"};
+        String[] head = {"姓名", "密码", "学院", "手机号码", "电子邮箱"};
         List dataList = ExcelUtil.importExcel(file, head, teacherInsertExcelData);
         int exResult = 0;
         String result;
@@ -99,7 +94,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     public void exportTeacherExcelModel(HttpServletResponse response) {
-        String[] head = {"老师编号", "姓名", "密码", "学院", "手机号码", "电子邮箱"};
+        String[] head = {"姓名", "密码", "学院", "手机号码", "电子邮箱"};
         ExcelUtil.exportModeExcel(head, "老师信息模板.xls", response,true,null,null);
     }
 }

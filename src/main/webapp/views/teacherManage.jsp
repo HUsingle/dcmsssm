@@ -40,10 +40,10 @@
 
     <div class="box-body">
         <form id="myFrom" class="form-horizontal" method="post" action="##" onsubmit="return false">
-            <div class="form-group">
-                <div class="col-sm-1 control-label">编号</div>
+            <div class="form-group" style="display:none;">
+                <div class="col-sm-1 control-label" >id</div>
                 <div class="col-sm-3">
-                    <input type="text" id="id" class="form-control" name="id" placeholder="老师编号"/>
+                    <input type="text" id="id" class="form-control"  name="id" placeholder="id"/>
                 </div>
             </div>
             <div class="form-group">
@@ -99,17 +99,17 @@
     $(function () {
         initTable('#myTable', "${path}/teacher/getTeacherList",
             ['id', 'name', 'password', 'college', 'phone', 'email'],
-            ['老师编号', '姓名', '密码', '学院', '手机号码', '电子邮箱'], true, 0);
+            ['编号', '姓名', '密码', '学院', '手机号码', '电子邮箱'], true, 0);
     });
     $("document").ready(
         function () {
-            initUpdateInformation("添加老师", "修改老师", ['id', 'name', 'password', 'college', 'phone', 'email'],
+            initUpdateInformation("添加老师", "修改老师", ["id",'name', 'password', 'college', 'phone', 'email'],
                 "${path}/teacher/deleteTeacher", "id");
             $("#importExcel").click(function () {
                 window.parent.openModel("${path}/teacher/importTeacherExcel", "导入表格");
             });
             initAddAndUpdate("${path}/teacher/addTeacher", "${path}/teacher/updateTeacher", "id=",
-                "老师编号不能为空!", $("#id"),"添加老师");
+                "老师编号不能为空!", $("#id"),"添加老师",true);
 
         }
     );

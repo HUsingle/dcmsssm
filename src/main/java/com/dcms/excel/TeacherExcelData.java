@@ -12,22 +12,19 @@ import java.util.List;
  * Created by single on 2018/2/28.
  */
 public class TeacherExcelData implements ExcelData {
-    public List insertExcelData(List<List<String>> list) {
+    public List getExcelData(List<List<String>> list) {
         List<Teacher> teacherList=new ArrayList<Teacher>();
         List<String>  fieldList=null;
         Teacher teacher=null;
         for(int i=0;i<list.size();i++){
             fieldList=list.get(i);
-            if(fieldList.get(0).length()!=0&& Tool.isNumber(fieldList.get(0))){
+            if(fieldList.get(3).length()!=0&& Tool.isNumber(fieldList.get(3))){
                 teacher=new Teacher();
-                teacher.setId(Long.parseLong(fieldList.get(0)));
-                teacher.setName(fieldList.get(1));
-                teacher.setPassword(fieldList.get(2));
-                teacher.setCollege(fieldList.get(3));
-                if(fieldList.get(4).length()!=0&&Tool.isNumber(fieldList.get(4))){
-                    teacher.setPhone(Long.parseLong(fieldList.get(4)));
-                }
-                teacher.setEmail(fieldList.get(5));
+                teacher.setName(fieldList.get(0));
+                teacher.setPassword(fieldList.get(1));
+                teacher.setCollege(fieldList.get(2));
+                teacher.setPhone(Long.parseLong(fieldList.get(3)));
+                teacher.setEmail(fieldList.get(4));
                 teacherList.add(teacher);
             }
         }

@@ -141,14 +141,14 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
      });*/
 }
 
-function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key,addTitle) {
+function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key,addTitle,isAutoAddId) {
     $("#quit").click(function () {
         $("#myBox").hide();
         $("#myDiv").show();
     });
     $("#submitButton").click(function () {
         var id=key.val();
-        if (id.length === 0) {
+        if (id.length === 0&&!isAutoAddId) {
             initMessage(errorMessage, "error");
         } else {
             if ($("#myBoxTitle").text() ===addTitle ) {

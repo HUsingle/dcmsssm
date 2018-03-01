@@ -56,7 +56,7 @@ public class StudentExcelData implements ExcelData {
         }
     }
 
-    public List insertExcelData(List<List<String>> list) {
+    public List getExcelData(List<List<String>> list) {
         List<Student> studentList=new ArrayList<Student>();
         List<String>  fieldList=null;
         Student student=null;
