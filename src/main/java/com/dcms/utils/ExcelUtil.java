@@ -97,7 +97,10 @@ public class ExcelUtil {
     }*/
 
     //导出表格
-    public static void exportModeExcel(String[] head, String fileName, HttpServletResponse response, boolean isModel,ExcelData excelData,List list) {
+    public static void exportModeExcel(String[] head, String fileName,
+                                       HttpServletResponse response,
+                                       boolean isModel,ExcelData excelData,
+                                       List list,int blankRow) {
         try {
             response.reset();//设置response信息
             response.setContentType("application/vnd.ms-excel;charset=UTF-8");
@@ -118,7 +121,7 @@ public class ExcelUtil {
                 sheet.setColumnWidth(i, 256 * (head[i].length() * 2 + 14));
             }
             if (isModel) {
-                for (int j = 1; j < 401; j++) {//设置前400行为文本格式类型
+                for (int j = 1; j <blankRow; j++) {//设置前400行为文本格式类型
                     row = sheet.createRow(j);
                     for (int k = 0; k < head.length; k++) {
                         cell = row.createCell(k);

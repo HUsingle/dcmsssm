@@ -22,8 +22,8 @@
         values(#{teacher.name},#{teacher.phone},
             #{teacher.password},#{teacher.email},#{teacher.college})
     </insert>-->
-    <insert id="addOrUpdateTeacher" parameterType="teacher">
-        replace into db_teacher(t_name,t_phone,t_password,t_email,t_college)
+    <insert id="addTeacher" parameterType="teacher">
+        insert into db_teacher(t_name,t_phone,t_password,t_email,t_college)
         values
         <foreach collection="list" item="teacher" separator=",">
             (#{teacher.name},#{teacher.phone},

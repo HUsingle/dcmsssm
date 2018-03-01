@@ -36,9 +36,12 @@ public class TeacherServiceImpl implements TeacherService {
         if (Tool.isNumber(phone) && phone.length() != 0) {
             teacher.setPhone(Long.parseLong(phone));
         }
+        if(!Tool.isNumber(phone)){
+            return Tool.result(0);
+        }
         List<Teacher> teacherList = new ArrayList<Teacher>();
         teacherList.add(teacher);
-        int result = teacherMapper.addOrUpdateTeacher(teacherList);
+        int result = teacherMapper.addTeacher(teacherList);
         return Tool.result(result);
     }
 
@@ -75,15 +78,15 @@ public class TeacherServiceImpl implements TeacherService {
         int exResult = 0;
         String result;
         if (dataList.size() == 0) {
-            return Tool.result("缺少行或者老师编号出错!");
+            return Tool.result("缺少行或者老师数据出错!");
         } else if (dataList.size() == 1) {
             if ((dataList.get(0) instanceof String)) {
                 return dataList.get(0).toString();
             } else {
-                exResult = teacherMapper.addOrUpdateTeacher(dataList);
+                exResult = teacherMapper.addTeacher(dataList);
             }
         } else {
-            exResult = teacherMapper.addOrUpdateTeacher(dataList);
+            exResult = teacherMapper.addTeacher(dataList);
         }
         if (exResult == 0) {
             result = Tool.result("导入失败!");
@@ -95,7 +98,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     public void exportTeacherExcelModel(HttpServletResponse response) {
         String[] head = {"姓名", "密码", "学院", "手机号码", "电子邮箱"};
-        ExcelUtil.exportModeExcel(head, "老师信息模板.xls", response,true,null,null);
+        ExcelUtil.exportModeExcel(head, "老师信息模板.xls", response,true,null,null,51);
     }
 }
 

@@ -24,4 +24,5 @@ public class Tool {
         Matcher matcher=pattern.matcher(text);
         return matcher.matches();
     }
+
 }

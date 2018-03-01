@@ -26,7 +26,7 @@
                 class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
-        <a class="btn bg-purple bt-flat " href="${path}/teacher/exportTeacherExcelModel"><i
+        <a class="btn bg-purple bt-flat " href="${path}/classroom/exportClassroomExcelModel"><i
                 class="fa fa-file-excel-o"></i> 下载导入表格模板</a>
     </form>
     <table id="myTable">
@@ -47,37 +47,17 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-1 control-label">姓名</div>
+                <div class="col-sm-1 control-label">教室</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="姓名"/>
+                    <input type="text" class="form-control" id="site" name="site" placeholder="教室地点"/>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-1 control-label">密码</div>
+                <div class="col-sm-1 control-label">人数</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="password" name="password" placeholder="密码"/>
+                    <input type="text" class="form-control" id="number" name="number" placeholder="人数"/>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-1 control-label">学院</div>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="college" name="college" placeholder="学院"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-1 control-label">手机号</div>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="手机号"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-1 control-label">电子邮箱</div>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="电子邮箱"/>
-                </div>
-            </div>
-
             <div class="form-group">
                 <div class="col-sm-1 control-label"></div>
                 &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="submitButton" class="btn btn bg-purple bt-flat">确定
@@ -97,19 +77,18 @@
 <script src="${path}/resources/js/create-table.js"></script>
 <script>
     $(function () {
-        initTable('#myTable', "${path}/teacher/getTeacherList",
-            ['id', 'name', 'password', 'college', 'phone', 'email'],
-            ['编号', '姓名', '密码', '学院', '手机号码', '电子邮箱'], true, 0);
+        initTable('#myTable', "${path}/classroom/getClassroomList",
+            ['id', 'site', 'number'], ['id', '教室', '人数'], true, 0);
     });
     $("document").ready(
         function () {
-            initUpdateInformation("添加老师", "修改老师", ["id",'name', 'password', 'college', 'phone', 'email'],
-                "${path}/teacher/deleteTeacher", "id");
+            initUpdateInformation("添加教室", "修改教室",  ['id', 'site', 'number'],
+                "${path}/classroom/deleteClassroom", "id");
             $("#importExcel").click(function () {
-                window.parent.openModel("${path}/teacher/importTeacherExcel", "导入表格");
+                window.parent.openModel("${path}/classroom/importClassroomExcel", "导入表格");
             });
-            initAddAndUpdate("${path}/teacher/addTeacher", "${path}/teacher/updateTeacher", "id=",
-                "", $("#id"),"添加老师",true);
+            initAddAndUpdate("${path}/classroom/addClassroom", "${path}/classroom/updateClassroom", "id=",
+                "", $("#id"),"添加教室",true);
 
         }
     );

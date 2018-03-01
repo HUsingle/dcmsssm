@@ -14,5 +14,5 @@ public interface TeacherMapper {
      List<Teacher> getAllTeacher(@Param("sort") String sort);
      int updateTeacher(Teacher teacher);
      int deleteTeacher(Long[] ids);
-     int addOrUpdateTeacher(List<Teacher> teachers);
+     int addTeacher(List<Teacher> teachers);
 }
