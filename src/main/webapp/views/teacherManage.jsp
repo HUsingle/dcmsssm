@@ -41,9 +41,9 @@
     <div class="box-body">
         <form id="myFrom" class="form-horizontal" method="post" action="##" onsubmit="return false">
             <div class="form-group" style="display:none;">
-                <div class="col-sm-1 control-label" >id</div>
+                <div class="col-sm-1 control-label">id</div>
                 <div class="col-sm-3">
-                    <input type="text" id="id" class="form-control"  name="id" placeholder="id"/>
+                    <input type="text" id="id" class="form-control" name="id" placeholder="id"/>
                 </div>
             </div>
             <div class="form-group">
@@ -88,7 +88,6 @@
     </div>
 </div>
 
-
 <script src="${path}/resources/js/jquery.min.js"></script>
 <script src="${path}/resources/js/bootstrap.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
@@ -103,14 +102,13 @@
     });
     $("document").ready(
         function () {
-            initUpdateInformation("添加老师", "修改老师", ["id",'name', 'password', 'college', 'phone', 'email'],
+            initUpdateInformation("添加老师", "修改老师", ["id", 'name', 'password', 'college', 'phone', 'email'],
                 "${path}/teacher/deleteTeacher", "id");
             $("#importExcel").click(function () {
                 window.parent.openModel("${path}/teacher/importTeacherExcel", "导入表格");
             });
             initAddAndUpdate("${path}/teacher/addTeacher", "${path}/teacher/updateTeacher", "id=",
-                "", $("#id"),"添加老师",true);
-
+                "", $("#id"), "添加老师", true);
         }
     );
 </script>

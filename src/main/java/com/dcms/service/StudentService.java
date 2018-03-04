@@ -1,6 +1,7 @@
 package com.dcms.service;
 
 import com.dcms.model.Student;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by single on 2017/12/30.
  */
-
+@Service
 public interface StudentService {
         /*查找所有学生*/
     List<Student> findAllStudent(String sort);

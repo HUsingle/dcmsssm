@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ExcelUtil {
 
-    //表格样式
+    //表格中单元格的样式
     public static HSSFCellStyle createHeadStyle(HSSFWorkbook workbook, boolean isHead) {
         HSSFCellStyle cellStyle = workbook.createCellStyle(); //创建单元格样式
         cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);//设置居中
@@ -72,7 +72,7 @@ public class ExcelUtil {
         }
         return value;
     }*/
-
+    //获取单元格的数据
     private static String getCellValue(Cell cell) {
         String value = "";
         if (cell != null) {
@@ -111,7 +111,7 @@ public class ExcelUtil {
             HSSFRow row = null;
             HSSFCell cell = null;
             row = sheet.createRow(0);
-            for (int i = 0; i < head.length; i++) {
+            for (int i = 0; i < head.length; i++) {//设置表头
                 cell = row.createCell(i);
                 cell.setCellStyle(createHeadStyle(workbook, true));
                 cell.setCellValue(head[i]);
@@ -120,7 +120,7 @@ public class ExcelUtil {
                 // cell.setCellType(HSSFCell.CELL_TYPE_STRING);
                 sheet.setColumnWidth(i, 256 * (head[i].length() * 2 + 14));
             }
-            if (isModel) {
+            if (isModel) {//如果是模板，导出空白数据
                 for (int j = 1; j <blankRow; j++) {//设置前400行为文本格式类型
                     row = sheet.createRow(j);
                     for (int k = 0; k < head.length; k++) {
@@ -129,7 +129,7 @@ public class ExcelUtil {
                         // cell.setCellType(HSSFCell.CELL_TYPE_STRING);
                     }
                 }
-            } else {
+            } else {//否则，导出相关数据
                 excelData.exportExcelData(list,workbook,sheet);
             }
             OutputStream outputStream = response.getOutputStream();
@@ -142,7 +142,7 @@ public class ExcelUtil {
 
     }
 
-
+    //导入表格，解析表格
     public static List importExcel(MultipartFile file, String[] head, ExcelData excelData) {
         String fileName = file.getOriginalFilename();
         Workbook workbook = null;

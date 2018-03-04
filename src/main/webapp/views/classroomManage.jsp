@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>老师管理</title>
+    <title>教室管理</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <%
         pageContext.setAttribute("path", request.getContextPath());
@@ -41,9 +41,9 @@
     <div class="box-body">
         <form id="myFrom" class="form-horizontal" method="post" action="##" onsubmit="return false">
             <div class="form-group" style="display:none;">
-                <div class="col-sm-1 control-label" >id</div>
+                <div class="col-sm-1 control-label">id</div>
                 <div class="col-sm-3">
-                    <input type="text" id="id" class="form-control"  name="id" placeholder="id"/>
+                    <input type="text" id="id" class="form-control" name="id" placeholder="id"/>
                 </div>
             </div>
             <div class="form-group">
@@ -82,14 +82,13 @@
     });
     $("document").ready(
         function () {
-            initUpdateInformation("添加教室", "修改教室",  ['id', 'site', 'number'],
+            initUpdateInformation("添加教室", "修改教室", ['id', 'site', 'number'],
                 "${path}/classroom/deleteClassroom", "id");
             $("#importExcel").click(function () {
                 window.parent.openModel("${path}/classroom/importClassroomExcel", "导入表格");
             });
             initAddAndUpdate("${path}/classroom/addClassroom", "${path}/classroom/updateClassroom", "id=",
-                "", $("#id"),"添加教室",true);
-
+                "", $("#id"), "添加教室", true);
         }
     );
 </script>
