@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 public class Competition {
     private int cid;
     private String name;  //竞赛名称
-    private String content; //竞赛内容
     private Timestamp publishTime;
     private Timestamp competitionTime;
     private String host;
@@ -23,9 +22,6 @@ public class Competition {
         this.name = name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
 
     public void setPublishTime(Timestamp publishTime) {
         this.publishTime = publishTime;
@@ -65,10 +61,6 @@ public class Competition {
 
     public String getName() {
         return name;
-    }
-
-    public String getContent() {
-        return content;
     }
 
     public Timestamp getPublishTime() {

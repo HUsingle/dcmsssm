@@ -29,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public List<Student> searchStudent(String search, String sort) {
-        List<Student> studentList = studentMapper.getSearchStudent(search, sort);
+           List<Student> studentList = studentMapper.getSearchStudent(search, sort);
         return studentList;
     }
      public String addStudent(String username, String name, String password,

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,9 +43,32 @@
             <div style="float:left;color:#fff;padding:15px 10px;">欢迎haha!</div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+
+                    <li class="dropdown notifications-menu" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">1</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">通知</li>
+                            <li>
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 监考信息
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">所有通知</a></li>
+                        </ul>
+                    </li>
+
                     <li><a href="#" data-toggle="modal" data-target="#updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a>
+                    <li><a href="#"><i class="fa fa-power-off"></i> &nbsp;关闭系统</a>
                     </li>
                     <li><a href="#"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+
                 </ul>
             </div>
         </nav>
