@@ -2,6 +2,10 @@ a {
     margin-left: 4px;
     margin-right: 4px;
 }
+.form-control:focus {
+    border-color: #605ca8;
+    box-shadow: none;
+}
 .fixed-table-body{
     height: auto;
 }

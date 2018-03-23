@@ -22,8 +22,7 @@
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
         <input id="search" style="display: none;">
         <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 添加</a>
-        <a class="btn bg-purple bt-flat " id="update" data-toggle="modal" data-target="#myModal"><i
-                class="fa fa-edit"></i> 修改</a>
+        <a class="btn bg-purple bt-flat " id="update" ><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
         <a class="btn bg-purple bt-flat " href="${path}/teacher/exportTeacherExcelModel"><i

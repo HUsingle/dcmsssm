@@ -90,8 +90,8 @@ public class StudentController {
 
     @RequestMapping(value = "/deleteStudent", method = RequestMethod.POST)
     @ResponseBody
-    public String deleteStudent(@RequestParam("username") String username) {
-        return studentService.deleteStudent(username);
+    public String deleteStudent(@RequestParam("id") String id) {
+        return studentService.deleteStudent(id);
 
     }
 

@@ -118,7 +118,7 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
               type:'POST',
               url:deleteUrl,
               data:{
-                  id:ids
+                  'id':ids
               },
               dataType:"json",
               success:function (data) {

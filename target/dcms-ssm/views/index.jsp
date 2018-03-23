@@ -40,11 +40,11 @@
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
-            <div style="float:left;color:#fff;padding:15px 10px;">欢迎haha!</div>
+            <div style="float:left;color:#fff;padding:15px 10px;">欢迎老师!</div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
 
-                    <li class="dropdown notifications-menu" >
+                    <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
                             <span class="label label-warning">1</span>
@@ -64,7 +64,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="#" data-toggle="modal" data-target="#updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a>
+                    <%--  <li><a href="#" data-toggle="modal" data-target="#updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a>--%>
                     <li><a href="#"><i class="fa fa-power-off"></i> &nbsp;关闭系统</a>
                     </li>
                     <li><a href="#"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
@@ -83,29 +83,72 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">导航菜单</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li><a href="${path}/views/studentMan.jsp" target="myFrame"><i class="fa fa-users"></i><span>学生管理</span></a>
-                </li>
-                <li><a href="${path}/views/teacherManage.jsp" target="myFrame"><i class="fa fa-user"></i><span>老师管理</span></a></li>
-                <li><a href="#"><i class="fa fa-list"></i><span>报名管理</span></a></li>
-                <li><a href="#"><i class="fa fa-list-alt"></i><span>竞赛管理</span></a></li>
-                <li><a href="${path}/views/classroomManage.jsp" target="myFrame"><i class="fa fa-university"></i><span>考场管理</span></a></li>
-                <li><a href="#"><i class="fa fa-building-o"></i><span>考场安排管理</span></a></li>
-                <li><a href="#"><i class="fa fa-table"></i><span>成绩管理</span></a></li>
-                <li><a href="#"><i class="fa fa-list-ul"></i><span>晋级名单管理</span></a></li>
-                <li><a href="#"><i class="fa fa-arrow-up"></i><span>竞赛文件管理</span></a></li>
-                <li><a href="#"><i class="fa fa-arrow-down"></i><span>学生答案管理</span></a></li>
-                <li><a href="#"><i class="fa fa-bar-chart"></i><span>竞赛统计</span></a></li>
-                <%--<li class="treeview">
-                    <a href="#"><i class="fa fa-bar-chart"></i> <span>竞赛统计</span>
+
+                <li class="treeview">
+                    <a href="##"><i class="fa fa fa-user"></i> <span>个人信息管理</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">导出各类名单</a></li>
-                        <li><a href="#">成绩统计</a></li>
+                        <li><a href="##" target="myFrame"><i class="fa fa-circle-o"></i><span>我的监考</span></a></li>
+                        <li><a href="##" target="myFrame"><i class="fa fa-circle-o"></i><span>个人信息</span></a></li>
+                        <li><a href="##" target="myFrame"><i class="fa fa-circle-o"></i><span>修改密码</span></a></li>
                     </ul>
-                </li>--%>
+                </li>
+                <li class="treeview">
+                    <a href="##"><i class="fa fa fa-users"></i> <span>用户管理</span>
+                        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="${path}/views/studentManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>学生管理</span></a>
+                        </li>
+                        <li><a href="${path}/views/teacherManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>老师管理</span></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="##"><i class="fa fa fa-list-alt"></i> <span>竞赛管理</span>
+                        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="${path}/views/competitionManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛项目管理</span></a></li>
+                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛文件管理</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa fa-list"></i><span>报名管理</span></a></li>
+                <li class="treeview">
+                    <a href="##"><i class="fa fa fa-university"></i> <span>考试管理</span>
+                        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="${path}/views/classroomManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>教室管理</span></a></li>
+                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>安排考场管理</span></a></li>
+                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>安排监考管理</span></a></li>
+                    </ul>
+                </li>
+                <%--<li><a href="#"><i class="fa fa-building-o"></i><span>考场安排管理</span></a></li>--%>
+                <li class="treeview">
+                    <a href="##"><i class="fa fa fa-table"></i> <span>成绩管理</span>
+                        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>学生成绩管理</span></a></li>
+                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a></li>
+                    </ul>
+                </li>
+                <%--<li><a href="#"><i class="fa fa-arrow-up"></i><span>竞赛文件管理</span></a></li>--%>
+                <%--<li><a href="#"><i class="fa fa-arrow-down"></i><span>学生答案管理</span></a></li>--%>
+                <li><a href="#"><i class="fa fa-bar-chart"></i><span>竞赛统计</span></a></li>
             </ul>
         </section>
     </aside>
@@ -167,44 +210,44 @@
         </div>
     </div>
 
-    <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <div class="col-sm-2 control-label">账号</div>
-                                <span class="label label-success" style="vertical-align: bottom;"></span>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-2 control-label">原密码</div>
-                                <div class="col-sm-9">
-                                    <input type="password" class="form-control" placeholder="原密码"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-2 control-label">新密码</div>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" placeholder="新密码"/>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn bg-purple bt-flat">提交更改</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
-
+    <%-- <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true">
+         <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header bg-primary">
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                     <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                 </div>
+                 <div class="modal-body">
+                     <form class="form-horizontal">
+                         <div class="form-group">
+                             <div class="form-group">
+                                 <div class="col-sm-2 control-label">账号</div>
+                                 <span class="label label-success" style="vertical-align: bottom;"></span>
+                             </div>
+                             <div class="form-group">
+                                 <div class="col-sm-2 control-label">原密码</div>
+                                 <div class="col-sm-9">
+                                     <input type="password" class="form-control" placeholder="原密码"/>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                                 <div class="col-sm-2 control-label">新密码</div>
+                                 <div class="col-sm-9">
+                                     <input type="text" class="form-control" placeholder="新密码"/>
+                                 </div>
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                     <button type="button" class="btn bg-purple bt-flat">提交更改</button>
+                 </div>
+             </div><!-- /.modal-content -->
+         </div><!-- /.modal -->
+     </div>
+ --%>
 </div>
 
 
@@ -221,7 +264,7 @@
         });
     });
     function initImportExcel(url) {
-        var excelFile=$("#excelFile");
+        var excelFile = $("#excelFile");
         excelFile.fileinput({
             uploadUrl: url,//上传的地址
             uploadAsync: true,              //异步上传
@@ -252,7 +295,7 @@
                 initMessage(result, "error");
             }
         });
-        excelFile.on('fileerror', function(event, data, msg) {
+        excelFile.on('fileerror', function (event, data, msg) {
             initMessage(msg, "error");
         });
 
