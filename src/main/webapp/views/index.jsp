@@ -117,6 +117,7 @@
               </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛组别管理</span></a></li>
                         <li><a href="${path}/views/competitionManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛项目管理</span></a></li>
                         <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛文件管理</span></a></li>
                     </ul>

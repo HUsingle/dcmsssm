@@ -18,4 +18,20 @@ a {
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
     background-color: #605ca8;
 }
+.bootstrap-select .btn:focus{outline:none!important;}
 
+.bootstrap-select .btn:focus{ border: 1px solid #605ca8; }
+.datetimepicker table tr td.active,
+.datetimepicker table tr td span.active,
+.datetimepicker table tr td span.active:hover.active,
+.datetimepicker table tr td.active:hover.active{
+    background-image: none;
+}
+.datetimepicker table tr td.active.active,
+.datetimepicker table tr td span.active.active {
+    background-color: #605ca8;
+}
+.datetimepicker table tr td span.active:hover.active,
+.datetimepicker table tr td.active:hover.active{
+    background-color: #673AB7;
+}
