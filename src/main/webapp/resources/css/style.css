@@ -2,10 +2,11 @@
 @import url(http://fonts.googleapis.com/css?family=Playball);
 
 body, html{
-	font-family: 'Raleway', sans-serif;
+    font-family: Consolas;
 	text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
 	background-color:  #FFFFFF;
+
 }
 
 @media (min-width: 1200px){
@@ -252,18 +253,18 @@ nav,#tf-footer {
 	margin: 0px auto;
 	
 }
-#span_icon{
+.span_icon{
 	background-color: #1C7430;
 	font-size: 15px;
 }
-#span_icon_context{
+.span_icon_context{
 	font-size: 27px;
 	margin-left: 5px;
 	
 }
 #newGame>thead,tbody>tr>th{
 	background-color: #B9BBBE;
-	font-family:  "arial, helvetica, sans-serif";
+
 }
 td{
 	color: #000000;

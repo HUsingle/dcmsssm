@@ -39,6 +39,8 @@
     <link href='http://fonts.googleapis.com/css?family=Raleway:500,600,700,100,800,900,400,200,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../resources/js/jquery.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -47,6 +49,68 @@
     <![endif]-->
 </head>
 <body>
+<script>
+
+    $(document).ready(function () {
+        var compId;
+        //获取最新竞赛
+        $.ajax({
+            url: "${pageContext.request.contextPath}/comp/getLatestComp",
+            dataType: "json",
+            success: function(msg){
+                compId = msg[0].cid;
+                $(".comp_name").text(msg[0].name);
+                $(".comp_place").text(msg[0].place);
+                $(".comp_host").text(msg[0].compTime+"分钟");
+                $(".comp_start_time").text(msg[0].compeStartTime);
+                $(".apply_time").text(msg[0].applyStart+"~"+msg[0].applyEnd);
+                var start = new Date(msg[0].applyStart).getTime();
+                var end = new Date(msg[0].applyEnd).getTime();
+                var now = new Date().getTime();
+                var str='';    //报名状态
+                var color='';  //报名状态字体颜色
+                if(now>end){
+                    str = '报名已结束';
+                    color = 'red';
+                }else if(now >start){
+                    str = '报名进行中';
+                    color = 'green';
+                }else {
+                    str = '报名未开始';
+                    color = 'red';
+                }
+                $(".comp_state").text(str);
+                $(".comp_state").css({ "color": color });   //设置报名状态颜色
+            }
+        });
+
+        //下载附件
+        $(".down_file").click(function () {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/fileOperate/download",
+                data:{path:"练习效果.png"},
+                success: function(msg){
+
+                }
+            });
+        });
+
+        //报名
+        $(".apply_at_once").click(function () {
+           // var id = 1231;
+            //alert(compid)
+            $.ajax({
+                url: "${pageContext.request.contextPath}/comp/isTeamComp",
+                data:{id:compId},
+                success: function(msg){
+                    alert(${isTeam})
+                }
+            });
+        })
+
+
+    })
+</script>
 <div id="tf-home">
     <div class="overlay">
         <div id="sticky-anchor"></div>
@@ -101,9 +165,9 @@
 <div class=".container-fluid" id="message">
     <div class="news_title">
         <h5 class="page-header">
-            <span id="span_ icon" >&nbsp;	</span>
-            <span id="span_icon _context" >公告	</span>
-            <a href="#" class="text-muted" style="">更多</a>
+            <span class="span_icon icon" >&nbsp;	</span>
+            <span class="span_icon_context" >公告	</span>
+            <a href="#" class="text-muted" style="float: right">更多</a>
         </h5>
 
 
@@ -122,9 +186,9 @@
 <div class=".container-fluid" id="news">
     <div class="news_title">
         <h5 class="page-header">
-            <span id="span_icon" >&nbsp;	</span>
-            <span id="span_icon_context" >最新竞赛	</span>
-            <a href="#" class="text-muted" style="margin-left: 76%;">更多</a>
+            <span class="span_icon" >&nbsp;	</span>
+            <span class="span_icon_context" >最新竞赛	</span>
+            <a href="#" class="text-muted" style="float: right;">更多</a>
         </h5>
 
         <div class="news_body" style="width: 850px;">
@@ -135,40 +199,41 @@
                 <thead>
                 <tr>
                     <th>标题</th>
-                    <th style="background-color: #ffffff;">首届程序设计竞赛</th>
+                    <th class="comp_name" style="background-color: #ffffff;" ></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th>状态</td>
-                    <td>报名进行中</td>
+                    <td class="comp_state">报名进行中</td>
                 </tr>
                 <tr>
                     <th>竞赛地点</td>
-                    <td>文综楼2006</td>
-                </tr>
-                <tr>
-                    <th>参赛对象</td>
-                    <td>广西民族大学学生</td>
-                </tr>
-                <tr>
-                    <th>报名时间</td>
-                    <td>2017年12月18日 09:00 ~ 2018年02月21日 18:00 </td>
+                    <td class="comp_place"></td>
                 </tr>
                 <tr>
                     <th>竞赛时间</td>
-                    <td>2018年03月10日 10:00 ~ 12:30 </td>
+                    <td class="comp_host"></td>
+                </tr>
+                <tr>
+                    <th>报名时间</td>
+                    <td class="apply_time"></td>
+                </tr>
+                <tr>
+                    <th>竞赛时间</td>
+                    <td class="comp_start_time"></td>
                 </tr>
                 <tr>
                     <th>附件</td>
-                    <td>...</td>
+                    <td><a href="#" class="down_file"  value="下载">ssssss</a></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button class="btn btn-success">立即报名</button></td>
+                    <td><button class="btn btn-success apply_at_once">立即报名</button></td>
                 </tr>
                 </tbody>
             </table>
+
 
         </div>
 
@@ -206,8 +271,6 @@
 </nav>
 
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../resources/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
 
