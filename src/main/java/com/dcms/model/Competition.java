@@ -21,6 +21,15 @@ public class Competition {
     private Timestamp applyEnd;    //报名结束时间
     private int isTeam;   //团队赛？
     private int tid;    //教师ID
+    private String group; //组别
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
 
     public int getCid() {
         return cid;
