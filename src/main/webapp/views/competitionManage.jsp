@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="${path}/resources/css/bootstrap-table.min.css">
     <link rel="stylesheet" href="${path}/resources/css/messenger.css">
     <link rel="stylesheet" href="${path}/resources/css/messenger-theme-future.css">
+    <link rel="stylesheet" href="${path}/resources/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="${path}/resources/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="${path}/resources/css/myCss.css">
 </head>
 <body>
@@ -49,16 +51,12 @@
                 <div class="col-sm-4">
                     <input type="text" class="form-control" id="name" name="name" placeholder="竞赛名称"/>
                 </div>
-            </div>
-            <div class="form-group">
                 <div class="col-sm-1 control-label">竞赛类型</div>
                 <div class="col-sm-4">
-                    <label class="radio-inline">
-                        <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="option1" checked> 选项 1
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="option2"> 选项 2
-                    </label>
+                    <select class="selectpicker form-control">
+                        <option >个人赛</option>
+                        <option >团体赛</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -66,8 +64,6 @@
                 <div class="col-sm-4">
                     <input type="text" class="form-control" id="host" name="host" placeholder="举办单位"/>
                 </div>
-            </div>
-            <div class="form-group">
                 <div class="col-sm-1 control-label">比赛地点</div>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" id="place" name="place" placeholder="比赛地点"/>
@@ -75,27 +71,62 @@
             </div>
 
             <div class="form-group">
-                <div class="col-sm-1 control-label">比赛时间</div>
+                <div class="col-sm-1 control-label">开始比赛</div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="competitionTime" name="competitionTime" placeholder="比赛时间"/>
+                    <div class="input-group date form-date" >
+                        <input type="text" class="form-control" id="competitionTime" name="competitionTime" placeholder="比赛开始时间"/>
+                        <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </span>
+                    </div>
+
                 </div>
+                <div class="col-sm-1 control-label">比赛竞赛</div>
+                <div class="col-sm-4">
+                    <div class="input-group date form-date" >
+                        <input type="text" class="form-control" id="time" name="time" placeholder="比赛结束时间"/>
+                        <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </span>
+                    </div>
+
+                </div>
+
             </div>
             <div class="form-group">
                 <div class="col-sm-1 control-label">开始报名</div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="applyStart" name="applyStart" placeholder="报名开始时间"/>
+                <div class="input-group date form-date" >
+                    <input type="text" class="form-control" id="applyStart" name="applyStart" placeholder="报名开始时间">
+                    <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </span>
                 </div>
             </div>
-            <div class="form-group">
                 <div class="col-sm-1 control-label">截止报名</div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="applyEnd" name="applyEnd" placeholder="报名截止时间"/>
+                    <div class="input-group date form-date" >
+                        <input type="text" class="form-control" id="applyEnd" name="applyEnd" placeholder="报名截止时间"/>
+                        <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
+                <div class="col-sm-1 control-label">竞赛组别</div>
+                <div class="col-sm-4">
+                    <select class="selectpicker form-control" title="选择一项或多项" multiple data-live-search="true">
+                        <option >java组</option>
+                        <option >c/c++组</option>
+                    </select>
+                </div>
             <div class="col-sm-1 control-label">负责人</div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="leader" name="leader" placeholder="竞赛负责人"/>
+                <select class="selectpicker form-control" title="选择一项或多项" multiple data-live-search="true">
+                    <option >java组</option>
+                    <option >c/c++组</option>
+                </select>
             </div>
     </div>
                 <div class="form-group">
@@ -107,8 +138,7 @@
 
             <div class="form-group">
                 <div class="col-sm-1 control-label"></div>
-                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="addGroup" class="btn btn bg-orange bt-flat">设置组别
-            </button> &nbsp;&nbsp;<button type="button" id="submitButton" class="btn btn bg-purple bt-flat">确定
+              &nbsp;&nbsp;<button type="button" id="submitButton" class="btn btn bg-purple bt-flat">确定
             </button>
                 &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="quit">返回</button>
             </div>
@@ -124,6 +154,10 @@
 <script src="${path}/resources/js/create-table.js"></script>
 <script src="${path}/resources/js/fileinput.min.js"></script>
 <script src="${path}/resources/js/zh.js"></script>
+<script src="${path}/resources/js/bootstrap-select.min.js"></script>
+<script src="${path}/resources/js/defaults-zh_CN.min.js"></script>
+<script src="${path}/resources/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${path}/resources/js/bootstrap-datetimepicker.zh-CN.js"></script>
 
 <script>
   /*  $(function () {
@@ -152,7 +186,15 @@
                 initialPreviewAsData: true, // defaults markup
                 preferIconicPreview: false // 是否优先显示图标  false 即优先显示图片
             });
-
+          $(".form-date").datetimepicker({
+              format: 'yyyy-mm-dd hh:ii',
+              language:  'zh-CN',
+              weekStart: 1,
+              todayBtn : true,
+              todayHighlight: false,
+              forceParse:true,
+              autoclose: true
+          });
 
         }
 
