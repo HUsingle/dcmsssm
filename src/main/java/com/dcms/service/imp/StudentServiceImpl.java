@@ -59,11 +59,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public String deleteStudent(String username) {
-        String[] userString = username.split(",");
-        Long[] userArray = new Long[userString.length];
-        for (int i = 0; i < userString.length; i++)
-            userArray[i] = Long.parseLong(userString[i]);
-        int result = studentMapper.deleteStudent(userArray);
+        int result = studentMapper.deleteStudent(Tool.getLong(username));
         return Tool.result(result);
     }
 

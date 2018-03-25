@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -81,7 +82,7 @@
                     </div>
 
                 </div>
-                <div class="col-sm-1 control-label">比赛竞赛</div>
+                <div class="col-sm-1 control-label">比赛结束</div>
                 <div class="col-sm-4">
                     <div class="input-group date form-date" >
                         <input type="text" class="form-control" id="time" name="time" placeholder="比赛结束时间"/>
@@ -116,16 +117,18 @@
             <div class="form-group">
                 <div class="col-sm-1 control-label">竞赛组别</div>
                 <div class="col-sm-4">
-                    <select class="selectpicker form-control" title="选择一项或多项" multiple data-live-search="true">
-                        <option >java组</option>
-                        <option >c/c++组</option>
+                    <select class="selectpicker form-control" title="选择一项或多项" multiple>
+                        <c:forEach items="${competitionGroupList}" var="competitionGroup">
+                            <option value="${competitionGroup.id}">${competitionGroup.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
             <div class="col-sm-1 control-label">负责人</div>
             <div class="col-sm-4">
-                <select class="selectpicker form-control" title="选择一项或多项" multiple data-live-search="true">
-                    <option >java组</option>
-                    <option >c/c++组</option>
+                <select class="selectpicker form-control">
+                 <c:forEach items="${teacherList}" var="teacher">
+                     <option value="${teacher.id}">${teacher.name}</option>
+                 </c:forEach>
                 </select>
             </div>
     </div>
@@ -138,7 +141,7 @@
 
             <div class="form-group">
                 <div class="col-sm-1 control-label"></div>
-              &nbsp;&nbsp;<button type="button" id="submitButton" class="btn btn bg-purple bt-flat">确定
+                &nbsp;&nbsp; &nbsp;&nbsp;<button type="button" id="submitButton" class="btn btn bg-purple bt-flat">确定
             </button>
                 &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="quit">返回</button>
             </div>

@@ -46,11 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     public String deleteTeacher(String id) {
-        String[] idString = id.split(",");
-        Long[] idArray = new Long[idString.length];
-        for (int i = 0; i < idString.length; i++)
-            idArray[i] = Long.parseLong(idString[i]);
-        int result = teacherMapper.deleteTeacher(idArray);
+        int result = teacherMapper.deleteTeacher(Tool.getLong(id));
         return Tool.result(result);
     }
 

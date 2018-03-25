@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcms.dao.CompetitionGroupMapper">
+    <select id="getAllCompetitionGroup" resultType="competitionGroup" parameterType="string">
+        select group_id as id, group_name as name
+       from db_competition_group order by group_id ${sort}
+    </select>
+    <update id="updateCompetitionGroup" parameterType="competitionGroup">
+        update db_competition_group set group_name=#{name} where group_id=#{id}
+    </update>
+    <delete id="deleteCompetitionGroup" parameterType="int">
+        delete from db_competition_group where group_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="addCompetitionGroup" parameterType="competitionGroup">
+        insert into db_competition_group(group_id,group_name)
+        values(#{id},#{name})
+    </insert>
+</mapper>
