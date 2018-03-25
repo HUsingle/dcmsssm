@@ -1,9 +1,9 @@
 package com.dcms.service;
 
-import com.dcms.model.Competition;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface CompetitionService {
-    Competition getLatestComp();
+    String getLatestComp();
+    boolean qryIsTeam(String id);   // 判断是否是团队赛
 }

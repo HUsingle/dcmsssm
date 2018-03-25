@@ -1,7 +1,5 @@
 package com.dcms.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.dcms.model.Competition;
 import com.dcms.model.CompetitionGroup;
 import com.dcms.model.Teacher;
 import com.dcms.service.CompetitionGroupService;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -30,11 +29,8 @@ public class CompetitionController {
     @RequestMapping(produces="text/html;charset=UTF-8",value = "/getLatestComp")
     @ResponseBody
     public String getLatestComp(HttpServletResponse response)throws UnsupportedEncodingException{
-        Competition competition = cs.getLatestComp();
-        if(competition!=null){
-            return JSON.toJSONString(competition);
-        }
-        return "ng";
+        String json = cs.getLatestComp();
+        return json;
     }
     @RequestMapping(value = "/competitionManage")
     public String  competitionIndex(Model model){
@@ -43,5 +39,13 @@ public class CompetitionController {
         model.addAttribute(teacherList);
         model.addAttribute(competitionGroupList);
         return "competitionManage";
+    }
+
+    @RequestMapping("/isTeamComp")
+    public ModelAndView isTeamComp(String id){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("apply_index");
+        mav.addObject("isTeam",cs.qryIsTeam(id));
+        return mav;
     }
 }
