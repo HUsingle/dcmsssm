@@ -42,11 +42,7 @@ public class ClassroomServiceImpl implements ClassroomService {
     }
 
     public String deleteClassroom(String id) {
-        String[] idString = id.split(",");
-        Integer[] idArray = new Integer[idString.length];
-        for (int i = 0; i < idString.length; i++)
-            idArray[i] = Integer.parseInt(idString[i]);
-        int result = classroomMapper.deleteClassroom(idArray);
+        int result = classroomMapper.deleteClassroom(Tool.getInteger(id));
         return Tool.result(result);
     }
 
