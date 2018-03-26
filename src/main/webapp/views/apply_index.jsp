@@ -84,7 +84,10 @@
                 $(".comp_state").text(str);
                 $(".comp_state").css({ "color": color });   //设置报名状态颜色
                 $(".down_file").attr("href",filePath);   //设置下载链接
-                $(".down_file").text(msg[0].file)
+                $(".file_name").text(msg[0].file)
+                $(".down_file:link").css("color","#00ff7f");
+                $(".down_file:hover").css({"background-color":"red","color":"yellow"});
+
             }
         });
 
@@ -187,10 +190,10 @@
         </h5>
 
         <div class="news_body" style="width: 850px;">
-            <div  style="float: left;width: 400px;height: auto;padding: 10px;">
+            <%--<div  style="float: left;width: 400px;height: auto;padding: 10px;">
                 <img src="../resources/images/acm.jpg" width="90%" height="90%"/>
-            </div>
-            <table id="newGame" class="table" style="width: 450px;float: right;">
+            </div>--%>
+            <table id="newGame" class="table" style="width: 850px;float: right;">
                 <thead>
                 <tr>
                     <th>标题</th>
@@ -222,7 +225,10 @@
                 <tr>
                     <th>附件</td>
                     <td>
+
                         <a  class="down_file" >
+                            <span class="glyphicon glyphicon-circle-arrow-down" ></span>
+                            <span class="file_name" ></span>
                         </a>
                     </td>
                 </tr>
