@@ -5,11 +5,11 @@
 <mapper namespace="com.dcms.dao.CompetitionMapper">
     <!--查询最新发布的竞赛-->
     <select id="qryLatestComp" resultMap="compMap">
-        select * from db_comption  order by c_competiton_time  LIMIT 1
+        select * from db_competition  order by c_competiton_start  LIMIT 1
     </select>
     <!--查询是否是团队赛-->
     <select id="qryIsTeam" resultMap="compMap">
-        select c_is_team from db_comption where c_id = #{param1}
+        select c_is_team from db_competition where c_id = #{param1}
     </select>
     <!--竞赛resultMap-->
     <resultMap type="Competition" id="compMap">
@@ -18,7 +18,7 @@
         <result property="content" column="c_content"/>
         <result property="publishTime" column="c_publish_time" jdbcType="TIMESTAMP"/>
         <result property="compeStartTime" column="c_competiton_start" jdbcType="TIMESTAMP"/>
-        <result property="compTime" column="c_competiton_time"/>
+        <result property="compeEndTime" column="c_competiton_end" jdbcType="TIMESTAMP"/>
         <result property="host" column="c_host"/>
         <result property="file" column="c_file"/>
         <result property="place" column="c_place"/>
@@ -26,5 +26,6 @@
         <result property="applyEnd" column="c_apply_end" jdbcType="TIMESTAMP"/>
         <result property="isTeam" column="c_is_team"/>
         <result property="tid" column="t_id"/>
+        <result property="group" column="c_group"/>
     </resultMap>
 </mapper>

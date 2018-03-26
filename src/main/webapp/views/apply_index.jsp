@@ -61,7 +61,7 @@
                 compId = msg[0].cid;
                 $(".comp_name").text(msg[0].name);
                 $(".comp_place").text(msg[0].place);
-                $(".comp_host").text(msg[0].compTime+"分钟");
+                $(".comp_end_time").text(msg[0].compeEndTime);
                 $(".comp_start_time").text(msg[0].compeStartTime);
                 $(".apply_time").text(msg[0].applyStart+"~"+msg[0].applyEnd);
                 var start = new Date(msg[0].applyStart).getTime();
@@ -212,17 +212,18 @@
                     <td class="comp_place"></td>
                 </tr>
                 <tr>
-                    <th>竞赛时间</td>
-                    <td class="comp_host"></td>
+                    <th>竞赛开始时间</td>
+                    <td class="comp_start_time"></td>
+                </tr>
+                <tr>
+                    <th>竞赛结束时间</td>
+                    <td class="comp_end_time"></td>
                 </tr>
                 <tr>
                     <th>报名时间</td>
                     <td class="apply_time"></td>
                 </tr>
-                <tr>
-                    <th>竞赛时间</td>
-                    <td class="comp_start_time"></td>
-                </tr>
+
                 <tr>
                     <th>附件</td>
                     <td><a href="#" class="down_file"  value="下载">ssssss</a></td>
