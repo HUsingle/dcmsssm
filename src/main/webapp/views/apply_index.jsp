@@ -53,12 +53,14 @@
 
     $(document).ready(function () {
         var compId;
+        var fileName;
         //获取最新竞赛
         $.ajax({
             url: "${pageContext.request.contextPath}/comp/getLatestComp",
             dataType: "json",
             success: function(msg){
                 compId = msg[0].cid;
+                filePath = "${pageContext.request.contextPath}/fileOperate/download?filename="+msg[0].file;  //文件路径
                 $(".comp_name").text(msg[0].name);
                 $(".comp_place").text(msg[0].place);
                 $(".comp_end_time").text(msg[0].compeEndTime);
@@ -81,19 +83,12 @@
                 }
                 $(".comp_state").text(str);
                 $(".comp_state").css({ "color": color });   //设置报名状态颜色
+                $(".down_file").attr("href",filePath);   //设置下载链接
+                $(".down_file").text(msg[0].file)
             }
         });
 
-        //下载附件
-        $(".down_file").click(function () {
-            $.ajax({
-                url: "${pageContext.request.contextPath}/fileOperate/download",
-                data:{path:"练习效果.png"},
-                success: function(msg){
 
-                }
-            });
-        });
 
         //报名
         $(".apply_at_once").click(function () {
@@ -226,7 +221,10 @@
 
                 <tr>
                     <th>附件</td>
-                    <td><a href="#" class="down_file"  value="下载">ssssss</a></td>
+                    <td>
+                        <a  class="down_file" >
+                        </a>
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
