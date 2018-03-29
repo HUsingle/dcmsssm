@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,11 +51,15 @@ public class CompetitionController {
     }
 
     @RequestMapping("/isTeamComp")
-    public ModelAndView isTeamComp(String id){
-        ModelAndView mav = new ModelAndView();
+    @ResponseBody
+    public String isTeamComp(String id){
+        if (cs.qryIsTeam(id)){
+            return "ok";
+        }
+        /*ModelAndView mav = new ModelAndView();
         mav.setViewName("apply_index");
-        mav.addObject("isTeam",cs.qryIsTeam(id));
-        return mav;
+        mav.addObject("isTeam",cs.qryIsTeam(id));*/
+        return "ng";
     }
     @RequestMapping(value = "/getCompetitionList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody

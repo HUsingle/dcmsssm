@@ -18,4 +18,6 @@ public interface StudentMapper {
      int updateStudent(Student student);
      //插入数据如果主键存在则更新
      int addOrUpdateStudent(List<Student> list);
+     //查询指定账号密码的学生信息
+    Student qryByAccountAndPwd(String account,String pwd);
 }

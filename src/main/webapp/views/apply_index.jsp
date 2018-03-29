@@ -51,6 +51,7 @@
 <body>
 <script>
 
+
     $(document).ready(function () {
         var compId;
         var fileName;
@@ -95,20 +96,34 @@
 
         //报名
         $(".apply_at_once").click(function () {
-           // var id = 1231;
-            //alert(compid)
+
 
             $.ajax({
                 url: "${pageContext.request.contextPath}/comp/isTeamComp",
                 data:{id:compId},
                 success: function(msg){
-                   /* var isTeam =${isTeam};
-                    alert(isTeam)*/
+                 if(msg=="ok"){   //msg=ok是团队赛
+                    alert("team")
+                 }else {    //个人赛
+
+                 }
                 }
             });
         })
 
 
+
+
+        //模态框事件（当模态框对用户可见时触发,  模态框居中显示）
+        $('#myModal').on('shown.bs.modal', function (e) {
+            // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
+            $(this).css('display', 'block');
+            var modalHeight=$(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
+            $(this).find('.modal-dialog').css({
+                'margin-top': modalHeight
+            });
+
+        });
     })
 </script>
 <div id="tf-home">
@@ -132,8 +147,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#tf-home">主页</a></li>
                         <li><a href="#tf-service">查询</a></li>
-                        <li><a href="#tf-portfolio">下载中心</a></li>
-                        <li><a href="#tf-about">联系我们</a></li>
+                        <li><a href="#tf-portfolio">集体报名</a></li>
+                        <li><a href="#tf-about">打印准考证</a></li>
                         <li><a href="#tf-contact">个人信息</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -142,7 +157,7 @@
 
         <div class="container">
             <div class="content">
-                <h1>学科竞赛报名管理系统</h1>
+                <h1>学科竞赛报名系统</h1>
                 <h3>软件与信息安全学院</h3>
                 <br>
                 <a href="#news" class="btn btn-primary my-btn2" style="font-size: 15px;">
@@ -205,7 +220,7 @@
                 <tbody>
                 <tr>
                     <th>状态</td>
-                    <td class="comp_state">报名进行中</td>
+                    <td class="comp_state"></td>
                 </tr>
                 <tr>
                     <th>竞赛地点</td>
@@ -236,7 +251,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button class="btn btn-success apply_at_once">立即报名</button></td>
+                    <td><button class="btn btn-success apply_at_once" data-toggle="modal" data-target="#myModal">立即报名</button></td>
                 </tr>
                 </tbody>
             </table>
@@ -247,6 +262,7 @@
     </div>
 
 </div>
+
 
 
 
@@ -285,5 +301,29 @@
 ==================================================  -->
 <script type="text/javascript" src="../resources/js/main.js"></script>
 
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    请选择竞赛组别
+                </h4>
+            </div>
+            <a href="#" class="list-group-item">java组</a>
+            <a href="#" class="list-group-item">c/c++</a>
+            <a href="#" class="list-group-item">python</a>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>
