@@ -3,11 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.TeacherMapper">
-    <select id="getAllTeacher" resultType="teacher" parameterType="string">
+    <select id="getAllTeacher" resultType="com.dcms.model.Teacher" parameterType="string">
         select t_id as id, t_password as password, t_phone as phone,t_name as name,
         t_college as college, t_email as email from  db_teacher order by t_id ${sort}
     </select>
-    <update id="updateTeacher" parameterType="teacher">
+    <select id="findTeacherById" resultType="com.dcms.model.Teacher" parameterType="long">
+        select t_id as id, t_password as password, t_phone as phone,t_name as name,
+        t_college as college, t_email as email from  db_teacher where t_id=#{id}
+    </select>
+    <update id="updateTeacher" parameterType="com.dcms.model.Teacher">
         update db_teacher set t_name=#{name},t_phone=#{phone},t_password=#{password},
         t_email=#{email},t_college=#{college}  where t_id=#{id}
     </update>
@@ -22,7 +26,7 @@
         values(#{teacher.name},#{teacher.phone},
             #{teacher.password},#{teacher.email},#{teacher.college})
     </insert>-->
-    <insert id="addTeacher" parameterType="teacher">
+    <insert id="addTeacher" parameterType="com.dcms.model.Teacher">
         insert into db_teacher(t_name,t_phone,t_password,t_email,t_college)
         values
         <foreach collection="list" item="teacher" separator=",">

@@ -1,17 +1,27 @@
 package com.dcms.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.dcms.model.Competition;
 import com.dcms.model.CompetitionGroup;
 import com.dcms.model.Teacher;
 import com.dcms.service.CompetitionGroupService;
 import com.dcms.service.TeacherService;
 import com.dcms.service.imp.CompetitionServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -47,5 +57,33 @@ public class CompetitionController {
         mav.setViewName("apply_index");
         mav.addObject("isTeam",cs.qryIsTeam(id));
         return mav;
+    }
+    @RequestMapping(value = "/getCompetitionList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    public String getCompetition(@RequestParam(defaultValue = "1") Integer offset,
+                                  @RequestParam(defaultValue = "10") Integer limit ) {
+        PageHelper.startPage(offset, limit);
+        List<Competition> competitionList = cs.findAllCompetition();
+        PageInfo<Competition> pageInfo = new PageInfo<Competition>(competitionList);
+        JSONObject result = new JSONObject();
+        result.put("total", pageInfo.getTotal());
+        result.put("rows", competitionList);
+        return JSON.toJSONString(result,SerializerFeature.DisableCircularReferenceDetect);
+    }
+    @RequestMapping(value = "/addCompetition", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    public String addCompetition(HttpServletRequest request, @RequestParam MultipartFile compFile) {
+        return  cs.addCompetition(compFile,request);
+    }
+    @RequestMapping(value = "/deleteCompetition", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteStudent(@RequestParam("id") String id,HttpServletRequest request) {
+        return cs.deleteCompetition(id,request);
+    }
+
+    @RequestMapping(value = "/updateCompetition", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateCompetition(HttpServletRequest request, @RequestParam MultipartFile compFile) {
+        return  cs.updateCompetition(compFile,request);
     }
 }

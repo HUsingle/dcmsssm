@@ -1,7 +1,15 @@
 /**
  * Created by single on 2018/1/23.
  */
-function initTable(table, url, params, titles, hasCheckbox,sortNum) {
+/*function initTable创建表格
+ table 表格的id
+ url 加载表格数据的url
+ params 表格字段的参数名称（英文）
+ titles 表格字段的中文标题
+ hacheckbox 是否有checkbox
+ sortNum 排序的字段下标数
+ * */
+function initTable(table, url, params, titles, hasCheckbox, sortNum) {
     $(table).bootstrapTable({
         url: url,//请求后台的url
         method: 'post',
@@ -13,13 +21,13 @@ function initTable(table, url, params, titles, hasCheckbox,sortNum) {
         sortable: true,//是否启用排序
         sortOrder: "asc",//排序方式
         //  sortClass:"username",
-         //sortName:"username",
+        //sortName:"username",
         // toolbar: toolbar,//一个jQuery 选择器，指明自定义的toolbar
         queryParams: function (params) { //传递参数
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
                 limit: params.limit,                         //页面大小
-                offset: (params.offset / params.limit) + 1 , //页码
+                offset: (params.offset / params.limit) + 1, //页码
                 sort: params.order,
                 search: $("#search").val()
             };
@@ -40,15 +48,45 @@ function initTable(table, url, params, titles, hasCheckbox,sortNum) {
         cardView: false,//是否显示详细视图
         detailView: false,//是否显示父子表
         columns: createCols(params, titles, hasCheckbox),//列配置项
-        onLoadSuccess: function(data){ //加载成功时执行
-                if (data.total && !data.rows.length) {
-                    $(table).bootstrapTable('prevPage').bootstrapTable('refresh');
-                }
+        onLoadSuccess: function (data) { //加载成功时执行
+            if (data.total && !data.rows.length) {
+                $(table).bootstrapTable('prevPage').bootstrapTable('refresh');
+            }
+            if ("teacher" in data["rows"][0]) {//返回数据有老师这个变量
+                var result = data["rows"];
+                $.each(result, function (index, content) {//对数组进行循环
+                    if (content["isTeam"] === 1) {
+                        content["isTeam"] = "团队赛";
+                    } else {
+                        content["isTeam"] = "个人赛";
+                    }
+                    content["tid"] = content["teacher"].name;
+                    if ("file" in content) {
+                        if (content["file"].length > 0) {
+                            var file = content["file"].split("/");
+                            content["file"] = file[file.length - 1];
+                        }
+                    } else {
+                        if (!("compeStartTime" in content))
+                            content.compeStartTime= "-";
+                        if (!("compeEndTime" in content))
+                            content.compeEndTime= "-";
+                        if (!("applyStart" in content))
+                            content.applyStart="-";
+                        if (!("applyEnd" in content))
+                            content.applyEnd="-";
+                        content.file= "-";
+                    }
+                });
+                $(table).bootstrapTable("load", data);
+            }
+            return true;//返回值很重要
         }
 
     });
+    //创建表头
     function createCols(params, titles, hasCheckbox) {
-        if (params.length != titles.length)
+        if (params.length !== titles.length)
             return null;
         var arr = [];
         if (hasCheckbox) {
@@ -60,8 +98,8 @@ function initTable(table, url, params, titles, hasCheckbox,sortNum) {
             var obje = {};
             obje.field = params[i];
             obje.title = titles[i];
-            if(i===sortNum){
-            obje.sortable=true;
+            if (i === sortNum) {
+                obje.sortable = true;
             }
             obje.align = 'center';
             arr.push(obje);
@@ -69,6 +107,7 @@ function initTable(table, url, params, titles, hasCheckbox,sortNum) {
         return arr;
     }
 }
+//初始弹出信息
 function initMessage(message, state) {
     $.globalMessenger().post({
         message: message,//提示信息
@@ -78,7 +117,14 @@ function initMessage(message, state) {
         hideOnNavigate: true //是否隐藏导航
     });
 }
-
+/*
+ *  function initUpdateInformation初始更新函数
+ * titleOne添加信息处的标题
+ * titleTwo修改信息处的标题
+ * inputFields添加信息输入框的名字，id
+ * deleteUrl删除信息的Url
+ * id id列
+ * */
 function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
     $("#add").click(function () {
         $("#myBoxTitle").text(titleOne);
@@ -89,15 +135,15 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
         $("#myBox").show();
     });
     $("#update").click(function () {
-        var jsonArray=$("#myTable").bootstrapTable('getSelections');
+        var jsonArray = $("#myTable").bootstrapTable('getSelections');
         if (jsonArray.length < 1) {
-          initMessage("请选择一条数据!",'error');
+            initMessage("请选择一条数据!", 'error');
         } else if (jsonArray.length > 1) {
-           initMessage("请选择一条数据,不要多选!",'error');
+            initMessage("请选择一条数据,不要多选!", 'error');
         } else {
             $("#myBoxTitle").text(titleTwo);
-            for(var i=0;i<inputFields.length;i++){
-                $('#'+inputFields[i]).val(jsonArray[0][inputFields[i]]);
+            for (var i = 0; i < inputFields.length; i++) {
+                $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
             }
             // if(inputFields[0]=='username')
             $('#' + inputFields[0]).attr("disabled", true);
@@ -107,31 +153,31 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
         }
     });
     $("#delete").click(function () {
-        var jsonArray=$("#myTable").bootstrapTable('getSelections');
+        var jsonArray = $("#myTable").bootstrapTable('getSelections');
         if (jsonArray.length < 1) {
-         initMessage("请至少选择一条记录!",'error');
-        } else  {
-            var ids='';
-            for (var i=0;i<jsonArray.length;i++)
-                ids+=jsonArray[i][id]+',';
-          $.ajax({
-              type:'POST',
-              url:deleteUrl,
-              data:{
-                  'id':ids
-              },
-              dataType:"json",
-              success:function (data) {
-                  if(data['result']>0){
-                      initMessage("删除成功！",'success');
+            initMessage("请至少选择一条记录!", 'error');
+        } else {
+            var ids = '';
+            for (var i = 0; i < jsonArray.length; i++)
+                ids += jsonArray[i][id] + ',';
+            $.ajax({
+                type: 'POST',
+                url: deleteUrl,
+                data: {
+                    'id': ids
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data['result'] > 0) {
+                        initMessage("删除成功！", 'success');
 
-                      $("#myTable").bootstrapTable('refresh');
+                        $("#myTable").bootstrapTable('refresh');
 
-                  }else{
-                      initMessage("删除失败！",'error');
-                  }
-              }
-          });
+                    } else {
+                        initMessage("删除失败！", 'error');
+                    }
+                }
+            });
         }
     });
 
@@ -140,23 +186,34 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
      $("#myDiv").show();
      });*/
 }
-
-function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key,addTitle,isAutoAddId) {
-    $("#quit").click(function () {
+/*
+ * function initAddAndUpdate初始添加或者修改信息
+ * addUrl 添加信息的url
+ * UpdateUrl 修改信息的Url
+ * UpdateParams 修改id的参数
+ * errorMessage 主键（那个主键）不能为空的错误信息
+ * key 主键输入框的id（如$("#username")）
+ * addTitle 添加信息的标题
+ * isAutoAddId 是否是自增id
+ * */
+function initAddAndUpdate(addUrl, UpdateUrl, UpdateParams, errorMessage, key, addTitle, isAutoAddId) {
+    $("#quit").click(function () {//点击返回按钮，显示表格，隐藏添加或者修改信息
         $("#myBox").hide();
         $("#myDiv").show();
     });
     $("#submitButton").click(function () {
-        var id=key.val();
-        if (id.length === 0&&!isAutoAddId) {
+        var id = key.val();
+        if (id.length === 0 && !isAutoAddId) {
             initMessage(errorMessage, "error");
         } else {
-            if ($("#myBoxTitle").text() ===addTitle ) {
+            // var formData = new FormData(document.getElementById("myForm"));//表单id
+            if ($("#myBoxTitle").text() === addTitle) {
                 $.ajax({
                     type: "POST",
                     url: addUrl,
                     dataType: "json",
                     data: $("#myFrom").serialize(),
+                    //data:fromData,
                     success: function (data) {
                         if (data['result'] > 0) {
                             if (data['result'] === 1) {
@@ -177,7 +234,7 @@ function initAddAndUpdate(addUrl,UpdateUrl,UpdateParams,errorMessage,key,addTitl
                     type: "POST",
                     url: UpdateUrl,
                     dataType: "json",
-                    data:  UpdateParams + id + "&" + $("#myFrom").serialize(),
+                    data: UpdateParams + id + "&" + $("#myFrom").serialize(),
                     success: function (data) {
                         if (data['result'] > 0) {
                             initMessage("修改成功！", 'success');

@@ -15,4 +15,5 @@ public interface TeacherMapper {
      int updateTeacher(Teacher teacher);
      int deleteTeacher(Long[] ids);
      int addTeacher(List<Teacher> teachers);
+     Teacher findTeacherById(Long id);
 }

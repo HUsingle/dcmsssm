@@ -3,11 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.ClassroomMapper">
-    <select id="getAllClassroom" resultType="classroom" parameterType="string">
+    <select id="getAllClassroom" resultType="com.dcms.model.Classroom" parameterType="string">
         select classroom_id as id, classroom_number as number, 
         classroom_site as site from db_classroom order by classroom_id ${sort}
     </select>
-    <update id="updateClassroom" parameterType="classroom">
+    <update id="updateClassroom" parameterType="com.dcms.model.Classroom">
         update db_classroom set classroom_number=#{number},classroom_site=#{site}
        where classroom_id=#{id}
     </update>
@@ -17,7 +17,7 @@
             #{id}
         </foreach>
     </delete>
-    <insert id="addClassroom" parameterType="classroom">
+    <insert id="addClassroom" parameterType="com.dcms.model.Classroom">
         insert into db_classroom(classroom_number,classroom_site)
         values
         <foreach collection="list" item="classroom" separator=",">

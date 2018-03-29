@@ -8,10 +8,10 @@
         s_major_class as studentClass, s_password as password, s_email as email,
         s_college as college
     </sql>
-    <select id="getAllStudent" resultType="student" parameterType="string">
+    <select id="getAllStudent" resultType="com.dcms.model.Student" parameterType="string">
         select <include refid="sqlColumn"/> from  db_student order by s_number ${sort}
     </select>
-    <select id="getSearchStudent" resultType="student" parameterType="string">
+    <select id="getSearchStudent" resultType="com.dcms.model.Student" parameterType="string">
        select <include refid="sqlColumn"/> from db_student
         where s_name like concat('%',#{search},'%') union
         select <include refid="sqlColumn"/> from db_student
@@ -22,7 +22,7 @@
          insert into db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
          values(#{username},#{name},#{phone},#{studentClass},#{password},#{email},#{college})
      </insert>-->
-    <update id="updateStudent" parameterType="student">
+    <update id="updateStudent" parameterType="com.dcms.model.Student">
         update db_student set s_name=#{name},s_phone=#{phone},s_major_class=#{studentClass},
         s_password=#{password},s_email=#{email},s_college=#{college}  where s_number=#{username}
     </update>
@@ -35,7 +35,7 @@
             item为每一项的名称
             open,close是以什么元素将这个集合包围，separator为分割符-->
     </delete>
-    <insert id="addOrUpdateStudent" parameterType="student">
+    <insert id="addOrUpdateStudent" parameterType="com.dcms.model.Student">
         replace into db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
         values
         <foreach collection="list" item="student" separator=",">

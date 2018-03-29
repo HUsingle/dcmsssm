@@ -121,7 +121,7 @@ public class ExcelUtil {
                 sheet.setColumnWidth(i, 256 * (head[i].length() * 2 + 14));
             }
             if (isModel) {//如果是模板，导出空白数据
-                for (int j = 1; j <blankRow; j++) {//设置前400行为文本格式类型
+                for (int j = 1; j <blankRow; j++) {//设置前blankRow行为文本格式类型
                     row = sheet.createRow(j);
                     for (int k = 0; k < head.length; k++) {
                         cell = row.createCell(k);
@@ -142,7 +142,7 @@ public class ExcelUtil {
 
     }
 
-    //导入表格，解析表格
+    //导入表格，解析表格，获取相关实体的列表
     public static List importExcel(MultipartFile file, String[] head, ExcelData excelData) {
         String fileName = file.getOriginalFilename();
         Workbook workbook = null;
@@ -150,35 +150,35 @@ public class ExcelUtil {
         List<String> errorList = new ArrayList<String>();
         try {
             InputStream inputStream = file.getInputStream();
-            if (fileName.endsWith("xls")) {
+            if (fileName.endsWith("xls")) {//判断excel的后缀
                 workbook = new HSSFWorkbook(inputStream);
             } else {
                 workbook = new XSSFWorkbook(inputStream);
             }
-            Sheet sheet = workbook.getSheetAt(0);
-            int firstRowNum = sheet.getFirstRowNum();
-            int lastRowNum = sheet.getLastRowNum();
+            Sheet sheet = workbook.getSheetAt(0);//获取表头
+            int firstRowNum = sheet.getFirstRowNum();//获取第一行下标
+            int lastRowNum = sheet.getLastRowNum();//获取最后一行下标
             if (lastRowNum < 1) {
                 errorList.add(Tool.result("请填入相关数据！"));
                 return errorList;
             }
-            for (int i = firstRowNum; i <= lastRowNum; i++) {
-                Row row = sheet.getRow(i);
+            for (int i = firstRowNum; i <= lastRowNum; i++) {//从第一行到最后一行获取数据
+                Row row = sheet.getRow(i);  //获得一行
                 if (row != null) {
-                    int lastCellNum = row.getLastCellNum();
-                    if (lastCellNum != head.length) {
+                    int lastCellNum = row.getLastCellNum(); //获得最后一个单元格下标
+                    if (lastCellNum != head.length) {//判断下标与表头的长度是否相等
                         errorList.add(Tool.result("缺少列！"));
                         return errorList;
                     }
-                    if (firstRowNum == i) {
+                    if (firstRowNum == i) {//如果是表头
                         for (int k = 0; k < head.length; k++) {
                             Cell headCell = row.getCell(k);
-                            if (!head[k].equals(getCellValue(headCell))) {
+                            if (!head[k].equals(getCellValue(headCell))) {////判断导入表格的表头的字段是否正确
                                 errorList.add(Tool.result("表头字段不对或者顺序不对！"));
                                 return errorList;
                             }
                         }
-                    } else {
+                    } else {//不是，则将表格的一行数据放在list中，再添加lists中
                         List<String> list = new ArrayList<String>();
                         for (int j = row.getFirstCellNum(); j < lastCellNum; j++) {
                             Cell cell = row.getCell(j);
