@@ -64,12 +64,12 @@ public class Competition {
         this.compeStartTime = compeStartTime;
     }
 
-    public int getCompTime() {
-        return compTime;
+    public Timestamp getCompeEndTime() {
+        return compeEndTime;
     }
 
-    public void setCompTime(int compTime) {
-        this.compTime = compTime;
+    public void setCompeEndTime(Timestamp compeEndTime) {
+        this.compeEndTime = compeEndTime;
     }
 
     public String getHost() {
