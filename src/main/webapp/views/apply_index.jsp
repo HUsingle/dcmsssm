@@ -97,11 +97,13 @@
         $(".apply_at_once").click(function () {
            // var id = 1231;
             //alert(compid)
+
             $.ajax({
                 url: "${pageContext.request.contextPath}/comp/isTeamComp",
                 data:{id:compId},
                 success: function(msg){
-                    alert(${isTeam})
+                    var isTeam =${isTeam};
+                    alert(isTeam)
                 }
             });
         })
