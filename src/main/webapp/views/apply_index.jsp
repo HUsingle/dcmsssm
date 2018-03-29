@@ -53,15 +53,17 @@
 
     $(document).ready(function () {
         var compId;
+        var fileName;
         //获取最新竞赛
         $.ajax({
             url: "${pageContext.request.contextPath}/comp/getLatestComp",
             dataType: "json",
             success: function(msg){
                 compId = msg[0].cid;
+                filePath = "${pageContext.request.contextPath}/fileOperate/download?filename="+msg[0].file;  //文件路径
                 $(".comp_name").text(msg[0].name);
                 $(".comp_place").text(msg[0].place);
-                $(".comp_host").text(msg[0].compTime+"分钟");
+                $(".comp_end_time").text(msg[0].compeEndTime);
                 $(".comp_start_time").text(msg[0].compeStartTime);
                 $(".apply_time").text(msg[0].applyStart+"~"+msg[0].applyEnd);
                 var start = new Date(msg[0].applyStart).getTime();
@@ -81,19 +83,15 @@
                 }
                 $(".comp_state").text(str);
                 $(".comp_state").css({ "color": color });   //设置报名状态颜色
+                $(".down_file").attr("href",filePath);   //设置下载链接
+                $(".file_name").text(msg[0].file)
+                $(".down_file:link").css("color","#00ff7f");
+                $(".down_file:hover").css({"background-color":"red","color":"yellow"});
+
             }
         });
 
-        //下载附件
-        $(".down_file").click(function () {
-            $.ajax({
-                url: "${pageContext.request.contextPath}/fileOperate/download",
-                data:{path:"练习效果.png"},
-                success: function(msg){
 
-                }
-            });
-        });
 
         //报名
         $(".apply_at_once").click(function () {
@@ -192,10 +190,10 @@
         </h5>
 
         <div class="news_body" style="width: 850px;">
-            <div  style="float: left;width: 400px;height: auto;padding: 10px;">
+            <%--<div  style="float: left;width: 400px;height: auto;padding: 10px;">
                 <img src="../resources/images/acm.jpg" width="90%" height="90%"/>
-            </div>
-            <table id="newGame" class="table" style="width: 450px;float: right;">
+            </div>--%>
+            <table id="newGame" class="table" style="width: 850px;float: right;">
                 <thead>
                 <tr>
                     <th>标题</th>
@@ -212,20 +210,27 @@
                     <td class="comp_place"></td>
                 </tr>
                 <tr>
-                    <th>竞赛时间</td>
-                    <td class="comp_host"></td>
+                    <th>竞赛开始时间</td>
+                    <td class="comp_start_time"></td>
+                </tr>
+                <tr>
+                    <th>竞赛结束时间</td>
+                    <td class="comp_end_time"></td>
                 </tr>
                 <tr>
                     <th>报名时间</td>
                     <td class="apply_time"></td>
                 </tr>
-                <tr>
-                    <th>竞赛时间</td>
-                    <td class="comp_start_time"></td>
-                </tr>
+
                 <tr>
                     <th>附件</td>
-                    <td><a href="#" class="down_file"  value="下载">ssssss</a></td>
+                    <td>
+
+                        <a  class="down_file" >
+                            <span class="glyphicon glyphicon-circle-arrow-down" ></span>
+                            <span class="file_name" ></span>
+                        </a>
+                    </td>
                 </tr>
                 <tr>
                     <td></td>

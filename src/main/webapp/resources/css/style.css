@@ -263,11 +263,19 @@ nav,#tf-footer {
 	
 }
 #newGame>thead,tbody>tr>th{
-	background-color: #B9BBBE;
+	background-color: #f3f3f3;
+    text-align: left;
+    width: 15%;
 
+}
+#newGame{
+    font-family: "Microsoft YaHei";
+    font-size: 18px;
 }
 td{
 	color: #000000;
+    height: 50px;
+
 }
 #encourage{
 	width: 850px;

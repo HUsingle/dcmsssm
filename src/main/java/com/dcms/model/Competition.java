@@ -10,7 +10,7 @@ public class Competition {
     @JSONField (format="yyyy-MM-dd HH:mm")               //fastjson自带格式化时间方式
     private Timestamp publishTime;  //发布时间
     @JSONField (format="yyyy-MM-dd HH:mm")
-    private Timestamp compeStartTime;//竞赛开始时间
+    private Timestamp compeStartTime;   //竞赛开始时间
     @JSONField (format="yyyy-MM-dd HH:mm")
     private Timestamp compeEndTime;     //竞赛结束时间
     private String host;   //主办方
@@ -23,15 +23,6 @@ public class Competition {
     private int isTeam;   //团队赛？
     private int tid;    //教师ID
     private String group; //组别
-    private Teacher teacher;//级联的老师
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
 
     public String getGroup() {
         return group;
@@ -73,12 +64,12 @@ public class Competition {
         this.compeStartTime = compeStartTime;
     }
 
-    public Timestamp getCompeEndTime() {
-        return compeEndTime;
+    public int getCompTime() {
+        return compTime;
     }
 
-    public void setCompeEndTime(Timestamp compeEndTime) {
-        this.compeEndTime = compeEndTime;
+    public void setCompTime(int compTime) {
+        this.compTime = compTime;
     }
 
     public String getHost() {
