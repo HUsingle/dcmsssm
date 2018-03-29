@@ -9,8 +9,10 @@ import java.util.List;
 
 @Service
 public interface CompetitionService {
+    //查询最新竞赛
     String getLatestComp();
-    boolean qryIsTeam(String id);   // 判断是否是团队赛
+    // 判断是否是团队赛
+    boolean qryIsTeam(String id);
     //查询所有竞赛
     List<Competition> findAllCompetition();
     //添加竞赛
