@@ -102,8 +102,8 @@
                 url: "${pageContext.request.contextPath}/comp/isTeamComp",
                 data:{id:compId},
                 success: function(msg){
-                    var isTeam =${isTeam};
-                    alert(isTeam)
+                   /* var isTeam =${isTeam};
+                    alert(isTeam)*/
                 }
             });
         })
