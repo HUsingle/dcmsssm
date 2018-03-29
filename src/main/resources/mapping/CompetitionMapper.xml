@@ -15,12 +15,14 @@
     <select id="findAllCompetition" resultMap="compMap">
         select * from db_competition
     </select>
-    <select id="findCompetitionFile" resultMap="compMap">
+    <select id="findCompetitionFile" resultType="string">
         select c_file from db_competition where c_id = #{id}
     </select>
     <update id="updateCompetition">
-        update db_competition set(c_name,c_publish_time,c_competition_start,c_competition_end,c_host,c_file,c_place,c_apply_start,c_apply_end,c_is_team,t_id,c_group)
-        values(#{name},#{publishTime},#{compeStartTime},#{compeEndTime},#{host},#{file},#{place},#{applyStart},#{applyEnd},#{isTeam},#{tid},#{group})
+        update db_competition set c_name=#{name},c_competition_start=#{compeStartTime},
+        c_competition_end=#{compeEndTime},c_host=#{host},c_file=#{file},c_place=#{place},
+        c_apply_start=#{applyStart},c_apply_end=#{applyEnd},c_is_team=#{isTeam},t_id#{tid},c_group=#{group}
+        where c_id=#{id}
     </update>
     <delete id="deleteCompetition">
         delete from db_competition where c_id in
