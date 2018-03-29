@@ -18,14 +18,15 @@
     <select id="findCompetitionFile" resultMap="compMap">
         select c_file from db_competition where c_id = #{id}
     </select>
+    <update id="updateCompetition">
+        update db_competition set(c_name,c_publish_time,c_competition_start,c_competition_end,c_host,c_file,c_place,c_apply_start,c_apply_end,c_is_team,t_id,c_group)
+        values(#{name},#{publishTime},#{compeStartTime},#{compeEndTime},#{host},#{file},#{place},#{applyStart},#{applyEnd},#{isTeam},#{tid},#{group})
+    </update>
     <delete id="deleteCompetition">
         delete from db_competition where c_id in
         <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
-        <!--collection传人集合的参数名称
-            item为每一项的名称
-            open,close是以什么元素将这个集合包围，separator为分割符-->
     </delete>
     <!--添加竞赛-->
     <insert id="addCompetition" parameterType="com.dcms.model.Competition">

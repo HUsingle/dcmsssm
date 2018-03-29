@@ -24,6 +24,16 @@ public class Competition {
     private int tid;    //教师ID
     private String group; //组别
 
+    private Teacher teacher;
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
     public String getGroup() {
         return group;
     }
