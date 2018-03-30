@@ -119,7 +119,7 @@
                     <ul class="treeview-menu">
                         <li><a href="${path}/views/competitionGroupManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛组别管理</span></a></li>
                         <li><a href="${path}/comp/competitionManage" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛项目管理</span></a></li>
-                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛文件管理</span></a></li>
+                        <li><a href="${path}/views/competitionFileManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛文件管理</span></a></li>
                     </ul>
                 </li>
                 <li><a href="#"><i class="fa fa-list"></i><span>报名管理</span></a></li>
@@ -279,7 +279,7 @@
             allowedFileExtensions: ["xls", "xlsx"], //接收的文件后缀
             maxFileCount: 1,                        //最大上传文件数限制
             enctype: 'multipart/form-data',
-            previewFileIcon: '<i class="fa fa-file"></i>',
+            //previewFileIcon: '<i class="fa fa-file"></i>',
             initialPreviewAsData: true, // defaults markup
             preferIconicPreview: false // 是否优先显示图标  false 即优先显示图片
         });

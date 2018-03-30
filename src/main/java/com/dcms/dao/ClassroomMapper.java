@@ -15,5 +15,4 @@ public interface ClassroomMapper {
     int updateClassroom(Classroom classroom);
     int deleteClassroom(Integer[] ids);
     int addClassroom(List<Classroom> classrooms);
-
 }

@@ -18,11 +18,16 @@
     <select id="findCompetitionFile" resultType="string">
         select c_file from db_competition where c_id = #{id}
     </select>
-    <update id="updateCompetition">
+    <select id="findCompetitionFileIsExist" resultType="int">
+        select count(c_id) from db_competition where c_file = #{file}
+    </select>
+    <select id="findNotUpdCompetitionFileIsExist" resultType="int">
+        select count(c_id) from db_competition where c_file = #{file} and c_id != #{id}
+    </select>
+    <update id="updateCompetition" parameterType="com.dcms.model.Competition">
         update db_competition set c_name=#{name},c_competition_start=#{compeStartTime},
-        c_competition_end=#{compeEndTime},c_host=#{host},c_file=#{file},c_place=#{place},
-        c_apply_start=#{applyStart},c_apply_end=#{applyEnd},c_is_team=#{isTeam},t_id#{tid},c_group=#{group}
-        where c_id=#{id}
+        c_competition_end=#{compeEndTime},c_host=#{host},c_file=#{file},c_place=#{place},c_apply_start=#{applyStart},
+       c_apply_end=#{applyEnd},c_is_team=#{isTeam},t_id=#{tid},c_group=#{group} where c_id= #{cid}
     </update>
     <delete id="deleteCompetition">
         delete from db_competition where c_id in

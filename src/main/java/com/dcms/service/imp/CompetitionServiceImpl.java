@@ -46,21 +46,25 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     public String addCompetition(MultipartFile file, HttpServletRequest request) {
-        String fileName = null;
+        String fileName = "";
         try {
-            //获取Web项目下upload/com_file的全路径
             if (!file.isEmpty()) {
-                String path = request.getSession().getServletContext().getRealPath("upload/comp_file");
+                //获取Web项目下upload/com_file的全路径
+                String path = request.getSession().getServletContext().getRealPath(Tool.saveCompAffixPath);
                 fileName = file.getOriginalFilename();
+                //判断上传过的竞赛文件是否重名，重名则将上传文件名进行修改
+                if (compMapper.findCompetitionFileIsExist(fileName) > 0) {
+                    fileName = System.currentTimeMillis() + fileName;
+                }
                 File uploadFile = new File(path, fileName);
-                if (!uploadFile.exists()) {
+                if (!uploadFile.exists()) {//判断该文件路径是否存在，没有则创建
                     uploadFile.mkdirs();
                 }
                 file.transferTo(uploadFile);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return Tool.result(e.toString());
+            return Tool.result(0);
         }
         String[] compFieldKey = {"compeStartTime", "compeEndTime", "applyStart", "applyEnd",
                 "host", "place", "name", "isTeam", "tid", "groups"};
@@ -69,10 +73,6 @@ public class CompetitionServiceImpl implements CompetitionService {
             compFieldValue[i] = request.getParameter(compFieldKey[i]);
 
         }
-      /*  System.out.println("7  "+compFieldValue[7] + "45165" + "  8  "+compFieldValue[8]);
-        Enumeration<String> h = request.getParameterNames();
-        while (h.hasMoreElements())
-            System.out.println(h.nextElement());*/
         Competition competition = new Competition();
         if (compFieldValue[0].length() > 0) {
             competition.setCompeStartTime(Timestamp.valueOf(compFieldValue[0] + ":00"));
@@ -93,9 +93,8 @@ public class CompetitionServiceImpl implements CompetitionService {
         competition.setTid(Integer.parseInt(compFieldValue[8]));
         competition.setGroup(compFieldValue[9]);
         competition.setPublishTime(new Timestamp(new Date().getTime()));
-        if (!file.isEmpty())
-            competition.setFile("upload/com_file/" + fileName);
-        String result = compMapper.addCompetition(competition) + "";
+        competition.setFile(fileName);
+        int result = compMapper.addCompetition(competition);
         return Tool.result(result);
     }
 
@@ -103,9 +102,11 @@ public class CompetitionServiceImpl implements CompetitionService {
         Integer[] deleteId = Tool.getInteger(id);
         String[] file = new String[deleteId.length];
         for (int i = 0; i < deleteId.length; i++) {
+            //获取删除文件的文件名
             file[i] = compMapper.findCompetitionFile(deleteId[i]);
+            //如果存在文件则进行删除
             if (file[i] != null && file[i].length() > 0) {
-                String path = request.getSession().getServletContext().getRealPath(file[i]);
+                String path = request.getSession().getServletContext().getRealPath(Tool.saveCompAffixPath+file[i]);
                 File compFile = new File(path);
                 if (compFile.exists()) {
                     compFile.delete();
@@ -118,33 +119,46 @@ public class CompetitionServiceImpl implements CompetitionService {
     public String updateCompetition(MultipartFile file, HttpServletRequest request) {
         String fileName = "";
         String[] compFieldKey = {"compeStartTime", "compeEndTime", "applyStart", "applyEnd",
-                "host", "place", "name", "isTeam", "tid", "groups","cid"};
+                "host", "place", "name", "isTeam", "tid", "groups", "cid"};
         String[] compFieldValue = new String[compFieldKey.length];
         for (int i = 0; i < compFieldKey.length; i++) {
             compFieldValue[i] = request.getParameter(compFieldKey[i]);
         }
         try {
-            if (!file.isEmpty()) {
-                String path = request.getSession().getServletContext().getRealPath("upload/comp_file");
-                fileName = file.getOriginalFilename();
-                String newFileName="upload/com_file/" + fileName;
-                String oldFileName=compMapper.findCompetitionFile(Integer.parseInt(compFieldValue[0]));
-                if(!newFileName.equals(oldFileName)){//删除旧的文件
-                    String oldPath = request.getSession().getServletContext().getRealPath(oldFileName);
-                    File oldFile = new File(oldPath);
+            //获取竞赛文件所在路径
+            String path = request.getSession().getServletContext().getRealPath(Tool.saveCompAffixPath);
+            //查找以前所存文件名称
+            int id=Integer.parseInt(compFieldValue[10]);
+            String oldFileName = compMapper.findCompetitionFile(id);
+            if (!file.isEmpty()) {//如果上传文件不为空
+                fileName = file.getOriginalFilename();//获取上传文件名
+                //如果原来文件和修改的文件名字不一样，删除旧的文件
+                if (oldFileName!=null&&oldFileName.length()>0&&!fileName.equals(oldFileName)) {
+                    File oldFile = new File(path,oldFileName);
                     if (oldFile.exists()) {
                         oldFile.delete();
                     }
                 }
-                File uploadFile = new File(path, fileName);
+                //判断上传过的竞赛文件(除了自己)是否重名，重名则将上传文件名进行修改
+                if (compMapper.findNotUpdCompetitionFileIsExist(fileName,id) > 0) {
+                    fileName = System.currentTimeMillis() + fileName;
+                }
+                File uploadFile = new File(path, fileName);//创建修改文件
                 if (!uploadFile.exists()) {
                     uploadFile.mkdirs();
                 }
-                file.transferTo(uploadFile);
+                file.transferTo(uploadFile);//写入文件
+            }else{//如果上传文件为空,删除已经存在的文件
+                if(oldFileName!=null&&oldFileName.length()>0){
+                    File oldFile = new File(path,oldFileName);
+                    if (oldFile.exists()) {
+                        oldFile.delete();
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return Tool.result(e.toString());
+            return Tool.result(0);
         }
         Competition competition = new Competition();
         if (compFieldValue[0].length() > 0) {
@@ -166,10 +180,8 @@ public class CompetitionServiceImpl implements CompetitionService {
         competition.setTid(Integer.parseInt(compFieldValue[8]));
         competition.setGroup(compFieldValue[9]);
         competition.setCid(Integer.parseInt(compFieldValue[10]));
-        if (!file.isEmpty())
-            competition.setFile("upload/com_file/" + fileName);
-        String result = compMapper.updateCompetition(competition) + "";
+        competition.setFile(fileName);
+        int result = compMapper.updateCompetition(competition);
         return Tool.result(result);
-
     }
 }

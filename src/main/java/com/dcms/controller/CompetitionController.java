@@ -81,7 +81,7 @@ public class CompetitionController {
         return cs.deleteCompetition(id,request);
     }
 
-    @RequestMapping(value = "/updateCompetition", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateCompetition", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String updateCompetition(HttpServletRequest request, @RequestParam MultipartFile compFile) {
         return  cs.updateCompetition(compFile,request);

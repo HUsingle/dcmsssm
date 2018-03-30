@@ -52,7 +52,8 @@ function initTable(table, url, params, titles, hasCheckbox, sortNum) {
             if (data.total && !data.rows.length) {
                 $(table).bootstrapTable('prevPage').bootstrapTable('refresh');
             }
-            if ("teacher" in data["rows"][0]) {//返回数据有老师这个变量
+
+            if (data["rows"]!=null&&data["rows"].length>0&&("teacher" in data["rows"][0])) {//返回数据有老师这个变量
                 var result = data["rows"];
                 $.each(result, function (index, content) {//对数组进行循环
                     if (content["isTeam"] === 1) {
@@ -61,22 +62,23 @@ function initTable(table, url, params, titles, hasCheckbox, sortNum) {
                         content["isTeam"] = "个人赛";
                     }
                     content["tid"] = content["teacher"].name;
-                    if ("file" in content) {
+                   /* if ("file" in content) {
                         if (content["file"].length > 0) {
                             var file = content["file"].split("/");
                             content["file"] = file[file.length - 1];
                         }
-                    } else {
+                    } else {*/
                         if (!("compeStartTime" in content))
-                            content.compeStartTime= "-";
+                            content.compeStartTime = "";
                         if (!("compeEndTime" in content))
-                            content.compeEndTime= "-";
+                            content.compeEndTime = "";
                         if (!("applyStart" in content))
-                            content.applyStart="-";
+                            content.applyStart = "";
                         if (!("applyEnd" in content))
-                            content.applyEnd="-";
-                        content.file= "-";
-                    }
+                            content.applyEnd = "";
+                        if (!("file" in content))
+                             content.file = "";
+                    //}
                 });
                 $(table).bootstrapTable("load", data);
             }
@@ -130,6 +132,11 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
         $("#myBoxTitle").text(titleOne);
         for (var i = 0; i < inputFields.length; i++)
             $('#' + inputFields[i]).val("");
+        if (inputFields.length === 12) {
+            //    $("#group").find("option[text='pxx']").attr("selected",true);
+//
+            //    $("#group").selectpicker('refresh');
+        }
         $('#' + inputFields[0]).attr("disabled", false);
         $("#myDiv").hide();
         $("#myBox").show();
@@ -142,14 +149,22 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
             initMessage("请选择一条数据,不要多选!", 'error');
         } else {
             $("#myBoxTitle").text(titleTwo);
-            for (var i = 0; i < inputFields.length; i++) {
-                $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
+            if (inputFields.length < 12) {
+                for (var i = 0; i < inputFields.length; i++) {
+                    $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
+                }
+            } else {
+                for (var i = 0; i < 8; i++) {
+                    $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
+                }
+                if (inputFields.length === 12) {
+                  //  $("#isTeam").find("option[text=" + jsonArray[0]['isTeam'] + "]").attr("selected", true);
+                    //    $("#group").selectpicker('refresh');
+                }
             }
-            // if(inputFields[0]=='username')
             $('#' + inputFields[0]).attr("disabled", true);
             $("#myDiv").hide();
             $("#myBox").show();
-
         }
     });
     $("#delete").click(function () {
@@ -170,7 +185,6 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
                 success: function (data) {
                     if (data['result'] > 0) {
                         initMessage("删除成功！", 'success');
-
                         $("#myTable").bootstrapTable('refresh');
 
                     } else {

@@ -9,6 +9,12 @@ import java.util.regex.Pattern;
  * Created by single on 2017/12/30.
  */
 public class Tool {
+    //竞赛附件保存路径
+    public static final String saveCompAffixPath="upload/comp_affix_file/";
+    //竞赛文件保存路径
+    public static final String saveCompFilePath="upload/comp_file/";
+
+
     //返回一个带int结果的json
     public static String result(int result){
         JSONObject resultObject=new JSONObject();

@@ -212,16 +212,14 @@
     }
     $(function () {
         initTable('#myTable', "${path}/comp/getCompetitionList",
-            ['cid','name','compeStartTime','compeEndTime','host','file','place','applyStart','applyEnd','isTeam','tid','group'],
-            ['id', '竞赛名称','比赛开始时间', '比赛结束时间', '举办单位','文件','比赛地点','报名开始时间','报名结束时间','竞赛类型','负责人','竞赛组别'], true, -1);
+            ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
+            ['id', '竞赛名称','比赛开始时间', '比赛结束时间', '举办单位','比赛地点','报名开始时间','报名结束时间','文件','竞赛类型','负责人','竞赛组别'], true, -1);
         $("#myTable").bootstrapTable('hideColumn','cid');
     });
     $("document").ready(
         function () {
-           initUpdateInformation("添加竞赛", "修改竞赛", ['cid','name','compeStartTime','compeEndTime','host','file','place','applyStart','applyEnd','isTeam','tid','group'],
+           initUpdateInformation("添加竞赛", "修改竞赛", ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
                "${path}/comp/deleteCompetition", "cid");
-          /*  initAddAndUpdate("{path}/comp/addCompetition", "{path}/comp/deleteCompetition", "cid=",
-                "", $("#cid"), "添加竞赛", true);*/
             $(".form-date").datetimepicker({
               format: 'yyyy-mm-dd hh:ii',
               language:  'zh-CN',
@@ -253,20 +251,20 @@
                          cache: false,
                          contentType: false,
                          processData: false,
-                         success: function (result) {
-                             if (result['result'] === "1") {
+                         success: function (data) {
+                             if (data['result'] >0) {
                                  initMessage("添加成功！", 'success');
                                  $("#myTable").bootstrapTable('refresh');
                                  $("#myBox").hide();
                                  $("#myDiv").show();
                              } else{
-                                 initMessage(data['result'], 'error');
+                                 initMessage("添加失败,添加的数据存在错误或者服务器异常！", 'error');
                              }
 
                          }
                      });
                    }else{
-                    formData.append("cid",$("#cid").val())
+                    formData.append("cid",$("#cid").val());
                      $.ajax({
                          url: '${path}/comp/updateCompetition' ,
                          type: 'POST',
@@ -274,21 +272,19 @@
                          cache: false,
                          contentType: false,
                          processData: false,
-                         success: function (result) {
-                             if (result['result'] === "1") {
+                         success: function (data) {
+                             if (data['result'] >0) {
                                  initMessage("修改成功！", 'success');
                                  $("#myTable").bootstrapTable('refresh');
                                  $("#myBox").hide();
                                  $("#myDiv").show();
                              } else{
-                                 initMessage(data['result'], 'error');
+                                 initMessage("修改失败,修改的数据存在错误或者服务器异常！", 'error');
                              }
-
                          }
                      });
                  }
-                }
-            );
+                });
 
         }
 

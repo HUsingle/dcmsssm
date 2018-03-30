@@ -1,6 +1,7 @@
 package com.dcms.dao;
 
 import com.dcms.model.Competition;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,7 +12,9 @@ public interface CompetitionMapper {
      int qryIsTeam(String id);  //查询是否是团队赛
      List<Competition> findAllCompetition();//查询所有竞赛信息
      int addCompetition(Competition competition);//添加竞赛信息
-     String findCompetitionFile(int id);
-     int deleteCompetition(Integer[] ids);
-     int updateCompetition(Competition competition);
+     String findCompetitionFile(int id); //根据id查询文件名
+     int deleteCompetition(Integer[] ids); //批量删除竞赛记录
+     int updateCompetition(Competition competition);//更新竞赛
+     int findCompetitionFileIsExist(String file);//添加时是否存在文件名一样的
+     int findNotUpdCompetitionFileIsExist(@Param("file") String file, @Param("id") int id);//修改时除了自己是否存在文件名一样的
 }
