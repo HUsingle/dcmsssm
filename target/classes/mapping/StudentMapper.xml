@@ -43,4 +43,8 @@
             #{student.studentClass},#{student.password},#{student.email},#{student.college})
         </foreach>
     </insert>
+    <!--根据账号密码查询-->
+    <select id="qryByAccountAndPwd" resultType="com.dcms.model.Student">
+        select <include refid="sqlColumn"/> from db_student where s_number =#{param1} and s_password =#{param2}
+    </select>
 </mapper>

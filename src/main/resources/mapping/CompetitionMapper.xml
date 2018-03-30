@@ -8,7 +8,7 @@
         select * from db_competition  order by c_competition_start  LIMIT 1
     </select>
     <!--查询是否是团队赛-->
-    <select id="qryIsTeam" resultMap="compMap">
+    <select id="qryIsTeam" resultType="int">
         select c_is_team from db_competition where c_id = #{param1}
     </select>
     <!--查询所有竞赛-->
