@@ -20,4 +20,6 @@ public interface CompetitionService {
     String updateCompetition(MultipartFile file,HttpServletRequest request);
     //删除竞赛
     String deleteCompetition(String id,HttpServletRequest request);
+    //查询子类别
+    String getCompGroup(String id);
 }

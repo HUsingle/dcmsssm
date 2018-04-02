@@ -40,6 +40,10 @@
         insert into db_competition(c_name,c_publish_time,c_competition_start,c_competition_end,c_host,c_file,c_place,c_apply_start,c_apply_end,c_is_team,t_id,c_group)
         values(#{name},#{publishTime},#{compeStartTime},#{compeEndTime},#{host},#{file},#{place},#{applyStart},#{applyEnd},#{isTeam},#{tid},#{group})
     </insert>
+    <!--查询子类别-->
+    <select id="qryCompGroup" resultType="java.lang.String">
+        select c_group from db_competition where c_id = #{param1}
+    </select>
     <!--竞赛resultMap-->
     <resultMap type="com.dcms.model.Competition" id="compMap">
         <id property="cid" column="c_id"/>

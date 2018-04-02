@@ -75,45 +75,58 @@
                 if(now>end){
                     str = '报名已结束';
                     color = 'red';
+                    $('.apply_at_once').attr("disabled",true);
                 }else if(now >start){
                     str = '报名进行中';
                     color = 'green';
                 }else {
                     str = '报名未开始';
                     color = 'red';
+                    $('.apply_at_once').attr("disabled",true);
                 }
                 $(".comp_state").text(str);
                 $(".comp_state").css({ "color": color });   //设置报名状态颜色
                 $(".down_file").attr("href",filePath);   //设置下载链接
                 $(".file_name").text(msg[0].file)
                 $(".down_file:link").css("color","#00ff7f");
-                $(".down_file:hover").css({"background-color":"red","color":"yellow"});
-
             }
         });
 
 
 
+        //获取session
+        $.post("${pageContext.request.contextPath}/getSession",
+            { sessionName: "account" },function (msg) {
+                //获取学生信息
+                $.post("${pageContext.request.contextPath}/student/qryById",
+                    { account: msg },function (data) {
+                        $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
+                    },"json");
+        },"json");
         //报名
         $(".apply_at_once").click(function () {
-
-
+           //获取并显示竞赛子类别/分组
             $.ajax({
-                url: "${pageContext.request.contextPath}/comp/isTeamComp",
+                url: "${pageContext.request.contextPath}/comp/getCompGroup",
                 data:{id:compId},
                 success: function(msg){
-                 if(msg=="ok"){   //msg=ok是团队赛
-                    alert("team")
-                 }else {    //个人赛
-
-                 }
+                    if(msg=="ng"){  //没有子类别
+                        //判断是否是团队赛
+                        //TODO  是团队赛转团队赛页面，不是直接插入个人信息，提示报名成功
+                    }else {    //有子类别
+                       var group = msg.split(",");    //分割组别
+                       $(".modal_context").empty();   //清空模态框内容
+                      $.each(group,function (i) {
+                          //添加模态框内容
+                          $(".modal_context").append("<a href=\"#\" class=\"list-group-item\">"+group[i]+"</a>");
+                      })
+                        $("#myModal").modal('show');   //显示模态框
+                    }
                 }
             });
+
+
         })
-
-
-
-
         //模态框事件（当模态框对用户可见时触发,  模态框居中显示）
         $('#myModal').on('shown.bs.modal', function (e) {
             // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
@@ -124,6 +137,7 @@
             });
 
         });
+        //
     })
 </script>
 <div id="tf-home">
@@ -139,17 +153,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand logo" href="index.html">Competition</a>
+                    <a class="navbar-brand logo" href="#">Competition</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#tf-home">主页</a></li>
-                        <li><a href="#tf-service">查询</a></li>
-                        <li><a href="#tf-portfolio">集体报名</a></li>
-                        <li><a href="#tf-about">打印准考证</a></li>
-                        <li><a href="#tf-contact">个人信息</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-home"></span>主页</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-search"></span>查询</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-flag" ></span>集体报名</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-print"></span>打印准考证</a></li>
+                        <li><a class="selfInfo" href="#">个人信息</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -251,7 +265,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button class="btn btn-success apply_at_once" data-toggle="modal" data-target="#myModal">立即报名</button></td>
+                    <td><button class="btn btn-success apply_at_once" >立即报名</button></td>
                 </tr>
                 </tbody>
             </table>
@@ -262,10 +276,6 @@
     </div>
 
 </div>
-
-
-
-
 <!--<h2 class="page-header">
 	<div id="">
 		<p>asda</p>
@@ -313,9 +323,11 @@
                     请选择竞赛组别
                 </h4>
             </div>
-            <a href="#" class="list-group-item">java组</a>
-            <a href="#" class="list-group-item">c/c++</a>
-            <a href="#" class="list-group-item">python</a>
+            <div class="modal_context">
+                <a href="#" class="list-group-item">java组</a>
+                <a href="#" class="list-group-item">c/c++</a>
+                <a href="#" class="list-group-item">python</a>
+            </div>
             <div class="modal-footer">
 
                 <button type="button" class="btn btn-primary" data-dismiss="modal">
@@ -325,5 +337,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 </body>
 </html>

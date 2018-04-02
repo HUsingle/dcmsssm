@@ -231,11 +231,11 @@ nav,#tf-footer {
 	color: #f1f1f1;
 }
 #tf-footer {
-	height: 100px;
+	height: 60px;
 	position:fixed; 
 	left:0px;
 	bottom: 0px; 
-	margin-top: 20px; 
+
 	width: 100%;
 }
 #message{

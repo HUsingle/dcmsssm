@@ -43,4 +43,21 @@
             #{student.studentClass},#{student.password},#{student.email},#{student.college})
         </foreach>
     </insert>
+    <!--根据账号密码查询-->
+    <select id="qryByAccountAndPwd" resultType="com.dcms.model.Student">
+        select <include refid="sqlColumn"/> from db_student where s_number =#{param1} and s_password =#{param2}
+    </select>
+    <!--根据学号查询学生信息-->
+    <select id="qryById" resultMap="stuMap">
+        select * from  db_student where s_number = #{param1}
+    </select>
+    <resultMap id="stuMap" type="Student">
+        <result property="username" column="s_number"/>
+        <result property="name" column="s_name"/>
+        <result property="college" column="s_college"/>
+        <result property="password" column="s_password"/>
+        <result property="phone" column="s_phone"/>
+        <result property="email" column="s_email"/>
+        <result property="studentClass" column="s_major_class"/>
+    </resultMap>
 </mapper>

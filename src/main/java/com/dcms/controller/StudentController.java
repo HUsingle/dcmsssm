@@ -116,5 +116,11 @@ public class StudentController {
         return studentService.importStudentExcel(excelFile);
     }
 
-
+    //按学号查询
+    @RequestMapping("/qryById")
+    @ResponseBody
+    public String qryById(String account){
+        String json = studentService.qryById(account);
+        return json;
+    }
 }

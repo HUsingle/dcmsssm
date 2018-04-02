@@ -20,4 +20,6 @@ public interface StudentMapper {
      int addOrUpdateStudent(List<Student> list);
      //查询指定账号密码的学生信息
     Student qryByAccountAndPwd(String account,String pwd);
+    //根据学号查学生信息
+    Student qryById(String account);
 }

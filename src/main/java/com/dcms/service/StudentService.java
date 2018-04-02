@@ -16,6 +16,8 @@ public interface StudentService {
     List<Student> findAllStudent(String sort);
     //按班级/名字查找学生
     List<Student> searchStudent(String search,String sort);
+    //按学号查询
+    String qryById(String account);
     //添加学生
     String addStudent(String username,String name, String password,String college,
                       String phone, String email, String studentClass);

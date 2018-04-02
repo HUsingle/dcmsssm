@@ -89,4 +89,14 @@ public class CompetitionController {
     public String updateCompetition(HttpServletRequest request, @RequestParam MultipartFile compFile) {
         return  cs.updateCompetition(compFile,request);
     }
+
+    @RequestMapping("/getCompGroup")
+    @ResponseBody
+    public String getCompGroup(String id){
+        String group = cs.getCompGroup(id);
+        if (null!=group&&!"".equals(group)){
+            return group;
+        }
+        return "ng";
+    }
 }

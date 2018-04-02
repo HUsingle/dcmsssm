@@ -36,13 +36,18 @@
             var pwd = $(".password").val()
            // alert(account);
             $.ajax({
-                url: "${pageContext.request.contextPath}/login/stuLogin",
+                url: "${pageContext.request.contextPath}/stuLogin",
+                type:"post",
                 data:{account: account, pwd: pwd},
                 success: function(msg){
                     if(msg=="ok"){
-                        $.post("${pageContext.request.contextPath}/login/saveToSession",
-                            { id: account } );
-                        window.location.href="apply_index.jsp"
+                        $.post("${pageContext.request.contextPath}/saveToSession",
+                            { id: account },function (mag) {
+                                if(msg=="ok"){
+                                    window.location.href="apply_index.jsp";
+                                }
+                            } );
+
                     }else {
                         alert("账号或密码不对！");
                     }

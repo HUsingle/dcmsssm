@@ -1,5 +1,6 @@
 package com.dcms.service.imp;
 
+import com.alibaba.fastjson.JSON;
 import com.dcms.dao.StudentMapper;
 import com.dcms.excel.ExcelData;
 import com.dcms.excel.StudentExcelData;
@@ -32,7 +33,15 @@ public class StudentServiceImpl implements StudentService {
            List<Student> studentList = studentMapper.getSearchStudent(search, sort);
         return studentList;
     }
-     public String addStudent(String username, String name, String password,
+    //按学号查询
+    public String qryById(String account) {
+        Student student = studentMapper.qryById(account);
+        List list = new ArrayList();
+        list.add(student);
+        return JSON.toJSONString(list);
+    }
+
+    public String addStudent(String username, String name, String password,
                               String college, String phone,
                               String email, String studentClass) {
          Student student = new Student();

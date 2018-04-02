@@ -33,7 +33,6 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     //判断是否是团队赛
     public boolean qryIsTeam(String id) {
-        System.out.print("sdasdas" + compMapper.qryIsTeam(id));
         int isTeam = compMapper.qryIsTeam(id);
         if (isTeam == 1) {
             return true;
@@ -114,6 +113,11 @@ public class CompetitionServiceImpl implements CompetitionService {
             }
         }
         return Tool.result(compMapper.deleteCompetition(deleteId));
+    }
+
+    public String getCompGroup(String id) {
+        String group =compMapper.qryCompGroup(id);
+        return group;
     }
 
     public String updateCompetition(MultipartFile file, HttpServletRequest request) {
