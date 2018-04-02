@@ -3,11 +3,12 @@ package com.dcms.service.imp;
 import com.dcms.dao.StudentMapper;
 import com.dcms.dao.TeacherMapper;
 import com.dcms.model.Student;
+import com.dcms.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginServiceImpl  {
+public class LoginServiceImpl implements LoginService {
     @Autowired
     StudentMapper stu;
     TeacherMapper tea;
