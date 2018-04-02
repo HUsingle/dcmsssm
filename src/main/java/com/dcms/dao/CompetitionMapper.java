@@ -2,7 +2,7 @@ package com.dcms.dao;
 
 import com.dcms.model.Competition;
 import org.springframework.stereotype.Repository;
-
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Repository
