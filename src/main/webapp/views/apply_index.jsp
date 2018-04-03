@@ -50,18 +50,28 @@
 </head>
 <body>
 <script>
-
-
     $(document).ready(function () {
-        var compId;
-        var fileName;
+        var compId;     //竞赛ID
+        var stuNumber;  //学号
+        //判断报名结束没有，结束返回true   未结束返回false
+        function isApplyEnd() {
+            $.post("${pageContext.request.contextPath}/comp/getLatestComp",
+                function (data) {
+                    var endTime = new Date(msg[0].applyEnd).getTime();
+                    var nowTime = new Date().getTime();
+                    if (endTime<nowTime){   //判断报名是否结束
+                       return true;
+                    }
+                },"json");
+            return false;
+        }
         //获取最新竞赛
         $.ajax({
             url: "${pageContext.request.contextPath}/comp/getLatestComp",
             dataType: "json",
             success: function(msg){
                 compId = msg[0].cid;
-                filePath = "${pageContext.request.contextPath}/fileOperate/download?filename="+msg[0].file;  //文件路径
+                var filePath = "${pageContext.request.contextPath}/fileOperate/download?filename="+msg[0].file;  //文件路径
                 $(".comp_name").text(msg[0].name);
                 $(".comp_place").text(msg[0].place);
                 $(".comp_end_time").text(msg[0].compeEndTime);
@@ -79,6 +89,7 @@
                 }else if(now >start){
                     str = '报名进行中';
                     color = 'green';
+                    $('.apply_at_once').attr("disabled",false);
                 }else {
                     str = '报名未开始';
                     color = 'red';
@@ -91,18 +102,23 @@
                 $(".down_file:link").css("color","#00ff7f");
             }
         });
-
-
-
         //获取session
         $.post("${pageContext.request.contextPath}/getSession",
             { sessionName: "account" },function (msg) {
+                if(msg=="ng"){
+                    alert("你还没有登陆，请先登录！")
+                    window.location.href="login.jsp";
+                }
+                else{
                 //获取学生信息
+                stuNumber =msg;
                 $.post("${pageContext.request.contextPath}/student/qryById",
-                    { account: msg },function (data) {
-                        $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
+                   { account: stuNumber },function (data) {
+                     $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
                     },"json");
-        },"json");
+                }
+
+        });
         //报名
         $(".apply_at_once").click(function () {
            //获取并显示竞赛子类别/分组
@@ -116,16 +132,43 @@
                     }else {    //有子类别
                        var group = msg.split(",");    //分割组别
                        $(".modal_context").empty();   //清空模态框内容
-                      $.each(group,function (i) {
-                          //添加模态框内容
+                        //动态添加模态框选项
+                       $.each(group,function (i) {
                           $(".modal_context").append("<a href=\"#\" class=\"list-group-item\">"+group[i]+"</a>");
-                      })
-                        $("#myModal").modal('show');   //显示模态框
+                          });
+                       $(".modal_submit").hide();      //隐藏模态框提交按钮
+                       $("#myModal").modal('show');   //显示模态框
+                        var groupStr;
+                        //模态框选项单击事件
+                       $("#myModal").on("click","a",function () {
+                           $(".modal_submit").show();
+                           groupStr  = $(this).text();
+                       })
+                        //模态框提交按钮
+                       $(".modal_submit").click(function () {
+                           $.post("${pageContext.request.contextPath}/apply/isExistSelfInfo",
+                               { stuNo: stuNumber,compId:compId},function (data) {
+                                    if (data=='y'){
+                                        alert("请勿重复报名！")
+                                        window.location.reload();
+                                    }else {
+
+                                            if (isApplyEnd()){   //判断报名是否结束
+                                                alert("抱歉，报名已结束。");
+                                            }else {
+                                                //插入报名信息
+                                                $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
+                                                  { stuNo: stuNumber,compId:compId,groupName:groupStr },function (data) {
+                                                   alert("报名成功！");
+                                                  });
+                                            }
+                                    }
+                               });
+
+                       })
                     }
                 }
             });
-
-
         })
         //模态框事件（当模态框对用户可见时触发,  模态框居中显示）
         $('#myModal').on('shown.bs.modal', function (e) {
@@ -313,7 +356,7 @@
 
 
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -324,13 +367,11 @@
                 </h4>
             </div>
             <div class="modal_context">
-                <a href="#" class="list-group-item">java组</a>
-                <a href="#" class="list-group-item">c/c++</a>
-                <a href="#" class="list-group-item">python</a>
+
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                <button type="button" class="btn btn-primary modal_submit" data-dismiss="modal" style="display: none">
                     提交
                 </button>
             </div>

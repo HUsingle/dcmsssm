@@ -32,8 +32,11 @@ public class LoginController {
     @RequestMapping("/getSession")
     @ResponseBody
     public String getSession(String sessionName,HttpServletRequest request){
-       String str= request.getSession().getAttribute(sessionName).toString();
-       return str;
+
+       if(request.getSession().getAttribute(sessionName)==null){
+           return "ng";
+       }
+       return request.getSession().getAttribute(sessionName).toString();
     }
     //清除session
 }
