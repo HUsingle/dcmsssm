@@ -9,46 +9,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Basic Page Needs
-    ================================================== -->
     <meta charset="utf-8">
-    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>主页</title>
-    <meta name="description" content="Your Description Here">
-    <meta name="keywords" content="bootstrap themes, portfolio, responsive theme">
-    <meta name="author" content="ThemeForces.Com">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 
-    <!-- Favicons
-    ================================================== -->
-    <!--    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-        <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">-->
+    <title>Home</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css"  href="../resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../resources/fonts/font-awesome/css/font-awesome.css">
+    <%--<link rel="shortcut icon" href="assets/images/gt_favicon.png">--%>
 
-    <!-- Stylesheet
-    ================================================== -->
-    <link rel="stylesheet" type="text/css"  href="../resources/css/style.css">
-    <link rel="stylesheet" type="text/css" href="../resources/css/responsive.css">
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/css/font-awesome.min.css">
 
-
-    <link href='http://fonts.googleapis.com/css?family=Raleway:500,600,700,100,800,900,400,200,300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Custom styles for our template -->
+    <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" media="screen" >
+    <link rel="stylesheet" href="../resources/css/style.css">
     <script src="../resources/js/jquery.min.js"></script>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <script src="../resources/js/html5shiv.js"></script>
+    <script src="../resources/js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+
+<body class="home">
 <script>
     $(document).ready(function () {
         var compId;     //竞赛ID
@@ -60,7 +46,7 @@
                     var endTime = new Date(msg[0].applyEnd).getTime();
                     var nowTime = new Date().getTime();
                     if (endTime<nowTime){   //判断报名是否结束
-                       return true;
+                        return true;
                     }
                 },"json");
             return false;
@@ -110,18 +96,18 @@
                     window.location.href="login.jsp";
                 }
                 else{
-                //获取学生信息
-                stuNumber =msg;
-                $.post("${pageContext.request.contextPath}/student/qryById",
-                   { account: stuNumber },function (data) {
-                     $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
-                    },"json");
+                    //获取学生信息
+                    stuNumber =msg;
+                    $.post("${pageContext.request.contextPath}/student/qryById",
+                        { account: stuNumber },function (data) {
+                            $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
+                        },"json");
                 }
 
-        });
+            });
         //报名
         $(".apply_at_once").click(function () {
-           //获取并显示竞赛子类别/分组
+            //获取并显示竞赛子类别/分组
             $.ajax({
                 url: "${pageContext.request.contextPath}/comp/getCompGroup",
                 data:{id:compId},
@@ -130,42 +116,42 @@
                         //判断是否是团队赛
                         //TODO  是团队赛转团队赛页面，不是直接插入个人信息，提示报名成功
                     }else {    //有子类别
-                       var group = msg.split(",");    //分割组别
-                       $(".modal_context").empty();   //清空模态框内容
+                        var group = msg.split(",");    //分割组别
+                        $(".modal_context").empty();   //清空模态框内容
                         //动态添加模态框选项
-                       $.each(group,function (i) {
-                          $(".modal_context").append("<a href=\"#\" class=\"list-group-item\">"+group[i]+"</a>");
-                          });
-                       $(".modal_submit").hide();      //隐藏模态框提交按钮
-                       $("#myModal").modal('show');   //显示模态框
+                        $.each(group,function (i) {
+                            $(".modal_context").append("<a href=\"#\" class=\"list-group-item\">"+group[i]+"</a>");
+                        });
+                        $(".modal_submit").hide();      //隐藏模态框提交按钮
+                        $("#myModal").modal('show');   //显示模态框
                         var groupStr;
                         //模态框选项单击事件
-                       $("#myModal").on("click","a",function () {
-                           $(".modal_submit").show();
-                           groupStr  = $(this).text();
-                       })
+                        $("#myModal").on("click","a",function () {
+                            $(".modal_submit").show();
+                            groupStr  = $(this).text();
+                        })
                         //模态框提交按钮
-                       $(".modal_submit").click(function () {
-                           $.post("${pageContext.request.contextPath}/apply/isExistSelfInfo",
-                               { stuNo: stuNumber,compId:compId},function (data) {
+                        $(".modal_submit").click(function () {
+                            $.post("${pageContext.request.contextPath}/apply/isExistSelfInfo",
+                                { stuNo: stuNumber,compId:compId},function (data) {
                                     if (data=='y'){
                                         alert("请勿重复报名！")
                                         window.location.reload();
                                     }else {
 
-                                            if (isApplyEnd()){   //判断报名是否结束
-                                                alert("抱歉，报名已结束。");
-                                            }else {
-                                                //插入报名信息
-                                                $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
-                                                  { stuNo: stuNumber,compId:compId,groupName:groupStr },function (data) {
-                                                   alert("报名成功！");
-                                                  });
-                                            }
+                                        if (isApplyEnd()){   //判断报名是否结束
+                                            alert("抱歉，报名已结束。");
+                                        }else {
+                                            //插入报名信息
+                                            $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
+                                                { stuNo: stuNumber,compId:compId,groupName:groupStr },function (data) {
+                                                    alert("报名成功！");
+                                                });
+                                        }
                                     }
-                               });
+                                });
 
-                       })
+                        })
                     }
                 }
             });
@@ -183,48 +169,41 @@
         //
     })
 </script>
-<div id="tf-home">
-    <div class="overlay">
-        <div id="sticky-anchor"></div>
-        <nav id="tf-menu" class="navbar navbar-default">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand logo" href="#">Competition</a>
-                </div>
+<%@ include file="apply_header.jsp" %>
+<%--<!-- Fixed navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+    <div class="container">
+        <div class="navbar-header">
+            <!-- Button for smallest screens -->
+            &lt;%&ndash;icon&ndash;%&gt;
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li class="active"><a href="#">主页</a></li>
+                <li><a href="about.html">查询</a></li>
+                <li><a href="contact.html">集体报名</a></li>
+                <li><a href="contact.html">打印准考证</a></li>
+                <li ><a class="selfInfo" href="contact.html">打印准考证</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>--%>
+<!-- /.navbar -->
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-home"></span>主页</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-search"></span>查询</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-flag" ></span>集体报名</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-print"></span>打印准考证</a></li>
-                        <li><a class="selfInfo" href="#">个人信息</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-
-        <div class="container">
-            <div class="content">
-                <h1>学科竞赛报名系统</h1>
-                <h3>软件与信息安全学院</h3>
-                <br>
-                <a href="#news" class="btn btn-primary my-btn2" style="font-size: 15px;">
-                    Start
-                </a>
-                <!--<a href="#tf-portfolio" class="btn btn-primary my-btn2">Portfolio</a>-->
-            </div>
+<!-- Header -->
+<header id="head">
+    <div class="container">
+        <div class="row">
+            <h1 class="lead">学科竞赛报名系统</h1>
+            <p class="tagline">软件与信息安全学院</p>
+            <!--<p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg" role="button">DOWNLOAD NOW</a></p>-->
         </div>
     </div>
-</div>
+</header>
+<!-- /Header -->
+
+
+
 
 <div id="encourage" >
     <br />
@@ -379,5 +358,12 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
+<%--<script src="../resources/js/headroom.min.js"></script>--%>
+<%--<script src="../resources/js/jQuery.headroom.min.js"></script>--%>
+<%--<script src="../resources/js/template.js"></script>--%>
 </body>
 </html>
