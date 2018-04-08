@@ -31,30 +31,32 @@
     <script src="../resources/js/html5shiv.js"></script>
     <script src="../resources/js/respond.min.js"></script>
     <![endif]-->
+    <script>
+        var stuNumber;
+        $(document).ready(function () {
+            //获取session
+            $.post("${pageContext.request.contextPath}/getSession",
+                { sessionName: "account" },function (msg) {
+                    if(msg=="ng"){
+                        alert("你还没有登陆，请先登录！")
+                        window.location.href="login.jsp";
+                    }
+                    else{
+                        //获取学生信息
+                        stuNumber =msg;
+                        $.post("${pageContext.request.contextPath}/student/qryById",
+                            { account: stuNumber },function (data) {
+                                $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
+                            },"json");
+                    }
+
+                });
+        })
+    </script>
 </head>
 
 <body class="home">
-<script>
-    $(document).ready(function () {
-        //获取session
-        $.post("${pageContext.request.contextPath}/getSession",
-            { sessionName: "account" },function (msg) {
-                if(msg=="ng"){
-                    alert("你还没有登陆，请先登录！")
-                    window.location.href="login.jsp";
-                }
-                else{
-                    //获取学生信息
-                    stuNumber =msg;
-                    $.post("${pageContext.request.contextPath}/student/qryById",
-                        { account: stuNumber },function (data) {
-                            $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
-                        },"json");
-                }
 
-            });
-    })
-</script>
 <!-- Fixed navbar -->
 <div class="navbar navbar-inverse navbar-fixed-top headroom" >
     <div class="container">

@@ -35,10 +35,9 @@
 </head>
 
 <body class="home">
+<%@ include file="apply_header.jsp" %>
 <script>
     var compId;     //竞赛ID
-    var stuNumber;  //学号
-
     //判断是否是团队赛
     function isTeamComp() {
         var  isTeam ;
@@ -125,6 +124,7 @@
                         //判断是否是团队赛
                         //TODO  是团队赛转团队赛页面，不是直接插入个人信息，提示报名成功
                         if(isTeamComp()){
+
                             window.location.href="apply_team.jsp?compId="+compId;
                         }else {
 
@@ -189,7 +189,7 @@
 
     })
 </script>
-<%@ include file="apply_header.jsp" %>
+
 
 <!-- Header -->
 <header id="head">

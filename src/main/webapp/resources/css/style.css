@@ -145,16 +145,3 @@ td{
 .widget-simplenav { margin-left:-5px; }
 .widget-simplenav a{ margin:0 5px; }
 
-/*团队报名*/
-#team_body{
-    width: 900px;
-    margin: 0 auto;
-    margin-top: 130px;
-
-}
-#context{
-    width: 890px;
-    margin: 0 auto;
-    margin-top: 40px;
-
-}
