@@ -54,12 +54,9 @@ public class CompetitionController {
     @ResponseBody
     public String isTeamComp(String id){
         if (cs.qryIsTeam(id)){
-            return "ok";
+            return "1";
         }
-        /*ModelAndView mav = new ModelAndView();
-        mav.setViewName("apply_index");
-        mav.addObject("isTeam",cs.qryIsTeam(id));*/
-        return "ng";
+        return "0";
     }
     @RequestMapping(value = "/getCompetitionList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
@@ -99,4 +96,5 @@ public class CompetitionController {
         }
         return "ng";
     }
+
 }

@@ -16,7 +16,6 @@
 
     <title>Home</title>
 
-    <%--<link rel="shortcut icon" href="assets/images/gt_favicon.png">--%>
 
     <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
     <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
@@ -35,7 +34,27 @@
 </head>
 
 <body class="home">
+<script>
+    $(document).ready(function () {
+        //获取session
+        $.post("${pageContext.request.contextPath}/getSession",
+            { sessionName: "account" },function (msg) {
+                if(msg=="ng"){
+                    alert("你还没有登陆，请先登录！")
+                    window.location.href="login.jsp";
+                }
+                else{
+                    //获取学生信息
+                    stuNumber =msg;
+                    $.post("${pageContext.request.contextPath}/student/qryById",
+                        { account: stuNumber },function (data) {
+                            $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
+                        },"json");
+                }
 
+            });
+    })
+</script>
 <!-- Fixed navbar -->
 <div class="navbar navbar-inverse navbar-fixed-top headroom" >
     <div class="container">
@@ -45,11 +64,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-                <li class="active"><a href="#">主页</a></li>
+                <li class="active"><a href="apply_index.jsp">主页</a></li>
                 <li><a href="about.html">查询</a></li>
                 <li><a href="contact.html">集体报名</a></li>
                 <li><a href="contact.html">打印准考证</a></li>
-                <li ><a class="selfInfo" href="contact.html">打印准考证</a></li>
+                <li ><a class="selfInfo" href="contact.html"></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

@@ -36,21 +36,46 @@
 
 <body class="home">
 <script>
+    var compId;     //竞赛ID
+    var stuNumber;  //学号
+
+    //判断是否是团队赛
+    function isTeamComp() {
+        var  isTeam ;
+        $.ajax({
+            url: "${pageContext.request.contextPath}/comp/isTeamComp",
+            data:{id:compId},
+            async:false,
+            success: function(msg){
+                if (msg=="1"){
+                    isTeam= true;
+                }else {
+                    isTeam = false;
+                }
+            }
+        });
+        return isTeam;
+    }
+    //判断报名结束没有，结束返回true   未结束返回false
+    function isApplyEnd() {
+        var flag;
+        $.ajax({
+            url: "${pageContext.request.contextPath}/comp/getLatestComp",
+            async:false,
+            dataType:"json",
+            success: function(msg){
+                var endTime = new Date(msg[0].applyEnd).getTime();
+                var nowTime = new Date().getTime();
+                if (endTime<nowTime){   //判断报名是否结束
+                    flag= true;
+                }else {
+                    flag = false;
+                }
+            }
+        });
+        return flag;
+    }
     $(document).ready(function () {
-        var compId;     //竞赛ID
-        var stuNumber;  //学号
-        //判断报名结束没有，结束返回true   未结束返回false
-        function isApplyEnd() {
-            $.post("${pageContext.request.contextPath}/comp/getLatestComp",
-                function (data) {
-                    var endTime = new Date(msg[0].applyEnd).getTime();
-                    var nowTime = new Date().getTime();
-                    if (endTime<nowTime){   //判断报名是否结束
-                        return true;
-                    }
-                },"json");
-            return false;
-        }
         //获取最新竞赛
         $.ajax({
             url: "${pageContext.request.contextPath}/comp/getLatestComp",
@@ -88,23 +113,7 @@
                 $(".down_file:link").css("color","#00ff7f");
             }
         });
-        //获取session
-        $.post("${pageContext.request.contextPath}/getSession",
-            { sessionName: "account" },function (msg) {
-                if(msg=="ng"){
-                    alert("你还没有登陆，请先登录！")
-                    window.location.href="login.jsp";
-                }
-                else{
-                    //获取学生信息
-                    stuNumber =msg;
-                    $.post("${pageContext.request.contextPath}/student/qryById",
-                        { account: stuNumber },function (data) {
-                            $(".selfInfo").html('<span class=\"glyphicon glyphicon-user\"></span>'+data[0].name);
-                        },"json");
-                }
 
-            });
         //报名
         $(".apply_at_once").click(function () {
             //获取并显示竞赛子类别/分组
@@ -115,6 +124,11 @@
                     if(msg=="ng"){  //没有子类别
                         //判断是否是团队赛
                         //TODO  是团队赛转团队赛页面，不是直接插入个人信息，提示报名成功
+                        if(isTeamComp()){
+                            window.location.href="apply_team.jsp?compId="+compId;
+                        }else {
+
+                        }
                     }else {    //有子类别
                         var group = msg.split(",");    //分割组别
                         $(".modal_context").empty();   //清空模态框内容
@@ -132,24 +146,30 @@
                         })
                         //模态框提交按钮
                         $(".modal_submit").click(function () {
-                            $.post("${pageContext.request.contextPath}/apply/isExistSelfInfo",
-                                { stuNo: stuNumber,compId:compId},function (data) {
-                                    if (data=='y'){
-                                        alert("请勿重复报名！")
-                                        window.location.reload();
-                                    }else {
-
-                                        if (isApplyEnd()){   //判断报名是否结束
-                                            alert("抱歉，报名已结束。");
+                            //判断团队赛
+                            if(isTeamComp()){
+                                window.location.href="apply_team.jsp?compId="+compId+"&groupName="+groupStr;
+                            }else{ //不是团队赛，进行单人报名
+                                $.post("${pageContext.request.contextPath}/apply/isExistSelfInfo",
+                                    { stuNo: stuNumber,compId:compId},function (data) {
+                                        if (data=='y'){
+                                            alert("请勿重复报名！")
+                                            window.location.reload();
                                         }else {
-                                            //插入报名信息
-                                            $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
-                                                { stuNo: stuNumber,compId:compId,groupName:groupStr },function (data) {
-                                                    alert("报名成功！");
-                                                });
+                                            if (isApplyEnd()){   //判断报名是否结束
+                                                alert("抱歉，报名已结束。");
+                                                window.location.reload();
+                                            }else {
+                                              //插入报名信息
+                                                $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
+                                                    { stuNo: stuNumber,compId:compId,groupName:groupStr },function (data) {
+                                                        alert("报名成功！");
+                                                    });
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                            }
+
 
                         })
                     }
@@ -166,29 +186,10 @@
             });
 
         });
-        //
+
     })
 </script>
 <%@ include file="apply_header.jsp" %>
-<%--<!-- Fixed navbar -->
-<div class="navbar navbar-inverse navbar-fixed-top headroom" >
-    <div class="container">
-        <div class="navbar-header">
-            <!-- Button for smallest screens -->
-            &lt;%&ndash;icon&ndash;%&gt;
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav pull-right">
-                <li class="active"><a href="#">主页</a></li>
-                <li><a href="about.html">查询</a></li>
-                <li><a href="contact.html">集体报名</a></li>
-                <li><a href="contact.html">打印准考证</a></li>
-                <li ><a class="selfInfo" href="contact.html">打印准考证</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</div>--%>
-<!-- /.navbar -->
 
 <!-- Header -->
 <header id="head">
@@ -201,10 +202,6 @@
     </div>
 </header>
 <!-- /Header -->
-
-
-
-
 <div id="encourage" >
     <br />
     <h1>民大学子的展示平台</h1>
@@ -215,10 +212,10 @@
 
 <div class=".container-fluid" id="message">
     <div class="news_title">
-        <h5 class="page-header">
+        <h5 class="page-header" style="border-bottom: 2px solid #91361a">
             <span class="span_icon icon" >&nbsp;	</span>
-            <span class="span_icon_context" >公告	</span>
-            <a href="#" class="text-muted" style="float: right">更多</a>
+            <span class="span_icon_context" >&nbsp;公告	</span>
+            <a href="#" class="text-muted" style="float: right;line-height: 42px;margin-right: 10px">更多</a>
         </h5>
 
 
@@ -236,16 +233,13 @@
 
 <div class=".container-fluid" id="news">
     <div class="news_title">
-        <h5 class="page-header">
+        <h5 class="page-header" style="border-bottom: 2px solid #91361a">
             <span class="span_icon" >&nbsp;	</span>
-            <span class="span_icon_context" >最新竞赛	</span>
-            <a href="#" class="text-muted" style="float: right;">更多</a>
+            <span class="span_icon_context" >&nbsp;最新竞赛	</span>
+            <a href="#" class="text-muted" style="float: right;line-height: 42px;margin-right: 10px">更多</a>
         </h5>
 
         <div class="news_body" style="width: 850px;">
-            <%--<div  style="float: left;width: 400px;height: auto;padding: 10px;">
-                <img src="../resources/images/acm.jpg" width="90%" height="90%"/>
-            </div>--%>
             <table id="newGame" class="table" style="width: 850px;float: right;">
                 <thead>
                 <tr>
@@ -291,49 +285,17 @@
                 </tr>
                 </tbody>
             </table>
-
-
         </div>
-
     </div>
-
 </div>
-<!--<h2 class="page-header">
-	<div id="">
-		<p>asda</p>
-	</div>
-</h2>-->
-<!--最新资讯      标题    作者   时间       内容。。-->
-<!--竞赛。-->
-<!--瞎扯淡-->
-
-<nav id="tf-footer">
-    <div class="container">
-        <div class="pull-left">
-            <p>2018 © 王胡 &nbsp; &nbsp;赵旭  &nbsp; &nbsp;版权所有</p>
-        </div>
-        <div class="pull-right">
-            <ul class="social-media list-inline">
-                <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                <li><a href="#"><span class="fa fa-pinterest"></span></a></li>
-                <li><a href="#"><span class="fa fa-google-plus"></span></a></li>
-                <li><a href="#"><span class="fa fa-dribbble"></span></a></li>
-                <li><a href="#"><span class="fa fa-behance"></span></a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
+<%--引入footer--%>
+<%@ include file="apply_footer.jsp" %>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
-
 <!-- Javascripts
 ==================================================  -->
 <script type="text/javascript" src="../resources/js/main.js"></script>
-
-
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
@@ -357,9 +319,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-
 <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
 <%--<script src="../resources/js/headroom.min.js"></script>--%>
