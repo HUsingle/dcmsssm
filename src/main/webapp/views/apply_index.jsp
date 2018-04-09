@@ -122,7 +122,6 @@
                 success: function(msg){
                     if(msg=="ng"){  //没有子类别
                         //判断是否是团队赛
-                        //TODO  是团队赛转团队赛页面，不是直接插入个人信息，提示报名成功
                         if(isTeamComp()){
                             window.location.href="apply_team.jsp?compId="+compId;
                         }else {

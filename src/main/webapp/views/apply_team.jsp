@@ -58,6 +58,25 @@
                 }
 
             });
+        //判断报名结束没有，结束返回true   未结束返回false
+        function isApplyEnd() {
+            var flag;
+            $.ajax({
+                url: "${pageContext.request.contextPath}/comp/getLatestComp",
+                async:false,
+                dataType:"json",
+                success: function(msg){
+                    var endTime = new Date(msg[0].applyEnd).getTime();
+                    var nowTime = new Date().getTime();
+                    if (endTime<nowTime){   //判断报名是否结束
+                        flag= true;
+                    }else {
+                        flag = false;
+                    }
+                }
+            });
+            return flag;
+        }
         //判断学生是否添加过  添加过返回false
         function isStuAdded(id) {
             var flag = false;
@@ -208,11 +227,17 @@
 
                         })
                         var str  = stus.substring(0,stus.length-1);
-                        console.log(str)
-                        $.post("${pageContext.request.contextPath}/apply/teamApply",{list:str,tid:tId,compId:compId,groupName:groupName,tName:tName},function (data) {
+                        if (isApplyEnd()){   //判断报名是否结束
+                            alert("抱歉，报名已结束。");
+                            window.location.href="apply_index.jsp";
+                        }else{
+                            $.post("${pageContext.request.contextPath}/apply/teamApply",{list:str,tid:tId,compId:compId,groupName:groupName,tName:tName},function (data) {
+
+                            })
                             alert("报名成功！");
                             window.location.href="apply_index.jsp";
-                        })
+                        }
+
 
                     }
                 });
