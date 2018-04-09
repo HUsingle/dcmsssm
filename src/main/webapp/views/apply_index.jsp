@@ -124,10 +124,26 @@
                         //判断是否是团队赛
                         //TODO  是团队赛转团队赛页面，不是直接插入个人信息，提示报名成功
                         if(isTeamComp()){
-
                             window.location.href="apply_team.jsp?compId="+compId;
                         }else {
-
+                            $.post("${pageContext.request.contextPath}/apply/isExistSelfInfo",
+                                { stuNo: stuNumber,compId:compId},function (data) {
+                                    if (data=='y'){
+                                        alert("请勿重复报名！")
+                                        window.location.reload();
+                                    }else {
+                                        if (isApplyEnd()){   //判断报名是否结束
+                                            alert("抱歉，报名已结束。");
+                                            window.location.reload();
+                                        }else {
+                                            //插入报名信息
+                                            $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
+                                                { stuNo: stuNumber,compId:compId,groupName:"" },function (data) {
+                                                    alert("报名成功！");
+                                                });
+                                        }
+                                    }
+                                });
                         }
                     }else {    //有子类别
                         var group = msg.split(",");    //分割组别

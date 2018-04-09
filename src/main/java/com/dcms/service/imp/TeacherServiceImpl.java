@@ -1,5 +1,6 @@
 package com.dcms.service.imp;
 
+import com.alibaba.fastjson.JSON;
 import com.dcms.dao.TeacherMapper;
 import com.dcms.excel.ExcelData;
 import com.dcms.excel.TeacherExcelData;
@@ -25,6 +26,20 @@ public class TeacherServiceImpl implements TeacherService {
 
     public List<Teacher> getAllTeacher(String sort) {
         return teacherMapper.getAllTeacher(sort);
+    }
+    //按教师ID查询教师信息
+    public String getTeacherById(String id) {
+        long tid = Long.valueOf(id);
+        Teacher tea = teacherMapper.findTeacherById(tid);
+        String json =null;
+        if(tea != null) {
+            List<Teacher> list = new ArrayList<Teacher>();
+            list.add(tea);
+            json = JSON.toJSONString(list);
+        }else {
+            json = JSON.toJSONString("ng");
+        }
+        return json;
     }
 
     public String addTeacher(String id, String name, String password, String college, String phone, String email) {

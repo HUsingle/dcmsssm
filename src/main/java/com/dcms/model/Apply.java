@@ -19,6 +19,21 @@ public class Apply {
     private String groupName;  //小组名称
     private int isRise;        //是否晋级下一轮
 
+    public Apply(){}
+    public Apply(int id, long username, int competitionId,
+                 String competitionGroup, Timestamp applyTime,
+                 long teacherId, int isGroupLeader, String groupName, int isRise) {
+        this.id = id;
+        this.username = username;
+        this.competitionId = competitionId;
+        this.competitionGroup = competitionGroup;
+        this.applyTime = applyTime;
+        this.teacherId = teacherId;
+        this.isGroupLeader = isGroupLeader;
+        this.groupName = groupName;
+        this.isRise = isRise;
+    }
+
     public int getId() {
         return id;
     }
