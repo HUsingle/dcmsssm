@@ -17,7 +17,7 @@ public class Apply {
     private long teacherId;   //指导老师Id
     private int isGroupLeader; //是否为小组组长
     private String groupName;  //小组名称
-    private int isRise;        //是否晋0级下一轮
+    private int isRise;        //是否晋级下一轮
 
     public int getId() {
         return id;

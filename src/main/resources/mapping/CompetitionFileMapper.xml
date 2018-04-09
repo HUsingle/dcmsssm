@@ -3,22 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.CompetitionFileMapper">
+    <!--查询所有竞赛文件-->
     <select id="getAllCompetitionFile" resultType="com.dcms.model.CompetitionFile" parameterType="string">
         select c_file_id as id, c_file_path as fileName,
         c_file_upload_time as uploadTime from db_competition_file order by c_file_id ${sort}
     </select>
+    <!--判断竞赛文件名字是否存在-->
     <select id="findCompetitionFileIsExist" resultType="int">
         select count(c_file_id) from db_competition_file where c_file_path = #{file}
     </select>
+    <!--通过竞赛文件id查询竞赛文件名字-->
     <select id="findCompetitionFile" resultType="string">
         select c_file_path from db_competition_file where c_file_id = #{id}
     </select>
+    <!--删除竞赛文件-->
     <delete id="deleteCompetitionFile">
         delete from db_competition_file where c_file_id in
         <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+    <!--添加竞赛文件-->
     <insert id="addCompetitionFile" parameterType="com.dcms.model.CompetitionFile">
         insert into db_competition_file(c_file_path,c_file_upload_time)
         values(#{fileName},#{uploadTime})

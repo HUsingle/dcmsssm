@@ -9,7 +9,8 @@ import java.util.List;
 public interface CompetitionMapper {
      Competition qryLatestComp();   //查询最新发布的竞赛
      int qryIsTeam(String id);  //查询是否是团队赛
-     List<Competition> findAllCompetition();//查询所有竞赛信息
+     List<Competition> findAllCompetition();//查询所有竞赛信息（不排序）
+     List<Competition> getAllCompetition();//查询所有竞赛信息通过发布时间排序
      int addCompetition(Competition competition);//添加竞赛信息
      String findCompetitionFile(int id); //根据id查询文件名
      int deleteCompetition(Integer[] ids); //批量删除竞赛记录

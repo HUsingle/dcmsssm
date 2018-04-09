@@ -8,24 +8,35 @@
         s_major_class as studentClass, s_password as password, s_email as email,
         s_college as college
     </sql>
+    <!--通过学号排序查询所有学生-->
     <select id="getAllStudent" resultType="com.dcms.model.Student" parameterType="string">
-        select <include refid="sqlColumn"/> from  db_student order by s_number ${sort}
+        select
+        <include refid="sqlColumn"/>
+        from db_student order by s_number ${sort}
     </select>
+    <!--通过学生的名字或者班级查询学生信息-->
     <select id="getSearchStudent" resultType="com.dcms.model.Student" parameterType="string">
-       select <include refid="sqlColumn"/> from db_student
+        select
+        <include refid="sqlColumn"/>
+        from db_student
         where s_name like concat('%',#{search},'%') union
-        select <include refid="sqlColumn"/> from db_student
+        select
+        <include refid="sqlColumn"/>
+        from db_student
         where s_major_class like concat('%',#{search},'%')
         order by username ${sort}
     </select>
-     <!--<insert id="addStudent" parameterType="student">
-         insert into db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
-         values(#{username},#{name},#{phone},#{studentClass},#{password},#{email},#{college})
-     </insert>-->
+    <!--插入学生信息-->
+    <!--<insert id="addStudent" parameterType="student">
+        insert into db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
+        values(#{username},#{name},#{phone},#{studentClass},#{password},#{email},#{college})
+    </insert>-->
+    <!--修改学生信息-->
     <update id="updateStudent" parameterType="com.dcms.model.Student">
         update db_student set s_name=#{name},s_phone=#{phone},s_major_class=#{studentClass},
-        s_password=#{password},s_email=#{email},s_college=#{college}  where s_number=#{username}
+        s_password=#{password},s_email=#{email},s_college=#{college} where s_number=#{username}
     </update>
+    <!--删除学生信息-->
     <delete id="deleteStudent" parameterType="long">
         delete from db_student where s_number in
         <foreach collection="array" item="username" open="(" separator="," close=")">
@@ -35,21 +46,24 @@
             item为每一项的名称
             open,close是以什么元素将这个集合包围，separator为分割符-->
     </delete>
+    <!--批量插入学生信息，replace如果存在则修改，不存在则进行插入-->
     <insert id="addOrUpdateStudent" parameterType="com.dcms.model.Student">
         replace into db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
         values
         <foreach collection="list" item="student" separator=",">
-        (#{student.username},#{student.name},#{student.phone},
+            (#{student.username},#{student.name},#{student.phone},
             #{student.studentClass},#{student.password},#{student.email},#{student.college})
         </foreach>
     </insert>
     <!--根据账号密码查询-->
     <select id="qryByAccountAndPwd" resultType="com.dcms.model.Student">
-        select <include refid="sqlColumn"/> from db_student where s_number =#{param1} and s_password =#{param2}
+        select
+        <include refid="sqlColumn"/>
+        from db_student where s_number =#{param1} and s_password =#{param2}
     </select>
     <!--根据学号查询学生信息-->
     <select id="qryById" resultMap="stuMap">
-        select * from  db_student where s_number = #{param1}
+        select * from db_student where s_number = #{param1}
     </select>
     <resultMap id="stuMap" type="Student">
         <result property="username" column="s_number"/>

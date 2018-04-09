@@ -122,7 +122,7 @@
                         <li><a href="${path}/views/competitionFileManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛文件管理</span></a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="fa fa-list"></i><span>报名管理</span></a></li>
+                <li><a href="${path}/apply/applyManage" target="myFrame"><i class="fa fa-list"></i><span>报名管理</span></a></li>
                 <li class="treeview">
                     <a href="##"><i class="fa fa fa-university"></i> <span>考试管理</span>
                         <span class="pull-right-container">

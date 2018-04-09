@@ -72,7 +72,17 @@
                 <constructor-arg value="UTF-8" />
             </bean>
         </mvc:message-converters>
-    </mvc:annotation-driven> 
+    </mvc:annotation-driven>
+
+<!--注册拦截器-->
+  <!--  <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/views/*" />
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/login" />
+            <bean class="com.dcms.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
 
 
 </beans>

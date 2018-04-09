@@ -14,6 +14,8 @@ public interface CompetitionService {
     boolean qryIsTeam(String id);   // 判断是否是团队赛
     //查询所有竞赛
     List<Competition> findAllCompetition();
+    //查询所有竞赛信息通过发布时间排序
+    List<Competition> getAllCompetition();
     //添加竞赛
     String addCompetition(MultipartFile file,HttpServletRequest request);
     //修改竞赛
@@ -22,4 +24,5 @@ public interface CompetitionService {
     String deleteCompetition(String id,HttpServletRequest request);
     //查询子类别
     String getCompGroup(String id);
+
 }

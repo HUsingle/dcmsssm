@@ -5,7 +5,11 @@
 <mapper namespace="com.dcms.dao.CompetitionMapper">
     <!--查询最新发布的竞赛-->
     <select id="qryLatestComp" resultMap="compMap">
-        select * from db_competition  order by c_competition_start  LIMIT 1
+        select * from db_competition order by c_competition_start LIMIT 1
+    </select>
+    <!--查询所有竞赛通过发布时间排序-->
+    <select id="getAllCompetition" resultMap="compMap">
+        select * from db_competition order by c_publish_time DESC
     </select>
     <!--查询是否是团队赛-->
     <select id="qryIsTeam" resultType="int">
@@ -15,20 +19,25 @@
     <select id="findAllCompetition" resultMap="compMap">
         select * from db_competition
     </select>
+    <!--通过id查询竞赛附件-->
     <select id="findCompetitionFile" resultType="string">
         select c_file from db_competition where c_id = #{id}
     </select>
+    <!--判断竞赛附件是否存在-->
     <select id="findCompetitionFileIsExist" resultType="int">
         select count(c_id) from db_competition where c_file = #{file}
     </select>
+    <!--判断竞赛附件是否存在，不包括自己-->
     <select id="findNotUpdCompetitionFileIsExist" resultType="int">
         select count(c_id) from db_competition where c_file = #{file} and c_id != #{id}
     </select>
+    <!--修改竞赛-->
     <update id="updateCompetition" parameterType="com.dcms.model.Competition">
         update db_competition set c_name=#{name},c_competition_start=#{compeStartTime},
         c_competition_end=#{compeEndTime},c_host=#{host},c_file=#{file},c_place=#{place},c_apply_start=#{applyStart},
-       c_apply_end=#{applyEnd},c_is_team=#{isTeam},t_id=#{tid},c_group=#{group} where c_id= #{cid}
+        c_apply_end=#{applyEnd},c_is_team=#{isTeam},t_id=#{tid},c_group=#{group} where c_id= #{cid}
     </update>
+    <!--删除竞赛-->
     <delete id="deleteCompetition">
         delete from db_competition where c_id in
         <foreach collection="array" item="id" open="(" separator="," close=")">
@@ -37,7 +46,8 @@
     </delete>
     <!--添加竞赛-->
     <insert id="addCompetition" parameterType="com.dcms.model.Competition">
-        insert into db_competition(c_name,c_publish_time,c_competition_start,c_competition_end,c_host,c_file,c_place,c_apply_start,c_apply_end,c_is_team,t_id,c_group)
+        insert into
+        db_competition(c_name,c_publish_time,c_competition_start,c_competition_end,c_host,c_file,c_place,c_apply_start,c_apply_end,c_is_team,t_id,c_group)
         values(#{name},#{publishTime},#{compeStartTime},#{compeEndTime},#{host},#{file},#{place},#{applyStart},#{applyEnd},#{isTeam},#{tid},#{group})
     </insert>
     <!--查询子类别-->

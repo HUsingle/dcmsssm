@@ -44,6 +44,10 @@ public class CompetitionServiceImpl implements CompetitionService {
         return compMapper.findAllCompetition();
     }
 
+    public List<Competition> getAllCompetition() {
+        return compMapper.getAllCompetition();
+    }
+
     public String addCompetition(MultipartFile file, HttpServletRequest request) {
         String fileName = "";
         try {

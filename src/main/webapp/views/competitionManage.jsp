@@ -182,16 +182,7 @@
             initialPreviewAsData: true, // defaults markup
             preferIconicPreview: false // 是否优先显示图标  false 即优先显示图片
         });
-     /*   myFile.on("fileuploaded", function (event, data, previewId, index) {
-            var result = data.response.result;
-            if (result === 1) {
-                initMessage("添加或者修改成功！", 'success');
-                $("#myBox").hide();
-                $("#myDiv").show();
-            } else {
-                initMessage("添加或者修改失败", "error");
-            }
-        });*/
+
     }
     function getSelectValue() {//获取多选的值
         var selectValue=[];

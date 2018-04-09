@@ -58,7 +58,7 @@
     </session-config>
 
     <welcome-file-list>
-        <welcome-file>/views/index.jsp</welcome-file>
+        <welcome-file>/views/manage_index.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>

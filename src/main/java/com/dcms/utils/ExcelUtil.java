@@ -4,6 +4,7 @@ import com.dcms.excel.ExcelData;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ import java.util.List;
  * Created by single on 2018/2/17.
  * 创建excel的工具类
  */
-
+@Component
 public class ExcelUtil {
 
     //表格中单元格的样式

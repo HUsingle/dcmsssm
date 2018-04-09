@@ -3,20 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.ClassroomMapper">
+    <!--查询所有教室信息-->
     <select id="getAllClassroom" resultType="com.dcms.model.Classroom" parameterType="string">
-        select classroom_id as id, classroom_number as number, 
+        select classroom_id as id, classroom_number as number,
         classroom_site as site from db_classroom order by classroom_id ${sort}
     </select>
+    <!--修改竞赛信息-->
     <update id="updateClassroom" parameterType="com.dcms.model.Classroom">
         update db_classroom set classroom_number=#{number},classroom_site=#{site}
-       where classroom_id=#{id}
+        where classroom_id=#{id}
     </update>
+    <!--删除竞赛信息-->
     <delete id="deleteClassroom" parameterType="integer">
         delete from db_classroom where classroom_id in
         <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+    <!--插入竞赛信息-->
     <insert id="addClassroom" parameterType="com.dcms.model.Classroom">
         insert into db_classroom(classroom_number,classroom_site)
         values

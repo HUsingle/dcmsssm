@@ -3,19 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.CompetitionGroupMapper">
+    <!--查询所有竞赛组别-->
     <select id="getAllCompetitionGroup" resultType="com.dcms.model.CompetitionGroup" parameterType="string">
         select group_id as id, group_name as name
-       from db_competition_group order by group_id ${sort}
+        from db_competition_group order by group_id ${sort}
     </select>
+    <!--更新竞赛组别-->
     <update id="updateCompetitionGroup" parameterType="com.dcms.model.CompetitionGroup">
         update db_competition_group set group_name=#{name} where group_id=#{id}
     </update>
+    <!--删除竞赛组别-->
     <delete id="deleteCompetitionGroup" parameterType="int">
         delete from db_competition_group where group_id in
         <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+    <!--插入竞赛组别-->
     <insert id="addCompetitionGroup" parameterType="com.dcms.model.CompetitionGroup">
         replace into db_competition_group(group_id,group_name)
         values(#{id},#{name})

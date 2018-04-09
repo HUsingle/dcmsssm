@@ -1,6 +1,7 @@
 package com.dcms.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,6 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Created by single on 2017/12/30.
  */
+@Component
 public class Tool {
     //竞赛附件保存路径
     public static final String saveCompAffixPath="upload/comp_affix_file/";
