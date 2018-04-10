@@ -76,4 +76,11 @@ public class TeacherController {
     public String importTeacherExcel(@RequestParam("excelFile") MultipartFile excelFile) {
         return teacherService.importTeacherExcel(excelFile);
     }
+
+    @RequestMapping("/getTeacherById")
+    @ResponseBody
+    public String getTeacherById(String id){
+        return teacherService.getTeacherById(id);
+    }
+
 }

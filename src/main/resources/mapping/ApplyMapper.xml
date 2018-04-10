@@ -7,9 +7,22 @@
     <insert id="insertOneSelfInfo">
         insert into db_apply values(0,#{param1},#{param2},now(),0,0 ,'',0,#{param3})
     </insert>
-    <!--查询个人赛是否已经报名-->
+    <!--查询竞赛是否已经报名-->
     <select id="isExistSelfInfo" resultType="java.lang.String">
-        select c_group_name from db_apply where s_number = #{param1} and c_id = #{param2}
+        select apply_id from db_apply where s_number = #{param1} and c_id = #{param2}
+    </select>
+    <!--查询团队名称是否已经存在-->
+    <select id="qryGroupNameByCid" resultType="java.lang.String">
+        select apply_id from db_apply where group_name = #{param1}
+    </select>
+    <!--批量插入-->
+    <select id="insertBench" parameterType="java.util.List" resultType="int">
+        replace into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,
+        is_rise,c_group_name) values
+        <foreach collection="list" item="item" separator=",">
+        (#{item.username},#{item.competitionId},now(),#{item.teacherId},#{item.isGroupLeader},
+            #{item.groupName},0,#{item.competitionGroup})
+        </foreach>
     </select>
     <!--通过竞赛的id和组的名字查询报名情况-->
     <select id="findApplyByCidAndGroup" resultType="com.dcms.model.Apply" >

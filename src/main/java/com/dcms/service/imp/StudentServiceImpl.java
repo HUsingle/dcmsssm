@@ -11,7 +11,6 @@ import com.dcms.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +35,15 @@ public class StudentServiceImpl implements StudentService {
     //按学号查询
     public String qryById(String account) {
         Student student = studentMapper.qryById(account);
-        List list = new ArrayList();
-        list.add(student);
-        return JSON.toJSONString(list);
+        String json =null;
+        if(student!=null){
+            List list = new ArrayList();
+            list.add(student);
+            json = JSON.toJSONString(list);
+        }else {
+            json = JSON.toJSONString("ng");
+        }
+        return json;
     }
 
     public String addStudent(String username, String name, String password,
