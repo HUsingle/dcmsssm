@@ -122,6 +122,7 @@
             return flag;
         }
         //学生模态框点击事件
+        var countStu =1;
         $(".modal_submit").click(function () {
             var sno1 = $(".sno").val();
             if(sno1==''){
@@ -137,25 +138,31 @@
                             }else if (isApplyed(sno1,compId)){   //判断是否已经报名
                                 alert("该同学已经报名，不可添加！")
                             }else {
-                                //查询学生信息，添加到页面
-                               // $.post("${pageContext.request.contextPath}/student/qryById",
-                                //    { account: sno1 },function (data) {
+                                count++;
+                                if(count>4){
+                                    alert("最多只能添加4位成员！")
+                                }else {
+                                    //查询学生信息，添加到页面
+                                    // $.post("${pageContext.request.contextPath}/student/qryById",
+                                    //    { account: sno1 },function (data) {
 
-                                        var $member = $("<div class=\"member\">");
-                                        var $panel = $("<div class=\"panel panel-default\">");
-                                        var $panHead = $("<div class=\"panel-heading\">");
-                                        var $panBody = $("<div class=\"panel-body\">");
-                                        $panHead.append("<h3 class=\"panel-title\">"+data[0].name
-                                            +"<span class=\"snu\" style=\"display: none\">"
-                                            +sno1+"</span><span style=\"float: right\">" +
-                                            "团队成员</span></h3>");
-                                        $panBody.append("<p>班级："+data[0].studentClass+"</p>");
-                                        $panBody.append("<p>电话："+data[0].phone+"</p>");
-                                        $panel.append($panHead);
-                                        $panel.append($panBody);
-                                        $member.append($panel);
-                                        $(".stu_member_block").append($member);
+                                    var $member = $("<div class=\"member\">");
+                                    var $panel = $("<div class=\"panel panel-default\">");
+                                    var $panHead = $("<div class=\"panel-heading\">");
+                                    var $panBody = $("<div class=\"panel-body\">");
+                                    $panHead.append("<h3 class=\"panel-title\">"+data[0].name
+                                        +"<span class=\"snu\" style=\"display: none\">"
+                                        +sno1+"</span><span style=\"float: right\">" +
+                                        "团队成员</span></h3>");
+                                    $panBody.append("<p>班级："+data[0].studentClass+"</p>");
+                                    $panBody.append("<p>电话："+data[0].phone+"</p>");
+                                    $panel.append($panHead);
+                                    $panel.append($panBody);
+                                    $member.append($panel);
+                                    $(".stu_member_block").append($member);
                                     $("#myModal").modal('hide');
+                                }
+
                                  //   },"json");
                             }
                         }
@@ -211,6 +218,8 @@
                 alert("请输入6-20长度的团队名称")
             }else if(count==0){
                 alert("不添加一位指导老师？");
+            }else if(countStu==1){
+                alert("团队人数不能少于2人！");
             }else {
                 //判断是否团队名称已存在
                 $.post("${pageContext.request.contextPath}/apply/isExistGroup",{tName:tName},function (data) {
