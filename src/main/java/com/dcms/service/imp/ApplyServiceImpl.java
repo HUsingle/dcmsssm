@@ -28,7 +28,7 @@ public class ApplyServiceImpl implements ApplyService {
     //判断个人赛是否重复报名
     public boolean isExistSelfInfo(String stuNo, String compId) {
         String s=applyMapper.isExistSelfInfo(stuNo,compId);
-        if (s!=null&&s!=""){
+        if (s!=null&&!s.equals("")){
             return true;
         }
         return false;
@@ -36,7 +36,7 @@ public class ApplyServiceImpl implements ApplyService {
     //判断团队名称是否存在  存在返回true
     public boolean isExistGroupName(String tName) {
         String s = applyMapper.qryGroupNameByCid(tName);
-        if (s!=null&&s!=""){
+        if (s!=null&&!s.equals("")){
             return true;
         }
         return false;
@@ -68,5 +68,9 @@ public class ApplyServiceImpl implements ApplyService {
             return true;
         }
         return false;
+    }
+
+    public List<Apply> findApplyByCidAndGroup(int id, String groupName, String sort) {
+        return applyMapper.findApplyByCidAndGroup(id,groupName,sort);
     }
 }

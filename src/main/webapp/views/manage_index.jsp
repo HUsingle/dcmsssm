@@ -170,7 +170,7 @@
 
 
         <section class="content">
-            <iframe scrolling="yes" frameborder="0" style="width:100%;height:550px; overflow:visible;"
+            <iframe scrolling="yes" frameborder="0" style="width:100%;height:700px; overflow:visible;"
                     src="${path}/views/main.html"
                     name="myFrame" id="myFrame"></iframe>
         </section>
@@ -302,6 +302,9 @@
 
     }
     function initMessage(message, state) {
+        $._messengerDefaults = {
+            extraClasses: 'messenger-fixed messenger-theme-future messenger-on-top'
+        };
         $.globalMessenger().post({
             message: message,//提示信息
             type: state,//消息类型。error、info、success

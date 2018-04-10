@@ -25,7 +25,26 @@
         </foreach>
     </select>
     <!--通过竞赛的id和组的名字查询报名情况-->
-    <select id="findApplyByCidAndGroup" resultType="com.dcms.model.Apply" >
-        select * from db_apply where c_id=#{id} and c_group_name=#{groupName} order by s_number ${sort}
+    <select id="findApplyByCidAndGroup" resultMap="applyMap" >
+        select * from db_apply where c_id=#{id}
+        <if test="groupName!=''">
+            and c_group_name=#{groupName}
+        </if>
+        order by ${sort}
     </select>
+<!--报名的resultMap-->
+    <resultMap type="com.dcms.model.Apply" id="applyMap">
+        <id property="id" column="apply_id"/>
+        <result property="username" column="s_number"/>
+        <result property="applyTime" column="apply_time" jdbcType="TIMESTAMP"/>
+        <result property="competitionId" column="c_id"/>
+        <result property="teacherId" column="t_id"/>
+        <result property="isGroupLeader" column="is_group_leader"/>
+        <result property="isRise" column="is_rise"/>
+        <result property="groupName" column="group_name"/>
+        <result property="competitionGroup" column="c_group_name"/>
+        <association property="teacher" column="t_id" select="com.dcms.dao.TeacherMapper.findTeacherById"/>
+        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.qryById"/>
+        <association property="competition" column="c_id" select="com.dcms.dao.CompetitionMapper.findCompetitionById"/>
+    </resultMap>
 </mapper>

@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  * Created by single on 2018/3/30.
  */
 public class Apply {
-    private int id;
+    private long id;
     private long username;  //报名的学号
     private int competitionId; //报名竞赛id
     private String competitionGroup;//报名竞赛组别
@@ -18,9 +18,11 @@ public class Apply {
     private int isGroupLeader; //是否为小组组长
     private String groupName;  //小组名称
     private int isRise;        //是否晋级下一轮
-
+    private Teacher teacher;
+    private Student student;
+    private Competition competition;
     public Apply(){}
-    public Apply(int id, long username, int competitionId,
+    public Apply(long id, long username, int competitionId,
                  String competitionGroup, Timestamp applyTime,
                  long teacherId, int isGroupLeader, String groupName, int isRise) {
         this.id = id;
@@ -33,13 +35,12 @@ public class Apply {
         this.groupName = groupName;
         this.isRise = isRise;
     }
-
-    public int getId() {
-        return id;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public long getId() {
+        return id;
     }
 
     public long getUsername() {
@@ -104,5 +105,29 @@ public class Apply {
 
     public void setIsRise(int isRise) {
         this.isRise = isRise;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
     }
 }

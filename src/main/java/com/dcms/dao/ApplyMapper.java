@@ -1,12 +1,10 @@
 package com.dcms.dao;
 import com.dcms.model.Apply;
-import  java.util.List;
-
-import com.dcms.model.Apply;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface ApplyMapper {
     //插入一条个人赛信息
     int insertOneSelfInfo(String stuNo,String compId,String groupName);

@@ -111,10 +111,14 @@ function initTable(table, url, params, titles, hasCheckbox, sortNum) {
 }
 //初始弹出信息
 function initMessage(message, state) {
+    $._messengerDefaults = {
+        extraClasses: 'messenger-fixed messenger-theme-future messenger-on-top'
+    };
     $.globalMessenger().post({
         message: message,//提示信息
         type: state,//消息类型。error、info、success
         hideAfter: 3,//多长时间消失
+        id: 2,
         showCloseButton: true,//是否显示关闭按钮
         hideOnNavigate: true //是否隐藏导航
     });
@@ -159,18 +163,18 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
                     $('#' + inputFields[j]).val(jsonArray[0][inputFields[j]]);
                 }
                // if (inputFields.length === 12) {
-                    //var isTeam = document.getElementById("isTeam");
+                   /* var isTeam = document.getElementById("isTeam");
                     //alert(jsonArray[0].isTeam);
-                   /* for(var k=0;k<isTeam.options.length;k++){
+                    for(var k=0;k<isTeam.options.length;k++){
                         if(jsonArray[0].isTeam===isTeam.options[k].text()){
-                            isTeam.options[i].selected='selected';
+                            isTeam.options[i].selected=true;
                         }
                     }*/
                     // opts.options[i].selected = 'selected';
 
                   //$("#isTeam").find("option[text=" + jsonArray[0]['isTeam'] + "]").attr("selected", true);
                     //    $("#group").selectpicker('refresh');
-               // }
+                //}
             }
             $('#' + inputFields[0]).attr("disabled", true);
             $("#myDiv").hide();

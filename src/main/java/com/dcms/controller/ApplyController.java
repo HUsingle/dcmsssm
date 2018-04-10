@@ -1,12 +1,21 @@
 package com.dcms.controller;
-import org.springframework.ui.Model;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.dcms.model.Apply;
 import com.dcms.model.Competition;
 import com.dcms.service.ApplyService;
+import com.dcms.service.CompetitionService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.dcms.service.CompetitionService;
+
 import java.util.List;
 
 @Controller
@@ -35,7 +44,7 @@ public class ApplyController {
         }
         return "n";
     }
-
+    //进入报名管理之前获取所有竞赛信息
     @RequestMapping("/applyManage")
     public String enterApplyIndex(Model model) {
         List<Competition> competitionList = competitionService.getAllCompetition();
@@ -60,5 +69,19 @@ public class ApplyController {
            return "ok";
        }
         return  "ng";
+    }
+
+    @RequestMapping(value = "/getApplyList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    public String geApplyList(@RequestParam Integer offset, @RequestParam Integer limit,
+                                   @RequestParam String sort, @RequestParam int id,
+                                   @RequestParam(defaultValue = "") String groupName) {
+        PageHelper.startPage(offset, limit);
+        List<Apply> applyList = applyService.findApplyByCidAndGroup(id,groupName,sort);
+        PageInfo<Apply> pageInfo = new PageInfo<Apply>(applyList);
+        JSONObject result = new JSONObject();
+        result.put("total", pageInfo.getTotal());
+        result.put("rows", applyList);
+        return JSON.toJSONString(result, SerializerFeature.DisableCircularReferenceDetect);
     }
 }
