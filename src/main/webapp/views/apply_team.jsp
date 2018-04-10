@@ -138,7 +138,7 @@
                             }else if (isApplyed(sno1,compId)){   //判断是否已经报名
                                 alert("该同学已经报名，不可添加！")
                             }else {
-                                count++;
+                                countStu++;
                                 if(count>4){
                                     alert("最多只能添加4位成员！")
                                 }else {
