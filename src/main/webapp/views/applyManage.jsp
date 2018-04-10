@@ -124,6 +124,94 @@
 <script src="${path}/resources/js/defaults-zh_CN.min.js"></script>
 <script src="${path}/resources/js/create-table.js"></script>
 <script>
+    function initMyTable(table, url, params, titles, hasCheckbox, sortNum) {
+        $(table).bootstrapTable({
+            url: url,//请求后台的url
+            method: 'post',
+            contentType: "application/x-www-form-urlencoded",
+            dataType: "json",
+            striped: true,
+            cache: false,
+            pagination: true,
+            sortable: true,
+            sortOrder: "asc",
+            queryParams: function (params) {
+                var temp = {
+                    limit: params.limit,
+                    offset: (params.offset / params.limit) + 1,
+                    sort: params.order,
+                    search: $("#search").val()
+                };
+                return temp;
+            },
+            sidePagination: "server",//设置分页方式
+            pageNumber: 1,
+            pageSize: 10,
+            pageList: [5, 10, 15],
+            search: false,
+            strictSearch: false,
+            searchOnEnterKey: false,
+            clickToSelect: true,
+            minimumCountColumns: 2,
+            showToggle: false,
+            cardView: false,
+            detailView: false,
+            columns: createCols(params, titles, hasCheckbox),
+            onLoadSuccess: function (data) {
+                if (data.total && !data.rows.length) {
+                    $(table).bootstrapTable('prevPage').bootstrapTable('refresh');
+                }
+
+                if (data["rows"]!==null&&data["rows"].length>0&&("teacher" in data["rows"][0])) {//返回数据有老师这个变量
+                    var result = data["rows"];
+                    $.each(result, function (index, content) {//对数组进行循环
+                        if (content["isTeam"] === 1) {
+                            content["isTeam"] = "团队赛";
+                        } else {
+                            content["isTeam"] = "个人赛";
+                        }
+                        content["tid"] = content["teacher"].name;
+                        if (!("compeStartTime" in content))
+                            content.compeStartTime = "";
+                        if (!("compeEndTime" in content))
+                            content.compeEndTime = "";
+                        if (!("applyStart" in content))
+                            content.applyStart = "";
+                        if (!("applyEnd" in content))
+                            content.applyEnd = "";
+                        if (!("file" in content))
+                            content.file = "";
+                        //}
+                    });
+                    $(table).bootstrapTable("load", data);
+                }
+                return true;//返回值很重要
+            }
+
+        });
+        //创建表头
+        function createCols(params, titles, hasCheckbox) {
+            if (params.length !== titles.length)
+                return null;
+            var arr = [];
+            if (hasCheckbox) {
+                var obj = {};
+                obj.checkbox = true;
+                arr.push(obj);
+            }
+            for (var i = 0; i < params.length; i++) {
+                var obje = {};
+                obje.field = params[i];
+                obje.title = titles[i];
+                if (i === sortNum) {
+                    obje.sortable = true;
+                }
+                obje.align = 'center';
+                arr.push(obje);
+            }
+            return arr;
+        }
+    }
     $(function () {
         $("#competition").change(function () {
             var selectValue = "";
@@ -134,6 +222,7 @@
                     selectValue = obj.options[i].value;//获取选中的竞赛
                 }
             }
+
             var group = "";
             var competitionArray=[];
             <c:forEach items="${competitionList}" var="competition">

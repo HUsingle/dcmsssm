@@ -11,4 +11,8 @@
     <select id="isExistSelfInfo" resultType="java.lang.String">
         select c_group_name from db_apply where s_number = #{param1} and c_id = #{param2}
     </select>
+    <!--通过竞赛的id和组的名字查询报名情况-->
+    <select id="findApplyByCidAndGroup" resultType="com.dcms.model.Apply" >
+        select * from db_apply where c_id=#{id} and c_group_name=#{groupName} order by s_number ${sort}
+    </select>
 </mapper>

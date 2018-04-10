@@ -53,7 +53,7 @@ function initTable(table, url, params, titles, hasCheckbox, sortNum) {
                 $(table).bootstrapTable('prevPage').bootstrapTable('refresh');
             }
 
-            if (data["rows"]!=null&&data["rows"].length>0&&("teacher" in data["rows"][0])) {//返回数据有老师这个变量
+            if (data["rows"]!==null&&data["rows"].length>0&&("teacher" in data["rows"][0])) {//返回数据有老师这个变量
                 var result = data["rows"];
                 $.each(result, function (index, content) {//对数组进行循环
                     if (content["isTeam"] === 1) {
@@ -136,6 +136,7 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
             //    $("#group").find("option[text='pxx']").attr("selected",true);
 //
             //    $("#group").selectpicker('refresh');
+
         }
         $('#' + inputFields[0]).attr("disabled", false);
         $("#myDiv").hide();
@@ -154,13 +155,22 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
                     $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
                 }
             } else {
-                for (var i = 0; i < 8; i++) {
-                    $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
+                for (var j = 0; j < 8; j++) {
+                    $('#' + inputFields[j]).val(jsonArray[0][inputFields[j]]);
                 }
-                if (inputFields.length === 12) {
-                  //  $("#isTeam").find("option[text=" + jsonArray[0]['isTeam'] + "]").attr("selected", true);
+               // if (inputFields.length === 12) {
+                    //var isTeam = document.getElementById("isTeam");
+                    //alert(jsonArray[0].isTeam);
+                   /* for(var k=0;k<isTeam.options.length;k++){
+                        if(jsonArray[0].isTeam===isTeam.options[k].text()){
+                            isTeam.options[i].selected='selected';
+                        }
+                    }*/
+                    // opts.options[i].selected = 'selected';
+
+                  //$("#isTeam").find("option[text=" + jsonArray[0]['isTeam'] + "]").attr("selected", true);
                     //    $("#group").selectpicker('refresh');
-                }
+               // }
             }
             $('#' + inputFields[0]).attr("disabled", true);
             $("#myDiv").hide();
