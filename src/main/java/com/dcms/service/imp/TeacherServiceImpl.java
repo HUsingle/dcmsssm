@@ -27,6 +27,11 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> getAllTeacher(String sort) {
         return teacherMapper.getAllTeacher(sort);
     }
+
+    public List<Teacher> getTeacherNameAndId() {
+        return teacherMapper.getTeacherNameAndId();
+    }
+
     //按教师ID查询教师信息
     public String getTeacherById(String id) {
         long tid = Long.valueOf(id);

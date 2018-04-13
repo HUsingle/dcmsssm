@@ -12,8 +12,10 @@ import java.util.List;
  */
 @Service
 public interface StudentService {
-        /*查找所有学生*/
+    /*查找所有学生*/
     List<Student> findAllStudent(String sort);
+    //查询所有学生学号
+    List<Student> findAllUsername();
     //按班级/名字查找学生
     List<Student> searchStudent(String search,String sort);
     //按学号查询

@@ -14,6 +14,8 @@ import java.util.List;
 public interface TeacherService {
     //查询所有老师
     List<Teacher> getAllTeacher(String sort);
+    //查询所有老师id和name
+    List<Teacher> getTeacherNameAndId();
     //按id查询
     String getTeacherById(String id);
     //增加老师

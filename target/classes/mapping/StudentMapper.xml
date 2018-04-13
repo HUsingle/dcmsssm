@@ -65,6 +65,11 @@
     <select id="qryById" resultMap="stuMap">
         select * from db_student where s_number = #{param1}
     </select>
+
+    <!---->
+    <select id="findAllUsername" resultType="com.dcms.model.Student">
+        select s_number as username from db_student
+    </select>
     <resultMap id="stuMap" type="Student">
         <result property="username" column="s_number"/>
         <result property="name" column="s_name"/>

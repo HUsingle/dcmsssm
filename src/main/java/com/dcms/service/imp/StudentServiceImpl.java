@@ -28,6 +28,10 @@ public class StudentServiceImpl implements StudentService {
         return studentList;
     }
 
+    public List<Student> findAllUsername() {
+        return studentMapper.findAllUsername();
+    }
+
     public List<Student> searchStudent(String search, String sort) {
            List<Student> studentList = studentMapper.getSearchStudent(search, sort);
         return studentList;

@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface TeacherMapper {
      List<Teacher> getAllTeacher(@Param("sort") String sort);
+     List<Teacher> getTeacherNameAndId();
      int updateTeacher(Teacher teacher);
      int deleteTeacher(Long[] ids);
      int addTeacher(List<Teacher> teachers);

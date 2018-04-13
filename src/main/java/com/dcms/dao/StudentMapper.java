@@ -30,4 +30,7 @@ public interface StudentMapper {
 
     //根据学号查学生信息
     Student qryById(String account);
+
+    //查询所有学号
+    List<Student> findAllUsername();
 }

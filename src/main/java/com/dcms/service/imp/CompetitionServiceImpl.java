@@ -157,12 +157,13 @@ public class CompetitionServiceImpl implements CompetitionService {
                 }
                 file.transferTo(uploadFile);//写入文件
             }else{//如果上传文件为空,删除已经存在的文件
-                if(oldFileName!=null&&oldFileName.length()>0){
+              /*  if(oldFileName!=null&&oldFileName.length()>0){
                     File oldFile = new File(path,oldFileName);
                     if (oldFile.exists()) {
                         oldFile.delete();
                     }
-                }
+                }*/
+              fileName=oldFileName;
             }
         } catch (IOException e) {
             e.printStackTrace();

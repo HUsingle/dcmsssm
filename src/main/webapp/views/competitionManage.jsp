@@ -121,7 +121,7 @@
                 <div class="col-sm-4">
                     <select class="selectpicker form-control" title="选择一项或多项" multiple id="group" name="group">
                         <c:forEach items="${competitionGroupList}" var="competitionGroup">
-                            <option >${competitionGroup.name}</option>
+                            <option value="${competitionGroup.name}">${competitionGroup.name}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -201,6 +201,86 @@
         }
         return selectValue;
     }
+    function initUpdateAndAddInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
+        $("#add").click(function () {
+            $("#myBoxTitle").text(titleOne);
+            for (var i = 0; i < 8; i++)
+                $('#' + inputFields[i]).val("");
+            $('#isTeam').selectpicker('val','0');
+            $('#tid').selectpicker('val',"");
+            $('#group').selectpicker('val',"");
+            $('#' + inputFields[0]).attr("disabled", false);
+            $("#myDiv").hide();
+            $("#myBox").show();
+        });
+        $("#update").click(function () {
+            var jsonArray = $("#myTable").bootstrapTable('getSelections');
+            if (jsonArray.length < 1) {
+                initMessage("请选择一条数据!", 'error');
+            } else if (jsonArray.length > 1) {
+                initMessage("请选择一条数据,不要多选!", 'error');
+            } else {
+                $("#myBoxTitle").text(titleTwo);
+                    for (var j = 0; j < 8; j++) {
+                        $('#' + inputFields[j]).val(jsonArray[0][inputFields[j]]);
+                    }
+                    if(jsonArray[0].isTeam==='个人赛'){
+                        $('#isTeam').selectpicker('val','0');
+                    }else{
+                        $('#isTeam').selectpicker('val','1');
+                    }
+                    var teacherArray=[];
+                    <c:forEach items="${teacherList}" var="teacher">
+                    var teacherObject = {};
+                    teacherObject.id = '${teacher.id}';
+                    teacherObject.name = '${teacher.name}';
+                    teacherArray.push(teacherObject);
+                    </c:forEach>
+                    for(var k=0;k<teacherArray.length;k++) {
+                        if (jsonArray[0].tid===teacherArray[k].name) {
+                            $('#tid').selectpicker('val',teacherArray[k].id);
+                            break;
+                        }
+                    }
+                $('#group').selectpicker('val',jsonArray[0].group.split(','));
+                $('#' + inputFields[0]).attr("disabled", true);
+                $("#myDiv").hide();
+                $("#myBox").show();
+            }
+        });
+        $("#delete").click(function () {
+            var jsonArray = $("#myTable").bootstrapTable('getSelections');
+            if (jsonArray.length < 1) {
+                initMessage("请至少选择一条记录!", 'error');
+            } else {
+                var ids = '';
+                for (var i = 0; i < jsonArray.length; i++)
+                    ids += jsonArray[i][id] + ',';
+                $.ajax({
+                    type: 'POST',
+                    url: deleteUrl,
+                    data: {
+                        'id': ids
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            initMessage("删除成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+
+                        } else {
+                            initMessage("删除失败！", 'error');
+                        }
+                    }
+                });
+            }
+        });
+
+        /* $("#quit").click(function () {
+         $("#myBox").hide();
+         $("#myDiv").show();
+         });*/
+    }
     $(function () {
         initTable('#myTable', "${path}/comp/getCompetitionList",
             ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
@@ -209,7 +289,7 @@
     });
     $("document").ready(
         function () {
-           initUpdateInformation("添加竞赛", "修改竞赛", ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
+           initUpdateAndAddInformation("添加竞赛", "修改竞赛", ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
                "${path}/comp/deleteCompetition", "cid");
             $(".form-date").datetimepicker({
               format: 'yyyy-mm-dd hh:ii',

@@ -43,7 +43,7 @@ public class CompetitionController {
     }
     @RequestMapping(value = "/competitionManage")
     public String  competitionIndex(Model model){
-        List<Teacher> teacherList=teacherService.getAllTeacher("asc");
+        List<Teacher> teacherList=teacherService.getTeacherNameAndId();
         List<CompetitionGroup> competitionGroupList=competitionGroupService.getAllCompetitionGroup("asc");
         model.addAttribute(teacherList);
         model.addAttribute(competitionGroupList);

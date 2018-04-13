@@ -52,12 +52,12 @@ function initTable(table, url, params, titles, hasCheckbox, sortNum) {
             if (data.total && !data.rows.length) {
                 $(table).bootstrapTable('prevPage').bootstrapTable('refresh');
             }
-
+           //竞赛管理相关操作
             if (data["rows"]!==null&&data["rows"].length>0&&("teacher" in data["rows"][0])) {//返回数据有老师这个变量
                 var result = data["rows"];
                 $.each(result, function (index, content) {//对数组进行循环
                     if (content["isTeam"] === 1) {
-                        content["isTeam"] = "团队赛";
+                        content["isTeam"] = "团体赛";
                     } else {
                         content["isTeam"] = "个人赛";
                     }
@@ -136,12 +136,6 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
         $("#myBoxTitle").text(titleOne);
         for (var i = 0; i < inputFields.length; i++)
             $('#' + inputFields[i]).val("");
-        if (inputFields.length === 12) {
-            //    $("#group").find("option[text='pxx']").attr("selected",true);
-//
-            //    $("#group").selectpicker('refresh');
-
-        }
         $('#' + inputFields[0]).attr("disabled", false);
         $("#myDiv").hide();
         $("#myBox").show();
@@ -154,28 +148,9 @@ function initUpdateInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
             initMessage("请选择一条数据,不要多选!", 'error');
         } else {
             $("#myBoxTitle").text(titleTwo);
-            if (inputFields.length < 12) {
                 for (var i = 0; i < inputFields.length; i++) {
                     $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
                 }
-            } else {
-                for (var j = 0; j < 8; j++) {
-                    $('#' + inputFields[j]).val(jsonArray[0][inputFields[j]]);
-                }
-               // if (inputFields.length === 12) {
-                   /* var isTeam = document.getElementById("isTeam");
-                    //alert(jsonArray[0].isTeam);
-                    for(var k=0;k<isTeam.options.length;k++){
-                        if(jsonArray[0].isTeam===isTeam.options[k].text()){
-                            isTeam.options[i].selected=true;
-                        }
-                    }*/
-                    // opts.options[i].selected = 'selected';
-
-                  //$("#isTeam").find("option[text=" + jsonArray[0]['isTeam'] + "]").attr("selected", true);
-                    //    $("#group").selectpicker('refresh');
-                //}
-            }
             $('#' + inputFields[0]).attr("disabled", true);
             $("#myDiv").hide();
             $("#myBox").show();
