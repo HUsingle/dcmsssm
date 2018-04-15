@@ -15,6 +15,7 @@
     <select id="qryGroupNameByCid" resultType="java.lang.String">
         select apply_id from db_apply where group_name = #{param1}
     </select>
+
     <!--批量插入-->
     <insert id="insertBench" parameterType="java.util.List" >
         replace into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,

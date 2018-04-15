@@ -1,7 +1,7 @@
 package com.dcms.service.imp;
 
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dcms.dao.ApplyMapper;
 import com.dcms.dao.StudentMapper;
 import com.dcms.excel.ApplyExcelData;
@@ -10,7 +10,6 @@ import com.dcms.model.Apply;
 import com.dcms.model.Competition;
 import com.dcms.model.Student;
 import com.dcms.service.ApplyService;
-import com.dcms.utils.Tool;
 import com.dcms.service.CompetitionService;
 import com.dcms.utils.ExcelUtil;
 import com.dcms.utils.Tool;
@@ -28,7 +27,6 @@ import java.util.List;
 public class ApplyServiceImpl implements ApplyService {
     @Autowired
     ApplyMapper applyMapper;
-
     @Autowired
     StudentMapper studentMapper;
     @Autowired
@@ -55,8 +53,8 @@ public class ApplyServiceImpl implements ApplyService {
 
     //判断团队名称是否存在  存在返回true
     public boolean isExistGroupName(String tName) {
-        int s = applyMapper.qryNumByTeamName(tName);
-        if (s > 0) {
+        String s = applyMapper.qryGroupNameByCid(tName);
+        if (null!=s) {
             return true;
         }
         return false;
@@ -88,6 +86,10 @@ public class ApplyServiceImpl implements ApplyService {
             return true;
         }
         return false;
+    }
+
+    public List<Apply> findApplyByCidAndGroup(int id, String groupName, String sort) {
+        return null;
     }
 
     public List<Apply> findApplyByCidAndGroup(Integer id, String groupName, String sort) {

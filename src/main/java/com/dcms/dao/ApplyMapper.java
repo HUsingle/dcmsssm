@@ -7,18 +7,16 @@ import java.util.List;
 @Repository
 public interface ApplyMapper {
     //插入一条个人赛信息
-    int insertOneSelfInfo(String stuNo, String compId, String groupName);
-
+    int insertOneSelfInfo(String stuNo,String compId,String groupName);
     //更新一条个人报名记录
     int updateOneSelfInfo(@Param("id") Long id, @Param("competitionId") Integer competitionId,
                           @Param("competitionGroup") String competitionGroup, @Param("username") Long username);
-
     //判断个人赛是否已经报名
-    String isExistSelfInfo(String stuNo, String compId);
-
+    String isExistSelfInfo(String stuNo,String compId);
+    //根据竞赛id查询团队名称。
+    String qryGroupNameByCid(String tName);
     //查询竞赛竞赛团队名称是否存在。
     int qryNumByTeamName(String tName);
-
     //批量插入报名信息
     int insertBench(List<Apply> list);
       //通过竞赛的id和组的名字查询报名情况

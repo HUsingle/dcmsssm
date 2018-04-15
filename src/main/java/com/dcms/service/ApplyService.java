@@ -27,6 +27,7 @@ public interface ApplyService {
 
     List<Apply> findApplyByCidAndGroup(Integer id, String groupName, String sort);
 
+
     //删除报名信息
     String deleteApply(String id);
 
