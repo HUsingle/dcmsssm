@@ -7,25 +7,17 @@
     <insert id="insertOneSelfInfo">
         insert into db_apply values(0,#{param1},#{param2},now(),0,0 ,'',0,#{param3})
     </insert>
-    <update id="updateOneSelfInfo">
-        update db_apply set s_number=#{username},c_id=#{competitionId},c_group_name=#{competitionGroup}
-        where apply_id=#{id}
-    </update>
     <!--查询竞赛是否已经报名-->
     <select id="isExistSelfInfo" resultType="java.lang.String">
         select apply_id from db_apply where s_number = #{param1} and c_id = #{param2}
     </select>
     <!--查询团队名称是否已经存在-->
-    <select id="qryNumByTeamName" resultType="int">
-        select count(apply_id) from db_apply where group_name = #{param1}
-    </select>
-    <select id="findApplyByTeamName" resultType="com.dcms.model.Apply">
-        select apply_id as id,s_number as username,is_group_leader as isGroupLeader,
-        c_id as competitionId,t_id as teacherId from db_apply where group_name = #{groupName}
+    <select id="qryGroupNameByCid" resultType="java.lang.String">
+        select apply_id from db_apply where group_name = #{param1}
     </select>
     <!--批量插入-->
-    <insert id="insertBench" parameterType="java.util.List">
-        insert into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,
+    <insert id="insertBench" parameterType="java.util.List" >
+        replace into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,
         is_rise,c_group_name) values
         <foreach collection="list" item="item" separator=",">
         (#{item.username},#{item.competitionId},now(),#{item.teacherId},#{item.isGroupLeader},
@@ -58,6 +50,20 @@
             #{id}
         </foreach>
     </delete>
+    <!--导入个人报名信息(没组别)-->
+    <insert id="addApplyInfo" parameterType="java.util.List" >
+        replace into db_apply(s_number,c_id,apply_time) values
+        <foreach collection="list"   item="item" separator=",">
+            (#{item.username},#{competitionId},now())
+        </foreach>
+    </insert>
+    <!--导入个人报名信息(有组别)-->
+    <insert id="addApplyInfoHasGroup" parameterType="java.util.List" >
+        replace into db_apply(s_number,c_id,apply_time,c_group_name) values
+        <foreach collection="list"   item="item" separator=",">
+            (#{item.username},#{competitionId},now(),#{competitionGroup})
+        </foreach>
+    </insert>
 <!--报名的resultMap-->
     <resultMap type="com.dcms.model.Apply" id="applyMap">
         <id property="id" column="apply_id"/>

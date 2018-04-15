@@ -1,15 +1,26 @@
 package com.dcms.service.imp;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import com.dcms.dao.ApplyMapper;
+import com.dcms.dao.StudentMapper;
+import com.dcms.excel.ApplyExcelData;
+import com.dcms.excel.ExcelData;
 import com.dcms.model.Apply;
+import com.dcms.model.Competition;
+import com.dcms.model.Student;
 import com.dcms.service.ApplyService;
+import com.dcms.utils.Tool;
+import com.dcms.service.CompetitionService;
+import com.dcms.utils.ExcelUtil;
 import com.dcms.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -17,6 +28,11 @@ import java.util.List;
 public class ApplyServiceImpl implements ApplyService {
     @Autowired
     ApplyMapper applyMapper;
+
+    @Autowired
+    StudentMapper studentMapper;
+    @Autowired
+    CompetitionService competitionService;
 
     //个人赛报名
     public boolean insertOneSelfInfo(String stuNo, String compId, String groupName) {
@@ -126,4 +142,66 @@ public class ApplyServiceImpl implements ApplyService {
         int result = applyMapper.batchUpdateApply(applyList);
         return Tool.result(result);
     }
+
+    public String importOneApplyNoGroup(MultipartFile excelFile,boolean hasGroup,Competition competition) {
+
+        //学号，竞赛编号，组名。
+        ExcelData applyInsertExcelData = new ApplyExcelData();
+        List dataList;
+        if (hasGroup){
+            String[] head= {"学号", "姓名", "班级", "手机号码","竞赛组别"};
+            System.out.print("+++++++++++++++++++++++=========================");
+            dataList = ExcelUtil.importExcel(excelFile, head, applyInsertExcelData);
+
+        }else{
+            String[] head= {"学号", "姓名", "班级", "手机号码"};
+            System.out.print("***************************");
+            dataList = ExcelUtil.importExcel(excelFile, head, applyInsertExcelData);
+        }
+
+
+        int exResult = 0;
+        String result;
+        HashMap map = new HashMap();
+        List success = new ArrayList();
+        List error = new ArrayList();
+
+        if (dataList.size() == 0) {
+            return Tool.result("缺少行或者学号出错!");
+        }  else {
+            if ((dataList.get(0) instanceof String)) {
+                return dataList.get(0).toString();
+            } else {
+                List<Apply> data =dataList;
+                for(int i=0;i<data.size();i++){
+                    long sno = data.get(i).getUsername();
+                    Student student = studentMapper.qryById(String.valueOf(sno));
+                    if (null != student){   //学号存在，可以插入
+                        success.add(data.get(i));
+                    }else {
+                        error.add(data.get(i));
+                    }
+                }
+
+                if (hasGroup){
+                    exResult = applyMapper.addApplyInfoHasGroup(success,String.valueOf(competition.getCid()),competition.getGroup());
+                }else {
+                    exResult = applyMapper.addApplyInfo(success,String.valueOf(competition.getCid()));
+                }
+
+            }
+        }
+
+        if (exResult == 0) {
+            result = Tool.result("导入失败!");
+        } else {
+            map.put("result","导入成功!");
+            map.put("success",success);
+            map.put("errors",error);
+            result = JSONObject.toJSONString(map);
+        }
+        return result;
+    }
+
+
 }

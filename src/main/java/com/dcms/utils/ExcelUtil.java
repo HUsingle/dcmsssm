@@ -145,6 +145,7 @@ public class ExcelUtil {
 
     //导入表格，解析表格，获取相关实体的列表
     public static List importExcel(MultipartFile file, String[] head, ExcelData excelData) {
+        System.out.print(head.length+"lllllllllllllllllllllllllllllll");
         String fileName = file.getOriginalFilename();
         Workbook workbook = null;
         List<List<String>> lists = new ArrayList<List<String>>();
@@ -167,6 +168,7 @@ public class ExcelUtil {
                 Row row = sheet.getRow(i);  //获得一行
                 if (row != null) {
                     int lastCellNum = row.getLastCellNum(); //获得最后一个单元格下标
+                    System.out.print(lastCellNum+"/");
                     if (lastCellNum != head.length) {//判断下标与表头的长度是否相等
                         errorList.add(Tool.result("缺少列！"));
                         return errorList;

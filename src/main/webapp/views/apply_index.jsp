@@ -18,12 +18,12 @@
 
     <%--<link rel="shortcut icon" href="assets/images/gt_favicon.png">--%>
 
-    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+<%--    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+   &lt;%&ndash; <link rel="stylesheet" href="../resources/css/bootstrap.min.css">&ndash;%&gt;
     <link rel="stylesheet" href="../resources/css/font-awesome.min.css">
 
     <!-- Custom styles for our template -->
-    <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" media="screen" >
+    <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" media="screen" >--%>
     <link rel="stylesheet" href="../resources/css/style.css">
     <script src="../resources/js/jquery.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

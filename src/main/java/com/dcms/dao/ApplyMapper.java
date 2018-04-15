@@ -1,11 +1,9 @@
 package com.dcms.dao;
-
 import com.dcms.model.Apply;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 @Repository
 public interface ApplyMapper {
     //插入一条个人赛信息
@@ -23,6 +21,12 @@ public interface ApplyMapper {
 
     //批量插入报名信息
     int insertBench(List<Apply> list);
+      //通过竞赛的id和组的名字查询报名情况
+    List<Apply> findApplyByCidAndGroup(@Param("id") int id,@Param("groupName") String groupName,@Param("sort") String sort);
+
+    int addApplyInfo(@Param("list") List<Apply> list,@Param("competitionId")String competitionId);
+    int addApplyInfoHasGroup(@Param("list") List<Apply> list,@Param("competitionId")String competitionId,
+                                     @Param("competitionGroup")String competitionGroup);
 
     //批量更新报名信息
     int batchUpdateApply(List<Apply> list);
