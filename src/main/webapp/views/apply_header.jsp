@@ -90,14 +90,26 @@
                             },"json");
                     }
                 });
+
+     
+            var cccid="";
+            $.post("${pageContext.request.contextPath}/comp/getLatestComp",function (msg) {
+                cccid = msg[0].cid;
+
+            },"json");
             //打印模态框
             $(".printExamTicket").click(function () {
-                $.post("${pageContext.request.contextPath}/exam/getStuExamInfo",{stuNo:"114583010103",compId:"2"},function (msg) {
+                $.post("${pageContext.request.contextPath}/exam/getStuExamInfo",{stuNo:stuNumber,compId:cccid},function (msg) {
                     console.log(msg);
+                    $(".examName").text(msg.apply.student.name);
+                    $(".examSno").text(msg.apply.username);
+                    $(".examSite").text(msg.classroom.site);
+                    $(".examTime").text(msg.apply.competition.compeStartTime+"~"+msg.apply.competition.compeEndTime);
+                    $(".seatNo").text(msg.seatNo);
                     $("#printModal").modal('show');
 
                 },"json");
-            })
+            });
             //打印按钮点击事件
             $(".printModal_submit").click(function () {
                 $("#printModal").print({
@@ -109,11 +121,11 @@
                     append:null,//将内容添加到打印内容的后面
                     prepend:null,//将内容添加到打印内容的前面，可以用来作为要打印内容
                     deferred:
-                        $.Deferred()//回调函数
+                    $.Deferred()//回调函数
                 });
 
             })
-        })
+        });
     </script>
 </head>
 <body class="home">
@@ -156,23 +168,23 @@
                     <tbody>
                     <tr>
                         <td>姓名：</td>
-                        <td>Bangalore</td>
-                    </tr>
-                    <tr>
-                        <td>准考证号：</td>
-                        <td>Mumbai</td>
-                    </tr>
-                    <tr>
-                        <td>考场：</td>
-                        <td>Mumbai</td>
-                    </tr>
-                    <tr>
-                        <td>考试时间：</td>
-                        <td>2018-4-28 15：30 ~2018-4-4 15：23</td>
+                        <td class="examName">Bangalore</td>
                     </tr>
                     <tr>
                         <td>学号：</td>
-                        <td>114583010105</td>
+                        <td class="examSno">Mumbai</td>
+                    </tr>
+                    <tr>
+                        <td>考场：</td>
+                        <td class="examSite">Mumbai</td>
+                    </tr>
+                    <tr>
+                        <td>考试时间：</td>
+                        <td class="examTime">2018-4-28 15：30 ~2018-4-4 15：23</td>
+                    </tr>
+                    <tr>
+                        <td>座位号</td>
+                        <td class="seatNo">114583010105</td>
                     </tr>
                     </tbody>
                 </table>
