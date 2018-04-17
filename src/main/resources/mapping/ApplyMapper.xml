@@ -25,6 +25,9 @@
         select apply_id as id,s_number as username,is_group_leader as isGroupLeader,
         c_id as competitionId,t_id as teacherId from db_apply where group_name = #{groupName}
     </select>
+    <select id="qryGroupNameByCid" resultType="java.lang.String">
+        select apply_id from db_apply where group_name = #{param1}
+    </select>
     <!--批量插入-->
     <insert id="insertBench" parameterType="java.util.List">
         insert into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,
@@ -52,6 +55,19 @@
             and c_group_name=#{groupName}
         </if>
         order by ${sort}
+    </select>
+
+    <!--通过竞赛的id和组的名字查询参加该竞赛组别的人数情况-->
+    <select id="findApplyNumByGroup" resultType="java.lang.Integer">
+        select count(s_number) from db_apply where c_id=#{id} and c_group_name=#{groupName}
+    </select>
+    <!--通过竞赛的id和组的名字查询参加该竞赛组别报名id-->
+    <select id="findApplyIdByGroupAndCid" resultMap="applyMap">
+        select apply_id,s_number from db_apply where c_id=#{id} and c_group_name=#{groupName}
+    </select>
+
+    <select id="findApplyById" resultMap="applyMap">
+        select * from db_apply where apply_id=#{id}
     </select>
     <!--删除报名-->
     <delete id="deleteApply">
