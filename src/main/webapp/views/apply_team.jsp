@@ -139,7 +139,7 @@
                                 alert("该同学已经报名，不可添加！")
                             }else {
                                 countStu++;
-                                if(count>4){
+                                if(countStu>4){
                                     alert("最多只能添加4位成员！")
                                 }else {
                                     //查询学生信息，添加到页面

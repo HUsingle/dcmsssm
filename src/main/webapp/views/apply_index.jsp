@@ -13,29 +13,114 @@
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
-
     <title>Home</title>
-
-    <%--<link rel="shortcut icon" href="assets/images/gt_favicon.png">--%>
-
-<%--    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-   &lt;%&ndash; <link rel="stylesheet" href="../resources/css/bootstrap.min.css">&ndash;%&gt;
-    <link rel="stylesheet" href="../resources/css/font-awesome.min.css">
-
-    <!-- Custom styles for our template -->
-    <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" media="screen" >--%>
     <link rel="stylesheet" href="../resources/css/style.css">
     <script src="../resources/js/jquery.min.js"></script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
 
-    <script src="../resources/js/html5shiv.js"></script>
-    <script src="../resources/js/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body class="home">
 <%@ include file="apply_header.jsp" %>
+<!-- Header -->
+<header id="head">
+    <div class="container">
+        <div class="row">
+            <h1 class="lead">学科竞赛报名系统</h1>
+            <p class="tagline">软件与信息安全学院</p>
+            <!--<p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg" role="button">DOWNLOAD NOW</a></p>-->
+        </div>
+    </div>
+</header>
+<!-- /Header -->
+<div id="encourage" >
+    <br />
+    <h1>民大学子的展示平台</h1>
+    <p>今朝，软件萌芽。明日，硕果累累。</p>
+    <p>程序员们知道有些事情没有用，但是无论如何他们还是会去试一试。</p>
+
+</div>
+
+<div class=".container-fluid" id="message">
+    <div class="news_title">
+        <h5 class="page-header" style="border-bottom: 2px solid #91361a">
+            <span class="span_icon icon" >&nbsp;	</span>
+            <span class="span_icon_context" >&nbsp;公告	</span>
+            <a href="#" class="text-muted" style="float: right;line-height: 42px;margin-right: 10px">更多</a>
+        </h5>
+
+
+        <div class="news_body">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="">Sorry！</h1>
+                    <p>暂时未发布任何资讯，请继续关注。</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=".container-fluid" id="news">
+    <div class="news_title">
+        <h5 class="page-header" style="border-bottom: 2px solid #91361a">
+            <span class="span_icon" >&nbsp;	</span>
+            <span class="span_icon_context" >&nbsp;最新竞赛	</span>
+            <a href="#" class="text-muted" style="float: right;line-height: 42px;margin-right: 10px">更多</a>
+        </h5>
+
+        <div class="news_body" style="width: 850px;">
+            <table id="newGame" class="table" style="width: 850px;float: right;">
+                <thead>
+                <tr>
+                    <th>标题</th>
+                    <th class="comp_name" style="background-color: #ffffff;" ></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>状态</td>
+                    <td class="comp_state"></td>
+                </tr>
+                <tr>
+                    <th>竞赛地点</td>
+                    <td class="comp_place"></td>
+                </tr>
+                <tr>
+                    <th>竞赛开始时间</td>
+                    <td class="comp_start_time"></td>
+                </tr>
+                <tr>
+                    <th>竞赛结束时间</td>
+                    <td class="comp_end_time"></td>
+                </tr>
+                <tr>
+                    <th>报名时间</td>
+                    <td class="apply_time"></td>
+                </tr>
+
+                <tr>
+                    <th>附件</td>
+                    <td>
+
+                        <a  class="down_file" >
+                            <span class="glyphicon glyphicon-circle-arrow-down" ></span>
+                            <span class="file_name" ></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button class="btn btn-success apply_at_once" >立即报名</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<%--引入footer--%>
+<%@ include file="apply_footer.jsp" %>
+
 <script>
     var compId;     //竞赛ID
     //判断是否是团队赛
@@ -175,7 +260,7 @@
                                                 alert("抱歉，报名已结束。");
                                                 window.location.reload();
                                             }else {
-                                              //插入报名信息
+                                                //插入报名信息
                                                 $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
                                                     { stuNo: stuNumber,compId:compId,groupName:groupStr },function (data) {
                                                         alert("报名成功！");
@@ -204,108 +289,6 @@
 
     })
 </script>
-
-
-<!-- Header -->
-<header id="head">
-    <div class="container">
-        <div class="row">
-            <h1 class="lead">学科竞赛报名系统</h1>
-            <p class="tagline">软件与信息安全学院</p>
-            <!--<p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg" role="button">DOWNLOAD NOW</a></p>-->
-        </div>
-    </div>
-</header>
-<!-- /Header -->
-<div id="encourage" >
-    <br />
-    <h1>民大学子的展示平台</h1>
-    <p>今朝，软件萌芽。明日，硕果累累。</p>
-    <p>程序员们知道有些事情没有用，但是无论如何他们还是会去试一试。</p>
-
-</div>
-
-<div class=".container-fluid" id="message">
-    <div class="news_title">
-        <h5 class="page-header" style="border-bottom: 2px solid #91361a">
-            <span class="span_icon icon" >&nbsp;	</span>
-            <span class="span_icon_context" >&nbsp;公告	</span>
-            <a href="#" class="text-muted" style="float: right;line-height: 42px;margin-right: 10px">更多</a>
-        </h5>
-
-
-        <div class="news_body">
-            <div class="jumbotron">
-                <div class="container">
-                    <h1 class="">Sorry！</h1>
-                    <p>暂时未发布任何资讯，请继续关注。</p>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class=".container-fluid" id="news">
-    <div class="news_title">
-        <h5 class="page-header" style="border-bottom: 2px solid #91361a">
-            <span class="span_icon" >&nbsp;	</span>
-            <span class="span_icon_context" >&nbsp;最新竞赛	</span>
-            <a href="#" class="text-muted" style="float: right;line-height: 42px;margin-right: 10px">更多</a>
-        </h5>
-
-        <div class="news_body" style="width: 850px;">
-            <table id="newGame" class="table" style="width: 850px;float: right;">
-                <thead>
-                <tr>
-                    <th>标题</th>
-                    <th class="comp_name" style="background-color: #ffffff;" ></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>状态</td>
-                    <td class="comp_state"></td>
-                </tr>
-                <tr>
-                    <th>竞赛地点</td>
-                    <td class="comp_place"></td>
-                </tr>
-                <tr>
-                    <th>竞赛开始时间</td>
-                    <td class="comp_start_time"></td>
-                </tr>
-                <tr>
-                    <th>竞赛结束时间</td>
-                    <td class="comp_end_time"></td>
-                </tr>
-                <tr>
-                    <th>报名时间</td>
-                    <td class="apply_time"></td>
-                </tr>
-
-                <tr>
-                    <th>附件</td>
-                    <td>
-
-                        <a  class="down_file" >
-                            <span class="glyphicon glyphicon-circle-arrow-down" ></span>
-                            <span class="file_name" ></span>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><button class="btn btn-success apply_at_once" >立即报名</button></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<%--引入footer--%>
-<%@ include file="apply_footer.jsp" %>
-
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
 <!-- Javascripts
@@ -334,10 +317,11 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+
 <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
-<%--<script src="../resources/js/headroom.min.js"></script>--%>
-<%--<script src="../resources/js/jQuery.headroom.min.js"></script>--%>
-<%--<script src="../resources/js/template.js"></script>--%>
+
 </body>
 </html>

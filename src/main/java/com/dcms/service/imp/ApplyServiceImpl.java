@@ -152,12 +152,10 @@ public class ApplyServiceImpl implements ApplyService {
         List dataList;
         if (hasGroup){
             String[] head= {"学号", "姓名", "班级", "手机号码","竞赛组别"};
-            System.out.print("+++++++++++++++++++++++=========================");
             dataList = ExcelUtil.importExcel(excelFile, head, applyInsertExcelData);
 
         }else{
             String[] head= {"学号", "姓名", "班级", "手机号码"};
-            System.out.print("***************************");
             dataList = ExcelUtil.importExcel(excelFile, head, applyInsertExcelData);
         }
 

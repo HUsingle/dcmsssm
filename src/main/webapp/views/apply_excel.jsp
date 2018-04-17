@@ -43,7 +43,7 @@
 
                 </div>
             </div>
-
+            <div style="margin-bottom: 400px"></div>
         </div>
 
     <%@include file="apply_footer.jsp"%>
@@ -138,5 +138,6 @@
         <script src="../resources/js/defaults-zh_CN.min.js"></script>
         <script src="../resources/js/bootstrap-datetimepicker.min.js"></script>
         <script src="../resources/js/bootstrap-datetimepicker.zh-CN.js"></script>
+        <script src="../resources/js/jQuery.print.js"></script>
 </body>
 </html>

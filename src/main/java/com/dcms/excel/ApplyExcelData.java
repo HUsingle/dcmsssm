@@ -34,7 +34,6 @@ public class ApplyExcelData implements ExcelData {
                 applyList.add(apply);
             }
         }
-        //System.out.print(applyList.get(1).getUsername());
         return applyList;
     }
 

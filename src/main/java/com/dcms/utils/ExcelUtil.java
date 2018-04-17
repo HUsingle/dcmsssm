@@ -145,7 +145,6 @@ public class ExcelUtil {
 
     //导入表格，解析表格，获取相关实体的列表
     public static List importExcel(MultipartFile file, String[] head, ExcelData excelData) {
-        System.out.print(head.length+"lllllllllllllllllllllllllllllll");
         String fileName = file.getOriginalFilename();
         Workbook workbook = null;
         List<List<String>> lists = new ArrayList<List<String>>();

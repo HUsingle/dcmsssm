@@ -50,7 +50,7 @@
     <script src="../resources/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../resources/js/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="../resources/js/fileUploadInit.js"></script>
-
+    <script src="../resources/js/jQuery.print.js"></script>
     <script>
         var stuNumber;
         $(document).ready(function () {
@@ -90,19 +90,33 @@
                             },"json");
                     }
                 });
+            //打印模态框
+            $(".printExamTicket").click(function () {
+                $.post("${pageContext.request.contextPath}/exam/getStuExamInfo",{stuNo:"114583010103",compId:"2"},function (msg) {
+                    console.log(msg);
+                    $("#printModal").modal('show');
 
-           /* $("#applyUpload").click(function () {
-              $("#ImportComp").modal("show");
-                intFileInput();
-            });*/
-            //file-caption form-control kv-fileinput-caption
+                },"json");
+            })
+            //打印按钮点击事件
+            $(".printModal_submit").click(function () {
+                $("#printModal").print({
+                    globalStyles:true,//是否包含父文档的样式，默认为true
+                    mediaPrint:false,//是否包含media='print'的链接标签。会被globalStyles选项覆盖，默认为false
+                    stylesheet:null,//外部样式表的URL地址，默认为null
+                    noPrintSelector:".noPrint",//不想打印的元素的jQuery选择器，默认为".no-print"
+                    iframe:true,//是否使用一个iframe来替代打印表单的弹出窗口，true为在本页面进行打印，false就是说新开一个页面打印，默认为true
+                    append:null,//将内容添加到打印内容的后面
+                    prepend:null,//将内容添加到打印内容的前面，可以用来作为要打印内容
+                    deferred:
+                        $.Deferred()//回调函数
+                });
+
+            })
         })
     </script>
-
 </head>
-
 <body class="home">
-
 <!-- Fixed navbar -->
 <div class="navbar navbar-inverse navbar-fixed-top headroom" >
     <div class="container">
@@ -115,7 +129,7 @@
                 <li class="active"><a href="apply_index.jsp">主页</a></li>
                 <li><a href="about.html">查询</a></li>
                 <li><a href="apply_excel.jsp" id="applyUpload"><i class="fa fa-upload"></i> 上传报名表</a></li>
-                <li><a href="contact.html">打印准考证</a></li>
+                <li><a class="printExamTicket" href="#">打印准考证</a></li>
                 <li ><a class="selfInfo" href="contact.html"></a></li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -123,37 +137,55 @@
 </div>
 <!-- /.navbar -->
 
-<%--<!-- 模态框（Modal） -->
-<div class="modal fade" id="ImportComp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header noPrint">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
                 </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    导入表格
+                <h4 class="modal-title " >
+                    打印准考证
                 </h4>
             </div>
-            <div class="modal_context_up">
-                <input id="compFile" name="compFile" multiple type="file">
+            <div class="print_context">
+                <table class="table table-bordered">
+                    <caption class="text-center "><strong>广西民族大学2018第一届程序设计竞赛</strong></caption>
+                    <caption class="text-center "><strong>准&nbsp;&nbsp;考&nbsp;&nbsp;证</strong></caption>
+
+                    <tbody>
+                    <tr>
+                        <td>姓名：</td>
+                        <td>Bangalore</td>
+                    </tr>
+                    <tr>
+                        <td>准考证号：</td>
+                        <td>Mumbai</td>
+                    </tr>
+                    <tr>
+                        <td>考场：</td>
+                        <td>Mumbai</td>
+                    </tr>
+                    <tr>
+                        <td>考试时间：</td>
+                        <td>2018-4-28 15：30 ~2018-4-4 15：23</td>
+                    </tr>
+                    <tr>
+                        <td>学号：</td>
+                        <td>114583010105</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">关闭
+                <button type="button" class="btn btn-default noPrint" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary printModal_submit noPrint" data-dismiss="modal" >
+                    打印
                 </button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->--%>
-
-
-
-
-
-
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<!-- Javascripts
-==================================================  -->
+</div><!-- /.modal -->
 
 </body>
 </html>

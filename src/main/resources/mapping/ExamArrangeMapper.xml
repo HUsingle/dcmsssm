@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcms.dao.ExamArrangeMapper">
+    <select id="qryExamTicket" resultMap="applyMap">
+        SELECT
+        s.s_name as name,
+        s.s_number as username,
+        s.s_phone as phone,
+        s.s_major_class ,
+        ca.seat_number,
+        c.c_competition_start,
+        c.c_competition_end,
+        cla.classroom_site
+        FROM
+        db_classroom cla,
+        db_apply a,
+        db_competition c,
+        db_student s,
+        db_classroom_arrange ca
+        WHERE
+        ca.classroom_id = cla.classroom_id
+        AND ca.apply_id = a.apply_id
+        AND a.c_id = c.c_id
+        AND a.s_number = s.s_number
+        AND s.s_number = #{param1}
+        AND c.c_id = #{param2}
+    </select>
+<!--考试信息的resultMap-->
+    <resultMap type="com.dcms.model.ExamInfo" id="applyMap">
+        <id property="id" column="ca_id"/>
+        <result property="seatNo" column="seat_number" />
+        <association property="classroom" javaType="com.dcms.model.Classroom" >
+            <result property="site" column="classroom_site"/>
+        </association>
+        <association property="apply" javaType="com.dcms.model.Apply" >
+            <result property="username" column="s_number"/>
+            <result property="competitionId" column="c_id"/>
+            <association property="competition" javaType="com.dcms.model.Competition" >
+                <result property="cid" column="c_id"/>
+                <result property="compeStartTime" column="c_competition_start"/>
+                <result property="compeEndTime" column="c_competition_end"/>
+            </association>
+            <association property="student" javaType="com.dcms.model.Student" >
+                <result property="name" column="s_name"/>
+                <result property="phone" column="s_phone"/>
+                <result property="studentClass" column="s_major_class"/>
+            </association>
+        </association>
+    </resultMap>
+</mapper>
