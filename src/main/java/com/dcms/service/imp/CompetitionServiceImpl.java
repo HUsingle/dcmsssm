@@ -1,6 +1,5 @@
 package com.dcms.service.imp;
 
-import com.alibaba.fastjson.JSON;
 import com.dcms.dao.CompetitionMapper;
 import com.dcms.model.Competition;
 import com.dcms.service.CompetitionService;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,12 +21,10 @@ public class CompetitionServiceImpl implements CompetitionService {
     CompetitionMapper compMapper;
 
     //获取最新的竞赛
-    public String getLatestComp() {
+    public Competition getLatestComp() {
         Competition competition = compMapper.qryLatestComp();
-        List list = new ArrayList();
-        list.add(competition);
-        String json = JSON.toJSONString(list);
-        return json;
+
+        return competition;
     }
 
     //判断是否是团队赛

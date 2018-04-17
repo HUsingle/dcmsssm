@@ -16,17 +16,12 @@
         select c_is_team from db_competition where c_id = #{param1}
     </select>
     <!--查询所有竞赛-->
-   <!-- <select id="findAllCompetition" resultMap="compMap">
+    <select id="findAllCompetition" resultMap="compMap">
         select * from db_competition
-    </select>-->
+    </select>
     <!--通过id查询竞赛附件-->
     <select id="findCompetitionFile" resultType="string">
         select c_file from db_competition where c_id = #{id}
-    </select>
-    <!--查询个人赛信息-->
-    <select id="findSingleCompetition" resultMap="compMap">
-        select c_id,c_name,c_group from db_competition where c_is_team =0
-        order by c_publish_time DESC
     </select>
     <!--判断竞赛附件是否存在-->
     <select id="findCompetitionFileIsExist" resultType="int">

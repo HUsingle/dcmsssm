@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,7 +39,10 @@ public class CompetitionController {
     @RequestMapping(produces="text/html;charset=UTF-8",value = "/getLatestComp")
     @ResponseBody
     public String getLatestComp(HttpServletResponse response)throws UnsupportedEncodingException{
-        String json = cs.getLatestComp();
+        Competition competition = cs.getLatestComp();
+        List list = new ArrayList();
+        list.add(competition);
+        String json = JSON.toJSONString(list);
         return json;
     }
     @RequestMapping(value = "/competitionManage")

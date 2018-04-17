@@ -1,6 +1,8 @@
 package com.dcms.service;
 
 import com.dcms.model.Apply;
+import com.dcms.model.Competition;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,10 +19,14 @@ public interface ApplyService {
     boolean isExistGroupName(String tName);
 
     //团队报名
-    boolean teamApply(String list, String tid, String compId, String groupName, String tName);
-
+    boolean teamApply(String list,String tid,String compId,String groupName,String tName);
     //通过竞赛的id和组的名字查询报名情况
+    List<Apply> findApplyByCidAndGroup( int id, String groupName,String sort);
+    //解析报名表excel,个人报名（没组别）
+    String importOneApplyNoGroup(MultipartFile excelFile, boolean hasGroup, Competition competition);
+
     List<Apply> findApplyByCidAndGroup(Integer id, String groupName, String sort);
+
 
     //删除报名信息
     String deleteApply(String id);

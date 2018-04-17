@@ -15,6 +15,8 @@ public class Tool {
     public static final String saveCompAffixPath="upload/comp_affix_file/";
     //竞赛文件保存路径
     public static final String saveCompFilePath="upload/comp_file/";
+    //报名表路径
+    public static final String APPLY_TABLE_PATH="upload/apply_table/";
 
 
     //返回一个带int结果的json

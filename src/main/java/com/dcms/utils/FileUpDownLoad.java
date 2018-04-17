@@ -22,13 +22,28 @@ public class FileUpDownLoad {
 
     }
 
+    @RequestMapping(value="/downApplyTable")
+    public ResponseEntity<byte[]> downApplyTable(HttpServletRequest request,
+                                           @RequestParam("filename") String filename,
+                                           Model model)throws Exception{
+        // 下载文件路径
+        String path = request.getServletContext().getRealPath(Tool.APPLY_TABLE_PATH);
+        return down(request,filename,model,path);
+    }
     @RequestMapping(value="/download")
     public ResponseEntity<byte[]> download(HttpServletRequest request,
                                            @RequestParam("filename") String filename,
                                            Model model)throws Exception{
         // 下载文件路径
-        String path = request.getServletContext().getRealPath(
-                "/images/");
+        String path = request.getServletContext().getRealPath(Tool.saveCompAffixPath);
+        return down(request,filename,model,path);
+    }
+
+    public ResponseEntity<byte[]> down(HttpServletRequest request,
+                                                 @RequestParam("filename") String filename,
+                                                 Model model,String path)throws Exception{
+      /*  // 下载文件路径
+        String path = request.getServletContext().getRealPath(Tool.saveCompAffixPath);*/
         File file = new File(path+File.separator+ filename);
         HttpHeaders headers = new HttpHeaders();
         // 下载显示的文件名，解决中文名称乱码问题

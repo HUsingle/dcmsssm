@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface CompetitionService {
-    String getLatestComp();
+    Competition getLatestComp();
 
     boolean qryIsTeam(String id);   // 判断是否是团队赛
     //查询所有竞赛

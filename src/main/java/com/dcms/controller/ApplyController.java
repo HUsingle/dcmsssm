@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class ApplyController {
     //个人赛报名
     @RequestMapping("/OneSelfApply")
     @ResponseBody
-    public String OneSelfApply(String stuNo, String compId, String groupName) {
-        if (!applyService.insertOneSelfInfo(stuNo, compId, groupName)) {
+    public String OneSelfApply(String stuNo,String compId,String groupName){
+        if (!applyService.insertOneSelfInfo(stuNo,compId,groupName)){
             return "ng";
         }
         return "ok";
@@ -47,8 +48,8 @@ public class ApplyController {
     //判断是否重复报名
     @RequestMapping("/isExistSelfInfo")
     @ResponseBody
-    public String isExistSelfInfo(String stuNo, String compId) {
-        if (applyService.isExistSelfInfo(stuNo, compId)) {
+    public String isExistSelfInfo(String stuNo,String compId){
+        if (applyService.isExistSelfInfo(stuNo,compId)){
             return "y";
         }
         return "n";
@@ -120,4 +121,16 @@ public class ApplyController {
     public String batchUpdateApply(String id,String list, String isGroupLeader,Long tid, String groupName, String tName,Integer compId){
         return applyService.batchUpdateApply(id,isGroupLeader,list,tid,groupName,tName,compId);
     }
+
+    @RequestMapping(value = "/importApplyTable",  produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String importApplyTable(@RequestParam("compFile") MultipartFile compFile)throws IllegalStateException {
+        Competition competition =competitionService.getLatestComp();
+        if (!"".equals(competition.getGroup())&&null!=competition.getGroup()){   //组别不为空
+            return applyService.importOneApplyNoGroup(compFile,true,competition);
+        }else {
+            return applyService.importOneApplyNoGroup(compFile,false,competition);
+        }
+    }
+
 }
