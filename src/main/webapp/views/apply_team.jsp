@@ -21,19 +21,26 @@
 <%@ include file="apply_header.jsp" %>
 <script>
     //获取地址栏参数
-    function getQueryVariable(variable)
-    {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-            var pair = vars[i].split("=");
-            if(pair[0] == variable){return pair[1];}
+    function getRequest() {
+        var url = window.location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                //就是这句的问题
+                theRequest[strs[i].split("=")[0]]=decodeURI(strs[i].split("=")[1]);
+                //之前用了unescape()
+                //才会出现乱码
+            }
         }
-        return(false);
+        return theRequest;
     }
     $(document).ready(function () {
-        var compId = getQueryVariable("compId");
-        var groupName = getQueryVariable("groupName");
+        var arr = getRequest();
+        var compId = arr['compId'];//参数名
+        var groupName = arr['groupName'];//参数名
+        console.log(groupName)
         if(groupName==false){
             groupName = "";
         }

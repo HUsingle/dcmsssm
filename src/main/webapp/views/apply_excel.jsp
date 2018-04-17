@@ -11,8 +11,6 @@
 
     <title>集体报名</title>
     <link rel="stylesheet" href="../resources/css/apply_excel.css">
-    <link rel="stylesheet" href="../resources/css/messenger.css">
-    <link rel="stylesheet" href="../resources/css/messenger-theme-future.css">
     <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="../resources/css/fileinput.min.css">
 </head>
@@ -48,7 +46,7 @@
 
     <%@include file="apply_footer.jsp"%>
 <script>
-    function intFileInput(cid,groupName) {
+    function intFileInput() {
         var myFile= $("#compFile");
         myFile.fileinput({
             uploadUrl:"${pageContext.request.contextPath}/apply/importApplyTable",//上传的地址
@@ -72,9 +70,7 @@
                 actionZoom:''   //去除上传预览缩略图中的查看详情预览的缩略图标。
             },
         });
-
     }
-
     $(document).ready(function () {
         $.post("${pageContext.request.contextPath}/comp/getLatestComp", function(data){
             if (""!=data[0].group&&data[0].group!=undefined){
@@ -83,18 +79,17 @@
                 $(".down_file").attr("href", "${pageContext.request.contextPath}/fileOperate/downApplyTable?filename=竞赛报名表1.xls");
             }
         });
-
-        intFileInput("1","aaasd");
+        intFileInput();
         $('#compFile').on('fileerror', function(event, data, msg) {
-            initMessage(msg, "error");
+            swal("错误", msg, "error");
         });
         $('#compFile').on('fileuploaded', function(event, data, msg) {
             var result = data.response.result;
             if (result === "导入成功!") {
                 var er = data.response.errors;
-                result+="&nbsp;&nbsp;失败："+er.length;
-                result+="&nbsp;&nbsp;成功："+data.response.success.length;
-                initMessage(result, "success");
+                result+="       失败："+er.length;
+                result+="       成功："+data.response.success.length;
+                swal("恭喜", result, "success");
                 if (er.length>0){
                     $(".errorListBlock").show();
                     $(".errorList").empty();
@@ -106,23 +101,11 @@
                 })
 
             } else {
-              initMessage(result, "error");
+                swal("错误", result, "error");
             }
         });
         $("#excel_body").children().find(".form-control").css({"height":"40px","line-height":"27px"});
-        //提示框
-        function initMessage(message, state) {
-            $._messengerDefaults = {
-                extraClasses: 'messenger-fixed messenger-theme-future  messenger-on-right'
-            };
-            $.globalMessenger().post({
-                message: message,//提示信息
-                type: state,//消息类型。error、info、success
-                hideAfter: 4,//多长时间消失
-                id: 1, //：唯一的ID。 如果提供，则一次只显示一个带有该ID的消息。
-                showCloseButton: true//是否显示关闭按钮
-            });
-        }
+
     })
 
 </script>
@@ -130,7 +113,6 @@
         <script src="../resources/js/bootstrap.min.js"></script>
         <script src="../resources/js/bootstrap-table.min.js"></script>
         <script src="../resources/js/bootstrap-table-zh-CN.min.js"></script>
-        <script src="../resources/js/messenger.min.js"></script>
         <script src="../resources/js/create-table.js"></script>
         <script src="../resources/js/bootstrap-select.min.js"></script>
         <script src="../resources/js/fileinput.min.js"></script>
