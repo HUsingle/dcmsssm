@@ -21,27 +21,11 @@
     <link rel="stylesheet" href="../resources/css/font-awesome.min.css">
     <link rel="stylesheet" href="../resources/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" media="screen" >
-
-  <%--  <link rel="stylesheet" href="../resources/css/messenger.css">--%>
     <link rel="stylesheet" href="../resources/css/style.css">
-
-
-
-
-
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
     <script src="../resources/js/html5shiv.js"></script>
     <script src="../resources/js/respond.min.js"></script>
-    <![endif]-->
-    <!-- Custom styles for our template -->
-
-    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
     <script src="../resources/js/jquery.min.js"></script>
     <script src="../resources/js/bootstrap.min.js"></script>
-
-    <script src="../resources/js/messenger.min.js"></script>
     <script src="../resources/js/create-table.js"></script>
     <script src="../resources/js/bootstrap-select.min.js"></script>
     <script src="../resources/js/fileinput.min.js"></script>
@@ -51,6 +35,9 @@
     <script src="../resources/js/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="../resources/js/fileUploadInit.js"></script>
     <script src="../resources/js/jQuery.print.js"></script>
+    <link rel="stylesheet" href="../resources/css/sweet-alert.css">
+    <script src="../resources/js/sweet-alert.min.js"></script>
+
     <script>
         var stuNumber;
         $(document).ready(function () {
@@ -78,8 +65,12 @@
             $.post("${pageContext.request.contextPath}/getSession",
                 { sessionName: "account" },function (msg) {
                     if(msg=="ng"){
-                        alert("你还没有登陆，请先登录！")
-                        window.location.href="login.jsp";
+                        swal({
+                            title: "提示",
+                            text: "你还没有登陆，请先登录!",
+                        },function(){
+                            window.location.href="login.jsp";
+                        });
                     }
                     else{
                         //获取学生信息
@@ -91,23 +82,25 @@
                     }
                 });
 
-     
+
             var cccid="";
             $.post("${pageContext.request.contextPath}/comp/getLatestComp",function (msg) {
-                cccid = msg[0].cid;
-
+                cccid = msg[0].cid;  //竞赛ID
             },"json");
             //打印模态框
             $(".printExamTicket").click(function () {
                 $.post("${pageContext.request.contextPath}/exam/getStuExamInfo",{stuNo:stuNumber,compId:cccid},function (msg) {
                     console.log(msg);
+                    if(null!=msg){
                     $(".examName").text(msg.apply.student.name);
                     $(".examSno").text(msg.apply.username);
                     $(".examSite").text(msg.classroom.site);
                     $(".examTime").text(msg.apply.competition.compeStartTime+"~"+msg.apply.competition.compeEndTime);
                     $(".seatNo").text(msg.seatNo);
                     $("#printModal").modal('show');
-
+                    }else {
+                        swal({title: "提示",text: "考场暂未安排，请联系老师!"});
+                    }
                 },"json");
             });
             //打印按钮点击事件
@@ -125,6 +118,7 @@
                 });
 
             })
+
         });
     </script>
 </head>

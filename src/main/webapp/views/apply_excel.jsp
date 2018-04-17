@@ -110,7 +110,7 @@
             }
         });
         $("#excel_body").children().find(".form-control").css({"height":"40px","line-height":"27px"});
-
+        //提示框
         function initMessage(message, state) {
             $._messengerDefaults = {
                 extraClasses: 'messenger-fixed messenger-theme-future  messenger-on-right'
@@ -139,5 +139,6 @@
         <script src="../resources/js/bootstrap-datetimepicker.min.js"></script>
         <script src="../resources/js/bootstrap-datetimepicker.zh-CN.js"></script>
         <script src="../resources/js/jQuery.print.js"></script>
+
 </body>
 </html>

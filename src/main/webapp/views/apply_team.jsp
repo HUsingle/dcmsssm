@@ -11,7 +11,10 @@
     <meta charset="utf-8">
     <title>团队报名</title>
     <link href="../resources/css/apply_team.css" rel="stylesheet">
+    <link rel="stylesheet" href="../resources/css/sweet-alert.css">
     <script src="../resources/js/jquery.min.js"></script>
+    <script src="../resources/js/sweet-alert.min.js"></script>
+
 </head>
 <body style="background-color: #ffffff">
 
@@ -39,9 +42,15 @@
         $.post("${pageContext.request.contextPath}/getSession",
             { sessionName: "account" },function (msg) {
                 if(msg=="ng"){
-                    alert("你还没有登陆，请先登录！")
-                    window.location.href="login.jsp";
+                    swal({
+                        title: "提示",
+                        text: "你还没有登陆，请先登录!",
+                    },function(){
+                        window.location.href="login.jsp";
+                    });
+
                 }
+
                 else{
                     //获取学生信息
                  sno =msg;
@@ -52,8 +61,12 @@
                         $(".leader").children().find("p").eq(1).text("电话："+data[0].phone);
                         },"json");
                    if(isApplyed(sno,compId)){
-                       alert("你已经报名过，请勿重复操作！");
-                       window.location.href="apply_index.jsp";
+                       swal({
+                           title: "提示",
+                           text: "你已经报名过，请勿重复操作！",
+                       },function(){
+                           window.location.href="apply_index.jsp";
+                       });
                    }
                 }
 
@@ -126,21 +139,21 @@
         $(".modal_submit").click(function () {
             var sno1 = $(".sno").val();
             if(sno1==''){
-                alert("学号不能为空！")
+                swal({title: "提示",text: "学号不能为空!"});
             }else {
                 $.post("${pageContext.request.contextPath}/student/qryById",
                     { account: sno1 },function (data) {
                         if(data=="ng"||data==null){
-                           alert("不存在该学生。");
+                            swal({title: "提示",text: "不存在该学生!"});
                         }else{
                             if(isStuAdded(sno1)){    //判断是否添加
-                                alert("请不要重复添加！");
+                                swal({title: "提示",text: "请不要重复添加!"});
                             }else if (isApplyed(sno1,compId)){   //判断是否已经报名
-                                alert("该同学已经报名，不可添加！")
+                                swal({title: "提示",text: "该同学已经报名，不可添加!"});
                             }else {
                                 countStu++;
                                 if(countStu>4){
-                                    alert("最多只能添加4位成员！")
+                                    swal({title: "提示",text: "最多只能添加4位成员!"});
                                 }else {
                                     //查询学生信息，添加到页面
                                     // $.post("${pageContext.request.contextPath}/student/qryById",
@@ -174,20 +187,21 @@
         $(".teaModal_submit").click(function () {
             var tid = $(".tid").val();
             if(tid==''){
+                swal({title: "提示",text: "不存在该学生!"});
                 alert("教师编号不能为空！")
             }else {
                 $.post("${pageContext.request.contextPath}/teacher/getTeacherById",
                     { id: tid },function (data) {
                     console.log(data)
                         if(data=="ng"||data==null){
-                            alert("不存在该老师。");
+                            swal({title: "提示",text: "不存在该老师!"});
                         }else{
                             if(isTeaAdded(tid)){    //判断是否添加
-                                alert("请不要重复添加！");
+                                swal({title: "提示",text: "请不要重复添加!"});
                             }else {
                                 count++;
                                 if(count>1){
-                                    alert("指导老师最多只能有一位");
+                                    swal({title: "提示",text: "指导老师最多只能有一位!"});
                                     $("#teaModal").modal('hide');
                                 }else{
                                     var $member = $("<div class=\"member\">");
@@ -215,16 +229,16 @@
         $(".formSubmit").click(function () {
             var tName = $("#firstname").val();
             if (tName.length<6||tName.length>20){
-                alert("请输入6-20长度的团队名称")
+                swal({title: "提示",text: "请输入6-20长度的团队名称!"});
             }else if(count==0){
-                alert("不添加一位指导老师？");
+                swal({title: "提示",text: "请添加一位指导老师!"});
             }else if(countStu==1){
-                alert("团队人数不能少于2人！");
+                swal({title: "提示",text: "团队人数不能少于2人!"});
             }else {
                 //判断是否团队名称已存在
                 $.post("${pageContext.request.contextPath}/apply/isExistGroup",{tName:tName},function (data) {
                     if (data=='yes'){
-                        alert("此团队名称已被使用，请重新输入！")
+                        swal({title: "提示",text: "此团队名称已被使用，请重新输入!"});
                         $("#firstname").val("");
                     }else{
                         var tId = $(".tea_member_block").children().find("span").text();
@@ -237,14 +251,26 @@
                         })
                         var str  = stus.substring(0,stus.length-1);
                         if (isApplyEnd()){   //判断报名是否结束
-                            alert("抱歉，报名已结束。");
-                            window.location.href="apply_index.jsp";
+                            swal({title: "提示",text: "抱歉，报名已结束!"},function () {
+                                window.location.href="apply_index.jsp";
+                            });
+
                         }else{
                             $.post("${pageContext.request.contextPath}/apply/teamApply",{list:str,tid:tId,compId:compId,groupName:groupName,tName:tName},function (data) {
 
                             })
-                            alert("报名成功！");
-                            window.location.href="apply_index.jsp";
+                            swal({
+                                    title: "恭喜",
+                                    text: "报名成功!",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#DD6B55',
+                                    confirmButtonText: 'OK',
+                                    closeOnConfirm: false,
+                                },
+                                function(){
+                                    window.location.href="apply_index.jsp";
+                                });
                         }
 
 

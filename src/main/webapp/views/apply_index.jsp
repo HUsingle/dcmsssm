@@ -15,7 +15,8 @@
     <meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
     <title>Home</title>
     <link rel="stylesheet" href="../resources/css/style.css">
-    <script src="../resources/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="../resources/css/sweet-alert.css">
+    <script src="../resources/js/sweet-alert.min.js"></script>
 
 </head>
 
@@ -213,17 +214,25 @@
                             $.post("${pageContext.request.contextPath}/apply/isExistSelfInfo",
                                 { stuNo: stuNumber,compId:compId},function (data) {
                                     if (data=='y'){
-                                        alert("请勿重复报名！")
-                                        window.location.reload();
+                                        swal({
+                                            title: "提示",
+                                            text: "请勿重复报名!",
+                                        },function(){
+                                            window.location.reload();
+                                        });
                                     }else {
                                         if (isApplyEnd()){   //判断报名是否结束
-                                            alert("抱歉，报名已结束。");
-                                            window.location.reload();
+                                            swal({
+                                                title: "提示",
+                                                text: "报名已结束!",
+                                            },function(){
+                                                window.location.reload();
+                                            });
                                         }else {
                                             //插入报名信息
                                             $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
                                                 { stuNo: stuNumber,compId:compId,groupName:"" },function (data) {
-                                                    alert("报名成功！");
+                                                    swal("恭喜", "报名成功!", "success");
                                                 });
                                         }
                                     }
@@ -253,17 +262,25 @@
                                 $.post("${pageContext.request.contextPath}/apply/isExistSelfInfo",
                                     { stuNo: stuNumber,compId:compId},function (data) {
                                         if (data=='y'){
-                                            alert("请勿重复报名！")
-                                            window.location.reload();
+                                            swal({
+                                                title: "提示",
+                                                text: "请勿重复报名!",
+                                            },function(){
+                                                window.location.reload();
+                                            });
                                         }else {
                                             if (isApplyEnd()){   //判断报名是否结束
-                                                alert("抱歉，报名已结束。");
-                                                window.location.reload();
+                                                swal({
+                                                    title: "提示",
+                                                    text: "报名已结束!",
+                                                },function(){
+                                                    window.location.reload();
+                                                });
                                             }else {
                                                 //插入报名信息
                                                 $.post("${pageContext.request.contextPath}/apply/OneSelfApply",
                                                     { stuNo: stuNumber,compId:compId,groupName:groupStr },function (data) {
-                                                        alert("报名成功！");
+                                                        swal("恭喜", "报名成功!", "success");
                                                     });
                                             }
                                         }
@@ -276,21 +293,11 @@
                 }
             });
         })
-        //模态框事件（当模态框对用户可见时触发,  模态框居中显示）
-        $('#myModal').on('shown.bs.modal', function (e) {
-            // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
-            $(this).css('display', 'block');
-            var modalHeight=$(window).height() / 2 - $('#myModal .modal-dialog').height() / 2;
-            $(this).find('.modal-dialog').css({
-                'margin-top': modalHeight
-            });
-
-        });
-
     })
 </script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
+<script src="../resources/js/messenger.min.js"></script>
 <!-- Javascripts
 ==================================================  -->
 <script type="text/javascript" src="../resources/js/main.js"></script>
