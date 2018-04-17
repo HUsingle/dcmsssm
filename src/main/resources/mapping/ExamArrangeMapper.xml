@@ -5,9 +5,9 @@
 <mapper namespace="com.dcms.dao.ExamArrangeMapper">
     <select id="qryExamTicket" resultMap="applyMap">
         SELECT
-        s.s_name as name,
-        s.s_number as username,
-        s.s_phone as phone,
+        s.s_name ,
+        s.s_number ,
+        s.s_phone ,
         s.s_major_class ,
         ca.seat_number,
         c.c_competition_start,

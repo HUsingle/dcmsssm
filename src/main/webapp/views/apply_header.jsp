@@ -21,27 +21,11 @@
     <link rel="stylesheet" href="../resources/css/font-awesome.min.css">
     <link rel="stylesheet" href="../resources/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" media="screen" >
-
-  <%--  <link rel="stylesheet" href="../resources/css/messenger.css">--%>
     <link rel="stylesheet" href="../resources/css/style.css">
-
-
-
-
-
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
     <script src="../resources/js/html5shiv.js"></script>
     <script src="../resources/js/respond.min.js"></script>
-    <![endif]-->
-    <!-- Custom styles for our template -->
-
-    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
     <script src="../resources/js/jquery.min.js"></script>
     <script src="../resources/js/bootstrap.min.js"></script>
-
-    <script src="../resources/js/messenger.min.js"></script>
     <script src="../resources/js/create-table.js"></script>
     <script src="../resources/js/bootstrap-select.min.js"></script>
     <script src="../resources/js/fileinput.min.js"></script>
@@ -51,6 +35,9 @@
     <script src="../resources/js/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="../resources/js/fileUploadInit.js"></script>
     <script src="../resources/js/jQuery.print.js"></script>
+    <link rel="stylesheet" href="../resources/css/sweet-alert.css">
+    <script src="../resources/js/sweet-alert.min.js"></script>
+
     <script>
         var stuNumber;
         $(document).ready(function () {
@@ -78,8 +65,12 @@
             $.post("${pageContext.request.contextPath}/getSession",
                 { sessionName: "account" },function (msg) {
                     if(msg=="ng"){
-                        alert("你还没有登陆，请先登录！")
-                        window.location.href="login.jsp";
+                        swal({
+                            title: "提示",
+                            text: "你还没有登陆，请先登录!",
+                        },function(){
+                            window.location.href="login.jsp";
+                        });
                     }
                     else{
                         //获取学生信息
@@ -90,14 +81,28 @@
                             },"json");
                     }
                 });
+
+
+            var cccid="";
+            $.post("${pageContext.request.contextPath}/comp/getLatestComp",function (msg) {
+                cccid = msg[0].cid;  //竞赛ID
+            },"json");
             //打印模态框
             $(".printExamTicket").click(function () {
-                $.post("${pageContext.request.contextPath}/exam/getStuExamInfo",{stuNo:"114583010103",compId:"2"},function (msg) {
+                $.post("${pageContext.request.contextPath}/exam/getStuExamInfo",{stuNo:stuNumber,compId:cccid},function (msg) {
                     console.log(msg);
+                    if(null!=msg){
+                    $(".examName").text(msg.apply.student.name);
+                    $(".examSno").text(msg.apply.username);
+                    $(".examSite").text(msg.classroom.site);
+                    $(".examTime").text(msg.apply.competition.compeStartTime+"~"+msg.apply.competition.compeEndTime);
+                    $(".seatNo").text(msg.seatNo);
                     $("#printModal").modal('show');
-
+                    }else {
+                        swal({title: "提示",text: "考场暂未安排，请联系老师!"});
+                    }
                 },"json");
-            })
+            });
             //打印按钮点击事件
             $(".printModal_submit").click(function () {
                 $("#printModal").print({
@@ -109,11 +114,12 @@
                     append:null,//将内容添加到打印内容的后面
                     prepend:null,//将内容添加到打印内容的前面，可以用来作为要打印内容
                     deferred:
-                        $.Deferred()//回调函数
+                    $.Deferred()//回调函数
                 });
 
             })
-        })
+
+        });
     </script>
 </head>
 <body class="home">
@@ -156,23 +162,23 @@
                     <tbody>
                     <tr>
                         <td>姓名：</td>
-                        <td>Bangalore</td>
-                    </tr>
-                    <tr>
-                        <td>准考证号：</td>
-                        <td>Mumbai</td>
-                    </tr>
-                    <tr>
-                        <td>考场：</td>
-                        <td>Mumbai</td>
-                    </tr>
-                    <tr>
-                        <td>考试时间：</td>
-                        <td>2018-4-28 15：30 ~2018-4-4 15：23</td>
+                        <td class="examName">Bangalore</td>
                     </tr>
                     <tr>
                         <td>学号：</td>
-                        <td>114583010105</td>
+                        <td class="examSno">Mumbai</td>
+                    </tr>
+                    <tr>
+                        <td>考场：</td>
+                        <td class="examSite">Mumbai</td>
+                    </tr>
+                    <tr>
+                        <td>考试时间：</td>
+                        <td class="examTime">2018-4-28 15：30 ~2018-4-4 15：23</td>
+                    </tr>
+                    <tr>
+                        <td>座位号</td>
+                        <td class="seatNo">114583010105</td>
                     </tr>
                     </tbody>
                 </table>

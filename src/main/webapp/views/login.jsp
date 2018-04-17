@@ -14,8 +14,10 @@
     <title>登录页面</title>
     <link rel="stylesheet" type="text/css" href="../resources/css/login.css" />
     <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../resources/css/sweet-alert.css">
     <script src="../resources/js/jquery.min.js"></script>
     <script src="../resources/js/bootstrap.min.js"></script>
+    <script src="../resources/js/sweet-alert.min.js"></script>
 </head>
 
 <body>
@@ -49,7 +51,10 @@
                             } );
 
                     }else {
-                        alert("账号或密码不对！");
+                        swal({
+                            title: "提示",
+                            text: "账号或密码不正确!",
+                        });
                     }
                 }
             });
