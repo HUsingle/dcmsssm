@@ -207,7 +207,7 @@
             for (var i = 0; i < 8; i++)
                 $('#' + inputFields[i]).val("");
             $('#isTeam').selectpicker('val','0');
-            $('#tid').selectpicker('val',"");
+            $('#tid').selectpicker('val',"${teacherList.get(0).id}");
             $('#group').selectpicker('val',"");
             $('#' + inputFields[0]).attr("disabled", false);
             $("#myDiv").hide();

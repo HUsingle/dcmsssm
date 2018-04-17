@@ -7,6 +7,7 @@
     <insert id="insertOneSelfInfo">
         insert into db_apply values(0,#{param1},#{param2},now(),0,0 ,'',0,#{param3})
     </insert>
+    <!--更新个人报名-->
     <update id="updateOneSelfInfo">
         update db_apply set s_number=#{username},c_id=#{competitionId},c_group_name=#{competitionGroup}
         where apply_id=#{id}
@@ -19,6 +20,7 @@
     <select id="qryNumByTeamName" resultType="int">
         select count(apply_id) from db_apply where group_name = #{param1}
     </select>
+    <!-- 根据团队名称查询报名信息-->
     <select id="findApplyByTeamName" resultType="com.dcms.model.Apply">
         select apply_id as id,s_number as username,is_group_leader as isGroupLeader,
         c_id as competitionId,t_id as teacherId from db_apply where group_name = #{groupName}
@@ -28,28 +30,41 @@
         insert into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,
         is_rise,c_group_name) values
         <foreach collection="list" item="item" separator=",">
-        (#{item.username},#{item.competitionId},now(),#{item.teacherId},#{item.isGroupLeader},
+            (#{item.username},#{item.competitionId},now(),#{item.teacherId},#{item.isGroupLeader},
             #{item.groupName},0,#{item.competitionGroup})
         </foreach>
     </insert>
     <!--批量更新-->
-   <update id="batchUpdateApply" parameterType="com.dcms.model.Apply">
-       <foreach collection="list" item="apply" separator=";">
-           update db_apply
-           <set>
-           s_number=#{apply.username},c_group_name=#{apply.competitionGroup},
-           t_id=#{apply.teacherId},group_name=#{apply.groupName},is_group_leader=#{apply.isGroupLeader}
-           </set>
-           where apply_id=#{apply.id}
-       </foreach>
-   </update>
+    <update id="batchUpdateApply" parameterType="com.dcms.model.Apply">
+        <foreach collection="list" item="apply" separator=";">
+            update db_apply
+            <set>
+                s_number=#{apply.username},c_group_name=#{apply.competitionGroup},
+                t_id=#{apply.teacherId},group_name=#{apply.groupName},is_group_leader=#{apply.isGroupLeader}
+            </set>
+            where apply_id=#{apply.id}
+        </foreach>
+    </update>
     <!--通过竞赛的id和组的名字查询报名情况-->
-    <select id="findApplyByCidAndGroup" resultMap="applyMap" >
+    <select id="findApplyByCidAndGroup" resultMap="applyMap">
         select * from db_apply where c_id=#{id}
         <if test="groupName!=''">
             and c_group_name=#{groupName}
         </if>
         order by ${sort}
+    </select>
+
+    <!--通过竞赛的id和组的名字查询参加该竞赛组别的人数情况-->
+    <select id="findApplyNumByGroup" resultType="java.lang.Integer">
+        select count(s_number) from db_apply where c_id=#{id} and c_group_name=#{groupName}
+    </select>
+    <!--通过竞赛的id和组的名字查询参加该竞赛组别报名id-->
+    <select id="findApplyIdByGroupAndCid" resultMap="applyMap">
+        select apply_id,s_number from db_apply where c_id=#{id} and c_group_name=#{groupName}
+    </select>
+
+    <select id="findApplyById" resultMap="applyMap">
+        select * from db_apply where apply_id=#{id}
     </select>
     <!--删除报名-->
     <delete id="deleteApply">
@@ -58,7 +73,7 @@
             #{id}
         </foreach>
     </delete>
-<!--报名的resultMap-->
+    <!--报名的resultMap-->
     <resultMap type="com.dcms.model.Apply" id="applyMap">
         <id property="id" column="apply_id"/>
         <result property="username" column="s_number"/>

@@ -46,15 +46,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-1 control-label">教室</div>
+                <div class="col-sm-1 control-label">考场</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="site" name="site" placeholder="教室地点"/>
+                    <input type="text" class="form-control" id="site" name="site" placeholder="考场地点"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-1 control-label">人数</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="number" name="number" placeholder="人数"/>
+                    <input type="text" class="form-control" id="number" name="number" placeholder="安排人数"/>
                 </div>
             </div>
             <div class="form-group">
@@ -77,17 +77,17 @@
 <script>
     $(function () {
         initTable('#myTable', "${path}/classroom/getClassroomList",
-            ['id', 'site', 'number'], ['id', '教室', '人数'], true, 0);
+            ['id', 'site', 'number'], ['考场编号', '考场位置', '安排人数'], true, 0);
     });
     $("document").ready(
         function () {
-            initUpdateInformation("添加教室", "修改教室", ['id', 'site', 'number'],
+            initUpdateInformation("添加考场", "修改考场", ['id', 'site', 'number'],
                 "${path}/classroom/deleteClassroom", "id");
             $("#importExcel").click(function () {
                 window.parent.openModel("${path}/classroom/importClassroomExcel", "导入表格");
             });
             initAddAndUpdate("${path}/classroom/addClassroom", "${path}/classroom/updateClassroom", "id=",
-                "", $("#id"), "添加教室", true);
+                "", $("#id"), "添加考场", true);
         }
     );
 </script>

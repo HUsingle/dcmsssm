@@ -63,7 +63,7 @@ public class CompetitionController {
     public String getCompetition(@RequestParam(defaultValue = "1") Integer offset,
                                   @RequestParam(defaultValue = "10") Integer limit ) {
         PageHelper.startPage(offset, limit);
-        List<Competition> competitionList = cs.findAllCompetition();
+        List<Competition> competitionList = cs.getAllCompetition();
         PageInfo<Competition> pageInfo = new PageInfo<Competition>(competitionList);
         JSONObject result = new JSONObject();
         result.put("total", pageInfo.getTotal());

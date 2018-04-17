@@ -35,4 +35,13 @@ public interface ApplyMapper {
 
     //根据团队名称查询报名信息
     List<Apply> findApplyByTeamName(String groupName);
+
+    //通过竞赛的id和组的名字查询参加该竞赛组别的人数情况
+    int findApplyNumByGroup(@Param("id") Integer id, @Param("groupName") String groupName);
+
+    //通过报名id查询报名信息
+    List<Apply> findApplyById(long id);
+
+    //通过竞赛的id和组的名字查询参加该竞赛组别报名id和学号
+    List<Apply> findApplyIdByGroupAndCid(@Param("id") Integer id, @Param("groupName") String groupName);
 }

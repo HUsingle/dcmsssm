@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcms.dao.ClassroomArrangeMapper">
+    <!--根据组别、竞赛、考场查询考场安排信息-->
+    <select id="findClassroomArrange" resultMap="classroomArrangeMap">
+        select * from db_classroom_arrange where apply_id in
+        (select apply_id from db_apply where c_id=#{competitionId}
+        <choose>
+            <when test="groupName!=''">
+                and c_group_name=#{groupName})
+            </when>
+            <when test="groupName==''">
+                )
+            </when>
+            <otherwise></otherwise>
+        </choose>
+        <if test="classroomId!=0">
+            and classroom_id=#{classroomId}
+        </if>
+        order by seat_number
+    </select>
+    <!--查询该竞赛该组别是否已经安排考场-->
+    <select id="findAlreadyClassroomArrangeNumByGroupName" resultType="java.lang.Integer">
+        select count(apply_id) from db_classroom_arrange where apply_id in
+        (select apply_id from db_apply where c_id=#{competitionId} and c_group_name=#{groupName})
+    </select>
+    <!--查询该竞赛中该教室是否已经安排考场-->
+    <select id="findAlreadyClassroomArrangeNumByClassroomId" resultType="java.lang.Integer">
+        select count(apply_id) from db_classroom_arrange where classroom_id=#{classroomId} and apply_id in
+        (select apply_id from db_apply where c_id=#{competitionId})
+    </select>
+    <!--查看该座位号是否有人-->
+    <select id="IsExistPeople" resultType="java.lang.Integer">
+        select count(apply_id) from db_classroom_arrange where classroom_id=#{classroomId} and seat_number=#{seatNumber}
+        and apply_id in
+        (select apply_id from db_apply where c_id=#{competitionId})
+    </select>
+    <!--删除考场安排-->
+    <delete id="deleteClassroomArrange">
+        delete from db_classroom_arrange where ca_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateClassroomArrange" parameterType="com.dcms.model.ClassroomArrange">
+        update db_classroom_arrange set classroom_id=#{classroomId},seat_number=#{seatNumber}
+        where ca_id=#{id}
+    </update>
+    <!--批量插入考场情况-->
+    <insert id="insertClassroomArrange" parameterType="com.dcms.model.ClassroomArrange">
+        insert into db_classroom_arrange(classroom_id,seat_number,apply_id)
+        values
+        <foreach collection="list" item="classroomArrange" separator=",">
+            (#{classroomArrange.classroomId},#{classroomArrange.seatNumber},#{classroomArrange.applyId})
+        </foreach>
+    </insert>
+
+    <resultMap type="com.dcms.model.ClassroomArrange" id="classroomArrangeMap">
+        <id property="id" column="ca_id"/>
+        <result property="classroomId" column="classroom_id"/>
+        <result property="seatNumber" column="seat_number"/>
+        <result property="applyId" column="apply_id"/>
+        <association property="apply" column="apply_id" select="com.dcms.dao.ApplyMapper.findApplyById"/>
+    </resultMap>
+</mapper>
