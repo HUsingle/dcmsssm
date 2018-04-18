@@ -22,8 +22,9 @@ public class ClassroomArrangeServiceImpl implements ClassroomArrangeService {
     @Autowired
     private ClassroomArrangeMapper classroomArrangeMapper;
 
-    public List<ClassroomArrange> findClassroomArrange(Integer competitionId, String groupName, Integer classroomId) {
-        return classroomArrangeMapper.findClassroomArrange(competitionId, groupName, classroomId);
+    public List<ClassroomArrange> findClassroomArrange(Integer competitionId, String groupName, String classroomId,Integer isSelectAll) {
+        Integer[] classroomId1=Tool.getInteger(classroomId);
+        return classroomArrangeMapper.findClassroomArrange(competitionId, isSelectAll,groupName, classroomId1);
     }
 
     public String deleteClassroomArrange(String id) {
@@ -152,7 +153,7 @@ public class ClassroomArrangeServiceImpl implements ClassroomArrangeService {
                     break here;
                 }
             }
-            temp += examRoomId[k];
+            temp += examRoomNum[j];
         }
         // System.out.println(classroomArrangeList.size()+"  sfsdfsdfdfsfsdfsdfss");
         String result = classroomArrangeMapper.insertClassroomArrange(classroomArrangeList) + "";

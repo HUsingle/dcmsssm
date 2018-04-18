@@ -33,4 +33,6 @@ public interface StudentMapper {
 
     //查询所有学号
     List<Student> findAllUsername();
+
+    Student findStudentById(Long username);
 }

@@ -2,11 +2,14 @@ package com.dcms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dcms.model.Classroom;
+import com.dcms.model.Competition;
 import com.dcms.service.ClassroomService;
+import com.dcms.service.CompetitionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +27,16 @@ import java.util.List;
 public class ClassroomController {
     @Autowired
     private ClassroomService classroomService;
+    @Autowired
+    private CompetitionService competitionService;
+
+    @RequestMapping(value = "/classroomManage")
+    public String enterClassroomManage(Model model) {
+        List<Competition> competitionList=competitionService.findSingleCompetition();
+        model.addAttribute(competitionList);
+        return "classroomManage";
+    }
+
     @RequestMapping(value = "/getClassroomList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     public String getAllClassroom(@RequestParam(defaultValue = "1") Integer offset,

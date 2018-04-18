@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 public interface ClassroomArrangeMapper {
     //根据组别、竞赛、考场查询考场安排信息
-    List<ClassroomArrange> findClassroomArrange(@Param("competitionId") Integer competitionId,
-                                                @Param("groupName") String groupName, @Param("classroomId") Integer classroomId);
+    List<ClassroomArrange> findClassroomArrange(@Param("competitionId") Integer competitionId, @Param("isSelectAll")Integer isSelectAll,
+                                                @Param("groupName") String groupName,  @Param("array")Integer[] classroomId);
 
     //查询该竞赛该组别是否已经安排考场
     int findAlreadyClassroomArrangeNumByGroupName(@Param("competitionId") Integer competitionId,

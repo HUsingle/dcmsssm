@@ -25,6 +25,7 @@
         <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="arrange"><i class="fa fa-pencil"></i> 安排考场</a>
+        <a class="btn bg-purple bt-flat " id="arrangeTeacher"><i class="fa fa-user"></i> 安排监考</a>
         <a class="btn bg-purple bt-flat " id="search"><i class="fa fa-search"></i> 查看考场</a>
         <a class="btn bg-purple bt-flat " href=""><i class="fa fa-download"></i> 导出考场安排信息</a>
 
@@ -45,7 +46,7 @@
                 </c:forEach>
             </select>
         </div>
-        <div class="col-sm-3" style="margin-bottom: 15px;">
+        <div class="col-sm-5" style="margin-bottom: 15px;">
             <select class="selectpicker form-control" id="classroom" name="classroom" multiple title="考场选择1项或多项">
                 <option value="0">所有考场</option>
                 <c:forEach items="${classroomList}" var="classroom">
@@ -122,7 +123,65 @@
 
 </div>
 
+<div class="box box-default" id="myTeacher" style="display: none;">
+    <div class="box-header with-border">
+        <h3 class="box-title" id="myTeacherBoxTitle">安排监考</h3>
+    </div>
 
+    <div class="box-body">
+      <%--  <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
+            <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
+            <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
+            <a class="btn bg-purple bt-flat " id="arrange"><i class="fa fa-pencil"></i> 安排考场</a>
+            <a class="btn bg-purple bt-flat " id="arrangeTeacher"><i class="fa fa-user"></i> 安排监考</a>
+            <a class="btn bg-purple bt-flat " id="search"><i class="fa fa-search"></i> 查看考场</a>
+            <a class="btn bg-purple bt-flat " href=""><i class="fa fa-download"></i> 导出考场安排信息</a>
+
+        </form>--%>
+        <form id="myTeacherFrom" class="form-horizontal" method="post" action="##" onsubmit="return false">
+            <div class="form-group">
+                <div class="col-sm-1 control-label">竞赛项目</div>
+                <div class="col-sm-4">
+                    <select class="selectpicker form-control" id="competition1" name="competition1">
+                        <c:forEach items="${competitionList}" var="competition">
+                            <option value="${competition.cid}">${competition.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1 control-label">监考考场</div>
+                <div class="col-sm-4">
+                    <select class="selectpicker form-control" id="classroom2" name="classroom1">
+                        <c:forEach items="${classroomList}" var="classroom">
+                            <option value="${classroom.id}">${classroom.site}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1 control-label">监考老师</div>
+                <div class="col-sm-4">
+                    <select class="selectpicker form-control" id="teacher" name="teacher" multiple title="选择1项或多项">
+                        <c:forEach items="${teacherList}" var="teacher">
+                            <option value="${teacher.id}">${teacher.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1 control-label"></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="submitTeacher" class="btn btn bg-purple bt-flat">确定
+            </button>
+                &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="return">返回</button>
+            </div>
+        </form>
+    </div>
+
+</div>
 <script src="${path}/resources/js/jquery.min.js"></script>
 <script src="${path}/resources/js/bootstrap.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
@@ -165,13 +224,18 @@
             pagination: true,
             sortable: true,
             queryParams: function (params) {
+                var isSelectAll=1;
                 var arrays = $("#classroom").val();
+                if(arrays[0]==="0"){
+                    isSelectAll=0;
+                }
                 var temp = {
                     limit: params.limit,
                     offset: (params.offset / params.limit) + 1,
                     id: $("#competition").val(),
                     groupName: $("#competitionGroup").val(),
-                    classroomId: arrays[0]
+                    classroomId: connectString(arrays),
+                    isSelectAll:isSelectAll
                 };
                 return temp;
             },
@@ -293,7 +357,6 @@
             }
 
         });
-
         $("#quit").click(function () {//点击返回按钮，显示表格，隐藏添加或者修改信息
             $("#myBox").hide();
             $("#myDiv").show();
@@ -304,8 +367,8 @@
                 initMessage("查看考场时请选择相关考场!", 'error');
                 return;
             }
-            if (arrays.length > 1) {
-                initMessage("查看考场时只能选择一项考场!", 'error');
+            if (arrays[0]==="0"&&arrays.length>1) {
+                initMessage("选择所有考场就不要选择其他考场!", 'error');
                 return;
             }
             var myTable = $("#myTable");
@@ -347,6 +410,7 @@
             paramData.competitionGroup = $("#competitionGroup").val();
             paramData.examRoom = connectString(arrays);
             paramData.peopleNum = connectString(arrayExamRoomNum);
+            var myTable=$("#myTable");
             $.ajax({
                 type: 'POST',
                 url: '${path}/classroomArrange/arrangeExamRoom',
@@ -358,6 +422,13 @@
                         var resultNum = parseInt(result);
                         if (resultNum > 0) {
                             initMessage("安排成功！", 'success');
+                            myTable.bootstrapTable("destroy");
+                            initMyTable(['id', 'seatNumber', 'username', 'name', 'class', 'phone', 'classroomId', 'competitionGroup'],
+                                ['id', '座位号', '学号', '姓名', '班级', '电话号码', '考场', '报名组别']);
+                            if (myTable.is(':hidden')) {
+                                myTable.show();
+                            }
+                            myTable.bootstrapTable('hideColumn', 'id');
                         } else {
                             initMessage("安排失败！", 'error');
                         }
@@ -478,6 +549,10 @@
             //$("#myTable").bootstrapTable("destroy");
             //freshTable();
         });
+        $("#arrangeTeacher").click(function () {
+            $("#myDiv").hide();
+            $("#myTeacher").show();
+        })
 
     });
 

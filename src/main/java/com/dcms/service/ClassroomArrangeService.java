@@ -11,7 +11,7 @@ public interface ClassroomArrangeService {
     //安排学生考场
     String arrangeExamRoom(Integer competitionId,String competitionGroup,String examRoom,String people);
     //通过竞赛id,组别，教室查看报名安排
-    List<ClassroomArrange> findClassroomArrange(Integer competitionId, String groupName,Integer classroomId);
+    List<ClassroomArrange> findClassroomArrange(Integer competitionId, String groupName,String classroomId,Integer isSelectAll);
     //删除考场安排
     String deleteClassroomArrange(String id);
     //更新考场安排

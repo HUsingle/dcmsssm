@@ -57,6 +57,16 @@
         order by ${sort}
     </select>
 
+    <select id="findNumByGroup" resultMap="countMap">
+        select c_group_name,count(apply_id)
+        from db_apply where c_id=#{id} group by c_group_name
+    </select>
+
+    <resultMap id="countMap" type="java.util.Map">
+        <result column="c_group_name" property="groupName" />
+        <result column="count(apply_id)" property="number" />
+    </resultMap>
+
     <!--通过竞赛的id和组的名字查询参加该竞赛组别的人数情况-->
     <select id="findApplyNumByGroup" resultType="java.lang.Integer">
         select count(s_number) from db_apply where c_id=#{id} and c_group_name=#{groupName}
@@ -102,7 +112,7 @@
         <result property="groupName" column="group_name"/>
         <result property="competitionGroup" column="c_group_name"/>
         <association property="teacher" column="t_id" select="com.dcms.dao.TeacherMapper.findTeacherById"/>
-        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.qryById"/>
+        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentById"/>
         <association property="competition" column="c_id" select="com.dcms.dao.CompetitionMapper.findCompetitionById"/>
     </resultMap>
 </mapper>

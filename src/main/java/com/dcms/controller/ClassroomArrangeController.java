@@ -6,9 +6,11 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.dcms.model.Classroom;
 import com.dcms.model.ClassroomArrange;
 import com.dcms.model.Competition;
+import com.dcms.model.Teacher;
 import com.dcms.service.ClassroomArrangeService;
 import com.dcms.service.ClassroomService;
 import com.dcms.service.CompetitionService;
+import com.dcms.service.TeacherService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +35,19 @@ public class ClassroomArrangeController {
     private ClassroomArrangeService classroomArrangeService;
     @Autowired
     private ClassroomService classroomService;
+    @Autowired
+    private TeacherService teacherService;
+
 
 
     @RequestMapping(value = "/classroomArrangeManage")
     public String competitionIndex(Model model) {
         List<Competition> competitionList = competitionService.findSingleCompetition();
         List<Classroom> classroomList = classroomService.getAllClassroom("asc");
+        List<Teacher> teacherList = teacherService.getTeacherNameAndId();
         model.addAttribute(competitionList);
         model.addAttribute(classroomList);
+        model.addAttribute(teacherList);
         return "classroomArrangeManage";
     }
 
@@ -48,10 +55,10 @@ public class ClassroomArrangeController {
     @ResponseBody
     public String getClassroomArrangeList(
             @RequestParam Integer offset, @RequestParam Integer limit,
-            @RequestParam Integer classroomId, @RequestParam Integer id,
-            @RequestParam String groupName) {
+            @RequestParam String classroomId, @RequestParam Integer id,
+            @RequestParam Integer isSelectAll, @RequestParam String groupName) {
         PageHelper.startPage(offset, limit);
-        List<ClassroomArrange> classroomArrangeList=classroomArrangeService.findClassroomArrange(id,groupName,classroomId);
+        List<ClassroomArrange> classroomArrangeList=classroomArrangeService.findClassroomArrange(id,groupName,classroomId,isSelectAll);
         PageInfo<ClassroomArrange> pageInfo = new PageInfo<ClassroomArrange>(classroomArrangeList);
         JSONObject result = new JSONObject();
         result.put("total", pageInfo.getTotal());

@@ -54,7 +54,7 @@ public class ApplyServiceImpl implements ApplyService {
     //判断团队名称是否存在  存在返回true
     public boolean isExistGroupName(String tName) {
         String s = applyMapper.qryGroupNameByCid(tName);
-        if (null!=s) {
+        if (null != s) {
             return true;
         }
         return false;
@@ -90,6 +90,15 @@ public class ApplyServiceImpl implements ApplyService {
 
     public List<Apply> findApplyByCidAndGroup(int id, String groupName, String sort) {
         return null;
+    }
+
+    public String findNumByGroup(Integer id) {
+        List map = applyMapper.findNumByGroup(id);
+        JSONObject result = new JSONObject();
+        result.put("total", map.size());
+        result.put("rows", map);
+        return result.toJSONString();
+
     }
 
     public List<Apply> findApplyByCidAndGroup(Integer id, String groupName, String sort) {
@@ -145,17 +154,17 @@ public class ApplyServiceImpl implements ApplyService {
         return Tool.result(result);
     }
 
-    public String importOneApplyNoGroup(MultipartFile excelFile,boolean hasGroup,Competition competition) {
+    public String importOneApplyNoGroup(MultipartFile excelFile, boolean hasGroup, Competition competition) {
 
         //学号，竞赛编号，组名。
         ExcelData applyInsertExcelData = new ApplyExcelData();
         List dataList;
-        if (hasGroup){
-            String[] head= {"学号", "姓名", "班级", "手机号码","竞赛组别"};
+        if (hasGroup) {
+            String[] head = {"学号", "姓名", "班级", "手机号码", "竞赛组别"};
             dataList = ExcelUtil.importExcel(excelFile, head, applyInsertExcelData);
 
-        }else{
-            String[] head= {"学号", "姓名", "班级", "手机号码"};
+        } else {
+            String[] head = {"学号", "姓名", "班级", "手机号码"};
             dataList = ExcelUtil.importExcel(excelFile, head, applyInsertExcelData);
         }
 
@@ -168,25 +177,25 @@ public class ApplyServiceImpl implements ApplyService {
 
         if (dataList.size() == 0) {
             return Tool.result("缺少行或者学号出错!");
-        }  else {
+        } else {
             if ((dataList.get(0) instanceof String)) {
                 return dataList.get(0).toString();
             } else {
-                List<Apply> data =dataList;
-                for(int i=0;i<data.size();i++){
+                List<Apply> data = dataList;
+                for (int i = 0; i < data.size(); i++) {
                     long sno = data.get(i).getUsername();
                     Student student = studentMapper.qryById(String.valueOf(sno));
-                    if (null != student){   //学号存在，可以插入
+                    if (null != student) {   //学号存在，可以插入
                         success.add(data.get(i));
-                    }else {
+                    } else {
                         error.add(data.get(i));
                     }
                 }
 
-                if (hasGroup){
-                    exResult = applyMapper.addApplyInfoHasGroup(success,String.valueOf(competition.getCid()),competition.getGroup());
-                }else {
-                    exResult = applyMapper.addApplyInfo(success,String.valueOf(competition.getCid()));
+                if (hasGroup) {
+                    exResult = applyMapper.addApplyInfoHasGroup(success, String.valueOf(competition.getCid()), competition.getGroup());
+                } else {
+                    exResult = applyMapper.addApplyInfo(success, String.valueOf(competition.getCid()));
                 }
 
             }
@@ -195,9 +204,9 @@ public class ApplyServiceImpl implements ApplyService {
         if (exResult == 0) {
             result = Tool.result("导入失败!");
         } else {
-            map.put("result","导入成功!");
-            map.put("success",success);
-            map.put("errors",error);
+            map.put("result", "导入成功!");
+            map.put("success", success);
+            map.put("errors", error);
             result = JSONObject.toJSONString(map);
         }
         return result;

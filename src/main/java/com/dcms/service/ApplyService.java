@@ -36,4 +36,6 @@ public interface ApplyService {
 
     //批量更新
     String batchUpdateApply(String id, String isGroupLeader,String list, Long tid, String groupName, String tName,Integer competitionId);
+    //查询报名组别报名人数
+    String findNumByGroup(Integer id);
 }

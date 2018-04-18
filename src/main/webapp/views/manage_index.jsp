@@ -130,8 +130,7 @@
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="${path}/views/classroomManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>考场管理</span></a></li>
-                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>安排监考管理</span></a></li>
+                        <li><a href="${path}/classroom/classroomManage" target="myFrame"><i class="fa fa-circle-o"></i><span>考场管理</span></a></li>
                         <li><a href="${path}/classroomArrange/classroomArrangeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>安排考场管理</span></a></li>
                     </ul>
                 </li>

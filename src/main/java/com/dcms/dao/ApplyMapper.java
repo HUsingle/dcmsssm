@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public interface ApplyMapper {
     //插入一条个人赛信息
@@ -46,4 +47,6 @@ public interface ApplyMapper {
 
     //通过竞赛的id和组的名字查询参加该竞赛组别报名id和学号
     List<Apply> findApplyIdByGroupAndCid(@Param("id") Integer id, @Param("groupName") String groupName);
+    //查询报名各组别的报名人数
+    List findNumByGroup(Integer id);
 }

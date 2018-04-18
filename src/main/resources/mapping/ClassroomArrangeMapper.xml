@@ -16,8 +16,11 @@
             </when>
             <otherwise></otherwise>
         </choose>
-        <if test="classroomId!=0">
-            and classroom_id=#{classroomId}
+        <if test="isSelectAll!=0">
+            and classroom_id in
+            <foreach collection="array" item="classroomId" open="(" separator="," close=")">
+                #{classroomId}
+            </foreach>
         </if>
         order by seat_number
     </select>
