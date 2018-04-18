@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="../resources/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" media="screen" >
     <link rel="stylesheet" href="../resources/css/style.css">
-    <script src="../resources/js/html5shiv.js"></script>
-    <script src="../resources/js/respond.min.js"></script>
     <script src="../resources/js/jquery.min.js"></script>
     <script src="../resources/js/bootstrap.min.js"></script>
     <script src="../resources/js/create-table.js"></script>
