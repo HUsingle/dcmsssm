@@ -6,11 +6,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.dcms.model.Classroom;
 import com.dcms.model.ClassroomArrange;
 import com.dcms.model.Competition;
-import com.dcms.model.Teacher;
 import com.dcms.service.ClassroomArrangeService;
 import com.dcms.service.ClassroomService;
 import com.dcms.service.CompetitionService;
-import com.dcms.service.TeacherService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +33,15 @@ public class ClassroomArrangeController {
     private ClassroomArrangeService classroomArrangeService;
     @Autowired
     private ClassroomService classroomService;
-    @Autowired
-    private TeacherService teacherService;
 
 
 
     @RequestMapping(value = "/classroomArrangeManage")
-    public String competitionIndex(Model model) {
+    public String classroomArrangeManage(Model model) {
         List<Competition> competitionList = competitionService.findSingleCompetition();
         List<Classroom> classroomList = classroomService.getAllClassroom("asc");
-        List<Teacher> teacherList = teacherService.getTeacherNameAndId();
         model.addAttribute(competitionList);
         model.addAttribute(classroomList);
-        model.addAttribute(teacherList);
         return "classroomArrangeManage";
     }
 
@@ -73,7 +67,7 @@ public class ClassroomArrangeController {
 
     @RequestMapping(value = "/deleteClassroomArrange", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public String ClassroomArrange(@RequestParam String id){
+    public String deleteClassroomArrange(@RequestParam String id){
         return classroomArrangeService.deleteClassroomArrange(id);
     }
     @RequestMapping(value = "/updateClassroomArrange", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)

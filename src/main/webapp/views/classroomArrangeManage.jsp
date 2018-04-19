@@ -25,7 +25,6 @@
         <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="arrange"><i class="fa fa-pencil"></i> 安排考场</a>
-        <a class="btn bg-purple bt-flat " id="arrangeTeacher"><i class="fa fa-user"></i> 安排监考</a>
         <a class="btn bg-purple bt-flat " id="search"><i class="fa fa-search"></i> 查看考场</a>
         <a class="btn bg-purple bt-flat " href=""><i class="fa fa-download"></i> 导出考场安排信息</a>
 
@@ -55,7 +54,7 @@
             </select>
         </div>
     </div>
-    <table id="myTable" style="display: none;">
+    <table id="myTable">
     </table>
 </div>
 
@@ -123,65 +122,6 @@
 
 </div>
 
-<div class="box box-default" id="myTeacher" style="display: none;">
-    <div class="box-header with-border">
-        <h3 class="box-title" id="myTeacherBoxTitle">安排监考</h3>
-    </div>
-
-    <div class="box-body">
-      <%--  <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
-            <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
-            <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
-            <a class="btn bg-purple bt-flat " id="arrange"><i class="fa fa-pencil"></i> 安排考场</a>
-            <a class="btn bg-purple bt-flat " id="arrangeTeacher"><i class="fa fa-user"></i> 安排监考</a>
-            <a class="btn bg-purple bt-flat " id="search"><i class="fa fa-search"></i> 查看考场</a>
-            <a class="btn bg-purple bt-flat " href=""><i class="fa fa-download"></i> 导出考场安排信息</a>
-
-        </form>--%>
-        <form id="myTeacherFrom" class="form-horizontal" method="post" action="##" onsubmit="return false">
-            <div class="form-group">
-                <div class="col-sm-1 control-label">竞赛项目</div>
-                <div class="col-sm-4">
-                    <select class="selectpicker form-control" id="competition1" name="competition1">
-                        <c:forEach items="${competitionList}" var="competition">
-                            <option value="${competition.cid}">${competition.name}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-1 control-label">监考考场</div>
-                <div class="col-sm-4">
-                    <select class="selectpicker form-control" id="classroom2" name="classroom1">
-                        <c:forEach items="${classroomList}" var="classroom">
-                            <option value="${classroom.id}">${classroom.site}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-1 control-label">监考老师</div>
-                <div class="col-sm-4">
-                    <select class="selectpicker form-control" id="teacher" name="teacher" multiple title="选择1项或多项">
-                        <c:forEach items="${teacherList}" var="teacher">
-                            <option value="${teacher.id}">${teacher.name}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-1 control-label"></div>
-                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="submitTeacher" class="btn btn bg-purple bt-flat">确定
-            </button>
-                &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="return">返回</button>
-            </div>
-        </form>
-    </div>
-
-</div>
 <script src="${path}/resources/js/jquery.min.js"></script>
 <script src="${path}/resources/js/bootstrap.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
@@ -327,12 +267,12 @@
         return result;
     }
     $(function () {
+        $("#classroom").selectpicker('val', "0");
+        initMyTable(['id', 'seatNumber', 'username', 'name', 'class', 'phone', 'classroomId', 'competitionGroup'],
+            ['id', '座位号', '学号', '姓名', '班级', '电话号码', '考场', '报名组别']);
+        $("#myTable").bootstrapTable('hideColumn', 'id');
         $("#update").click(function () {
             var myTable = $("#myTable");
-            if (myTable.is(':hidden')) {
-                initMessage("没有记录不能进行该操作!", 'error');
-                return;
-            }
             var jsonArray = myTable.bootstrapTable('getSelections');
             if (jsonArray.length < 1) {
                 initMessage("请选择一条记录!", 'error');
@@ -425,9 +365,6 @@
                             myTable.bootstrapTable("destroy");
                             initMyTable(['id', 'seatNumber', 'username', 'name', 'class', 'phone', 'classroomId', 'competitionGroup'],
                                 ['id', '座位号', '学号', '姓名', '班级', '电话号码', '考场', '报名组别']);
-                            if (myTable.is(':hidden')) {
-                                myTable.show();
-                            }
                             myTable.bootstrapTable('hideColumn', 'id');
                         } else {
                             initMessage("安排失败！", 'error');
@@ -441,10 +378,6 @@
         });
         $("#delete").click(function () {
             var myTable = $("#myTable");
-            if (myTable.is(':hidden')) {
-                initMessage("没有记录不能进行该操作!", 'error');
-                return;
-            }
             var jsonArray = myTable.bootstrapTable('getSelections');
             if (jsonArray.length < 1) {
                 initMessage("请至少选择一条记录!", 'error');
@@ -549,10 +482,6 @@
             //$("#myTable").bootstrapTable("destroy");
             //freshTable();
         });
-        $("#arrangeTeacher").click(function () {
-            $("#myDiv").hide();
-            $("#myTeacher").show();
-        })
 
     });
 

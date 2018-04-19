@@ -9,12 +9,12 @@
         t_college as college, t_email as email from db_teacher order by t_id ${sort}
     </select>
     <!--查询老师id和名字-->
-    <select id="getTeacherNameAndId" resultType="com.dcms.model.Teacher" >
+    <select id="getTeacherNameAndId" resultType="com.dcms.model.Teacher">
         select t_id as id,t_name as name from db_teacher
     </select>
     <!--通过老师id查询老师-->
     <select id="findTeacherById" resultType="com.dcms.model.Teacher" parameterType="long">
-        select t_id as id,t_name as name from db_teacher where t_id=#{id}
+        select t_id as id,t_name as name,t_phone as phone from db_teacher where t_id=#{id}
     </select>
     <!--修改老师-->
     <update id="updateTeacher" parameterType="com.dcms.model.Teacher">

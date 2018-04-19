@@ -8,4 +8,45 @@ public class Invigilation {
     private int classroomId;
     private int competitionId;
     private long teacherId;
+    private Teacher teacher;
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getClassroomId() {
+        return classroomId;
+    }
+
+    public void setClassroomId(int classroomId) {
+        this.classroomId = classroomId;
+    }
+
+    public int getCompetitionId() {
+        return competitionId;
+    }
+
+    public void setCompetitionId(int competitionId) {
+        this.competitionId = competitionId;
+    }
+
+    public long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(long teacherId) {
+        this.teacherId = teacherId;
+    }
 }

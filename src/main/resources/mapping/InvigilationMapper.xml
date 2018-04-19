@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcms.dao.InvigilationMapper">
+    <!--查询监考安排信息-->
+    <select id="findInvigilation" resultMap="InvigilationMap">
+        select * from db_exam_monitor where c_id=#{competitionId} order by classroom_id
+    </select>
+    
+    <!--查看该老师是否已经安排-->
+    <select id="findAlreadyInvigilation" resultType="java.lang.Integer">
+        select count(t_arrange_id) from db_exam_monitor where t_id=#{teacherId} and c_id=#{competitionId}
+    </select>
+    <!--删除监考安排-->
+    <delete id="deleteInvigilation">
+        delete from db_exam_monitor where t_arrange_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateInvigilation" parameterType="com.dcms.model.Invigilation">
+        update db_exam_monitor set classroom_id=#{classroomId},t_id=#{teacherId}
+        where t_arrange_id=#{id}
+    </update>
+    <!--批量插入监考情况-->
+    <insert id="insertInvigilation" parameterType="com.dcms.model.Invigilation">
+        insert into db_exam_monitor(classroom_id,t_id,c_id)
+        values
+        <foreach collection="list" item="Invigilation" separator=",">
+            (#{Invigilation.classroomId},#{Invigilation.teacherId},#{Invigilation.competitionId})
+        </foreach>
+    </insert>
+
+    <resultMap type="com.dcms.model.Invigilation" id="InvigilationMap">
+        <id property="id" column="t_arrange_id"/>
+        <result property="classroomId" column="classroom_id"/>
+        <result property="competitionId" column="c_id"/>
+        <result property="teacherId" column="t_id"/>
+        <association property="teacher" column="t_id" select="com.dcms.dao.TeacherMapper.findTeacherById"/>
+    </resultMap>
+</mapper>
