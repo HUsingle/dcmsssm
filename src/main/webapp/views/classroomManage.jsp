@@ -32,11 +32,8 @@
                 class="fa fa-file-excel-o"></i> 下载导入表格模板</a>
     </form>
 
-
-    <div class="col-sm-10" style="margin-left: -13px;">
         <table id="myTable">
         </table>
-    </div>
 
 </div>
 
