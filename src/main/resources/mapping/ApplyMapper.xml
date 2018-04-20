@@ -16,6 +16,10 @@
     <select id="isExistSelfInfo" resultType="java.lang.String">
         select apply_id from db_apply where s_number = #{param1} and c_id = #{param2}
     </select>
+    <!--查询竞赛是否已经报名-->
+    <select id="isExistApplyInfo" resultType="java.lang.Integer">
+        select count(apply_id) from db_apply where s_number = #{param1} and c_id = #{param2}
+    </select>
     <!--查询团队名称是否已经存在-->
     <select id="qryNumByTeamName" resultType="int">
         select count(apply_id) from db_apply where group_name = #{param1}
@@ -56,7 +60,7 @@
         </if>
         order by ${sort}
     </select>
-
+<!--统计各组别的报名人数-->
     <select id="findNumByGroup" resultMap="countMap">
         select c_group_name,count(apply_id)
         from db_apply where c_id=#{id} group by c_group_name

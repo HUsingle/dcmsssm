@@ -99,9 +99,8 @@
         }
         else {
             var ids = jsonArray[0]["id"];
-            var url= "${path}/competitionFile/downloadCompetitionFile?id=" + ids;
-            window.location.href=url;
-            //return url;
+            var url = "${path}/competitionFile/downloadCompetitionFile?id=" + ids;
+            window.location.href = url;
         }
     }
     $(function () {

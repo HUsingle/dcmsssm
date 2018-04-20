@@ -143,6 +143,7 @@
               </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="${path}/key/keyManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生答案管理</span></a></li>
                         <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>学生成绩管理</span></a></li>
                         <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a></li>
                     </ul>
