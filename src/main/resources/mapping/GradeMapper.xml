@@ -3,5 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.GradeMapper">
+    <select id="findAllGradeByCidOrGroupName" resultMap="gradeMap">
+        select db_grade.*,c_group_name from db_grade,db_apply
+        where db_grade.c_id=39 and db_grade.c_id=db_apply.c_id
+        and db_grade.s_number=db_apply.s_number
+    </select>
+    <resultMap id="gradeMap" type="com.dcms.model.Grade">
+        <id property="id" column="g_id"/>
+        <result property="username" column="s_number"/>
+        <result property="competitionId" column="c_id"/>
+        <result property="grade" column="grade"/>
+        <result property="prize" column="prize"/>
+        <result property="groupName" column="c_group_name"/>
+        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentById"/>
+    </resultMap>
 
 </mapper>

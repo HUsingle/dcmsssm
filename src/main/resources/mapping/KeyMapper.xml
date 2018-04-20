@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcms.dao.KeyMapper">
+    <!--查询所有竞赛文件-->
+    <select id="getAllKey"  resultMap="keyMap">
+        select db_key.*,c_group_name from db_key,db_apply
+        where db_key.c_id=#{competitionId}
+        <if test="groupName!=''">
+            and db_apply.c_group_name=#{groupName}
+        </if>
+        and db_key.c_id=db_apply.c_id
+        and db_key.s_number=db_apply.s_number
+    </select>
+    <!--删除竞赛文件-->
+    <delete id="deleteKey">
+        delete from db_Key_file where k_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--添加竞赛文件-->
+    <insert id="addKey" parameterType="com.dcms.model.Key">
+        insert into db_Key_file(s_number,c_id,upload_time,file_path)
+        values(#{username},#{competitionId},now(),#{fileName})
+    </insert>
+    <resultMap id="keyMap" type="com.dcms.model.Key">
+        <id property="id" column="k_id"/>
+        <result property="username" column="s_number"/>
+        <result property="competitionId" column="c_id"/>
+        <result property="uploadTime" column="upload_time"/>
+        <result property="fileName" column="file_path"/>
+        <result property="groupName" column="c_group_name"/>
+        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentById"/>
+    </resultMap>
+</mapper>

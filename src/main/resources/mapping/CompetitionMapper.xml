@@ -60,8 +60,8 @@
         select c_group from db_competition where c_id = #{param1}
     </select>
     <!--通过竞赛id查询竞赛-->
-    <select id="findCompetitionById" resultMap="compMap">
-        select * from db_competition where c_id = #{id}
+    <select id="findCompetitionById" resultType="com.dcms.model.Competition">
+        select c_name as name from db_competition where c_id = #{id}
     </select>
     <!--竞赛resultMap-->
     <resultMap type="com.dcms.model.Competition" id="compMap">

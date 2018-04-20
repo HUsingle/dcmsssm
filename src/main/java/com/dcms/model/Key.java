@@ -1,24 +1,21 @@
 package com.dcms.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
+import java.sql.Timestamp;
+
 /**
- * Created by single on 2018/4/19.
+ * Created by single on 2018/4/20.
  */
-public class Grade {
+public class Key {
     private int id;
     private long username;
     private int competitionId;
-    private int grade;
-    private String prize;
-    private String groupName;
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Timestamp uploadTime;
+    private String fileName;
     private Student student;
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
+    private String groupName;
 
     public int getId() {
         return id;
@@ -44,20 +41,20 @@ public class Grade {
         this.competitionId = competitionId;
     }
 
-    public int getGrade() {
-        return grade;
+    public Timestamp getUploadTime() {
+        return uploadTime;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void setUploadTime(Timestamp uploadTime) {
+        this.uploadTime = uploadTime;
     }
 
-    public String getPrize() {
-        return prize;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setPrize(String prize) {
-        this.prize = prize;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Student getStudent() {
@@ -66,5 +63,13 @@ public class Grade {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }
