@@ -11,14 +11,14 @@
     <select id="getAllCompetition" resultMap="compMap">
         select * from db_competition order by c_publish_time DESC
     </select>
+    <select id="findAllCompetition" resultMap="compMap">
+        select c_id,c_name,c_is_team,c_group from db_competition order by c_publish_time DESC
+    </select>
     <!--查询是否是团队赛-->
     <select id="qryIsTeam" resultType="int">
         select c_is_team from db_competition where c_id = #{param1}
     </select>
-    <!--查询所有竞赛-->
-    <select id="findAllCompetition" resultMap="compMap">
-        select * from db_competition
-    </select>
+
     <!--查询个人赛信息-->
     <select id="findSingleCompetition" resultMap="compMap">
         select c_id,c_name,c_group from db_competition where c_is_team =0

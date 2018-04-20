@@ -5,14 +5,14 @@
 <mapper namespace="com.dcms.dao.KeyMapper">
     <!--查询所有答案文件-->
     <select id="getAllKey" resultMap="keyMap">
-        select db_key.*,c_group_name from db_key,db_apply
+        select db_key.*,c_group_name,is_group_leader,group_name from db_key,db_apply
         where db_key.c_id=#{competitionId}
         <if test="groupName!=''">
             and db_apply.c_group_name=#{groupName}
         </if>
         and db_key.c_id=db_apply.c_id
         and db_key.s_number=db_apply.s_number
-        order by s_number ${sort}
+        order by ${sort}
     </select>
     <!--通过竞赛答案文件id查询竞赛答案文件名字-->
     <select id="findKeyFileName" resultType="string">
@@ -30,9 +30,12 @@
         </foreach>
     </delete>
     <!--添加答案文件-->
-    <insert id="addKey" parameterType="com.dcms.model.Key">
+    <insert id="addKey" parameterType="java.util.List">
         insert into db_Key(s_number,c_id,upload_time,file_path)
-        values(#{username},#{competitionId},now(),#{fileName})
+        values
+        <foreach collection="list" item="key" separator=",">
+            (#{key.username},#{key.competitionId},now(),#{key.fileName})
+        </foreach>
     </insert>
     <resultMap id="keyMap" type="com.dcms.model.Key">
         <id property="id" column="k_id"/>
@@ -41,6 +44,8 @@
         <result property="uploadTime" column="upload_time"/>
         <result property="fileName" column="file_path"/>
         <result property="groupName" column="c_group_name"/>
+        <result property="isLeader" column="is_group_leader"/>
+        <result property="teamName" column="group_name"/>
         <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentById"/>
     </resultMap>
 </mapper>

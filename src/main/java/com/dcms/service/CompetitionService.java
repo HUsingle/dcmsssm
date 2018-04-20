@@ -13,7 +13,7 @@ public interface CompetitionService {
 
     boolean qryIsTeam(String id);   // 判断是否是团队赛
     //查询所有竞赛
-   /* List<Competition> findAllCompetition();*/
+    List<Competition> findAllCompetition();
     //查询所有竞赛信息通过发布时间排序
     List<Competition> getAllCompetition();
     //查询个人赛

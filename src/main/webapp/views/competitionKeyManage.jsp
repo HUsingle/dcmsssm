@@ -22,7 +22,7 @@
 <body>
 <div id="myDiv">
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
-        <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 上传答案</a>
+        <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 上传答案/作品</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="download" href="javascript:download()"><i class="fa fa-download"></i>
             下载</a>
@@ -50,17 +50,17 @@
 
 <div class="box box-default" id="myBox" style="display: none;">
     <div class="box-header with-border">
-        <h3 class="box-title" id="myBoxTitle">上传文件</h3>
+        <h3 class="box-title" id="myBoxTitle">上传答案/作品</h3>
     </div>
     <div class="box-body">
         <form id="myFrom" class="form-horizontal" method="post" action="##" onsubmit="return false"
               style="margin-left: 2px;">
-                <div class="form-group">
-                    <div class="col-sm-1 control-label">学号</div>
-                    <div class="col-sm-5">
-                        <input type="text" id="username" class="form-control" name="username" placeholder="学生编号"/>
-                    </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">学号</div>
+                <div class="col-sm-5">
+                    <input type="text" id="username" class="form-control" name="username" placeholder="学生编号/团队名称"/>
                 </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-1 control-label">竞赛名称</div>
                 <div class="col-sm-5">
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-1 control-label">学生答案</div>
+                <div class="col-sm-1 control-label">答案/作品</div>
                 <div class="col-sm-5">
                     <input type="file" id="keyFile" name="keyFile"/>
                 </div>
@@ -104,9 +104,31 @@
         competitionObject.id = '${competition.cid}';
         competitionObject.name = '${competition.name}';
         competitionObject.group = '${competition.group}';
+        competitionObject.isTeam = '${competition.isTeam}';
         competitionArray.push(competitionObject);
         </c:forEach>
         return competitionArray;
+    }
+    function mergeTable(field, mytable, data) {//一列中如果连续相邻相同则合并
+        //alert(data[0].teacherId);
+        var temp = data[0][field];
+        var ind = 0;
+        var count = 1;
+        for (var i = 1; i < data.length; i++) {
+            if (data[i][field] === temp) {
+                count++;
+                if (i === data.length - 1 && count > 1) {
+                    mytable.bootstrapTable('mergeCells', {index: ind, field: field, colspan: 1, rowspan: count});
+                }
+            } else {
+                //alert(count);
+                mytable.bootstrapTable('mergeCells', {index: ind, field: field, colspan: 1, rowspan: count});
+                ind = ind + count;
+                temp = data[i][field];
+                count = 1;
+            }
+        }
+
     }
     function intFileInput() {
         var myFile = $("#keyFile");
@@ -140,7 +162,7 @@
             hideOnNavigate: true //是否隐藏导航
         });
     }
-    function initMyTable(params, titles, sortNum) {
+    function initMyTable(params, titles, sortNum,sortName) {
         var myTable = $("#myTable");
         myTable.bootstrapTable({
             url: "${path}/key/getKeyList",//请求后台的url
@@ -155,7 +177,7 @@
                 var temp = {
                     limit: params.limit,
                     offset: (params.offset / params.limit) + 1,
-                    sort:  params.order,
+                    sort: sortName +params.order,
                     id: $("#competition").val(),
                     groupName: $("#competitionGroup").val()
                 };
@@ -164,7 +186,7 @@
             sidePagination: "server",//设置分页方式
             pageNumber: 1,
             pageSize: 10,
-            pageList: [10,30,60],
+            pageList: [10, 30, 60],
             search: false,
             strictSearch: false,
             searchOnEnterKey: false,
@@ -183,8 +205,18 @@
                     $.each(result, function (index, content) {//对数组进行循环
                         content["name"] = content["student"].name;
                         content["class"] = content["student"].studentClass;
+                        if(content["isLeader"]>0){
+                            content["isLeader"]="组长";
+                        }else {
+                            content["isLeader"]="组员";
+                        }
                     });
                     myTable.bootstrapTable("load", data);
+                    if ("teamName" in data["rows"][0] && data["rows"][0].teamName !== null && data["rows"][0].teamName.length > 0) {
+                        mergeTable("teamName", myTable, data["rows"]);
+                        mergeTable("fileName", myTable, data["rows"]);
+                        mergeTable("uploadTime", myTable, data["rows"]);
+                    }
                 }
                 return true;//返回值很重要
             }
@@ -220,16 +252,38 @@
             initMessage("请选择一条数据,不要多选!", 'error');
         }
         else {
-            var competitionId=$("#competition").val();
+            var competitionId = $("#competition").val();
             var ids = jsonArray[0]["id"];
-            var url = "${path}/key/downloadKey?id=" + ids+"&competitionId="+competitionId;
+            var url = "${path}/key/downloadKey?id=" + ids + "&competitionId=" + competitionId;
             window.location.href = url;
         }
     }
-    $(function () {
-        initMyTable(['id', 'username', 'name', 'class', 'groupName','fileName','uploadTime'],
-            ['id', '学号', '姓名', '班级', '报名组别', '答案名称','上传时间'], 1 );
+    function getTeam(competition) {
+        var competitionObject = getCompetitionObject();
+        var selectValue = $("#" + competition).val();
+        var isTeam = 0;
+        for (var i = 0; i < competitionObject.length; i++) {
+            if (selectValue === competitionObject[i].id) {
+                isTeam = competitionObject[i].isTeam;
+                break;
+            }
+        }
+        return isTeam;
+    }
+    function refreshTable() {
+        var isTeam = getTeam("competition");
+        $("#myTable").bootstrapTable('destroy');
+        if (isTeam > 0) {
+            initMyTable(['id', 'teamName', 'isLeader', 'username', 'name', 'class',  'fileName', 'uploadTime','groupName'],
+                ['id', '团队名称', '职称', '学号', '姓名', '班级',  '作品名称', '上传时间','报名组别'], -1,'group_name ');
+        } else {
+            initMyTable(['id', 'username', 'name', 'class', 'groupName', 'fileName', 'uploadTime'],
+                ['id', '学号', '姓名', '班级', '报名组别', '答案名称', '上传时间'], 1,'s_number ');
+        }
         $("#myTable").bootstrapTable('hideColumn', 'id');
+    }
+    $(function () {
+        refreshTable();
         intFileInput();
         $("#quit").click(function () {
             $("#myBox").hide();
@@ -245,7 +299,7 @@
                 initMessage("请至少选择一条记录!", 'error');
             } else {
                 var ids = '';
-                var text=$("#competition").val();
+                var text = $("#competition").val();
                 for (var i = 0; i < jsonArray.length; i++)
                     ids += jsonArray[i]["id"] + ',';
                 $.ajax({
@@ -268,37 +322,39 @@
             }
         });
         $("#submitButton").click(function () {
-            var username=$("#username").val();
+            var isTeam=getTeam("competitionId");
+            var username = $("#username").val();
             var formData = new FormData($("#myFrom")[0]);
-            if(username===""){
-                initMessage("学号不能为空!","error");
+            if (username === "") {
+                initMessage("学号(团队名称)不能为空!", "error");
                 return
             }
-            if(isNaN(username)){
-                initMessage("学号为数字!","error");
+            if (isNaN(username)&&isTeam==0) {
+                initMessage("学号为数字!", "error");
                 return
             }
-            if($("#keyFile").val()===""){
-                initMessage("上传答案不能为空!","error");
+            if ($("#keyFile").val() === "") {
+                initMessage("上传答案不能为空!", "error");
                 return
             }
-          $.ajax({
-                url: '${path}/key/addKey' ,
+            formData.append("isTeam",isTeam);
+            $.ajax({
+                url: '${path}/key/addKey',
                 type: 'POST',
                 data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    var result=data['result'];
-                    if(!isNaN(result)){
-                        var resultNum=parseInt(result);
-                        if(resultNum>0){
+                    var result = data['result'];
+                    if (!isNaN(result)) {
+                        var resultNum = parseInt(result);
+                        if (resultNum > 0) {
                             initMessage("添加成功！", 'success');
                             $("#myTable").bootstrapTable('refresh');
                             $("#myBox").hide();
                             $("#myDiv").show();
-                        }else{
+                        } else {
                             initMessage("添加失败！", 'error');
                         }
                         return;
@@ -307,39 +363,34 @@
 
                 }
             });
-            });
-    $("#competition").change(function () {//竞赛名称改变监听
-        var competitionGroup = $("#competitionGroup");
-        var selectValue = $("#competition").val();
-        var group = "";
-        var competitionArray = getCompetitionObject();
-        var compGroupStartValue = document.getElementById("competitionGroup");
-        for (var j = 0; j < competitionArray.length; j++) {//根据选中的竞赛动态显示竞赛组别
-            if (competitionArray[j].id === selectValue) {
-                group = competitionArray[j].group.split(",");
-                compGroupStartValue.options.length = 0;
-                competitionGroup.selectpicker('refresh');
-                competitionGroup.selectpicker('render');
-                competitionGroup.append("<option value=''>" + "所有竞赛组别" + "</option>");
-                for (var k = 0; k < group.length; k++) {
-                    competitionGroup.append("<option value='" + group[k] + "'>" + group[k] + "</option>");
+        });
+
+        $("#competition").change(function () {//竞赛名称改变监听
+            var competitionGroup = $("#competitionGroup");
+            var selectValue = $("#competition").val();
+            var group = "";
+            var competitionArray = getCompetitionObject();
+            var compGroupStartValue = document.getElementById("competitionGroup");
+            for (var j = 0; j < competitionArray.length; j++) {//根据选中的竞赛动态显示竞赛组别
+                if (competitionArray[j].id === selectValue) {
+                    group = competitionArray[j].group.split(",");
+                    compGroupStartValue.options.length = 0;
+                    competitionGroup.selectpicker('refresh');
+                    competitionGroup.selectpicker('render');
+                    competitionGroup.append("<option value=''>" + "所有竞赛组别" + "</option>");
+                    for (var k = 0; k < group.length; k++) {
+                        competitionGroup.append("<option value='" + group[k] + "'>" + group[k] + "</option>");
+                    }
+                    competitionGroup.selectpicker('refresh');
+                    competitionGroup.selectpicker('render');
+                    break;
                 }
-                competitionGroup.selectpicker('refresh');
-                competitionGroup.selectpicker('render');
-                break;
             }
-        }
-        $("#myTable").bootstrapTable("destroy");
-        initMyTable(['id', 'username', 'name', 'class', 'groupName','fileName','uploadTime'],
-            ['id', '学号', '姓名', '班级', '报名组别', '答案名称','上传时间'], 1 );
-        $("#myTable").bootstrapTable('hideColumn', 'id');
-    });
-    $("#competitionGroup").change(function () {//竞赛组别改变监听
-        $("#myTable").bootstrapTable("destroy");
-        initMyTable(['id', 'username', 'name', 'class', 'groupName','fileName','uploadTime'],
-            ['id', '学号', '姓名', '班级', '报名组别', '答案名称','上传时间'], 1 );
-        $("#myTable").bootstrapTable('hideColumn', 'id');
-    });
+            refreshTable()
+        });
+        $("#competitionGroup").change(function () {//竞赛组别改变监听
+            refreshTable()
+        });
     });
 </script>
 </body>

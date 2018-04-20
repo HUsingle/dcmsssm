@@ -59,7 +59,7 @@ public class Tool {
             idArray[i] = Long.parseLong(idString[i]);
         return idArray;
     }
-
+   //下载
     public static void downLoad(String filePath, String fileName, HttpServletResponse response, HttpServletRequest request){
         try {
             String path = request.getSession().getServletContext().getRealPath(filePath);
@@ -87,5 +87,6 @@ public class Tool {
         }
 
     }
+
 
 }

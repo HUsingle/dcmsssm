@@ -16,7 +16,7 @@ public interface KeyMapper {
                         @Param("groupName") String groupName, @Param("sort") String sort);
 
     //上传竞赛答案
-    int addKey(Key key);
+    int addKey(List<Key> key);
 
     //删除竞赛答案
     int deleteKey(Integer[] key);

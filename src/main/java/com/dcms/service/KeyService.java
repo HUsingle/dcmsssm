@@ -15,8 +15,8 @@ public interface KeyService {
     List<Key> getAllKey(Integer competitionId,
                          String groupName,String sort);
     //上传竞赛答案
-    String addKey(Long username, Integer competitionId, MultipartFile multipartFile ,
-                 HttpServletRequest request);
+    String addKey(String username, Integer competitionId, MultipartFile multipartFile ,
+                 HttpServletRequest request,Integer isTeam);
     //删除竞赛答案
     String deleteKey(String id, HttpServletRequest request, Integer competitionId);
     //下载竞赛答案

@@ -36,10 +36,9 @@ public class CompetitionServiceImpl implements CompetitionService {
         return false;
     }
 
-   /* public List<Competition> findAllCompetition() {
+    public List<Competition> findAllCompetition() {
         return compMapper.findAllCompetition();
     }
-*/
 
     public List<Competition> findSingleCompetition() {
         return compMapper.findSingleCompetition();

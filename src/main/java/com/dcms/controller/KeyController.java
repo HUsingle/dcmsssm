@@ -33,7 +33,7 @@ public class KeyController {
 
     @RequestMapping(value = "/keyManage")
     public String keyManage(Model model){
-        List<Competition> competitionList=competitionService.findSingleCompetition();
+        List<Competition> competitionList=competitionService.findAllCompetition();
         model.addAttribute(competitionList);
         return "competitionKeyManage";
     }
@@ -54,9 +54,9 @@ public class KeyController {
 
     @RequestMapping(value = "/addKey", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public String addKey(Long username, Integer competitionId, MultipartFile keyFile,
+    public String addKey(String username, Integer competitionId, Integer isTeam,MultipartFile keyFile,
                           HttpServletRequest request) {
-        return KeyService.addKey(username, competitionId, keyFile,request);
+        return KeyService.addKey(username, competitionId, keyFile,request,isTeam);
     }
 
     @RequestMapping(value = "/deleteKey", method = RequestMethod.POST)

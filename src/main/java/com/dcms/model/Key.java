@@ -16,6 +16,8 @@ public class Key {
     private String fileName;
     private Student student;
     private String groupName;
+    private int isLeader;
+    private String teamName;
 
     public int getId() {
         return id;
@@ -71,5 +73,21 @@ public class Key {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public int getIsLeader() {
+        return isLeader;
+    }
+
+    public void setIsLeader(int isLeader) {
+        this.isLeader = isLeader;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }

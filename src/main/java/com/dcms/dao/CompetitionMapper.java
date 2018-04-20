@@ -12,7 +12,7 @@ public interface CompetitionMapper {
 
     int qryIsTeam(String id);  //查询是否是团队赛
 
-   // List<Competition> findAllCompetition();//查询所有竞赛信息（不排序）
+    List<Competition> findAllCompetition();//查询所有竞赛信息（字段较少）
 
     List<Competition> getAllCompetition();//查询所有竞赛信息通过发布时间排序
 
