@@ -10,6 +10,8 @@ public class Grade {
     private int grade;
     private String prize;
     private String groupName;
+    private int isLeader;
+    private String teamName;
     private Student student;
 
     public String getGroupName() {
@@ -66,5 +68,21 @@ public class Grade {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public int getIsLeader() {
+        return isLeader;
+    }
+
+    public void setIsLeader(int isLeader) {
+        this.isLeader = isLeader;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }

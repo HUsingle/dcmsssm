@@ -66,7 +66,7 @@
         select * from db_student where s_number = #{param1}
     </select>
     <select id="findStudentById" resultType="com.dcms.model.Student">
-        select s_name as name, s_phone as phone,
+        select s_number as username, s_name as name, s_phone as phone,
         s_major_class as studentClass from db_student where s_number = #{s_number}
     </select>
 

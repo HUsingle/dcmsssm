@@ -59,7 +59,7 @@ public class KeyController {
         return KeyService.addKey(username, competitionId, keyFile,request,isTeam);
     }
 
-    @RequestMapping(value = "/deleteKey", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteKey", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String deleteKey(@RequestParam("id") String id, HttpServletRequest request, @RequestParam("competitionName") Integer competitionName) {
         return KeyService.deleteKey(id, request, competitionName);

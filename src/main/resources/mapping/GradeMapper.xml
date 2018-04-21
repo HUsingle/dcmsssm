@@ -3,11 +3,52 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.GradeMapper">
+    <!--根据竞赛，组别查询成绩-->
     <select id="findAllGradeByCidOrGroupName" resultMap="gradeMap">
-        select db_grade.*,c_group_name from db_grade,db_apply
-        where db_grade.c_id=39 and db_grade.c_id=db_apply.c_id
+        select db_grade.*,c_group_name, is_group_leader,group_name from db_grade,db_apply
+        where db_grade.c_id=#{competitionId}
+        <if test="groupName!=''">
+            and db_apply.c_group_name=#{groupName}
+        </if>
+        and db_grade.c_id=db_apply.c_id
         and db_grade.s_number=db_apply.s_number
+        order by ${sort}
     </select>
+    <!--是否存在成绩-->
+    <select id="isExistGrade" resultType="java.lang.Integer">
+        select count(g_id) from db_grade where s_number = #{param1} and c_id = #{param2}
+    </select>
+    <!--删除成绩-->
+    <delete id="deleteGrade">
+        delete from db_grade where g_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--更新成绩-->
+    <update id="updateGrade">
+        <foreach collection="list" item="grade" separator=";">
+            update db_grade
+            <set>
+                grade=#{grade.grade}
+            </set>
+            where g_id=#{grade.id}
+        </foreach>
+    </update>
+    <!--根据团队名称查询成绩id-->
+    <select id="getGradeId" resultType="com.dcms.model.Grade">
+        select g_id as id from db_grade where c_id=#{competitionId}
+        and s_number in
+        (select s_number from db_apply where group_name=#{groupName})
+    </select>
+    <!--添加成绩-->
+    <insert id="addGrade" parameterType="java.util.List">
+        insert into db_grade(s_number,c_id,grade)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username},#{item.competitionId},#{item.grade})
+        </foreach>
+    </insert>
     <resultMap id="gradeMap" type="com.dcms.model.Grade">
         <id property="id" column="g_id"/>
         <result property="username" column="s_number"/>
@@ -15,6 +56,8 @@
         <result property="grade" column="grade"/>
         <result property="prize" column="prize"/>
         <result property="groupName" column="c_group_name"/>
+        <result property="isLeader" column="is_group_leader"/>
+        <result property="teamName" column="group_name"/>
         <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentById"/>
     </resultMap>
 

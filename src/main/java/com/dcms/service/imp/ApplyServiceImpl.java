@@ -10,7 +10,6 @@ import com.dcms.model.Apply;
 import com.dcms.model.Competition;
 import com.dcms.model.Student;
 import com.dcms.service.ApplyService;
-import com.dcms.service.CompetitionService;
 import com.dcms.utils.ExcelUtil;
 import com.dcms.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,7 @@ public class ApplyServiceImpl implements ApplyService {
     ApplyMapper applyMapper;
     @Autowired
     StudentMapper studentMapper;
-    @Autowired
-    CompetitionService competitionService;
+
 
     //个人赛报名
     public boolean insertOneSelfInfo(String stuNo, String compId, String groupName) {
@@ -59,7 +57,7 @@ public class ApplyServiceImpl implements ApplyService {
         }
         return false;
     }
-
+   //团队报名
     public boolean teamApply(String list, String tid, String compId, String groupName, String tName) {
         String[] stu = list.split(",");
         Apply apply = null;
@@ -88,9 +86,7 @@ public class ApplyServiceImpl implements ApplyService {
         return false;
     }
 
-    public List<Apply> findApplyByCidAndGroup(int id, String groupName, String sort) {
-        return null;
-    }
+
 
     public String findNumByGroup(Integer id) {
         List map = applyMapper.findNumByGroup(id);
@@ -110,7 +106,6 @@ public class ApplyServiceImpl implements ApplyService {
     }
 
     public String findApplyByTeamName(String groupName) {
-
         return JSONArray.toJSONString(applyMapper.findApplyByTeamName(groupName));
     }
 
@@ -118,7 +113,7 @@ public class ApplyServiceImpl implements ApplyService {
         return Tool.result(applyMapper.updateOneSelfInfo(id, competitionId, competitionGroup, username));
     }
 
-    @Transactional
+    //批量更新报名
     public String batchUpdateApply(String id, String isGroupLeader, String list, Long tid,
                                    String groupName, String tName, Integer competitionId) {
         Long[] ids = Tool.getLong(id);
@@ -127,7 +122,7 @@ public class ApplyServiceImpl implements ApplyService {
         Apply apply = null;
         List<Apply> applyList = new ArrayList<Apply>();
         List<Apply> applyList1 = new ArrayList<Apply>();
-        for (int i = 0; i < ids.length; i++) {
+        for (int i = 0; i < ids.length; i++) {//老成员修改信息
             apply = new Apply();
             apply.setIsGroupLeader(isLeader[i]);
             apply.setUsername(username[i]);
@@ -137,7 +132,7 @@ public class ApplyServiceImpl implements ApplyService {
             apply.setTeacherId(tid);
             applyList.add(apply);
         }
-        for (int i = ids.length; i < username.length; i++) {
+        for (int i = ids.length; i < username.length; i++) {//修改可以添加新的成员
             apply = new Apply();
             apply.setIsGroupLeader(isLeader[i]);
             apply.setUsername(username[i]);

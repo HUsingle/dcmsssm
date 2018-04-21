@@ -144,7 +144,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="${path}/key/keyManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生答案管理</span></a></li>
-                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>学生成绩管理</span></a></li>
+                        <li><a href="${path}/grade/gradeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生成绩管理</span></a></li>
                         <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a></li>
                     </ul>
                 </li>
@@ -280,6 +280,7 @@
             allowedFileExtensions: ["xls", "xlsx"], //接收的文件后缀
             maxFileCount: 1,                        //最大上传文件数限制
             enctype: 'multipart/form-data',
+           // uploadExtraData:
             //previewFileIcon: '<i class="fa fa-file"></i>',
             initialPreviewAsData: true, // defaults markup
             preferIconicPreview: false // 是否优先显示图标  false 即优先显示图片

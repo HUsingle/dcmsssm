@@ -39,22 +39,22 @@ public class KeyServiceImpl implements KeyService {
         if(isTeam>0){
             int isExitTeamName=applyMapper.qryNumByTeamName(user);
             if(isExitTeamName==0){
-                return Tool.result("该团队没有参加该竞赛");
+                return Tool.result("该团队没有参加该竞赛，不能上传作品");
             }
             applyList=applyMapper.findApplyByTeamName(user);
             int isExistKey=keyMapper.isExistFile(applyList.get(0).getUsername(),competitionId);
             if(isExistKey>0){
-                return Tool.result("该学生的答案已经存在");
+                return Tool.result("该团队的作品已经存在，不可以重复上传");
             }
         }else{
             Long username=Long.parseLong(user);
             int isExistApplyInf=applyMapper.isExistApplyInfo(username,competitionId);
             if(isExistApplyInf==0){
-                return Tool.result("该学生没有参加该竞赛");
+                return Tool.result("该学生没有参加该竞赛，不能上传答案！");
             }
             int isExistFile=keyMapper.isExistFile(username,competitionId);
             if(isExistFile>0){
-                return Tool.result("该学生的答案已经存在");
+                return Tool.result("该学生的答案已经存在，不能重复上传答案！");
             }
         }
         String fileName = "";

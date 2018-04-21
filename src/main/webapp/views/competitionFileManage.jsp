@@ -83,7 +83,7 @@
                 $("#myTable").bootstrapTable('refresh');
                 $("#myBox").hide();
                 $("#myDiv").show();
-
+              //  myFile.fileinput('clear');//清空所有文件
             } else {
                 initMessage("添加失败,添加的数据存在错误或者服务器异常！", 'error');
             }
