@@ -167,9 +167,9 @@ public class ExcelUtil {
                 Row row = sheet.getRow(i);  //获得一行
                 if (row != null) {
                     int lastCellNum = row.getLastCellNum(); //获得最后一个单元格下标
-                    System.out.print(lastCellNum+"/");
+                    //System.out.print(lastCellNum+"/");
                     if (lastCellNum != head.length) {//判断下标与表头的长度是否相等
-                        errorList.add(Tool.result("缺少列！"));
+                        errorList.add(Tool.result("字段数目与模板不相符！"));
                         return errorList;
                     }
                     if (firstRowNum == i) {//如果是表头

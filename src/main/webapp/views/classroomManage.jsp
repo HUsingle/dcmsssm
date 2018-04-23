@@ -170,7 +170,8 @@
         initUpdateInformation("添加考场", "修改考场", ['id', 'site', 'number'],
             "${path}/classroom/deleteClassroom", "id");
         $("#importExcel").click(function () {
-            window.parent.openModel("${path}/classroom/importClassroomExcel", "导入表格");
+            var extraData={};
+            window.parent.openModel("${path}/classroom/importClassroomExcel", "导入表格",extraData);
         });
         $("#searchApply").click(function () {
             $("#myDiv").hide();

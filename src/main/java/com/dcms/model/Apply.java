@@ -17,14 +17,13 @@ public class Apply {
     private long teacherId;   //指导老师Id
     private int isGroupLeader; //是否为小组组长
     private String groupName;  //小组名称
-    private int isRise;        //是否晋级下一轮
     private Teacher teacher;
     private Student student;
     private Competition competition;
     public Apply(){}
     public Apply(long id, long username, int competitionId,
                  String competitionGroup, Timestamp applyTime,
-                 long teacherId, int isGroupLeader, String groupName, int isRise) {
+                 long teacherId, int isGroupLeader, String groupName) {
         this.id = id;
         this.username = username;
         this.competitionId = competitionId;
@@ -33,7 +32,6 @@ public class Apply {
         this.teacherId = teacherId;
         this.isGroupLeader = isGroupLeader;
         this.groupName = groupName;
-        this.isRise = isRise;
     }
     public void setId(long id) {
         this.id = id;
@@ -99,13 +97,6 @@ public class Apply {
         this.groupName = groupName;
     }
 
-    public int getIsRise() {
-        return isRise;
-    }
-
-    public void setIsRise(int isRise) {
-        this.isRise = isRise;
-    }
 
     public Teacher getTeacher() {
         return teacher;

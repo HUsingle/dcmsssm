@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -65,5 +67,23 @@ public class GradeController {
     @ResponseBody
     public String updateGrade(String id, Integer grade,Integer isTeam,Integer competitionId) {
        return gradeService.updateGrade(grade,id,isTeam,competitionId);
+    }
+
+    @RequestMapping(value = "/exportGradeExcelModel")
+    public void exportGradeExcelModel(HttpServletResponse response) {
+        gradeService.exportGradeExcelModel(response);
+    }
+
+    @RequestMapping(value = "/exportGradeExcel")
+    public void exportGradeExcel(HttpServletResponse response) {
+        //gradeService.exportGradeExcel(response);
+    }
+
+    @RequestMapping(value = "/importGradeExcel",  produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String importGradeExcel(@RequestParam("excelFile") MultipartFile excelFile,Integer competitionId) {
+      
+       return gradeService.importGradeExcel(excelFile,competitionId);
+
     }
 }

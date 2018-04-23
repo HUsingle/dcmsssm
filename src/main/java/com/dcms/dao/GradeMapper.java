@@ -16,7 +16,7 @@ public interface GradeMapper {
                         @Param("groupName") String groupName, @Param("sort") String sort);
 
     //添加成绩
-    int addGrade(List<Grade> Grade);
+    int addGrade(List<Grade> grade);
 
     //删除成绩
     int deleteGrade(Integer[] id);
@@ -29,6 +29,11 @@ public interface GradeMapper {
    //根据团队名称获取成绩id
     List<Grade> getGradeId(@Param("competitionId") Integer competitionId,
                            @Param("groupName") String groupName);
+
+    int importGrade(@Param("competitionId") Integer competitionId,@Param("list") List<Grade> gradeList);
+    //根据成绩排序获取设置获奖人数的学号
+    List<Grade> getPrizeNum(@Param("competitionId") Integer competitionId,
+                            @Param("groupName") String groupName, @Param("num") Integer num);
 
 
 }

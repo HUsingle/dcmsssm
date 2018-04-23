@@ -1,25 +1,17 @@
 package com.dcms.model;
 
 /**
- * Created by single on 2018/4/19.
+ * Created by single on 2018/4/22.
  */
-public class Grade {
+public class Prize {
     private int id;
     private long username;
     private int competitionId;
-    private int grade;
+    private String prize;
     private String groupName;
     private int isLeader;
     private String teamName;
     private Student student;
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
 
     public int getId() {
         return id;
@@ -45,20 +37,20 @@ public class Grade {
         this.competitionId = competitionId;
     }
 
-    public int getGrade() {
-        return grade;
+    public String getPrize() {
+        return prize;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void setPrize(String prize) {
+        this.prize = prize;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public int getIsLeader() {
@@ -75,5 +67,13 @@ public class Grade {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

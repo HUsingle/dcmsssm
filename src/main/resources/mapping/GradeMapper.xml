@@ -14,6 +14,15 @@
         and db_grade.s_number=db_apply.s_number
         order by ${sort}
     </select>
+    <!--根据成绩排序获取设置获奖人数的学号-->
+    <select id="getPrizeNum" resultType="com.dcms.model.Grade">
+        select db_grade.s_number as username from db_grade,db_apply
+        where db_grade.c_id=#{competitionId}
+        and db_apply.c_group_name=#{groupName}
+        and db_grade.c_id=db_apply.c_id
+        and db_grade.s_number=db_apply.s_number
+        order by grade DESC LIMIT ${num}
+    </select>
     <!--是否存在成绩-->
     <select id="isExistGrade" resultType="java.lang.Integer">
         select count(g_id) from db_grade where s_number = #{param1} and c_id = #{param2}
@@ -49,12 +58,19 @@
             (#{item.username},#{item.competitionId},#{item.grade})
         </foreach>
     </insert>
+     <!--导入成绩-->
+    <insert id="importGrade" parameterType="java.util.List">
+        insert into db_grade(s_number,c_id,grade)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username},#{competitionId},#{item.grade})
+        </foreach>
+    </insert>
     <resultMap id="gradeMap" type="com.dcms.model.Grade">
         <id property="id" column="g_id"/>
         <result property="username" column="s_number"/>
         <result property="competitionId" column="c_id"/>
         <result property="grade" column="grade"/>
-        <result property="prize" column="prize"/>
         <result property="groupName" column="c_group_name"/>
         <result property="isLeader" column="is_group_leader"/>
         <result property="teamName" column="group_name"/>

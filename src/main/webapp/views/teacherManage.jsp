@@ -104,7 +104,8 @@
             initUpdateInformation("添加老师", "修改老师", ["id", 'name', 'password', 'college', 'phone', 'email'],
                 "${path}/teacher/deleteTeacher", "id");
             $("#importExcel").click(function () {
-                window.parent.openModel("${path}/teacher/importTeacherExcel", "导入表格");
+                var extraData={};
+                window.parent.openModel("${path}/teacher/importTeacherExcel", "导入表格", extraData);
             });
             initAddAndUpdate("${path}/teacher/addTeacher", "${path}/teacher/updateTeacher", "id=",
                 "", $("#id"), "添加老师", true);

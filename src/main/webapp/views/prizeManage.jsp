@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>竞赛成绩管理</title>
+    <title>奖项管理</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <%
         pageContext.setAttribute("path", request.getContextPath());
@@ -21,13 +21,14 @@
 <body>
 <div id="myDiv">
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
+        <a class="btn bg-purple bt-flat " id="setPrize"><i class="fa fa-trophy"></i> 设置奖项</a>
         <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 添加</a>
         <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
-        <%--<a class="btn bg-purple bt-flat " id="setPrize"><i class="fa fa-trophy"></i> 设置奖项</a>--%>
         <%--<a class="btn bg-purple bt-flat " href="##"><i class="fa fa-download"></i> 导出学生信息</a>--%>
-        <a class="btn bg-purple bt-flat " href="${path}/grade/exportGradeExcelModel"><i class="fa fa-file-excel-o"></i> 下载导入模板</a>
+        <a class="btn bg-purple bt-flat " href="${path}/prize/exportPrizeExcelModel"><i class="fa fa-file-excel-o"></i>
+            下载导入模板</a>
     </form>
     <div class="form-group" style="margin-left: -15px;">
         <div class="col-sm-4" style="margin-bottom: 15px;">
@@ -74,9 +75,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-1 control-label">学生成绩</div>
+                <div class="col-sm-1 control-label">竞赛奖项</div>
                 <div class="col-sm-5">
-                    <input type="text" id="grade" class="form-control" name="grade" placeholder="学生/团队成绩"/>
+                    <select class="selectpicker form-control" id="prize" name="prize">
+                        <option value="一等奖">一等奖</option>
+                        <option value="二等奖">二等奖</option>
+                        <option value="三等奖">三等奖</option>
+
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -84,6 +90,62 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="submitButton" class="btn btn bg-purple bt-flat">确定
             </button>
                 &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="quit">返回</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="box box-default" id="mySetPrizeBox" style="display: none;">
+    <div class="box-header with-border">
+        <h3 class="box-title" id="mySetPrizeBoxTitle">设置奖项人数</h3>
+    </div>
+    <div class="box-body">
+        <form id="mySetPrizeFrom" class="form-horizontal" method="post" action="##" onsubmit="return false"
+              style="margin-left: 2px;">
+            <div class="form-group">
+                <div class="col-sm-1 control-label">竞赛名称</div>
+                <div class="col-sm-5">
+                    <select class="selectpicker form-control" id="competition1" name="competition1">
+                        <c:forEach items="${singleCompetition}" var="singleCompetition">
+                            <option value="${singleCompetition.cid}">${singleCompetition.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">竞赛组别</div>
+                <div class="col-sm-5" >
+                    <select class="selectpicker form-control" id="competitionGroup1" name="competitionGroup1">
+                        <c:forEach items="${singleCompetition.get(0).group.split(',')}" var="group">
+                            <option value="${group}">${group}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">一等奖</div>
+                <div class="col-sm-5">
+                    <input type="text" id="firstPrize" class="form-control" name="firstPrize" placeholder="获得该奖的人数"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">二等奖</div>
+                <div class="col-sm-5">
+                    <input type="text" id="secondPrize" class="form-control" name="secondPrize" placeholder="获得该奖的人数"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">三等奖</div>
+                <div class="col-sm-5">
+                    <input type="text" id="thirdPrize" class="form-control" name="thirdPrize" placeholder="获得该奖的人数"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1 control-label"></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="commitButton" class="btn btn bg-purple bt-flat">确定
+            </button>
+                &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="return">返回</button>
             </div>
         </form>
     </div>
@@ -110,16 +172,17 @@
         return competitionArray;
     }
     function download() {
-       /* var competitionName;
-        var competitionArray=getCompetitionObject();
-        for(var i=0;i<competitionArray.length;i++){
-            if($("#competition").val()===competitionArray[i].id){
-                competitionName=competitionArray[i].name;
-                break;
-            }
-        }
-            var url = "{path}/grade/exportGradeExcelModel?competitionName=" + competitionName;
-            window.location.href = url;*/
+        /*  var competitionName;
+         var competitionArray=getCompetitionObject();
+         for(var i=0;i<competitionArray.length;i++){
+         if($("#competition").val()===competitionArray[i].id){
+         competitionName=competitionArray[i].name;
+         break;
+         }
+         }
+         var url = "
+      {path}/prize/exportPrizeExcelModel?competitionName=" + competitionName;
+         window.location.href = url;*/
     }
     function mergeTable(field, mytable, data) {//一列中如果连续相邻相同则合并
         //alert(data[0].teacherId);
@@ -157,10 +220,23 @@
             hideOnNavigate: true //是否隐藏导航
         });
     }
+
+    //拼接成字符串，用,隔开
+    function connectString(arrays) {
+        var result = "";
+        for (var j = 0; j < arrays.length; j++) {
+            if (j === arrays.length - 1) {
+                result = result + arrays[j];
+            } else {
+                result = result + arrays[j] + ",";
+            }
+        }
+        return result;
+    }
     function initMyTable(params, titles, sortNum, sortName) {
         var myTable = $("#myTable");
         myTable.bootstrapTable({
-            url: "${path}/grade/getGradeList",//请求后台的url
+            url: "${path}/prize/getPrizeList",//请求后台的url
             method: 'post',
             contentType: "application/x-www-form-urlencoded",
             dataType: "json",
@@ -255,11 +331,11 @@
         var isTeam = getTeam("competition");
         $("#myTable").bootstrapTable('destroy');
         if (isTeam > 0) {
-            initMyTable(['id', 'teamName', 'isLeader', 'username', 'name', 'class', 'grade', 'groupName'],
-                ['id', '团队名称', '职称', '学号', '姓名', '班级', '成绩', '报名组别'], 6, 'concat(grade,group_name) ');
+            initMyTable(['id', 'teamName', 'isLeader', 'username', 'name', 'class', 'prize', 'groupName'],
+                ['id', '团队名称', '职称', '学号', '姓名', '班级', '奖项', '报名组别'], 6, 'concat(prize,group_name) ');
         } else {
-            initMyTable(['id', 'username', 'name', 'class', 'grade', 'groupName'],
-                ['id', '学号', '姓名', '班级', '成绩', '报名组别'], 4, 'grade ');
+            initMyTable(['id', 'username', 'name', 'class', 'prize', 'groupName'],
+                ['id', '学号', '姓名', '班级', '奖项', '报名组别'], 4, 'prize ');
         }
         $("#myTable").bootstrapTable('hideColumn', 'id');
     }
@@ -269,8 +345,12 @@
             $("#myBox").hide();
             $("#myDiv").show();
         });
+        $("#return").click(function () {
+            $("#mySetPrizeBox").hide();
+            $("#myDiv").show();
+        });
         $("#add").click(function () {
-            $("#myBoxTitle").text("添加成绩");
+            $("#myBoxTitle").text("添加奖项");
             $('#username').attr("disabled", false);
             $("#competitionId").prop('disabled', false);
             $("#competitionId").selectpicker('refresh');
@@ -279,6 +359,58 @@
             $("#myDiv").hide();
             $("#myBox").show();
         });
+        $("#setPrize").click(function () {
+            $("#myDiv").hide();
+            $("#mySetPrizeBox").show();
+        });
+        $("#commitButton").click(function () {
+            var firstPrize = $("#firstPrize").val();
+            var secondPrize = $("#secondPrize").val();
+            var thirdPrize = $("#thirdPrize").val();
+            if (firstPrize === "" || secondPrize === "" || thirdPrize === "") {
+                initMessage("不可以有空项!", 'error');
+                return;
+            }
+            if (isNaN(firstPrize) || isNaN(secondPrize) || isNaN(thirdPrize)) {
+                initMessage("获得奖项人数必须为数字!", 'error');
+                return;
+            }
+            if (parseInt(firstPrize)<0 || parseInt(secondPrize)<0 || parseInt(thirdPrize)<0) {
+                initMessage("获得奖项人数不能小于0!", 'error');
+                return;
+            }
+            var prizeNum = [];
+            prizeNum.push(firstPrize);
+            prizeNum.push(secondPrize);
+            prizeNum.push(thirdPrize);
+            var paramData = {};
+            paramData.competitionId = $("#competition1").val();
+            paramData.groupName = $("#competitionGroup1").val();
+            paramData.prizeNumber = connectString(prizeNum);
+            $.ajax({
+                type: 'POST',
+                url: "${path}/prize/setPrize",
+                data: paramData,
+                dataType: "json",
+                success: function (data) {
+                    var result = data['result'];
+                    if (!isNaN(result)) {
+                        var resultNum = parseInt(result);
+                        if (resultNum > 0) {
+                            initMessage("添加成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#mySetPrizeBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("添加失败！", 'error');
+                        }
+                        return;
+                    }
+                    initMessage(result, 'error');
+                }
+            });
+
+        });
         $("#update").click(function () {
             var jsonArray = $("#myTable").bootstrapTable('getSelections');
             if (jsonArray.length < 1) {
@@ -286,7 +418,7 @@
             } else if (jsonArray.length > 1) {
                 initMessage("请选择一条数据,不要多选!", 'error');
             } else {
-                $("#myBoxTitle").text("修改成绩");
+                $("#myBoxTitle").text("修改奖项");
                 var isTeam = getTeam("competition");
                 if (isTeam > 0) {
                     $('#username').val(jsonArray[0].teamName);
@@ -294,7 +426,7 @@
                     $('#username').val(jsonArray[0].username);
                 }
                 $("#competitionId").selectpicker('val', $("#competition").val());
-                $("#grade").val(jsonArray[0].grade);
+                $("#myPrize").selectpicker('val', jsonArray[0].prize);
                 $("#competitionId").prop('disabled', true);
                 $("#competitionId").selectpicker('refresh');
                 $('#username').attr("disabled", true);
@@ -313,7 +445,7 @@
                     ids += jsonArray[i]["id"] + ',';
                 $.ajax({
                     type: 'POST',
-                    url: "${path}/grade/deleteGrade",
+                    url: "${path}/prize/deletePrize",
                     data: {
                         'id': ids
                     },
@@ -330,21 +462,21 @@
             }
         });
         $("#importExcel").click(function () {
-            var isTeam=getTeam("competition");
-            if(isTeam>0){
-                initMessage("团队赛不支持该功能",'error');
+            var isTeam = getTeam("competition");
+            if (isTeam > 0) {
+                initMessage("团队赛不支持该功能", 'error');
                 return;
             }
-            var extraData={};
-            extraData.competitionId=$("#competition").val();
-            window.parent.openModel("${path}/grade/importGradeExcel", "导入表格",extraData);
+            var extraData = {};
+            extraData.competitionId = $("#competition").val();
+            window.parent.openModel("${path}/prize/importPrizeExcel", "导入表格", extraData);
         });
         $("#submitButton").click(function () {
             var isTeam = getTeam("competitionId");
             var username = $("#username").val();
             var formData = new FormData($("#myFrom")[0]);
-            var grade = $("#grade").val();
-            if ($("#myBoxTitle").text() === "添加成绩") {
+            //  var prize = $("#prize").val();
+            if ($("#myBoxTitle").text() === "添加奖项") {
                 if (username === "") {
                     initMessage("学号(团队名称)不能为空!", "error");
                     return;
@@ -353,17 +485,9 @@
                     initMessage("学号为数字!", "error");
                     return;
                 }
-                if (grade === "") {
-                    initMessage("成绩不能为空!", "error");
-                    return;
-                }
-                if (isNaN(grade)) {
-                    initMessage("成绩要为数字!", "error");
-                    return;
-                }
                 formData.append("isTeam", isTeam);
                 $.ajax({
-                    url: '${path}/grade/addGrade',
+                    url: '${path}/prize/addPrize',
                     type: 'POST',
                     data: formData,
                     cache: false,
@@ -388,19 +512,11 @@
                     }
                 });
             } else {
-                if (grade === "") {
-                    initMessage("成绩不能为空!", "error");
-                    return;
-                }
-                if (isNaN(grade)) {
-                    initMessage("成绩要为数字!", "error");
-                    return;
-                }
                 var jsonArray = $("#myTable").bootstrapTable('getSelections');
                 var paramData = {};
                 var id;
                 paramData.isTeam = isTeam;
-                paramData.grade = grade;
+                paramData.prize = $("#prize").val();
                 if (isTeam > 0) {
                     id = username;
                 } else {
@@ -409,7 +525,7 @@
                 paramData.id = id;
                 paramData.competitionId = $("#competitionId").val();
                 $.ajax({
-                    url: '${path}/grade/updateGrade',
+                    url: '${path}/prize/updatePrize',
                     type: 'POST',
                     data: paramData,
                     dataType: "json",
@@ -453,6 +569,27 @@
             }
             refreshTable()
         });
+        $("#competition1").change(function () {//竞赛名称改变监听
+            var competitionGroup = $("#competitionGroup1");
+            var selectValue = $("#competition1").val();
+            var group = "";
+            var competitionArray = getCompetitionObject();
+            var compGroupStartValue = document.getElementById("competitionGroup1");
+            for (var j = 0; j < competitionArray.length; j++) {//根据选中的竞赛动态显示竞赛组别
+                if (competitionArray[j].id === selectValue) {
+                    group = competitionArray[j].group.split(",");
+                    compGroupStartValue.options.length = 0;
+                    competitionGroup.selectpicker('refresh');
+                    competitionGroup.selectpicker('render');
+                    for (var k = 0; k < group.length; k++) {
+                        competitionGroup.append("<option value='" + group[k] + "'>" + group[k] + "</option>");
+                    }
+                    competitionGroup.selectpicker('refresh');
+                    competitionGroup.selectpicker('render');
+                    break;
+                }
+            }
+        });
         $("#competitionGroup").change(function () {//竞赛组别改变监听
             refreshTable()
         });
@@ -460,5 +597,6 @@
 </script>
 </body>
 </html>
+
 
 

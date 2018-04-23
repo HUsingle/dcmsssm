@@ -5,7 +5,7 @@
 <mapper namespace="com.dcms.dao.ApplyMapper">
     <!--个人报名-->
     <insert id="insertOneSelfInfo">
-        insert into db_apply values(0,#{param1},#{param2},now(),0,0 ,'',0,#{param3})
+        insert into db_apply values(0,#{param1},#{param2},now(),0,0 ,'',#{param3})
     </insert>
     <!--更新个人报名-->
     <update id="updateOneSelfInfo">
@@ -34,11 +34,10 @@
     </select>
     <!--批量插入-->
     <insert id="insertBench" parameterType="java.util.List">
-        insert into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,
-        is_rise,c_group_name) values
+        insert into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,c_group_name) values
         <foreach collection="list" item="item" separator=",">
         (#{item.username},#{item.competitionId},now(),#{item.teacherId},#{item.isGroupLeader},
-            #{item.groupName},0,#{item.competitionGroup})
+            #{item.groupName},#{item.competitionGroup})
         </foreach>
     </insert>
     <!--批量更新-->
@@ -112,7 +111,6 @@
         <result property="competitionId" column="c_id"/>
         <result property="teacherId" column="t_id"/>
         <result property="isGroupLeader" column="is_group_leader"/>
-        <result property="isRise" column="is_rise"/>
         <result property="groupName" column="group_name"/>
         <result property="competitionGroup" column="c_group_name"/>
         <association property="teacher" column="t_id" select="com.dcms.dao.TeacherMapper.findTeacherById"/>

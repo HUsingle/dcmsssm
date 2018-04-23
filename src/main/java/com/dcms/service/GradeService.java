@@ -26,7 +26,7 @@ public interface GradeService {
     String importGradeExcel(MultipartFile file, Integer competitionId);
 
     //导出学生成绩模板
-    void exportGradeExcelModel(HttpServletResponse response,Integer competitionId);
+    void exportGradeExcelModel(HttpServletResponse response);
 
     //导出学生成绩
     void exportGradeExcel(HttpServletResponse response, Integer competitionId);

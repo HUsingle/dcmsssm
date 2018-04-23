@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcms.dao.PrizeMapper">
+    <!--根据竞赛，组别查询奖项-->
+    <select id="findAllPrizeByCidOrGroupName" resultMap="prizeMap">
+        select db_prize.*,c_group_name, is_group_leader,group_name from db_prize,db_apply
+        where db_prize.c_id=#{competitionId}
+        <if test="groupName!=''">
+            and db_apply.c_group_name=#{groupName}
+        </if>
+        and db_prize.c_id=db_apply.c_id
+        and db_prize.s_number=db_apply.s_number
+        order by ${sort}
+    </select>
+
+    <select id="findPrizeNumber" resultType="java.lang.Integer">
+        select count(p_id) from db_prize,db_apply
+        where db_prize.c_id=#{competitionId}
+        and db_apply.c_group_name=#{groupName}
+        and db_prize.c_id=db_apply.c_id
+        and db_prize.s_number=db_apply.s_number
+    </select>
+    <!--是否存在奖项-->
+    <select id="isExistPrize" resultType="java.lang.Integer">
+        select count(p_id) from db_prize where s_number = #{param1} and c_id = #{param2}
+    </select>
+    <!--删除奖项-->
+    <delete id="deletePrize">
+        delete from db_prize where p_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--更新奖项-->
+    <update id="updatePrize">
+        <foreach collection="list" item="prize" separator=";">
+            update db_prize
+            <set>
+                prize=#{prize.prize}
+            </set>
+            where p_id=#{prize.id}
+        </foreach>
+    </update>
+    <!--根据团队名称查询奖项id-->
+    <select id="getPrizeId" resultType="com.dcms.model.Prize">
+        select p_id as id from db_prize where c_id=#{competitionId}
+        and s_number in
+        (select s_number from db_apply where group_name=#{groupName})
+    </select>
+    <!--添加奖项-->
+    <insert id="addPrize" parameterType="java.util.List">
+        insert into db_prize(s_number,c_id,prize)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username},#{item.competitionId},#{item.prize})
+        </foreach>
+    </insert>
+    <!--导入奖项-->
+    <insert id="importPrize" parameterType="java.util.List">
+        insert into db_prize(s_number,c_id,prize)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username},#{competitionId},#{item.prize})
+        </foreach>
+    </insert>
+    <resultMap id="prizeMap" type="com.dcms.model.Prize">
+        <id property="id" column="p_id"/>
+        <result property="username" column="s_number"/>
+        <result property="competitionId" column="c_id"/>
+        <result property="prize" column="prize"/>
+        <result property="groupName" column="c_group_name"/>
+        <result property="isLeader" column="is_group_leader"/>
+        <result property="teamName" column="group_name"/>
+        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentById"/>
+    </resultMap>
+
+</mapper>

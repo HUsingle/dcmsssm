@@ -144,7 +144,8 @@
             initUpdateInformation("添加学生", "修改学生", ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
                 "${path}/student/deleteStudent","username");
             $("#importExcel").click(function () {
-                window.parent.openModel("${path}/student/importStudentExcel","导入表格");
+                var extraData={};
+                window.parent.openModel("${path}/student/importStudentExcel","导入表格",extraData);
             });
             initAddAndUpdate("${path}/student/addStudent","${path}/student/updateStudent","username=",
                "学号不能为空!",$("#username"),"添加学生",false);

@@ -145,6 +145,7 @@
                     <ul class="treeview-menu">
                         <li><a href="${path}/key/keyManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生答案管理</span></a></li>
                         <li><a href="${path}/grade/gradeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生成绩管理</span></a></li>
+                        <li><a href="${path}/prize/prizeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生获奖管理</span></a></li>
                         <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a></li>
                     </ul>
                 </li>
@@ -265,7 +266,7 @@
             $("#activeLink").text(($(this).text()));
         });
     });
-    function initImportExcel(url) {
+    function initImportExcel(url,extraData) {
         var excelFile = $("#excelFile");
         excelFile.fileinput({
             uploadUrl: url,//上传的地址
@@ -280,7 +281,7 @@
             allowedFileExtensions: ["xls", "xlsx"], //接收的文件后缀
             maxFileCount: 1,                        //最大上传文件数限制
             enctype: 'multipart/form-data',
-           // uploadExtraData:
+           uploadExtraData:extraData,
             //previewFileIcon: '<i class="fa fa-file"></i>',
             initialPreviewAsData: true, // defaults markup
             preferIconicPreview: false // 是否优先显示图标  false 即优先显示图片
@@ -315,8 +316,8 @@
             showCloseButton: true//是否显示关闭按钮
         });
     }
-    function openModel(importUrl, modeTitle) {
-        initImportExcel(importUrl);
+    function openModel(importUrl, modeTitle,extraData) {
+        initImportExcel(importUrl,extraData);
         $("#myModalLab").text(modeTitle);
         $("#excelModal").modal();
     }
