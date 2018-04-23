@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcms.dao.RiseMapper">
+    <!--根据竞赛，组别查询晋级名单-->
+    <select id="findAllRiseByCidOrGroupName" resultMap="riseMap">
+        select db_rise.*,c_group_name, is_group_leader,group_name from db_rise,db_apply
+        where db_rise.c_id=#{competitionId}
+        <if test="groupName!=''">
+            and db_apply.c_group_name=#{groupName}
+        </if>
+        and db_rise.c_id=db_apply.c_id
+        and db_rise.s_number=db_apply.s_number
+        order by ${sort}
+    </select>
+    <!--该竞赛是否已经有晋级名单-->
+    <select id="findRiseNumber" resultType="java.lang.Integer">
+        select count(r_id) from db_rise
+        where c_id=#{competitionId}
+    </select>
+    <!--是否存在晋级名单-->
+    <select id="isExistRise" resultType="java.lang.Integer">
+        select count(r_id) from db_rise where s_number = #{param1} and c_id = #{param2}
+    </select>
+    <!--删除晋级名单-->
+    <delete id="deleteRise">
+        delete from db_rise where r_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+   
+    <!--根据团队名称查询晋级名单id-->
+    <select id="getRiseId" resultType="com.dcms.model.Rise">
+        select r_id as id from db_Rise where c_id=#{competitionId}
+        and s_number in
+        (select s_number from db_apply where group_name=#{teamName})
+    </select>
+    <!--添加晋级名单-->
+    <insert id="addRise" parameterType="java.util.List">
+        insert into db_rise(s_number,c_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username},#{item.competitionId})
+        </foreach>
+    </insert>
+    <!--导入晋级名单-->
+    <insert id="importRise" parameterType="java.util.List">
+        insert into db_rise(s_number,c_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username},#{competitionId})
+        </foreach>
+    </insert>
+    <resultMap id="riseMap" type="com.dcms.model.Rise">
+        <id property="id" column="r_id"/>
+        <result property="username" column="s_number"/>
+        <result property="competitionId" column="c_id"/>
+        <result property="groupName" column="c_group_name"/>
+        <result property="isLeader" column="is_group_leader"/>
+        <result property="teamName" column="group_name"/>
+        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentById"/>
+    </resultMap>
+
+</mapper>

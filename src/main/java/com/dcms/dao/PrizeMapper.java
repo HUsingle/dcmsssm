@@ -26,12 +26,18 @@ public interface PrizeMapper {
 
     //是否存在奖项
     int isExistPrize(Long username, Integer competitionId);
+
     //根据团队名称获取奖项id
     List<Prize> getPrizeId(@Param("competitionId") Integer competitionId,
-                           @Param("groupName") String groupName);
+                           @Param("teamName") String teamName);
 
-    int importPrize(@Param("competitionId") Integer competitionId,@Param("list") List<Prize> prizeList);
+    //根据竞赛id获取所有获奖的名单
+    List<Prize> getAllPrizeUsername(Integer competitionId);
+
+    //
+    int importPrize(@Param("competitionId") Integer competitionId, @Param("list") List<Prize> prizeList);
+
     //是否已经有奖项
     int findPrizeNumber(@Param("competitionId") Integer competitionId,
-                    @Param("groupName") String groupName);
+                        @Param("groupName") String groupName);
 }

@@ -135,7 +135,6 @@
                         <li><a href="${path}/classroomArrange/classroomArrangeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>安排考场管理</span></a></li>
                     </ul>
                 </li>
-                <%--<li><a href="#"><i class="fa fa-building-o"></i><span>考场安排管理</span></a></li>--%>
                 <li class="treeview">
                     <a href="##"><i class="fa fa fa-table"></i> <span>成绩管理</span>
                         <span class="pull-right-container">
@@ -146,11 +145,9 @@
                         <li><a href="${path}/key/keyManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生答案管理</span></a></li>
                         <li><a href="${path}/grade/gradeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生成绩管理</span></a></li>
                         <li><a href="${path}/prize/prizeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生获奖管理</span></a></li>
-                        <li><a href="#" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a></li>
+                        <li><a href="${path}/rise/riseManage" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a></li>
                     </ul>
                 </li>
-                <%--<li><a href="#"><i class="fa fa-arrow-up"></i><span>竞赛文件管理</span></a></li>--%>
-                <%--<li><a href="#"><i class="fa fa-arrow-down"></i><span>学生答案管理</span></a></li>--%>
                 <li><a href="#"><i class="fa fa-bar-chart"></i><span>竞赛统计</span></a></li>
             </ul>
         </section>

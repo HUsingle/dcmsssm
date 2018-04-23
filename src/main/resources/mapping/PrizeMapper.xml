@@ -43,11 +43,15 @@
             where p_id=#{prize.id}
         </foreach>
     </update>
+    <!--根据竞赛id获取所有获奖的名单-->
+    <select id="getAllPrizeUsername" resultType="com.dcms.model.Prize">
+        select s_number as username from db_prize where c_id=#{competitionId}
+    </select>
     <!--根据团队名称查询奖项id-->
     <select id="getPrizeId" resultType="com.dcms.model.Prize">
         select p_id as id from db_prize where c_id=#{competitionId}
         and s_number in
-        (select s_number from db_apply where group_name=#{groupName})
+        (select s_number from db_apply where group_name=#{teamName})
     </select>
     <!--添加奖项-->
     <insert id="addPrize" parameterType="java.util.List">

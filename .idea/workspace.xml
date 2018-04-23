@@ -4,34 +4,19 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/webapp/views/competitionManage.jsp" line="286" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="563187a7-e5cd-4219-ac25-df916ba5c156" name="Default" comment="更新">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/controller/PrizeController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/dao/PrizeMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/excel/GradeExcelData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/excel/PrizeExcelData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/model/Prize.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/service/PrizeService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/service/imp/PrizeServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapping/PrizeMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/views/prizeManage.jsp" />
+    <list default="true" id="563187a7-e5cd-4219-ac25-df916ba5c156" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/controller/RiseController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/dao/RiseMapper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/excel/RiseExcelData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/model/Rise.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/service/RiseService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/service/imp/RiseServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapping/RiseMapper.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/views/riseManage.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/controller/GradeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/controller/GradeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/dao/GradeMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/dao/GradeMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/model/Apply.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/model/Apply.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/model/Grade.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/model/Grade.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/service/GradeService.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/service/GradeService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/service/imp/GradeServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/service/imp/GradeServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/utils/ExcelUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/utils/ExcelUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapping/ApplyMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapping/ApplyMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapping/GradeMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapping/GradeMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/views/classroomManage.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/views/classroomManage.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/views/gradeManage.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/views/gradeManage.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dcms/dao/PrizeMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/dcms/dao/PrizeMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapping/PrizeMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapping/PrizeMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/views/manageIndex.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/views/manageIndex.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/views/studentManage.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/views/studentManage.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/views/teacherManage.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/views/teacherManage.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/mapping/StudentMapper.xml" afterPath="$PROJECT_DIR$/target/classes/mapping/StudentMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/mapping/StudentMapper.xml" afterPath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/classes/mapping/StudentMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/target/dcms-ssm/WEB-INF/web.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,31 +41,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="gradeManage.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/views/gradeManage.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="120" column="23" lean-forward="false" selection-start-line="120" selection-start-column="23" selection-end-line="120" selection-end-column="23" />
-              <folding>
-                <marker date="1524461436164" expanded="true" signature="5677:6000" ph="/*...*/" />
-                <marker date="1524461436164" expanded="true" signature="6006:6113" ph="/*...*/" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="prizeManage.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/views/prizeManage.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="183" column="6" lean-forward="false" selection-start-line="183" selection-start-column="6" selection-end-line="183" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -89,18 +50,15 @@
         <option value="CSS File" />
         <option value="HTML File" />
         <option value="JavaScript File" />
-        <option value="Jsp File" />
+        <option value="Tag Library Descriptor" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="Tag Library Descriptor" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>a</find>
-      <find>menu&gt;.active&gt;a:hover</find>
-      <find>.pagination&gt;.active&gt;a</find>
       <find>'</find>
       <find>initServer</find>
       <find>studentService</find>
@@ -128,6 +86,9 @@
       <find>成绩</find>
       <find>Grade</find>
       <find>grade</find>
+      <find>prize</find>
+      <find>Prize</find>
+      <find>奖项</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
@@ -154,6 +115,9 @@
       <replace>奖项</replace>
       <replace>Prize</replace>
       <replace>prize</replace>
+      <replace>rise</replace>
+      <replace>Rise</replace>
+      <replace>晋级名单</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -167,14 +131,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/views/invigilationManage.jsp" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapping/InvigilationMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/views/classroomArrangeManage.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dcms/controller/CompetitionFileController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dcms/service/CompetitionFileService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dcms/service/imp/CompetitionFileServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dcms/dao/ApplyMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dcms/dao/CompetitionMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/service/CompetitionService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/service/imp/CompetitionServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapping/CompetitionMapper.xml" />
@@ -206,18 +162,26 @@
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/excel/PrizeExcelData.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/service/PrizeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/controller/PrizeController.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/views/manageIndex.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/mapping/GradeMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mapping/PrizeMapper" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dcms/dao/PrizeMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/dao/GradeMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/service/imp/PrizeServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapping/PrizeMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/utils/ExcelUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dcms/model/Apply.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapping/ApplyMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/views/gradeManage.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/views/prizeManage.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dcms/model/Rise.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dcms/service/RiseService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dcms/dao/RiseMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapping/PrizeMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapping/RiseMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dcms/dao/PrizeMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dcms/excel/RiseExcelData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dcms/service/imp/RiseServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dcms/controller/RiseController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/views/manageIndex.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/views/riseManage.jsp" />
       </list>
     </option>
   </component>
@@ -710,7 +674,7 @@
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/renren-security-boot-master" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="SearchEverywhereHistoryKey" value="Grade&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/model/Grade.java&#10;Prize&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/PrizeMapper.xml&#10;GradeM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/GradeMapper.java&#10;prizeM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/PrizeMapper&#10;g&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/gradeManage.jsp&#10;competitionM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/CompetitionMapper.xml&#10;gradeM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/GradeMapper.xml&#10;PrizeM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/PrizeMapper.java&#10;GradeS&#9;PSI&#9;JAVA://com.dcms.service.imp.GradeServiceImpl&#10;ma&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/manageIndex.jsp&#10;gr&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/gradeManage.jsp&#10;GRA&#9;PSI&#9;JAVA://com.dcms.dao.GradeMapper&#10;GR&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/model/Grade.java&#10;Gr&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/GradeMapper.xml&#10;applyM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/ApplyMapper.java&#10;c&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/competitionFileManage.jsp&#10;Student&#9;PSI&#9;JAVA://com.dcms.controller.StudentController&#10;gradeC&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/controller/GradeController.java&#10;apply&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/ApplyMapper.xml&#10;gradeS&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/service/GradeService.java&#10;ap&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/applyManage.jsp&#10;manage&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/manage_index.jsp&#10;GradeC&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/controller/GradeController.java&#10;keyS&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/service/imp/KeyServiceImpl.java&#10;keyM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/KeyMapper.java&#10;comp&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/CompetitionMapper.xml" />
+    <property name="SearchEverywhereHistoryKey" value="Ris&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/service/imp/RiseServiceImpl.java&#10;Prizes&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/service/imp/PrizeServiceImpl.java&#10;RiseC&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/controller/RiseController.java&#10;Prize&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/PrizeMapper.java&#10;Pr&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/PrizeMapper.xml&#10;RiseM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/RiseMapper.xml&#10;Rise&#9;PSI&#9;JAVA://com.dcms.model.Rise&#10;Grade&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/model/Grade.java&#10;GradeM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/GradeMapper.java&#10;prizeM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/PrizeMapper&#10;g&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/gradeManage.jsp&#10;competitionM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/CompetitionMapper.xml&#10;gradeM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/GradeMapper.xml&#10;PrizeM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/PrizeMapper.java&#10;GradeS&#9;PSI&#9;JAVA://com.dcms.service.imp.GradeServiceImpl&#10;ma&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/manageIndex.jsp&#10;gr&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/gradeManage.jsp&#10;GRA&#9;PSI&#9;JAVA://com.dcms.dao.GradeMapper&#10;GR&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/model/Grade.java&#10;Gr&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/GradeMapper.xml&#10;applyM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/ApplyMapper.java&#10;c&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/competitionFileManage.jsp&#10;Student&#9;PSI&#9;JAVA://com.dcms.controller.StudentController&#10;gradeC&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/controller/GradeController.java&#10;apply&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/ApplyMapper.xml&#10;gradeS&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/service/GradeService.java&#10;ap&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/applyManage.jsp&#10;manage&#9;FILE&#9;file://F:/java/dcmsssm/src/main/webapp/views/manage_index.jsp&#10;GradeC&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/controller/GradeController.java&#10;keyS&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/service/imp/KeyServiceImpl.java&#10;keyM&#9;FILE&#9;file://F:/java/dcmsssm/src/main/java/com/dcms/dao/KeyMapper.java&#10;comp&#9;FILE&#9;file://F:/java/dcmsssm/src/main/resources/mapping/CompetitionMapper.xml" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -1690,7 +1654,7 @@
       <workItem from="1524190193896" duration="37757000" />
       <workItem from="1524276620051" duration="23137000" />
       <workItem from="1524362419568" duration="26416000" />
-      <workItem from="1524447967141" duration="4631000" />
+      <workItem from="1524447967141" duration="15749000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1516372964644</created>
@@ -1965,11 +1929,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524315388133</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="更新">
+      <created>1524461491836</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1524461491836</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1183773000" />
+    <option name="totallyTimeSpent" value="1194891000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1982,7 +1953,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2006,10 +1976,10 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.050819673" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45901638" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38880485" sideWeight="0.49224806" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38880485" sideWeight="0.49224806" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26626325" sideWeight="0.50775194" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -2043,71 +2013,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/controller/KeyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="946">
-          <caret line="61" column="42" lean-forward="false" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/views/competitionKeyManage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1971">
-          <caret line="279" column="36" lean-forward="false" selection-start-line="279" selection-start-column="36" selection-end-line="279" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/dao/KeyMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="27" column="58" lean-forward="false" selection-start-line="26" selection-start-column="3" selection-end-line="27" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/KeyMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/imp/KeyServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1259">
-          <caret line="82" column="13" lean-forward="true" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/create-table.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="162" column="16" lean-forward="true" selection-start-line="162" selection-start-column="16" selection-end-line="162" selection-end-column="16" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#5051#5661#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="59" column="23" lean-forward="true" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/controller/ApplyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2552">
-          <caret line="140" column="89" lean-forward="true" selection-start-line="140" selection-start-column="59" selection-end-line="140" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/ApplyService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-132">
@@ -2209,46 +2114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/model/Prize.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="24" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
-          <folding>
-            <element signature="e#356#357#0" expanded="false" />
-            <element signature="e#389#390#0" expanded="false" />
-            <element signature="e#417#418#0" expanded="false" />
-            <element signature="e#450#451#0" expanded="false" />
-            <element signature="e#481#482#0" expanded="false" />
-            <element signature="e#527#528#0" expanded="false" />
-            <element signature="e#567#568#0" expanded="false" />
-            <element signature="e#604#605#0" expanded="false" />
-            <element signature="e#640#641#0" expanded="false" />
-            <element signature="e#695#696#0" expanded="false" />
-            <element signature="e#745#746#0" expanded="false" />
-            <element signature="e#777#778#0" expanded="false" />
-            <element signature="e#805#806#0" expanded="false" />
-            <element signature="e#847#848#0" expanded="false" />
-            <element signature="e#881#882#0" expanded="false" />
-            <element signature="e#917#918#0" expanded="false" />
-            <element signature="e#949#950#0" expanded="false" />
-            <element signature="e#999#1000#0" expanded="false" />
-            <element signature="e#1041#1042#0" expanded="false" />
-            <element signature="e#1073#1074#0" expanded="false" />
-            <element signature="e#1104#1105#0" expanded="false" />
-            <element signature="e#1149#1150#0" expanded="false" />
-            <element signature="e#1189#1190#0" expanded="false" />
-            <element signature="e#1224#1225#0" expanded="false" />
-            <element signature="e#1255#1256#0" expanded="false" />
-            <element signature="e#1303#1304#0" expanded="false" />
-            <element signature="e#1343#1344#0" expanded="false" />
-            <element signature="e#1378#1379#0" expanded="false" />
-            <element signature="e#1408#1409#0" expanded="false" />
-            <element signature="e#1455#1456#0" expanded="false" />
-            <element signature="e#1493#1494#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/GradeService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
@@ -2272,39 +2137,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/excel/PrizeExcelData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="23" column="47" lean-forward="false" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#427#434#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/PrizeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="33" column="77" lean-forward="false" selection-start-line="33" selection-start-column="77" selection-end-line="33" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/imp/GradeServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="137" column="1" lean-forward="true" selection-start-line="137" selection-start-column="1" selection-end-line="137" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/views/manageIndex.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="147" column="121" lean-forward="false" selection-start-line="147" selection-start-column="121" selection-end-line="147" selection-end-column="121" />
           <folding />
         </state>
       </provider>
@@ -2343,38 +2179,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/controller/PrizeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1321">
-          <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/PrizeMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/dao/GradeMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/dao/PrizeMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="35" column="56" lean-forward="false" selection-start-line="35" selection-start-column="56" selection-end-line="35" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
@@ -2410,16 +2218,6 @@
         <state relative-caret-position="704">
           <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/imp/PrizeServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2156">
-          <caret line="50" column="38" lean-forward="false" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2467,18 +2265,193 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="120" column="23" lean-forward="false" selection-start-line="120" selection-start-column="23" selection-end-line="120" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/model/Prize.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
           <folding>
-            <marker date="1524461436164" expanded="true" signature="5677:6000" ph="/*...*/" />
-            <marker date="1524461436164" expanded="true" signature="6006:6113" ph="/*...*/" />
+            <element signature="e#331#332#0" expanded="false" />
+            <element signature="e#356#357#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/model/Rise.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" column="34" lean-forward="true" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+          <folding>
+            <element signature="e#304#305#0" expanded="true" />
+            <element signature="e#329#330#0" expanded="true" />
+            <element signature="e#362#363#0" expanded="true" />
+            <element signature="e#390#391#0" expanded="true" />
+            <element signature="e#423#424#0" expanded="true" />
+            <element signature="e#454#455#0" expanded="true" />
+            <element signature="e#500#501#0" expanded="true" />
+            <element signature="e#540#541#0" expanded="true" />
+            <element signature="e#577#578#0" expanded="true" />
+            <element signature="e#613#614#0" expanded="true" />
+            <element signature="e#668#669#0" expanded="true" />
+            <element signature="e#718#719#0" expanded="true" />
+            <element signature="e#754#755#0" expanded="true" />
+            <element signature="e#786#787#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
+            <element signature="e#878#879#0" expanded="true" />
+            <element signature="e#910#911#0" expanded="true" />
+            <element signature="e#941#942#0" expanded="true" />
+            <element signature="e#986#987#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1061#1062#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1140#1141#0" expanded="true" />
+            <element signature="e#1180#1181#0" expanded="true" />
+            <element signature="e#1215#1216#0" expanded="true" />
+            <element signature="e#1245#1246#0" expanded="true" />
+            <element signature="e#1292#1293#0" expanded="true" />
+            <element signature="e#1330#1331#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/PrizeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/RiseMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="16" column="20" lean-forward="false" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/dao/PrizeMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="33" column="21" lean-forward="false" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/dao/RiseMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="34" column="68" lean-forward="false" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/excel/PrizeExcelData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/views/manageIndex.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2483">
+          <caret line="136" column="21" lean-forward="false" selection-start-line="136" selection-start-column="21" selection-end-line="136" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/imp/PrizeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1955">
+          <caret line="162" column="16" lean-forward="true" selection-start-line="162" selection-start-column="16" selection-end-line="162" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/views/riseManage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1575">
+          <caret line="210" column="65" lean-forward="false" selection-start-line="210" selection-start-column="65" selection-end-line="210" selection-end-column="65" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/views/prizeManage.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="183" column="6" lean-forward="false" selection-start-line="183" selection-start-column="6" selection-end-line="183" selection-end-column="6" />
+        <state relative-caret-position="107">
+          <caret line="147" column="55" lean-forward="false" selection-start-line="147" selection-start-column="55" selection-end-line="147" selection-end-column="55" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/excel/RiseExcelData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="25" column="9" lean-forward="false" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#423#429#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/imp/RiseServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1646">
+          <caret line="111" column="16" lean-forward="true" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1202#1208#0" expanded="true" />
+            <element signature="e#1961#1967#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/controller/RiseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="85" column="50" lean-forward="true" selection-start-line="85" selection-start-column="50" selection-end-line="85" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1835#1841#0" expanded="true" />
+            <element signature="e#3429#3430#0" expanded="true" />
+            <element signature="e#3486#3487#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/controller/PrizeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="86" column="70" lean-forward="true" selection-start-line="86" selection-start-column="70" selection-end-line="86" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapping/PrizeMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="45" column="4" lean-forward="true" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dcms/service/RiseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="17" column="46" lean-forward="false" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
