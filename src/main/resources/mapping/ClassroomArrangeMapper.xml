@@ -22,7 +22,19 @@
                 #{classroomId}
             </foreach>
         </if>
-        order by seat_number
+        order by classroom_id asc,seat_number asc
+    </select>
+    <!--导出考场安排信息-->
+    <select id="exportClassroomArrange" resultMap="classroomArrangeMap">
+        select * from db_classroom_arrange where apply_id in
+        (select apply_id from db_apply where c_id=#{competitionId})
+        order by classroom_id asc,seat_number asc
+    </select>
+    <select id="getClassroomArrangeNum" resultType="java.lang.Integer">
+        select count(ca_id) from db_classroom_arrange where apply_id in
+        (select apply_id from db_apply where c_id=#{competitionId})
+        GROUP BY classroom_id
+        ORDER BY classroom_id
     </select>
     <!--查询该竞赛该组别是否已经安排考场-->
     <select id="findAlreadyClassroomArrangeNumByGroupName" resultType="java.lang.Integer">
@@ -66,5 +78,6 @@
         <result property="seatNumber" column="seat_number"/>
         <result property="applyId" column="apply_id"/>
         <association property="apply" column="apply_id" select="com.dcms.dao.ApplyMapper.findApplyById"/>
+        <association property="classroom" column="classroom_id" select="com.dcms.dao.ClassroomMapper.findClassroomById"/>
     </resultMap>
 </mapper>

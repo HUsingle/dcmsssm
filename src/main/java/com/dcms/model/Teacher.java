@@ -9,6 +9,7 @@ public class Teacher {
     private String name;
     private String email;
     private String college;
+    private String sex;
     private Long phone;
 
     public Long getId() {
@@ -57,5 +58,13 @@ public class Teacher {
 
     public void setPhone(Long phone) {
         this.phone = phone;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

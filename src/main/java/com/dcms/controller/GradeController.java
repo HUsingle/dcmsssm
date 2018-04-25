@@ -75,8 +75,8 @@ public class GradeController {
     }
 
     @RequestMapping(value = "/exportGradeExcel")
-    public void exportGradeExcel(HttpServletResponse response) {
-        //gradeService.exportGradeExcel(response);
+    public void exportGradeExcel(HttpServletResponse response,Integer competitionId) {
+        gradeService.exportGradeExcel(response,competitionId);
     }
 
     @RequestMapping(value = "/importGradeExcel",  produces = "application/json;charset=UTF-8",method = RequestMethod.POST)

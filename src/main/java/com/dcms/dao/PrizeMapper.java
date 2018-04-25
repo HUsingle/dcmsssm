@@ -34,10 +34,13 @@ public interface PrizeMapper {
     //根据竞赛id获取所有获奖的名单
     List<Prize> getAllPrizeUsername(Integer competitionId);
 
-    //
+    //导入获奖信息
     int importPrize(@Param("competitionId") Integer competitionId, @Param("list") List<Prize> prizeList);
 
     //是否已经有奖项
     int findPrizeNumber(@Param("competitionId") Integer competitionId,
                         @Param("groupName") String groupName);
+
+     //导出获奖信息
+    List<Prize> exportPrize(Integer competitionId);
 }

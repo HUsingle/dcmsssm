@@ -47,9 +47,10 @@ public class TeacherServiceImpl implements TeacherService {
         return json;
     }
 
-    public String addTeacher(String id, String name, String password, String college, String phone, String email) {
+    public String addTeacher(String name, String password, String college, String phone, String email,String sex) {
         Teacher teacher = new Teacher();
         teacher.setName(name);
+        teacher.setSex(sex);
         teacher.setPassword(password);
         teacher.setCollege(college);
         teacher.setEmail(email);
@@ -70,13 +71,14 @@ public class TeacherServiceImpl implements TeacherService {
         return Tool.result(result);
     }
 
-    public String updateTeacher(String id, String name, String password, String college, String phone, String email) {
+    public String updateTeacher(String id, String name, String password, String college, String phone, String email,String sex) {
         Teacher teacher=new Teacher();
         teacher.setId(Long.parseLong(id));
         teacher.setName(name);
         teacher.setPassword(password);
         teacher.setEmail(email);
         teacher.setCollege(college);
+        teacher.setSex(sex);
         if(Tool.isNumber(phone)&&phone.length()!=0){
             teacher.setPhone(Long.parseLong(phone));
         }
@@ -89,7 +91,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     public String importTeacherExcel(MultipartFile file) {
         ExcelData teacherInsertExcelData = new TeacherExcelData();
-        String[] head = {"姓名", "密码", "学院", "手机号码", "电子邮箱"};
+        String[] head = {"姓名", "性别","密码", "学院", "手机号码", "电子邮箱"};
         List dataList = ExcelUtil.importExcel(file, head, teacherInsertExcelData);
         int exResult = 0;
         String result;
@@ -113,8 +115,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     public void exportTeacherExcelModel(HttpServletResponse response) {
-        String[] head = {"姓名", "密码", "学院", "手机号码", "电子邮箱"};
-        ExcelUtil.exportModeExcel(head, "老师信息模板.xls", response,true,null,null,51);
+        String[] head = {"姓名", "性别","密码", "学院", "手机号码", "电子邮箱"};
+        ExcelUtil.exportModeExcel(head, "老师信息模板.xls", response,51);
     }
 }
 

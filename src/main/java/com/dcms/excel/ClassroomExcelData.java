@@ -2,7 +2,6 @@ package com.dcms.excel;
 
 import com.dcms.model.Classroom;
 import com.dcms.utils.Tool;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class ClassroomExcelData implements ExcelData {
         return classroomList;
     }
 
-    public void exportExcelData(List list, HSSFWorkbook workbook, HSSFSheet sheet) {
+    public void exportExcelData(List list, HSSFWorkbook workbook,String[] head,String headTitle) {
 
     }
 }

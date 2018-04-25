@@ -2,6 +2,7 @@ package com.dcms.service;
 
 import com.dcms.model.ClassroomArrange;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -16,4 +17,6 @@ public interface ClassroomArrangeService {
     String deleteClassroomArrange(String id);
     //更新考场安排
     String updateClassroomArrange(Long id,Integer seatNumber,Integer classroomId,Integer competitionId);
+    //导出考场信息
+    void exportClassroomArrange(Integer competitionId, HttpServletResponse response);
 }

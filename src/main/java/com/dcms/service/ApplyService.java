@@ -4,6 +4,7 @@ import com.dcms.model.Apply;
 import com.dcms.model.Competition;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface ApplyService {
@@ -39,4 +40,10 @@ public interface ApplyService {
 
     //查询报名组别报名人数
     String findNumByGroup(Integer id);
+
+    //导出报名模板
+    void exportApplyExcelModel(HttpServletResponse response);
+
+    //导入报名信息
+    String importApplyExcel(MultipartFile file, Integer competitionId);
 }

@@ -32,6 +32,12 @@
     <select id="findCompetitionFileIsExist" resultType="int">
         select count(c_id) from db_competition where c_file = #{file}
     </select>
+
+    <!--查询竞赛名字-->
+    <select id="findCompetitionName" resultType="string">
+        select c_name from db_competition where c_id = #{id}
+    </select>
+
     <!--判断竞赛附件是否存在，不包括自己-->
     <select id="findNotUpdCompetitionFileIsExist" resultType="int">
         select count(c_id) from db_competition where c_file = #{file} and c_id != #{id}
@@ -61,7 +67,8 @@
     </select>
     <!--通过竞赛id查询竞赛-->
     <select id="findCompetitionById" resultType="com.dcms.model.Competition">
-        select c_name as name from db_competition where c_id = #{id}
+        select c_name as name,c_competition_start as compeStartTime,
+        c_competition_end as compeEndTime from db_competition where c_id = #{id}
     </select>
     <!--竞赛resultMap-->
     <resultMap type="com.dcms.model.Competition" id="compMap">

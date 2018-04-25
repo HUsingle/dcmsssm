@@ -15,7 +15,7 @@ public interface InvigilationService {
     String insertInvigilation(Integer competitionId, String teacherId, Integer classroomId);
 
     //自动安排监考
-    //String autoArrangeInvigilation(Integer competitionId);
+    String autoArrangeInvigilation(Integer competitionId);
 
     //批量删除监考安排信息
     String deleteInvigilation(String id);

@@ -9,6 +9,7 @@ public class ClassroomArrange {
     private int seatNumber;  //座位号
     private long applyId; //报名ID
     private Apply apply;
+    private Classroom classroom;
 
     public long getId() {
         return id;
@@ -48,5 +49,13 @@ public class ClassroomArrange {
 
     public void setApply(Apply apply) {
         this.apply = apply;
+    }
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 }

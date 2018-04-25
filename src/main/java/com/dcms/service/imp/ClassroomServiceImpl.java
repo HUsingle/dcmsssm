@@ -86,7 +86,6 @@ public class ClassroomServiceImpl implements ClassroomService {
 
     public void exportClassroomExcelModel(HttpServletResponse response) {
         String[] head = {"教室", "人数"};
-        ExcelUtil.exportModeExcel(head, "教室信息模板.xls", response,
-                true,null,null,20);
+        ExcelUtil.exportModeExcel(head, "教室信息模板.xls", response,20);
     }
 }

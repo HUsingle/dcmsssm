@@ -19,13 +19,13 @@ public interface TeacherService {
     //按id查询
     String getTeacherById(String id);
     //增加老师
-    String addTeacher(String id,String name, String password,String college,
-                      String phone, String email);
+    String addTeacher(String name, String password,String college,
+                      String phone, String email,String sex);
     //删除老师
     String deleteTeacher(String id);
     //更新老师
     String updateTeacher(String id,String name, String password,String college,
-                         String phone, String email);
+                         String phone, String email,String sex);
     //导入老师
     String importTeacherExcel(MultipartFile file);
     //导出老师模板

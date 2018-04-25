@@ -34,9 +34,11 @@ public interface ApplyMapper {
     List<Apply> findApplyByCidAndGroup(@Param("id") int id, @Param("groupName") String groupName, @Param("sort") String sort);
 
     int addApplyInfo(@Param("list") List<Apply> list, @Param("competitionId") String competitionId);
-
+    //
     int addApplyInfoHasGroup(@Param("list") List<Apply> list, @Param("competitionId") String competitionId,
                              @Param("competitionGroup") String competitionGroup);
+    //导入报名信息
+    int importApply(@Param("list") List<Apply> list, @Param("competitionId") Integer competitionId);
 
     //批量更新报名信息
     int batchUpdateApply(List<Apply> list);

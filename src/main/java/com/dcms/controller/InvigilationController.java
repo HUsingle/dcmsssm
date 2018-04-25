@@ -39,7 +39,6 @@ public class InvigilationController {
     private TeacherService teacherService;
 
 
-
     @RequestMapping(value = "/invigilationManage")
     public String InvigilationManage(Model model) {
         List<Competition> competitionList = competitionService.findSingleCompetition();
@@ -64,6 +63,7 @@ public class InvigilationController {
         result.put("rows", invigilationList);
         return JSON.toJSONString(result, SerializerFeature.DisableCircularReferenceDetect);
     }
+
     @RequestMapping(value = "/addInvigilation", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     public String addInvigilation(@RequestParam Integer competitionId,@RequestParam String teacherId,
@@ -76,9 +76,15 @@ public class InvigilationController {
     public String deleteInvigilation(@RequestParam String id){
         return invigilationService.deleteInvigilation(id);
     }
+
     @RequestMapping(value = "/updateInvigilation", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     public String updateInvigilation(Integer id, Long teacherId, Integer competitionId,Integer classroomId,Integer isSame){
         return invigilationService.updateInvigilation(id,teacherId,classroomId,competitionId,isSame);
     }
+    @RequestMapping(value = "/autoArrangeInvigilation", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+   public String autoArrangeInvigilation(Integer competitionId){
+        return invigilationService.autoArrangeInvigilation(competitionId);
+   }
 }

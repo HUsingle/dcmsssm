@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="${path}/resources/css/bootstrap-table.min.css">
     <link rel="stylesheet" href="${path}/resources/css/messenger.css">
     <link rel="stylesheet" href="${path}/resources/css/messenger-theme-future.css">
+    <link rel="stylesheet" href="${path}/resources/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="${path}/resources/css/myCss.css">
 </head>
 <body>
@@ -22,7 +23,7 @@
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
         <input id="search" style="display: none;">
         <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 添加</a>
-        <a class="btn bg-purple bt-flat " id="update" ><i class="fa fa-edit"></i> 修改</a>
+        <a class="btn bg-purple bt-flat " id="updateTeacher"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
         <a class="btn bg-purple bt-flat " href="${path}/teacher/exportTeacherExcelModel"><i
@@ -49,6 +50,15 @@
                 <div class="col-sm-1 control-label">姓名</div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" id="name" name="name" placeholder="姓名"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 control-label">性别</div>
+                <div class="col-sm-3">
+                    <select class="selectpicker form-control" id="sex" name="sex">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -92,24 +102,91 @@
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="${path}/resources/js/messenger.min.js"></script>
+<script src="${path}/resources/js/bootstrap-select.min.js"></script>
+<script src="${path}/resources/js/defaults-zh_CN.min.js"></script>
 <script src="${path}/resources/js/create-table.js"></script>
 <script>
+    function initInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
+        $("#add").click(function () {
+            $("#myBoxTitle").text(titleOne);
+            for (var i = 0; i < inputFields.length; i++)
+                $('#' + inputFields[i]).val("");
+            $('#' + inputFields[0]).attr("disabled", false);
+            $("#myDiv").hide();
+            $("#myBox").show();
+        });
+        $("#updateTeacher").click(function () {
+            var jsonArray = $("#myTable").bootstrapTable('getSelections');
+            if (jsonArray.length < 1) {
+                initMessage("请选择一条数据!", 'error');
+            } else if (jsonArray.length > 1) {
+                initMessage("请选择一条数据,不要多选!", 'error');
+            } else {
+                $("#myBoxTitle").text("修改老师");
+                for (var i = 0; i < inputFields.length; i++) {
+                    $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
+                }
+                $('#' + inputFields[0]).attr("disabled", true);
+                $("#sex").selectpicker('val',jsonArray[0].sex);
+                $("#myDiv").hide();
+                $("#myBox").show();
+            }
+        });
+
+        $("#delete").click(function () {
+            var jsonArray = $("#myTable").bootstrapTable('getSelections');
+            if (jsonArray.length < 1) {
+                initMessage("请至少选择一条记录!", 'error');
+            } else {
+                var ids = '';
+                for (var i = 0; i < jsonArray.length; i++)
+                    ids += jsonArray[i][id] + ',';
+                $.ajax({
+                    type: 'POST',
+                    url: deleteUrl,
+                    data: {
+                        'id': ids
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            initMessage("删除成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+
+                        } else {
+                            initMessage("删除失败！", 'error');
+                        }
+                    }
+                });
+            }
+        });
+
+        /* $("#quit").click(function () {
+         $("#myBox").hide();
+         $("#myDiv").show();
+         });*/
+    }
+
     $(function () {
         initTable('#myTable', "${path}/teacher/getTeacherList",
-            ['id', 'name', 'password', 'college', 'phone', 'email'],
-            ['编号', '姓名', '密码', '学院', '手机号码', '电子邮箱'], true, 0);
+            ['id', 'name', 'sex', 'password', 'college', 'phone', 'email'],
+            ['编号', '姓名', '性别', '密码', '学院', '手机号码', '电子邮箱'], true, -1);
+        $("#myTable").bootstrapTable('hideColumn', 'id');
+
     });
     $("document").ready(
         function () {
-            initUpdateInformation("添加老师", "修改老师", ["id", 'name', 'password', 'college', 'phone', 'email'],
+            initInformation("添加老师", "修改老师",["id", 'name', 'password', 'college', 'phone', 'email'],
                 "${path}/teacher/deleteTeacher", "id");
             $("#importExcel").click(function () {
-                var extraData={};
+                var extraData = {};
                 window.parent.openModel("${path}/teacher/importTeacherExcel", "导入表格", extraData);
             });
             initAddAndUpdate("${path}/teacher/addTeacher", "${path}/teacher/updateTeacher", "id=",
                 "", $("#id"), "添加老师", true);
         }
+
+
     );
 </script>
 </body>

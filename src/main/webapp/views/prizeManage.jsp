@@ -21,12 +21,12 @@
 <body>
 <div id="myDiv">
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
-        <a class="btn bg-purple bt-flat " id="setPrize"><i class="fa fa-trophy"></i> 设置奖项</a>
+        <a class="btn bg-orange bt-flat " id="setPrize"><i class="fa fa-trophy"></i> 设置奖项</a>
         <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 添加</a>
         <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
-        <%--<a class="btn bg-purple bt-flat " href="##"><i class="fa fa-download"></i> 导出学生信息</a>--%>
+        <a class="btn bg-purple bt-flat " href="javascript:download()"><i class="fa fa-download"></i> 导出获奖信息</a>
         <a class="btn bg-purple bt-flat " href="${path}/prize/exportPrizeExcelModel"><i class="fa fa-file-excel-o"></i>
             下载导入模板</a>
     </form>
@@ -172,17 +172,13 @@
         return competitionArray;
     }
     function download() {
-        /*  var competitionName;
-         var competitionArray=getCompetitionObject();
-         for(var i=0;i<competitionArray.length;i++){
-         if($("#competition").val()===competitionArray[i].id){
-         competitionName=competitionArray[i].name;
-         break;
-         }
-         }
-         var url = "
-      {path}/prize/exportPrizeExcelModel?competitionName=" + competitionName;
-         window.location.href = url;*/
+        var data = $("#myTable").bootstrapTable('getData', true);//获取当前页面所有数据
+        if(data.length===0){
+            initMessage("没有获奖信息不可以导出！","error");
+            return;
+        }
+        var url = "${path}/prize/exportPrizeExcel?competitionId=" + $("#competition").val();
+        window.location.href = url;
     }
     function mergeTable(field, mytable, data) {//一列中如果连续相邻相同则合并
         //alert(data[0].teacherId);

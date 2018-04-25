@@ -33,4 +33,7 @@ public interface RiseMapper {
 
     //是否已经有晋级名单
     int findRiseNumber(@Param("competitionId") Integer competitionId);
+
+    //导出相关数据
+    List<Rise> exportRiseData(@Param("competitionId") Integer competitionId);
 }

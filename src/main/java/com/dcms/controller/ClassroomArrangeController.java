@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -74,6 +75,11 @@ public class ClassroomArrangeController {
     @ResponseBody
     public String updateClassroomArrange(Long id, Integer seatNumber, Integer classroomId, Integer competitionId){
        return classroomArrangeService.updateClassroomArrange(id,seatNumber,classroomId,competitionId);
+    }
+
+    @RequestMapping(value = "/exportClassroomArrangeExcel")
+    public void exportClassroomArrangeExcel(HttpServletResponse response, Integer competitionId) {
+        classroomArrangeService.exportClassroomArrange(competitionId,response);
     }
 
 }

@@ -101,14 +101,14 @@ public class StudentServiceImpl implements StudentService {
 
     public void exportStudentExcelModel(HttpServletResponse response) {
         String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
-        ExcelUtil.exportModeExcel(head, "学生信息模板.xls", response,true,null,null,401);
+        ExcelUtil.exportModeExcel(head, "学生信息模板.xls", response,401);
     }
 
     public void exportStudentExcel(HttpServletResponse response) {
-        String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
+       /* String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
         List list=studentMapper.getAllStudent("asc");
         ExcelData excelData=new StudentExcelData();
-        ExcelUtil.exportModeExcel(head, "学生信息.xls", response,false,excelData,list,0);
+        ExcelUtil.exportModeExcel(head, "学生信息.xls", response,false,excelData,list,0);*/
     }
 
     public String importStudentExcel(MultipartFile excelFile) {

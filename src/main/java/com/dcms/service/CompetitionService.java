@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Service
@@ -26,5 +27,7 @@ public interface CompetitionService {
     String deleteCompetition(String id,HttpServletRequest request);
     //查询子类别
     String getCompGroup(String id);
+    //下载文件
+    void downloadCompetitionFile(Integer id, HttpServletRequest request, HttpServletResponse response);
 
 }

@@ -38,10 +38,15 @@ public class CompetitionFileServiceImpl implements CompetitionFileService {
                 fileName = System.currentTimeMillis() + fileName;
             }
             File uploadFile = new File(path, fileName);
+            boolean isCreate;
             if (!uploadFile.exists()) {
-                uploadFile.mkdirs();
+                isCreate = uploadFile.mkdirs();
+                if (isCreate) {
+                    file.transferTo(uploadFile);
+                }
+            } else {
+                file.transferTo(uploadFile);
             }
-            file.transferTo(uploadFile);
         } catch (IOException e) {
             e.printStackTrace();
             return Tool.result(0);

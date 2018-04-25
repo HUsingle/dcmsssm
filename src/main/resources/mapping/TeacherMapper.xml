@@ -5,7 +5,7 @@
 <mapper namespace="com.dcms.dao.TeacherMapper">
     <!--查询所有老师-->
     <select id="getAllTeacher" resultType="com.dcms.model.Teacher" parameterType="string">
-        select t_id as id, t_password as password, t_phone as phone,t_name as name,
+        select t_id as id, t_sex as sex,t_password as password, t_phone as phone,t_name as name,
         t_college as college, t_email as email from db_teacher order by t_id ${sort}
     </select>
     <!--查询老师id和名字-->
@@ -16,10 +16,14 @@
     <select id="findTeacherById" resultType="com.dcms.model.Teacher" parameterType="long">
         select t_id as id,t_name as name,t_phone as phone from db_teacher where t_id=#{id}
     </select>
+    <!--通过查询老师所有信息-->
+    <select id="findAllTeacherIdAndSex" resultType="com.dcms.model.Teacher">
+        select t_id as id,t_sex as sex from db_teacher
+    </select>
     <!--修改老师-->
     <update id="updateTeacher" parameterType="com.dcms.model.Teacher">
         update db_teacher set t_name=#{name},t_phone=#{phone},t_password=#{password},
-        t_email=#{email},t_college=#{college} where t_id=#{id}
+        t_sex=#{sex},t_email=#{email},t_college=#{college} where t_id=#{id}
     </update>
     <!--删除老师-->
     <delete id="deleteTeacher" parameterType="long">
@@ -35,10 +39,10 @@
      </insert>-->
     <!--插入老师-->
     <insert id="addTeacher" parameterType="com.dcms.model.Teacher">
-        insert into db_teacher(t_name,t_phone,t_password,t_email,t_college)
+        insert into db_teacher(t_name,t_sex,t_phone,t_password,t_email,t_college)
         values
         <foreach collection="list" item="teacher" separator=",">
-            (#{teacher.name},#{teacher.phone},
+            (#{teacher.name},#{teacher.sex},#{teacher.phone},
             #{teacher.password},#{teacher.email},#{teacher.college})
         </foreach>
     </insert>

@@ -22,6 +22,7 @@
 <body>
 <div id="myDiv">
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
+        <a class="btn bg-orange bt-flat " id="autoArrange"><i class="fa fa-pencil"></i> 自动安排</a>
         <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i>添加</a>
         <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
@@ -88,7 +89,7 @@
         </form>
     </div>
 
-
+</div>
     <script src="${path}/resources/js/jquery.min.js"></script>
     <script src="${path}/resources/js/bootstrap.min.js"></script>
     <script src="${path}/resources/js/bootstrap-table.min.js"></script>
@@ -177,12 +178,8 @@
                         $.each(result, function (index, content) {//对数组进行循环
                             content["teacherId"] = content["teacher"].name;
                             content["phone"] = content["teacher"].phone;
-                            for (var i = 0; i < competitionArrays.length; i++) {
-                                if (content["competitionId"] == competitionArrays[i].id) {
-                                    content["competitionId"] = competitionArrays[i].name;
-                                    break;
-                                }
-                            }
+                            content["competitionId"] = content["competition"].name;
+                            content["time"] = content["competition"].compeStartTime+" ~ "+content["competition"].compeEndTime;
                             for (var i = 0; i < classroomArrays.length; i++) {
                                 if (content["classroomId"] ==classroomArrays[i].id) {
                                     content["classroomId"] = classroomArrays[i].site;
@@ -245,8 +242,8 @@
             return result;
         }
         $(function () {
-            initMyTable(['id', 'classroomId', 'teacherId', 'phone',  'competitionId'],
-                ['id', '监考考场', '监考老师','电话号码',  '监考竞赛']);
+            initMyTable(['id', 'classroomId', 'teacherId', 'phone','time','competitionId'],
+                ['id', '监考考场', '监考老师','电话号码', '监考时间', '监考竞赛']);
             $("#myTable").bootstrapTable('hideColumn', 'id');
             $("#add").click(function () {
                 $("#myBoxTitle").text("添加监考信息");
@@ -254,6 +251,30 @@
                 $("#competition1").selectpicker('refresh');
                 $("#myDiv").hide();
                 $("#myBox").show();
+            });
+            $("#autoArrange").click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '${path}/invigilation/autoArrangeInvigilation',
+                    data: {
+                        'competitionId': $("#competition").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data['result'];
+                        if (!isNaN(result)) {
+                            var resultNum = parseInt(result);
+                            if (resultNum > 0) {
+                                initMessage("安排成功！", 'success');
+                                $("#myTable").bootstrapTable('refresh');
+                            } else {
+                                initMessage("安排失败！", 'error');
+                            }
+                            return
+                        }
+                        initMessage(result, 'error');
+                    }
+                });
             });
             $("#update").click(function () {
                 var myTable = $("#myTable");
@@ -408,8 +429,8 @@
             });
             $("#competition").change(function () {//竞赛名称改变监听
                 $("#myTable").bootstrapTable('destroy');
-                initMyTable(['id', 'classroomId', 'teacherId', 'phone',  'competitionId'],
-                    ['id', '监考考场', '监考老师', '电话号码',  '监考竞赛']);
+                initMyTable(['id', 'classroomId', 'teacherId', 'phone', 'time', 'competitionId'],
+                    ['id', '监考考场', '监考老师', '电话号码',  '监考时间','监考竞赛']);
                 $("#myTable").bootstrapTable('hideColumn', 'id');
 
             });
@@ -419,7 +440,6 @@
 
 
     </script>
-
 
 </body>
 </html>

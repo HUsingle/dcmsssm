@@ -12,6 +12,11 @@
     <select id="findAlreadyInvigilation" resultType="java.lang.Integer">
         select count(t_arrange_id) from db_exam_monitor where t_id=#{teacherId} and c_id=#{competitionId}
     </select>
+
+    <!--查看该竞赛否已经安排-->
+    <select id="isExistInvigilation" resultType="java.lang.Integer">
+        select count(t_arrange_id) from db_exam_monitor where c_id=#{competitionId}
+    </select>
     <!--删除监考安排-->
     <delete id="deleteInvigilation">
         delete from db_exam_monitor where t_arrange_id in
@@ -38,5 +43,6 @@
         <result property="competitionId" column="c_id"/>
         <result property="teacherId" column="t_id"/>
         <association property="teacher" column="t_id" select="com.dcms.dao.TeacherMapper.findTeacherById"/>
+        <association property="competition" column="c_id" select="com.dcms.dao.CompetitionMapper.findCompetitionById"/>
     </resultMap>
 </mapper>

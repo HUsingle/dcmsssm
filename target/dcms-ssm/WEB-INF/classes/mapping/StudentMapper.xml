@@ -55,6 +55,15 @@
             #{student.studentClass},#{student.password},#{student.email},#{student.college})
         </foreach>
     </insert>
+      <!--插入学生信息-->
+    <insert id="importStudent" parameterType="com.dcms.model.Student">
+        insert into db_student(s_number,s_name,s_phone,s_major_class,s_password,s_email,s_college)
+        values
+        <foreach collection="list" item="student" separator=",">
+            (#{student.username},#{student.name},#{student.phone},
+            #{student.studentClass},#{student.password},#{student.email},#{student.college})
+        </foreach>
+    </insert>
     <!--根据账号密码查询-->
     <select id="qryByAccountAndPwd" resultType="com.dcms.model.Student">
         select
@@ -71,6 +80,9 @@
     </select>
 
     <!---->
+    <select id="isExistStudent" resultType="java.lang.Integer">
+        select count(s_number) from db_student where s_number=#{username}
+    </select>
     <select id="findAllUsername" resultType="com.dcms.model.Student">
         select s_number as username from db_student
     </select>

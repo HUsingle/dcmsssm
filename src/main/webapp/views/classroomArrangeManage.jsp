@@ -26,7 +26,7 @@
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="arrange"><i class="fa fa-pencil"></i> 安排考场</a>
         <a class="btn bg-purple bt-flat " id="search"><i class="fa fa-search"></i> 查看考场</a>
-        <a class="btn bg-purple bt-flat " href=""><i class="fa fa-download"></i> 导出考场安排信息</a>
+        <a class="btn bg-purple bt-flat " href="javascript:download()"><i class="fa fa-download"></i> 导出考场安排信息</a>
 
     </form>
     <div class="form-group" style="margin-left: -15px;">
@@ -253,7 +253,15 @@
             hideOnNavigate: true //是否隐藏导航
         });
     }
-
+    function download() {
+        var data = $("#myTable").bootstrapTable('getData', true);//获取当前页面所有数据
+        if(data.length===0){
+            initMessage("没有考场信息不可以导出！","error");
+            return;
+        }
+        var url = "${path}/classroomArrange/exportClassroomArrangeExcel?competitionId=" + $("#competition").val();
+        window.location.href = url;
+    }
     //拼接成字符串，用,隔开
     function connectString(arrays) {
         var result = "";

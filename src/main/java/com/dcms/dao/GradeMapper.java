@@ -31,6 +31,10 @@ public interface GradeMapper {
                            @Param("groupName") String groupName);
 
     int importGrade(@Param("competitionId") Integer competitionId,@Param("list") List<Grade> gradeList);
+
+    //导出成绩
+    List<Grade> exportGrade(Integer competitionId);
+
     //根据成绩排序获取设置获奖人数的学号
     List<Grade> getPrizeNum(@Param("competitionId") Integer competitionId,
                             @Param("groupName") String groupName, @Param("num") Integer num);

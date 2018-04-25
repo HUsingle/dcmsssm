@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -143,5 +144,17 @@ public class ApplyController {
     public String getGroupNumber(Integer id) {
         return applyService.findNumByGroup(id);
 
+    }
+
+    @RequestMapping(value = "/exportApplyExcelModel")
+    public void exportApplyExcelModel(HttpServletResponse response) {
+        applyService.exportApplyExcelModel(response);
+    }
+
+
+    @RequestMapping(value = "/importApplyExcel",  produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String importApplyExcel(@RequestParam("excelFile") MultipartFile excelFile, Integer competitionId) {
+        return applyService.importApplyExcel(excelFile,competitionId);
     }
 }

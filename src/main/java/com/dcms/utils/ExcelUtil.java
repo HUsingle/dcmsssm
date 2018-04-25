@@ -23,56 +23,68 @@ import java.util.List;
 public class ExcelUtil {
 
     //表格中单元格的样式
-    public static HSSFCellStyle createHeadStyle(HSSFWorkbook workbook, boolean isHead) {
+    public static HSSFCellStyle createHeadStyle(HSSFWorkbook workbook) {
         HSSFCellStyle cellStyle = workbook.createCellStyle(); //创建单元格样式
         cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);//设置居中
         DataFormat format = workbook.createDataFormat();
         cellStyle.setDataFormat(format.getFormat("@"));//设置为文本
         HSSFFont font = workbook.createFont(); //创建字体
         font.setFontName("宋体");//设置字体样式
-        if (isHead) {
-            font.setFontHeightInPoints((short) 12);  //设置字体大小
-            font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  //设置粗体
-        } else {
-            font.setFontHeightInPoints((short) 10);
-        }
+        font.setFontHeightInPoints((short) 14);  //设置字体大小
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  //设置粗体
         cellStyle.setFont(font); //设置字体
-        /*cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-        cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-        cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);*///设置边框
         return cellStyle;
     }
 
-   /* private static String getCellValue(Cell cell) {
-        String value = "";
-        if (cell != null) {
-            switch (cell.getCellType()) {
-                case Cell.CELL_TYPE_BLANK://空值
-                    value="";
-                    break;
-                case Cell.CELL_TYPE_BOOLEAN://布尔型
-                    value=cell.getBooleanCellValue()+"";
-                    break;
-                case Cell.CELL_TYPE_ERROR://错误
-                    value="";
-                    break;
-                case Cell.CELL_TYPE_FORMULA://公式
-                    value=cell.getCellFormula();
-                    break;
-                case Cell.CELL_TYPE_NUMERIC://数字
-                    value=cell.getNumericCellValue()+"";
-                    break;
-                case Cell.CELL_TYPE_STRING://字符串
-                    value=cell.getStringCellValue();
-                    break;
-                default:
-                    value="";
-                    break;
-            }
+    //表格中单元格的样式
+    public static HSSFCellStyle createHeadStyle(HSSFWorkbook workbook, short fontSize, boolean hasBorder) {
+        HSSFCellStyle cellStyle = workbook.createCellStyle(); //创建单元格样式
+        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);//设置居中
+        cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+        DataFormat format = workbook.createDataFormat();
+        cellStyle.setDataFormat(format.getFormat("@"));//设置为文本
+        HSSFFont font = workbook.createFont(); //创建字体
+        font.setFontName("宋体");//设置字体样式
+        font.setFontHeightInPoints(fontSize);
+        cellStyle.setFont(font); //设置字体
+        if (hasBorder) {
+            cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
         }
-        return value;
-    }*/
+        return cellStyle;
+    }
+
+    /* private static String getCellValue(Cell cell) {
+         String value = "";
+         if (cell != null) {
+             switch (cell.getCellType()) {
+                 case Cell.CELL_TYPE_BLANK://空值
+                     value="";
+                     break;
+                 case Cell.CELL_TYPE_BOOLEAN://布尔型
+                     value=cell.getBooleanCellValue()+"";
+                     break;
+                 case Cell.CELL_TYPE_ERROR://错误
+                     value="";
+                     break;
+                 case Cell.CELL_TYPE_FORMULA://公式
+                     value=cell.getCellFormula();
+                     break;
+                 case Cell.CELL_TYPE_NUMERIC://数字
+                     value=cell.getNumericCellValue()+"";
+                     break;
+                 case Cell.CELL_TYPE_STRING://字符串
+                     value=cell.getStringCellValue();
+                     break;
+                 default:
+                     value="";
+                     break;
+             }
+         }
+         return value;
+     }*/
     //获取单元格的数据
     private static String getCellValue(Cell cell) {
         String value = "";
@@ -97,11 +109,9 @@ public class ExcelUtil {
         return style;
     }*/
 
-    //导出表格
+    //导出表格模板
     public static void exportModeExcel(String[] head, String fileName,
-                                       HttpServletResponse response,
-                                       boolean isModel,ExcelData excelData,
-                                       List list,int blankRow) {
+                                       HttpServletResponse response, int blankRow) {
         try {
             response.reset();//设置response信息
             response.setContentType("application/vnd.ms-excel;charset=UTF-8");
@@ -112,27 +122,42 @@ public class ExcelUtil {
             HSSFRow row = null;
             HSSFCell cell = null;
             row = sheet.createRow(0);
+            HSSFCellStyle cellStyle=createHeadStyle(workbook);
             for (int i = 0; i < head.length; i++) {//设置表头
                 cell = row.createCell(i);
-                cell.setCellStyle(createHeadStyle(workbook, true));
+                cell.setCellStyle(cellStyle);
                 cell.setCellValue(head[i]);
-                // sheet.autoSizeColumn(i);
-                //with的参数是单个字符的256分之一
-                // cell.setCellType(HSSFCell.CELL_TYPE_STRING);
                 sheet.setColumnWidth(i, 256 * (head[i].length() * 2 + 14));
             }
-            if (isModel) {//如果是模板，导出空白数据
-                for (int j = 1; j <blankRow; j++) {//设置前blankRow行为文本格式类型
+            HSSFCellStyle cellStyle1=createHeadStyle(workbook,(short)12,false);
+                for (int j = 1; j < blankRow; j++) {//设置前blankRow行为文本格式类型
                     row = sheet.createRow(j);
                     for (int k = 0; k < head.length; k++) {
                         cell = row.createCell(k);
-                        cell.setCellStyle(createHeadStyle(workbook, false));
-                        // cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                        cell.setCellStyle(cellStyle1);
                     }
                 }
-            } else {//否则，导出相关数据
-                excelData.exportExcelData(list,workbook,sheet);
-            }
+
+            OutputStream outputStream = response.getOutputStream();
+            workbook.write(outputStream);
+            outputStream.close();
+            workbook.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    //导出excel数据
+    public static void exportExcel(String[] head, String fileName,
+                                   HttpServletResponse response, ExcelData excelData,
+                                   List list, String headTitle) {
+        try {
+            response.reset();//设置response信息
+            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+            String enFileName = URLEncoder.encode(fileName, "UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + enFileName);
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            excelData.exportExcelData(list, workbook, head, headTitle);
             OutputStream outputStream = response.getOutputStream();
             workbook.write(outputStream);
             outputStream.close();

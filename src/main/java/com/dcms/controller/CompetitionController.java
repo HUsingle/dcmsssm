@@ -100,5 +100,8 @@ public class CompetitionController {
         }
         return "ng";
     }
-
+    @RequestMapping(value = "/downloadCompetitionFile")
+    public void downloadCompetitionFile(Integer id, HttpServletRequest request, HttpServletResponse response) {
+        cs.downloadCompetitionFile(id,request,response);
+    }
 }

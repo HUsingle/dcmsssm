@@ -25,8 +25,7 @@
         <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
-        <%--<a class="btn bg-purple bt-flat " id="setPrize"><i class="fa fa-trophy"></i> 设置奖项</a>--%>
-        <%--<a class="btn bg-purple bt-flat " href="##"><i class="fa fa-download"></i> 导出学生信息</a>--%>
+        <a class="btn bg-purple bt-flat " href="javascript:download()"><i class="fa fa-download"></i> 导出成绩信息</a>
         <a class="btn bg-purple bt-flat " href="${path}/grade/exportGradeExcelModel"><i class="fa fa-file-excel-o"></i> 下载导入模板</a>
     </form>
     <div class="form-group" style="margin-left: -15px;">
@@ -110,16 +109,13 @@
         return competitionArray;
     }
     function download() {
-       /* var competitionName;
-        var competitionArray=getCompetitionObject();
-        for(var i=0;i<competitionArray.length;i++){
-            if($("#competition").val()===competitionArray[i].id){
-                competitionName=competitionArray[i].name;
-                break;
-            }
+        var data = $("#myTable").bootstrapTable('getData', true);//获取当前页面所有数据
+        if(data.length===0){
+            initMessage("没有成绩信息不可以导出！","error");
+            return;
         }
-            var url = "{path}/grade/exportGradeExcelModel?competitionName=" + competitionName;
-            window.location.href = url;*/
+        var url = "${path}/grade/exportGradeExcel?competitionId=" + $("#competition").val();
+        window.location.href = url;
     }
     function mergeTable(field, mytable, data) {//一列中如果连续相邻相同则合并
         //alert(data[0].teacherId);

@@ -1,6 +1,7 @@
 package com.dcms.service.imp;
 
 import com.dcms.dao.ApplyMapper;
+import com.dcms.dao.CompetitionMapper;
 import com.dcms.dao.GradeMapper;
 import com.dcms.dao.PrizeMapper;
 import com.dcms.excel.ExcelData;
@@ -30,6 +31,8 @@ public class PrizeServiceImpl implements PrizeService {
     private ApplyMapper applyMapper;
     @Autowired
     private GradeMapper gradeMapper;
+    @Autowired
+    private CompetitionMapper competitionMapper;
 
     public List<Prize> findAllPrizeByCidOrGroupName(Integer competitionId, String groupName, String sort) {
         return prizeMapper.findAllPrizeByCidOrGroupName(competitionId, groupName, sort);
@@ -169,10 +172,14 @@ public class PrizeServiceImpl implements PrizeService {
 
     public void exportPrizeExcelModel(HttpServletResponse response) {
         String[] head = {"学号", "奖项",};
-        ExcelUtil.exportModeExcel(head, "获奖导入模板.xls", response, true, null, null, 401);
+        ExcelUtil.exportModeExcel(head, "获奖导入模板.xls", response, 401);
     }
 
     public void exportPrizeExcel(HttpServletResponse response, Integer competitionId) {
-
+        ExcelData excelData=new PrizeExcelData();
+        String title=competitionMapper.findCompetitionName(competitionId);
+        List<Prize> prizeList=prizeMapper.exportPrize(competitionId);
+        String[] head={"学号","姓名","班级","奖项","组别"};
+        ExcelUtil.exportExcel(head,title+"获奖名单.xls",response,excelData,prizeList,title);
     }
 }

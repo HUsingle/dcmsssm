@@ -6,6 +6,7 @@ import com.dcms.dao.ApplyMapper;
 import com.dcms.dao.StudentMapper;
 import com.dcms.excel.ApplyExcelData;
 import com.dcms.excel.ExcelData;
+import com.dcms.excel.myApplyExcelData;
 import com.dcms.model.Apply;
 import com.dcms.model.Competition;
 import com.dcms.model.Student;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +59,8 @@ public class ApplyServiceImpl implements ApplyService {
         }
         return false;
     }
-   //团队报名
+
+    //团队报名
     public boolean teamApply(String list, String tid, String compId, String groupName, String tName) {
         String[] stu = list.split(",");
         Apply apply = null;
@@ -85,7 +88,6 @@ public class ApplyServiceImpl implements ApplyService {
         }
         return false;
     }
-
 
 
     public String findNumByGroup(Integer id) {
@@ -207,5 +209,44 @@ public class ApplyServiceImpl implements ApplyService {
         return result;
     }
 
+    public void exportApplyExcelModel(HttpServletResponse response) {
+        String[] head = {"学号", "姓名", "班级", "学院", "手机号码", "电子邮箱", "报名组别"};
+        ExcelUtil.exportModeExcel(head, "报名导入模板.xls", response, 401);
+    }
 
+    public String importApplyExcel(MultipartFile file, Integer competitionId) {
+        ExcelData excelData = new myApplyExcelData();
+        String[] head = {"学号", "姓名", "班级", "学院", "手机号码", "电子邮箱", "报名组别"};
+        List dataList = ExcelUtil.importExcel(file, head, excelData);
+        int exResult = 0;
+        String result;
+        long username;
+        List<Student> studentList = new ArrayList<Student>();
+        if (dataList.size() == 0) {
+            return Tool.result("缺少行或者学号出错!");
+        } else if (dataList.size() == 1 && (dataList.get(0) instanceof String)) {
+            return dataList.get(0).toString();
+
+        } else {
+            for (int i = dataList.size() - 1; i >= 0; i--) {
+                username = ((Apply) dataList.get(i)).getUsername();
+                if (studentMapper.isExistStudent(username) == 0) {//如果报名不存在该学生信息
+                    studentList.add(((Apply) dataList.get(i)).getStudent());
+                }
+                if (applyMapper.isExistApplyInfo(username, competitionId) > 0) {
+                    dataList.remove(i);
+                }
+            }
+            if (dataList.size() > 0) {
+                studentMapper.importStudent(studentList);
+                exResult = applyMapper.importApply(dataList, competitionId);
+            }
+        }
+        if (exResult == 0) {
+            result = Tool.result("导入失败,数据已经存在!");
+        } else {
+            result = Tool.result("导入成功!");
+        }
+        return result;
+    }
 }

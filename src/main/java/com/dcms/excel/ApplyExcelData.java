@@ -3,8 +3,6 @@ package com.dcms.excel;
 import com.dcms.model.Apply;
 import com.dcms.model.Student;
 import com.dcms.utils.Tool;
-
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.util.ArrayList;
@@ -12,7 +10,6 @@ import java.util.List;
 
 public class ApplyExcelData implements ExcelData {
     public List getExcelData(List<List<String>> list) {
-
         List<Apply> applyList=new ArrayList<Apply>();
         List<String>  fieldList=null;
         Apply apply=null;
@@ -37,7 +34,7 @@ public class ApplyExcelData implements ExcelData {
         return applyList;
     }
 
-    public void exportExcelData(List list, HSSFWorkbook workbook, HSSFSheet sheet) {
+    public void exportExcelData(List list, HSSFWorkbook workbook, String[] head,String headTitle) {
 
     }
 }

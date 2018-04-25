@@ -77,8 +77,8 @@ public class PrizeController {
     }
 
     @RequestMapping(value = "/exportPrizeExcel")
-    public void exportPrizeExcel(HttpServletResponse response) {
-        //PrizeService.exportPrizeExcel(response);
+    public void exportPrizeExcel(HttpServletResponse response,Integer competitionId) {
+        prizeService.exportPrizeExcel(response,competitionId);
     }
 
     @RequestMapping(value = "/importPrizeExcel",  produces = "application/json;charset=UTF-8",method = RequestMethod.POST)

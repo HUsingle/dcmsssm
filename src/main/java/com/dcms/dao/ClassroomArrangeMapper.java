@@ -35,5 +35,9 @@ public interface ClassroomArrangeMapper {
     //该座位是否已经被安排
     int IsExistPeople(@Param("competitionId") Integer competitionId,
                       @Param("classroomId") Integer classroomId, @Param("seatNumber") Integer seatNumber);
+    //导出考场安排信息
+    List<ClassroomArrange> exportClassroomArrange(Integer competitionId);
+
+    Integer[] getClassroomArrangeNum(Integer competitionId);
 
 }

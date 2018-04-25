@@ -14,7 +14,16 @@
         and db_prize.s_number=db_apply.s_number
         order by ${sort}
     </select>
+    <!--导出获奖信息-->
+    <select id="exportPrize" resultMap="prizeMap">
+        select db_prize.*,c_group_name from db_prize,db_apply
+        where db_prize.c_id=#{competitionId}
+        and db_prize.c_id=db_apply.c_id
+        and db_prize.s_number=db_apply.s_number
+        order by concat(c_group_name,prize)
+    </select>
 
+    <!--是否已经有奖项-->
     <select id="findPrizeNumber" resultType="java.lang.Integer">
         select count(p_id) from db_prize,db_apply
         where db_prize.c_id=#{competitionId}

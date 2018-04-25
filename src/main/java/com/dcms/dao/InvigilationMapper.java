@@ -26,6 +26,8 @@ public interface InvigilationMapper {
 
     //更新记录
     int updateInvigilation(Invigilation Invigilation);
+    //该竞赛是否已经安排监考
+    int isExistInvigilation(Integer competitionId);
 
 
 }

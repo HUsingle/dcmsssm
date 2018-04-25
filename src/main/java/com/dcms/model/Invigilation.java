@@ -9,6 +9,7 @@ public class Invigilation {
     private int competitionId;
     private long teacherId;
     private Teacher teacher;
+    private Competition competition;
 
     public Teacher getTeacher() {
         return teacher;
@@ -48,5 +49,13 @@ public class Invigilation {
 
     public void setTeacherId(long teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
     }
 }

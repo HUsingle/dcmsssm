@@ -2,7 +2,6 @@ package com.dcms.excel;
 
 import com.dcms.model.Teacher;
 import com.dcms.utils.Tool;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.util.ArrayList;
@@ -21,10 +20,11 @@ public class TeacherExcelData implements ExcelData {
             if(fieldList.get(3).length()!=0&& Tool.isNumber(fieldList.get(3))){
                 teacher=new Teacher();
                 teacher.setName(fieldList.get(0));
-                teacher.setPassword(fieldList.get(1));
-                teacher.setCollege(fieldList.get(2));
-                teacher.setPhone(Long.parseLong(fieldList.get(3)));
-                teacher.setEmail(fieldList.get(4));
+                teacher.setSex(fieldList.get(1));
+                teacher.setPassword(fieldList.get(2));
+                teacher.setCollege(fieldList.get(3));
+                teacher.setPhone(Long.parseLong(fieldList.get(4)));
+                teacher.setEmail(fieldList.get(5));
                 teacherList.add(teacher);
             }
         }
@@ -32,6 +32,6 @@ public class TeacherExcelData implements ExcelData {
     }
 
 
-    public void exportExcelData(List list, HSSFWorkbook workbook, HSSFSheet sheet) {
+    public void exportExcelData(List list, HSSFWorkbook workbook,String[] head,String headTitle) {
     }
 }

@@ -2,14 +2,21 @@ package com.dcms.service.imp;
 
 import com.dcms.dao.ApplyMapper;
 import com.dcms.dao.ClassroomArrangeMapper;
+import com.dcms.dao.CompetitionMapper;
+import com.dcms.dao.InvigilationMapper;
+import com.dcms.excel.ClassroomArrangeExcelData;
+import com.dcms.excel.ExcelData;
 import com.dcms.model.Apply;
 import com.dcms.model.ClassroomArrange;
+import com.dcms.model.Invigilation;
 import com.dcms.service.ClassroomArrangeService;
+import com.dcms.utils.ExcelUtil;
 import com.dcms.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -21,6 +28,10 @@ public class ClassroomArrangeServiceImpl implements ClassroomArrangeService {
     private ApplyMapper applyMapper;
     @Autowired
     private ClassroomArrangeMapper classroomArrangeMapper;
+    @Autowired
+    private CompetitionMapper competitionMapper;
+    @Autowired
+    private InvigilationMapper invigilationMapper;
 
     public List<ClassroomArrange> findClassroomArrange(Integer competitionId, String groupName, String classroomId,Integer isSelectAll) {
         Integer[] classroomId1=Tool.getInteger(classroomId);
@@ -160,6 +171,25 @@ public class ClassroomArrangeServiceImpl implements ClassroomArrangeService {
         //System.out.println(result+"  sfsdfsdfddfss");
         return Tool.result(result);
         // return Tool.result("错误");
+    }
+
+    public void exportClassroomArrange(Integer competitionId, HttpServletResponse response) {
+
+        ExcelData excelData=new ClassroomArrangeExcelData();
+        String title=competitionMapper.findCompetitionName(competitionId);
+        List<ClassroomArrange> classroomArrangeList=classroomArrangeMapper.exportClassroomArrange(competitionId);
+        List<Invigilation>  invigilationList=invigilationMapper.findInvigilation(competitionId);
+        List list=new ArrayList();
+        list.add(invigilationList);
+        Integer[] number=classroomArrangeMapper.getClassroomArrangeNum(competitionId);
+        int startNum=0;
+        for(Integer i:number){
+            list.add(classroomArrangeList.subList(startNum,i+startNum));
+            startNum+=i;
+        }
+        String[] head={"座位号","学号","姓名","班级","电话号码","组别"};
+        ExcelUtil.exportExcel(head,title+"考场安排表.xls",response,excelData,list,title);
+
     }
 }
 

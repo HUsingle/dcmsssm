@@ -1,6 +1,7 @@
 package com.dcms.service.imp;
 
 import com.dcms.dao.ApplyMapper;
+import com.dcms.dao.CompetitionMapper;
 import com.dcms.dao.PrizeMapper;
 import com.dcms.dao.RiseMapper;
 import com.dcms.excel.ExcelData;
@@ -30,6 +31,8 @@ public class RiseServiceImpl implements RiseService {
     private ApplyMapper applyMapper;
     @Autowired
     private PrizeMapper prizeMapper;
+    @Autowired
+    private CompetitionMapper competitionMapper;
 
     public List<Rise> findAllRiseByCidOrGroupName(Integer competitionId, String groupName, String sort) {
         return riseMapper.findAllRiseByCidOrGroupName(competitionId, groupName, sort);
@@ -132,10 +135,15 @@ public class RiseServiceImpl implements RiseService {
 
     public void exportRiseExcelModel(HttpServletResponse response) {
         String[] head = {"学号"};
-        ExcelUtil.exportModeExcel(head, "晋级名单模板.xls", response, true, null, null, 401);
+        ExcelUtil.exportModeExcel(head, "晋级名单模板.xls", response, 401);
     }
 
     public void exportRiseExcel(HttpServletResponse response, Integer competitionId) {
+        ExcelData excelData=new RiseExcelData();
+        String title=competitionMapper.findCompetitionName(competitionId);
+        List<Rise> riseList=riseMapper.exportRiseData(competitionId);
+        String[] head={"学号","姓名","班级","组别"};
+        ExcelUtil.exportExcel(head,title+"晋级名单.xls",response,excelData,riseList,title);
 
     }
 }

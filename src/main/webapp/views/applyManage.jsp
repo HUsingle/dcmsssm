@@ -25,8 +25,9 @@
         <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 添加</a>
         <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
-       <%-- <a class="btn bg-purple bt-flat "><i class="fa fa-file-excel-o"></i> 下载导入表格模板</a>
-        <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>--%>
+        <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
+        <a class="btn bg-purple bt-flat " href="${path}/apply/exportApplyExcelModel"><i class="fa fa-file-excel-o"></i>
+            下载导入表格模板</a>
         <%--<a class="btn bg-purple bt-flat " href=""><i class="fa fa-download"></i> 导出信息</a>--%>
 
     </form>
@@ -161,6 +162,18 @@
         </c:forEach>
         return competitionArray;
     }
+    function getTeam(competition) {
+        var competitionObject = getCompetitionObject();
+        var selectValue = $("#" + competition).val();
+        var isTeam = 0;
+        for (var i = 0; i < competitionObject.length; i++) {
+            if (selectValue === competitionObject[i].id) {
+                isTeam = competitionObject[i].isTeam;
+                break;
+            }
+        }
+        return isTeam;
+    }
     function mergeTable(field, mytable, data) {//一列中如果连续相邻相同则合并
         //alert(data[0].teacherId);
         var temp = data[0][field];
@@ -276,25 +289,20 @@
             return arr;
         }
     }
-    function freshTable() {
-        var arrays = getCompetitionObject();
-        $.each(arrays, function (index, content) {//对数组进行循环
-            if (content.id === getSelectValue("competition")) {//
-                // alert(content.isTeam);
-                if (content.isTeam > 0) {//团队赛
-                    // $("#myTable").bootstrapTable("destroy");
-                    initMyTable(['id', 'groupName', 'isGroupLeader', 'username', 'name', 'class', 'phone', 'teacherId', 'competitionGroup', 'applyTime'],
-                        ['id', '团队名称', '职称', '学号', '姓名', '班级', '电话号码', '指导老师', '报名组别', '报名时间'], -1, 'group_name ', [12, 24, 48], 12);
-                    $("#myTable").bootstrapTable('hideColumn', 'id');
+    function refreshTable() {
+        var team = getTeam("competition");
+        $("#myTable").bootstrapTable("destroy");
+        if (team > 0) {//团队赛
+            initMyTable(['id', 'groupName', 'isGroupLeader', 'username', 'name', 'class', 'phone', 'teacherId', 'competitionGroup', 'applyTime'],
+                ['id', '团队名称', '职称', '学号', '姓名', '班级', '电话号码', '指导老师', '报名组别', '报名时间'], -1, 'group_name ', [12, 24, 48], 12);
 
-                } else {//个人赛
-                    initMyTable(['id', 'username', 'name', 'class', 'phone', 'competitionId', 'competitionGroup', 'applyTime'],
-                        ['id', '学号', '姓名', '班级', '电话号码', '报名竞赛', '报名组别', '报名时间'], 1, 's_number ', [5, 10, 15, 50], 10);
-                    $("#myTable").bootstrapTable('hideColumn', 'id');
-                }
-                return false;//跳出循环
-            }
-        });
+        } else {//个人赛
+            initMyTable(['id', 'username', 'name', 'class', 'phone', 'competitionId', 'competitionGroup', 'applyTime'],
+                ['id', '学号', '姓名', '班级', '电话号码', '报名竞赛', '报名组别', '报名时间'], 1, 's_number ', [5, 10, 15, 50], 10);
+        }
+        $("#myTable").bootstrapTable('hideColumn', 'id');
+
+
     }
     function initTeamApplyState() {//根据选中竞赛隐藏或者显示团队模块
         var competitionArray = getCompetitionObject();
@@ -320,7 +328,7 @@
     }
     //拼接成字符串，用,隔开
     function connectString(arrays) {
-        var result="";
+        var result = "";
         for (var j = 0; j < arrays.length; j++) {
             if (j === arrays.length - 1) {
                 result = result + arrays[j];
@@ -332,14 +340,14 @@
     }
 
     $(function () {
-        freshTable();
+        refreshTable();
         initTeamApplyState();
         $("#add").click(function () {
             $("#myBoxTitle").text("添加报名信息");
             $("#competition1").prop('disabled', false);
             $("#competition1").selectpicker('refresh');
-            var arrays=getCompetitionObject();
-            $("#competition1").selectpicker('val',arrays[0].id).trigger("change");
+            var arrays = getCompetitionObject();
+            $("#competition1").selectpicker('val', arrays[0].id).trigger("change");
             $("#grouper").selectpicker('val', "");
             $("#teacher").selectpicker('val', arrays[0].tid);
             $("#teamName").val("");
@@ -408,6 +416,16 @@
         $("#quit").click(function () {//点击返回按钮，显示表格，隐藏添加或者修改信息
             $("#myBox").hide();
             $("#myDiv").show();
+        });
+        $("#importExcel").click(function () {
+            var isTeam = getTeam("competition");
+            if (isTeam > 0) {
+                initMessage("团队赛不支持该功能", 'error');
+                return;
+            }
+            var extraData = {};
+            extraData.competitionId = $("#competition").val();
+            window.parent.openModel("${path}/apply/importApplyExcel", "导入表格", extraData);
         });
         $("#delete").click(function () {
             var jsonArray = $("#myTable").bootstrapTable('getSelections');
@@ -635,7 +653,7 @@
                         }
                     }
                     var noEqual = [];//修改后不同的学号
-                    var equals=[];//修改后相同的学号
+                    var equals = [];//修改后相同的学号
                     var sign = 0;
                     //获取修改后的不同组员的学号
                     for (var v = 0; v < grouperUser.length; v++) {
@@ -671,14 +689,14 @@
                             return;
                         }
                     }
-                    for(var c=0;c<noEqual.length;c++){
-                       equals.push(noEqual[c]);
+                    for (var c = 0; c < noEqual.length; c++) {
+                        equals.push(noEqual[c]);
                     }
-                    var isLeader=[];
-                    for (var w=0;w<equals.length;w++){
-                        if(equals[w]==$("#username").val()){
+                    var isLeader = [];
+                    for (var w = 0; w < equals.length; w++) {
+                        if (equals[w] == $("#username").val()) {
                             isLeader.push(1);
-                        }else{
+                        } else {
                             isLeader.push(0);
                         }
                     }
@@ -688,19 +706,6 @@
                     postData2.tName = teamName1;
                     postData2.groupName = $("#competitionGroup1").val();
                     postData2.isGroupLeader = connectString(isLeader);
-                    //var member = "";
-                  /*  if (noEqual.length > 0) {//拼接新成员学号
-                        member=connectString(noEqual);
-                        postData2.list = member;
-                        //增加新的成员
-                        $.ajax({
-                            type: "POST",
-                            url: "${path}/apply/teamApply",
-                            data: postData2,
-                            success: function (data) {
-                            }
-                        });
-                    }*/
                     postData2.list = connectString(equals);
                     postData2.id = idArrays;
                     //修改原来的成员信息
@@ -708,7 +713,7 @@
                         type: "POST",
                         url: "${path}/apply/updateTeamApply",
                         data: postData2,
-                        dataType:"json",
+                        dataType: "json",
                         success: function (data) {
                             if (data["result"] > 0) {
                                 initMessage("修改成功！", 'success');
@@ -791,8 +796,7 @@
                     break;
                 }
             }
-            $("#myTable").bootstrapTable("destroy");
-            freshTable();
+            refreshTable();
         });
         $("#competition1").change(function () {//竞赛名称改变监听
             var competitionGroup = $("#competitionGroup1");
@@ -824,8 +828,7 @@
 
         });
         $("#competitionGroup").change(function () {//竞赛组别改变监听
-            $("#myTable").bootstrapTable("destroy");
-            freshTable();
+            refreshTable();
         });
     })
     ;

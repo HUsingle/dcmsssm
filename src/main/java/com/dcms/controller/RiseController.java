@@ -39,7 +39,7 @@ public class RiseController {
 
     @RequestMapping(value = "/getRiseList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public String getrise(Integer offset, Integer limit,
+    public String getRise(Integer offset, Integer limit,
                            @RequestParam(defaultValue = "asc") String sort,
                            Integer id, String groupName) {
         PageHelper.startPage(offset, limit);
@@ -70,8 +70,8 @@ public class RiseController {
     }
 
     @RequestMapping(value = "/exportRiseExcel")
-    public void exportRiseExcel(HttpServletResponse response) {
-        //riseService.exportRiseExcel(response);
+    public void exportRiseExcel(HttpServletResponse response,Integer competitionId) {
+        riseService.exportRiseExcel(response,competitionId);
     }
 
     @RequestMapping(value = "/importRiseExcel",  produces = "application/json;charset=UTF-8",method = RequestMethod.POST)

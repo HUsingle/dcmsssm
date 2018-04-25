@@ -14,6 +14,15 @@
         and db_grade.s_number=db_apply.s_number
         order by ${sort}
     </select>
+
+    <!--导出成绩-->
+    <select id="exportGrade" resultMap="gradeMap">
+        select db_grade.*,c_group_name from db_grade,db_apply
+        where db_grade.c_id=#{competitionId}
+        and db_grade.c_id=db_apply.c_id
+        and db_grade.s_number=db_apply.s_number
+        order by c_group_name
+    </select>
     <!--根据成绩排序获取设置获奖人数的学号-->
     <select id="getPrizeNum" resultType="com.dcms.model.Grade">
         select db_grade.s_number as username from db_grade,db_apply

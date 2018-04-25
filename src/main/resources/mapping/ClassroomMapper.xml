@@ -8,6 +8,9 @@
         select classroom_id as id, classroom_number as number,
         classroom_site as site from db_classroom order by classroom_id ${sort}
     </select>
+    <select id="findClassroomById" resultType="com.dcms.model.Classroom">
+        select classroom_site as site from db_classroom where classroom_id=#{classroomId}
+    </select>
     <!--修改竞赛信息-->
     <update id="updateClassroom" parameterType="com.dcms.model.Classroom">
         update db_classroom set classroom_number=#{number},classroom_site=#{site}

@@ -29,6 +29,7 @@
         <a class="btn bg-purple bt-flat " id="update" data-toggle="modal" data-target="#myModal"><i
                 class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
+        <a class="btn bg-purple bt-flat " id="download" href="javascript:download()"><i class="fa fa-download"></i> 下载竞赛附件</a>
     </form>
     <table id="myTable">
     </table>
@@ -200,6 +201,23 @@
             selectVal=selectValue+selectValue[j];
         }
         return selectValue;
+    }
+    function download() {
+        var jsonArray = $("#myTable").bootstrapTable('getSelections');
+        if (jsonArray.length < 1) {
+            initMessage("请选择一条数据!", 'error');
+        } else if (jsonArray.length > 1) {
+            initMessage("请选择一条数据,不要多选!", 'error');
+        }
+        else {
+            if(jsonArray[0].file===""){
+                initMessage("没有文件不能进行下载!", 'error');
+                return;
+            }
+            var id = jsonArray[0]["cid"];
+            var url = "${path}/comp/downloadCompetitionFile?id=" + id;
+            window.location.href = url;
+        }
     }
     function initUpdateAndAddInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
         $("#add").click(function () {

@@ -14,6 +14,15 @@
         and db_rise.s_number=db_apply.s_number
         order by ${sort}
     </select>
+
+    <!--查询数据，导出晋级名单-->
+    <select id="exportRiseData" resultMap="riseMap">
+        select db_rise.*,c_group_name from db_rise,db_apply
+        where db_rise.c_id=#{competitionId}
+        and db_rise.c_id=db_apply.c_id
+        and db_rise.s_number=db_apply.s_number
+        order by c_group_name
+    </select>
     <!--该竞赛是否已经有晋级名单-->
     <select id="findRiseNumber" resultType="java.lang.Integer">
         select count(r_id) from db_rise

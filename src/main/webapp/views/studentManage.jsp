@@ -30,7 +30,7 @@
         <a class="btn bg-purple bt-flat " id="update" ><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
-        <a class="btn bg-purple bt-flat " href="${path}/student/exportStudentExcel"><i class="fa fa-download"></i> 导出学生信息</a>
+        <%--<a class="btn bg-purple bt-flat " href="${path}/student/exportStudentExcel"><i class="fa fa-download"></i> 导出学生信息</a>--%>
         <a class="btn bg-purple bt-flat " href="${path}/student/exportStudentExcelModel"><i
                 class="fa fa-file-excel-o"></i> 下载导入表格模板</a>
     </form>

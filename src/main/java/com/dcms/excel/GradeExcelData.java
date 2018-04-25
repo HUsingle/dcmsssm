@@ -1,9 +1,9 @@
 package com.dcms.excel;
 
 import com.dcms.model.Grade;
+import com.dcms.utils.ExcelUtil;
 import com.dcms.utils.Tool;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,49 @@ public class GradeExcelData implements ExcelData{
         //return null;
     }
 
-    public void exportExcelData(List list, HSSFWorkbook workbook, HSSFSheet sheet) {
+    public void exportExcelData(List list, HSSFWorkbook workbook,String[] head,String headTitle) {
+        Grade grade = null;
+        HSSFRow row = null;
+        HSSFCell cell = null;
+        int classLength;
+        int maxClassLength = 0;
+        HSSFCellStyle cellStyle = null;
+        HSSFSheet sheet = workbook.createSheet();
+        row = sheet.createRow(0);
+        row.setHeight((short)(20*25));
+        cellStyle=ExcelUtil.createHeadStyle(workbook,(short)12,true);
+        for (int j = 0; j < head.length; j++) {
+            cell = row.createCell(j);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(head[j]);
+        }
+        for (int j = 0; j < list.size(); j++) {
+            grade = (Grade) list.get(j);
+            row = sheet.createRow(j + 1);
+            row.setHeight((short)(20*25));
+            cell = row.createCell(0);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(grade.getUsername() + "");
+            sheet.setColumnWidth(0, 256 * ((grade.getUsername() + "").length() + 10));
+            cell = row.createCell(1);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(grade.getStudent().getName());
+            sheet.setColumnWidth(1, 256 * (5 * 2 + 10));
+            cell = row.createCell(2);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(grade.getStudent().getStudentClass());
+            classLength = grade.getStudent().getStudentClass().length();
+            maxClassLength = classLength > maxClassLength ? classLength : maxClassLength;
+            sheet.setColumnWidth(2, 256 * (maxClassLength * 2 + 10));
+            cell = row.createCell(3);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(grade.getGrade());
+            sheet.setColumnWidth(3, 256 * ((grade.getGrade()+"").length() * 2 + 10));
+            cell = row.createCell(4);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(grade.getGroupName());
+            sheet.setColumnWidth(4, 256 * (grade.getGroupName().length() * 2 + 10));
+        }
 
     }
 }

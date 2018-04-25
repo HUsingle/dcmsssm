@@ -91,18 +91,26 @@
     </delete>
     <!--导入个人报名信息(没组别)-->
     <insert id="addApplyInfo" parameterType="java.util.List" >
-        replace into db_apply(s_number,c_id,apply_time) values
+        insert into db_apply(s_number,c_id,apply_time) values
         <foreach collection="list"   item="item" separator=",">
             (#{item.username},#{competitionId},now())
         </foreach>
     </insert>
     <!--导入个人报名信息(有组别)-->
     <insert id="addApplyInfoHasGroup" parameterType="java.util.List" >
-        replace into db_apply(s_number,c_id,apply_time,c_group_name) values
+        insert into db_apply(s_number,c_id,apply_time,c_group_name) values
         <foreach collection="list"   item="item" separator=",">
             (#{item.username},#{competitionId},now(),#{competitionGroup})
         </foreach>
     </insert>
+     <!--导入数据-->
+    <insert id="importApply">
+        insert into db_apply(s_number,c_id,apply_time,c_group_name) values
+        <foreach collection="list"   item="item" separator=",">
+            (#{item.username},#{competitionId},now(),#{item.competitionGroup})
+        </foreach>
+    </insert>
+    <!--是否存在该数据-->
 <!--报名的resultMap-->
     <resultMap type="com.dcms.model.Apply" id="applyMap">
         <id property="id" column="apply_id"/>

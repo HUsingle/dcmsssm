@@ -17,4 +17,5 @@ public interface TeacherMapper {
      int deleteTeacher(Long[] ids);
      int addTeacher(List<Teacher> teachers);
      Teacher findTeacherById(Long id);
+     List<Teacher> findAllTeacherIdAndSex();
 }

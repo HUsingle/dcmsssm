@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -60,10 +61,14 @@ public class CompetitionServiceImpl implements CompetitionService {
                     fileName = System.currentTimeMillis() + fileName;
                 }
                 File uploadFile = new File(path, fileName);
-                if (!uploadFile.exists()) {//判断该文件路径是否存在，没有则创建
-                    uploadFile.mkdirs();
+                //判断该文件路径是否存在，没有则创建
+                if (!uploadFile.exists()) {
+                    if (uploadFile.mkdirs()) {
+                        file.transferTo(uploadFile);
+                    }
+                } else {
+                    file.transferTo(uploadFile);
                 }
-                file.transferTo(uploadFile);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,7 +114,7 @@ public class CompetitionServiceImpl implements CompetitionService {
             file[i] = compMapper.findCompetitionFile(deleteId[i]);
             //如果存在文件则进行删除
             if (file[i] != null && file[i].length() > 0) {
-                String path = request.getSession().getServletContext().getRealPath(Tool.saveCompAffixPath+file[i]);
+                String path = request.getSession().getServletContext().getRealPath(Tool.saveCompAffixPath + file[i]);
                 File compFile = new File(path);
                 if (compFile.exists()) {
                     compFile.delete();
@@ -120,7 +125,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     public String getCompGroup(String id) {
-        String group =compMapper.qryCompGroup(id);
+        String group = compMapper.qryCompGroup(id);
         return group;
     }
 
@@ -136,19 +141,19 @@ public class CompetitionServiceImpl implements CompetitionService {
             //获取竞赛文件所在路径
             String path = request.getSession().getServletContext().getRealPath(Tool.saveCompAffixPath);
             //查找以前所存文件名称
-            int id=Integer.parseInt(compFieldValue[10]);
+            int id = Integer.parseInt(compFieldValue[10]);
             String oldFileName = compMapper.findCompetitionFile(id);
             if (!file.isEmpty()) {//如果上传文件不为空
                 fileName = file.getOriginalFilename();//获取上传文件名
                 //如果原来文件和修改的文件名字不一样，删除旧的文件
-                if (oldFileName!=null&&oldFileName.length()>0&&!fileName.equals(oldFileName)) {
-                    File oldFile = new File(path,oldFileName);
+                if (oldFileName != null && oldFileName.length() > 0 && !fileName.equals(oldFileName)) {
+                    File oldFile = new File(path, oldFileName);
                     if (oldFile.exists()) {
                         oldFile.delete();
                     }
                 }
                 //判断上传过的竞赛文件(除了自己)是否重名，重名则将上传文件名进行修改
-                if (compMapper.findNotUpdCompetitionFileIsExist(fileName,id) > 0) {
+                if (compMapper.findNotUpdCompetitionFileIsExist(fileName, id) > 0) {
                     fileName = System.currentTimeMillis() + fileName;
                 }
                 File uploadFile = new File(path, fileName);//创建修改文件
@@ -156,14 +161,14 @@ public class CompetitionServiceImpl implements CompetitionService {
                     uploadFile.mkdirs();
                 }
                 file.transferTo(uploadFile);//写入文件
-            }else{//如果上传文件为空,删除已经存在的文件
+            } else {//如果上传文件为空,删除已经存在的文件
               /*  if(oldFileName!=null&&oldFileName.length()>0){
                     File oldFile = new File(path,oldFileName);
                     if (oldFile.exists()) {
                         oldFile.delete();
                     }
                 }*/
-              fileName=oldFileName;
+                fileName = oldFileName;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -192,5 +197,10 @@ public class CompetitionServiceImpl implements CompetitionService {
         competition.setFile(fileName);
         int result = compMapper.updateCompetition(competition);
         return Tool.result(result);
+    }
+
+    public void downloadCompetitionFile(Integer id, HttpServletRequest request, HttpServletResponse response) {
+        String fileName = compMapper.findCompetitionFile(id);
+        Tool.downLoad(Tool.saveCompAffixPath, fileName, response, request);
     }
 }

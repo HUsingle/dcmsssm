@@ -42,18 +42,19 @@ public class TeacherController {
 
     @RequestMapping(value = "/addTeacher", method = RequestMethod.POST)
     @ResponseBody
-    public String addTeacher(@RequestParam("id") String id, @RequestParam("name") String name,
+    public String addTeacher(@RequestParam("sex") String sex, @RequestParam("name") String name,
                              @RequestParam("password") String password, @RequestParam("college") String college,
                              @RequestParam("phone") String phone, @RequestParam("email") String email) {
-        return teacherService.addTeacher(id,name,password,college,phone,email);
+        return teacherService.addTeacher(name,password,college,phone,email,sex);
     }
 
     @RequestMapping(value = "/updateTeacher", method = RequestMethod.POST)
     @ResponseBody
     public String updateTeacher(@RequestParam("id") String id, @RequestParam("name") String name,
                                 @RequestParam("password") String password, @RequestParam("college") String college,
-                                @RequestParam("phone") String phone, @RequestParam("email") String email) {
-        return teacherService.updateTeacher(id,name,password,college,phone,email);
+                                @RequestParam("phone") String phone, @RequestParam("email") String email,
+                                @RequestParam("sex") String sex) {
+        return teacherService.updateTeacher(id,name,password,college,phone,email,sex);
 
     }
 

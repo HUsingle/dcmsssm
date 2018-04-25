@@ -30,6 +30,7 @@ public interface PrizeService {
 
     //导出学生奖项
     void exportPrizeExcel(HttpServletResponse response, Integer competitionId);
+
     //自动设置奖项
-    String setPrize(Integer competitionId,String groupName,String prizeNumber);
+    String setPrize(Integer competitionId, String groupName, String prizeNumber);
 }

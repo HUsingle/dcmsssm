@@ -1,6 +1,7 @@
 package com.dcms.service.imp;
 
 import com.dcms.dao.ApplyMapper;
+import com.dcms.dao.CompetitionMapper;
 import com.dcms.dao.GradeMapper;
 import com.dcms.excel.ExcelData;
 import com.dcms.excel.GradeExcelData;
@@ -26,6 +27,8 @@ public class GradeServiceImpl implements GradeService {
     private GradeMapper gradeMapper;
     @Autowired
     private ApplyMapper applyMapper;
+    @Autowired
+    private CompetitionMapper competitionMapper;
 
     public List<Grade> findAllGradeByCidOrGroupName(Integer competitionId, String groupName, String sort) {
         return gradeMapper.findAllGradeByCidOrGroupName(competitionId, groupName, sort);
@@ -129,10 +132,14 @@ public class GradeServiceImpl implements GradeService {
 
     public void exportGradeExcelModel(HttpServletResponse response) {
         String[] head = {"学号", "成绩",};
-        ExcelUtil.exportModeExcel(head, "成绩导入模板.xls", response, true, null, null, 401);
+        ExcelUtil.exportModeExcel(head, "成绩导入模板.xls", response, 401);
     }
 
     public void exportGradeExcel(HttpServletResponse response, Integer competitionId) {
-
+        ExcelData excelData=new GradeExcelData();
+        String title=competitionMapper.findCompetitionName(competitionId);
+        List<Grade> gradeList=gradeMapper.exportGrade(competitionId);
+        String[] head={"学号","姓名","班级","成绩","组别"};
+        ExcelUtil.exportExcel(head,title+"成绩表.xls",response,excelData,gradeList,title);
     }
 }
