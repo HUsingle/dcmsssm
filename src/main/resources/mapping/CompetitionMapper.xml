@@ -38,6 +38,12 @@
         select c_name from db_competition where c_id = #{id}
     </select>
 
+    <!--查询竞赛id和竞赛开始时间-->
+    <select id="findCompetitionCompStatTime" resultType="com.dcms.model.Competition">
+        select c_id as cid, c_competition_start as compeStartTime
+        from db_competition
+    </select>
+
     <!--判断竞赛附件是否存在，不包括自己-->
     <select id="findNotUpdCompetitionFileIsExist" resultType="int">
         select count(c_id) from db_competition where c_file = #{file} and c_id != #{id}

@@ -1,6 +1,7 @@
 package com.dcms.dao;
 
 import com.dcms.model.Apply;
+import com.dcms.model.CompetitionStat;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -30,9 +31,6 @@ public interface ApplyMapper {
     //批量插入报名信息
     int insertBench(List<Apply> list);
 
-    //通过竞赛的id和组的名字查询报名情况
-    List<Apply> findApplyByCidAndGroup(@Param("id") int id, @Param("groupName") String groupName, @Param("sort") String sort);
-
     int addApplyInfo(@Param("list") List<Apply> list, @Param("competitionId") String competitionId);
     //
     int addApplyInfoHasGroup(@Param("list") List<Apply> list, @Param("competitionId") String competitionId,
@@ -56,11 +54,15 @@ public interface ApplyMapper {
     int findApplyNumByGroup(@Param("id") Integer id, @Param("groupName") String groupName);
 
     //通过报名id查询报名信息
-    List<Apply> findApplyById(long id);
+    List<Apply> findApplyById(Long id);
 
     //通过竞赛的id和组的名字查询参加该竞赛组别报名id和学号
     List<Apply> findApplyIdByGroupAndCid(@Param("id") Integer id, @Param("groupName") String groupName);
 
     //查询报名各组别的报名人数
     List findNumByGroup(Integer id);
+
+    //统计各组别的报名人数
+    List<CompetitionStat> getApplyNumbByGroup(Integer id);
+
 }

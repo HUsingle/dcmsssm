@@ -8,6 +8,7 @@ public class ClassroomArrange {
     private int  classroomId; //教室Id
     private int seatNumber;  //座位号
     private long applyId; //报名ID
+    private int isAbsent; //是否缺考
     private Apply apply;
     private Classroom classroom;
 
@@ -57,5 +58,13 @@ public class ClassroomArrange {
 
     public void setClassroom(Classroom classroom) {
         this.classroom = classroom;
+    }
+
+    public int getIsAbsent() {
+        return isAbsent;
+    }
+
+    public void setIsAbsent(int isAbsent) {
+        this.isAbsent = isAbsent;
     }
 }

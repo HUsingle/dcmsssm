@@ -7,7 +7,7 @@ public class Grade {
     private int id;
     private long username;
     private int competitionId;
-    private int grade;
+    private float grade;
     private String groupName;
     private int isLeader;
     private String teamName;
@@ -45,11 +45,11 @@ public class Grade {
         this.competitionId = competitionId;
     }
 
-    public int getGrade() {
+    public float getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(float grade) {
         this.grade = grade;
     }
 

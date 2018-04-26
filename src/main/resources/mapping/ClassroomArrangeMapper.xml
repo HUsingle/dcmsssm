@@ -43,8 +43,12 @@
     </select>
     <!--查询该竞赛中该教室是否已经安排考场-->
     <select id="findAlreadyClassroomArrangeNumByClassroomId" resultType="java.lang.Integer">
-        select count(apply_id) from db_classroom_arrange where classroom_id=#{classroomId} and apply_id in
-        (select apply_id from db_apply where c_id=#{competitionId})
+        select count(apply_id)
+        from db_classroom_arrange
+        where classroom_id=#{classroomId}
+        and apply_id in
+        (select apply_id from db_apply
+        where c_id=#{competitionId})
     </select>
     <!--查看该座位号是否有人-->
     <select id="IsExistPeople" resultType="java.lang.Integer">
@@ -65,10 +69,10 @@
     </update>
     <!--批量插入考场情况-->
     <insert id="insertClassroomArrange" parameterType="com.dcms.model.ClassroomArrange">
-        insert into db_classroom_arrange(classroom_id,seat_number,apply_id)
+        insert into db_classroom_arrange(classroom_id,seat_number,apply_id,is_absent)
         values
         <foreach collection="list" item="classroomArrange" separator=",">
-            (#{classroomArrange.classroomId},#{classroomArrange.seatNumber},#{classroomArrange.applyId})
+            (#{classroomArrange.classroomId},#{classroomArrange.seatNumber},#{classroomArrange.applyId},1)
         </foreach>
     </insert>
 
@@ -77,6 +81,7 @@
         <result property="classroomId" column="classroom_id"/>
         <result property="seatNumber" column="seat_number"/>
         <result property="applyId" column="apply_id"/>
+        <result property="isAbsent" column="is_absent"/>
         <association property="apply" column="apply_id" select="com.dcms.dao.ApplyMapper.findApplyById"/>
         <association property="classroom" column="classroom_id" select="com.dcms.dao.ClassroomMapper.findClassroomById"/>
     </resultMap>

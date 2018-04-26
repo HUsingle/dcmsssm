@@ -144,7 +144,7 @@
 
             <div class="form-group">
                 <div class="col-sm-1 control-label"></div>
-                &nbsp;&nbsp; &nbsp;&nbsp;<button type="button" id="submitButton" class="btn btn bg-purple bt-flat">确定
+                &nbsp;&nbsp; &nbsp;&nbsp;<button type="button" id="commitButton" class="btn btn bg-purple bt-flat">确定
             </button>
                 &nbsp;&nbsp;<button type="button" class="btn btn bg-purple bt-flat" id="quit">返回</button>
             </div>
@@ -304,80 +304,112 @@
             ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
             ['id', '竞赛名称','比赛开始时间', '比赛结束时间', '举办单位','比赛地点','报名开始时间','报名结束时间','文件','竞赛类型','负责人','竞赛组别'], true, -1);
         $("#myTable").bootstrapTable('hideColumn','cid');
-    });
-    $("document").ready(
-        function () {
-           initUpdateAndAddInformation("添加竞赛", "修改竞赛", ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
-               "${path}/comp/deleteCompetition", "cid");
-            $(".form-date").datetimepicker({
-              format: 'yyyy-mm-dd hh:ii',
-              language:  'zh-CN',
-              weekStart: 1,
-              todayBtn : true,
-              todayHighlight: false,
-              forceParse:true,
-              autoclose: true
-          });
-            intFileInput();
-            $("#quit").click(function () {//点击返回按钮，显示表格，隐藏添加或者修改信息
-                $("#myBox").hide();
-                $("#myDiv").show();
-            });
-            $("#submitButton").click(function () {
-                var formData = new FormData($("#myFrom")[0]);
-                formData.append("groups",getSelectValue());
-                if(!("tid" in formData)){
-                    formData.append("tid",${teacherList.get(0).id});
-                }
-                if(!("isTeam" in formData)){
-                    formData.append("isTeam","0");
-                }
-                 if ($("#myBoxTitle").text() ==="添加竞赛" ) {
-                     $.ajax({
-                         url: '${path}/comp/addCompetition' ,
-                         type: 'POST',
-                         data: formData,
-                         cache: false,
-                         contentType: false,
-                         processData: false,
-                         success: function (data) {
-                             if (data['result'] >0) {
-                                 initMessage("添加成功！", 'success');
-                                 $("#myTable").bootstrapTable('refresh');
-                                 $("#myBox").hide();
-                                 $("#myDiv").show();
-                             } else{
-                                 initMessage("添加失败,添加的数据存在错误或者服务器异常！", 'error');
-                             }
+        initUpdateAndAddInformation("添加竞赛", "修改竞赛", ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
+            "${path}/comp/deleteCompetition", "cid");
+        $(".form-date").datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn : true,
+            todayHighlight: false,
+            forceParse:true,
+            autoclose: true
+        });
+        intFileInput();
+        $("#quit").click(function () {//点击返回按钮，显示表格，隐藏添加或者修改信息
+            $("#myBox").hide();
+            $("#myDiv").show();
+        });
+        $("#commitButton").click(function () {
+            if($("#name").val()===""){
+                initMessage("竞赛名称不能为空！","error");
+                return;
+            }
+            var applyStart=$("#applyStart").val();
+            var applyEnd=$("#applyEnd").val();
+            var compeStartTime=$("#compeStartTime").val();
+            var compeEndTime=$("#compeEndTime").val();
+            if(applyStart===""){
+                initMessage("报名开始时间不能为空！","error");
+                return;
+            }
+            if(applyEnd===""){
+                initMessage("报名结束时间不能为空！","error");
+                return;
+            }
+            if(compeStartTime===""){
+                initMessage("比赛的开始时间不能为空！","error");
+                return;
+            }
+            if(compeEndTime===""){
+                initMessage("比赛的结束时间不能为空！","error");
+                return;
+            }
 
-                         }
-                     });
-                   }else{
-                    formData.append("cid",$("#cid").val());
-                     $.ajax({
-                         url: '${path}/comp/updateCompetition' ,
-                         type: 'POST',
-                         data: formData,
-                         cache: false,
-                         contentType: false,
-                         processData: false,
-                         success: function (data) {
-                             if (data['result'] >0) {
-                                 initMessage("修改成功！", 'success');
-                                 $("#myTable").bootstrapTable('refresh');
-                                 $("#myBox").hide();
-                                 $("#myDiv").show();
-                             } else{
-                                 initMessage("修改失败,修改的数据存在错误或者服务器异常！", 'error');
-                             }
-                         }
-                     });
-                 }
+            var applyStartDate=new Date(applyStart);
+            var applyEndDate=new Date(applyEnd);
+            if(applyStartDate>=applyEndDate){
+                initMessage("报名开始时间不可以大于等于报名结束时间！","error");
+                return;
+            }
+            var compStartTimeDate=new Date(compeStartTime);
+            var compEndTimeDate=new Date(compeEndTime);
+            if(compStartTimeDate>=compEndTimeDate){
+                initMessage("竞赛开始时间不可以大于等于竞赛结束时间！","error");
+                return;
+            }
+            var formData = new FormData($("#myFrom")[0]);
+            formData.append("groups",getSelectValue());
+            if(!("tid" in formData)){
+                formData.append("tid",${teacherList.get(0).id});
+            }
+            if(!("isTeam" in formData)){
+                formData.append("isTeam","0");
+            }
+            if ($("#myBoxTitle").text() ==="添加竞赛" ) {
+                $.ajax({
+                    url: '${path}/comp/addCompetition' ,
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data['result'] >0) {
+                            initMessage("添加成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else{
+                            initMessage("添加失败,添加的数据存在错误或者服务器异常！", 'error');
+                        }
+
+                    }
                 });
+            }else{
+                formData.append("cid",$("#cid").val());
+                $.ajax({
+                    url: '${path}/comp/updateCompetition' ,
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data['result'] >0) {
+                            initMessage("修改成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else{
+                            initMessage("修改失败,修改的数据存在错误或者服务器异常！", 'error');
+                        }
+                    }
+                });
+            }
+        });
+    });
 
-        }
-
-    );
 </script>
 </body>
 </html>

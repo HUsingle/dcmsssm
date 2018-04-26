@@ -36,39 +36,50 @@
     <insert id="insertBench" parameterType="java.util.List">
         insert into db_apply(s_number,c_id,apply_time,t_id,is_group_leader,group_name,c_group_name) values
         <foreach collection="list" item="item" separator=",">
-        (#{item.username},#{item.competitionId},now(),#{item.teacherId},#{item.isGroupLeader},
+            (#{item.username},#{item.competitionId},now(),#{item.teacherId},#{item.isGroupLeader},
             #{item.groupName},#{item.competitionGroup})
         </foreach>
     </insert>
     <!--批量更新-->
-   <update id="batchUpdateApply" parameterType="com.dcms.model.Apply">
-       <foreach collection="list" item="apply" separator=";">
-           update db_apply
-           <set>
-           s_number=#{apply.username},c_group_name=#{apply.competitionGroup},
-           t_id=#{apply.teacherId},group_name=#{apply.groupName},is_group_leader=#{apply.isGroupLeader}
-           </set>
-           where apply_id=#{apply.id}
-       </foreach>
-   </update>
+    <update id="batchUpdateApply" parameterType="com.dcms.model.Apply">
+        <foreach collection="list" item="apply" separator=";">
+            update db_apply
+            <set>
+                s_number=#{apply.username},c_group_name=#{apply.competitionGroup},
+                t_id=#{apply.teacherId},group_name=#{apply.groupName},is_group_leader=#{apply.isGroupLeader}
+            </set>
+            where apply_id=#{apply.id}
+        </foreach>
+    </update>
     <!--通过竞赛的id和组的名字查询报名情况-->
-    <select id="findApplyByCidAndGroup" resultMap="applyMap" >
+    <select id="findApplyByCidAndGroup" resultMap="applyMap">
         select * from db_apply where c_id=#{id}
         <if test="groupName!=''">
             and c_group_name=#{groupName}
         </if>
         order by ${sort}
     </select>
-<!--统计各组别的报名人数-->
+    <!--统计各组别的报名人数-->
     <select id="findNumByGroup" resultMap="countMap">
         select c_group_name,count(apply_id)
         from db_apply where c_id=#{id} group by c_group_name
     </select>
 
     <resultMap id="countMap" type="java.util.Map">
-        <result column="c_group_name" property="groupName" />
-        <result column="count(apply_id)" property="number" />
+        <result column="c_group_name" property="groupName"/>
+        <result column="count(apply_id)" property="number"/>
     </resultMap>
+    <!--统计各组别的报名人数-->
+    <select id="getApplyNumbByGroup" resultType="com.dcms.model.CompetitionStat">
+        select c_id as competitionId,c_group_name as groupName,
+        count(apply_id) as applyNumber
+        from db_apply
+        <if test="id!=0">
+            where c_id=#{id}
+        </if>
+        group by c_group_name
+        ORDER BY competitionId
+    </select>
 
     <!--通过竞赛的id和组的名字查询参加该竞赛组别的人数情况-->
     <select id="findApplyNumByGroup" resultType="java.lang.Integer">
@@ -90,28 +101,28 @@
         </foreach>
     </delete>
     <!--导入个人报名信息(没组别)-->
-    <insert id="addApplyInfo" parameterType="java.util.List" >
+    <insert id="addApplyInfo" parameterType="java.util.List">
         insert into db_apply(s_number,c_id,apply_time) values
-        <foreach collection="list"   item="item" separator=",">
+        <foreach collection="list" item="item" separator=",">
             (#{item.username},#{competitionId},now())
         </foreach>
     </insert>
     <!--导入个人报名信息(有组别)-->
-    <insert id="addApplyInfoHasGroup" parameterType="java.util.List" >
+    <insert id="addApplyInfoHasGroup" parameterType="java.util.List">
         insert into db_apply(s_number,c_id,apply_time,c_group_name) values
-        <foreach collection="list"   item="item" separator=",">
+        <foreach collection="list" item="item" separator=",">
             (#{item.username},#{competitionId},now(),#{competitionGroup})
         </foreach>
     </insert>
-     <!--导入数据-->
+    <!--导入数据-->
     <insert id="importApply">
         insert into db_apply(s_number,c_id,apply_time,c_group_name) values
-        <foreach collection="list"   item="item" separator=",">
+        <foreach collection="list" item="item" separator=",">
             (#{item.username},#{competitionId},now(),#{item.competitionGroup})
         </foreach>
     </insert>
     <!--是否存在该数据-->
-<!--报名的resultMap-->
+    <!--报名的resultMap-->
     <resultMap type="com.dcms.model.Apply" id="applyMap">
         <id property="id" column="apply_id"/>
         <result property="username" column="s_number"/>

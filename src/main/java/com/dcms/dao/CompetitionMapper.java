@@ -35,4 +35,6 @@ public interface CompetitionMapper {
     String qryCompGroup(String id); //查询子类别、分组
 
     String findCompetitionName(Integer id);//查询竞赛名字
+
+    List<Competition> findCompetitionCompStatTime();//查询竞赛id和竞赛开始时间
 }

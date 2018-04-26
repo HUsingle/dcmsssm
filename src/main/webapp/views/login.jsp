@@ -36,7 +36,6 @@
         $("button").click(function () {
             var account = $(".acc").val();
             var pwd = $(".password").val();
-           // alert(account);
             $.ajax({
                 url: "${pageContext.request.contextPath}/stuLogin",
                 type:"post",

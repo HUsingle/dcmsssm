@@ -34,7 +34,7 @@ public class GradeServiceImpl implements GradeService {
         return gradeMapper.findAllGradeByCidOrGroupName(competitionId, groupName, sort);
     }
 
-    public String addGrade(Integer competitionId, Integer grade, String user, Integer isTeam) {
+    public String addGrade(Integer competitionId, Float grade, String user, Integer isTeam) {
         List<Grade> gradeList = new ArrayList<Grade>();
         Grade grade1 = null;
         if (isTeam > 0) {
@@ -77,7 +77,7 @@ public class GradeServiceImpl implements GradeService {
         return Tool.result(gradeMapper.deleteGrade(Tool.getInteger(id)));
     }
 
-    public String updateGrade(Integer grade, String id, Integer isTeam, Integer competitionId) {
+    public String updateGrade(Float grade, String id, Integer isTeam, Integer competitionId) {
         List<Grade> gradeList = new ArrayList<Grade>();
         Grade grade1 = null;
         if (isTeam > 0) {

@@ -53,7 +53,7 @@ public class GradeController {
 
     @RequestMapping(value = "/addGrade", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public String addGrade(Integer grade, Integer competitionId, String username, Integer isTeam) {
+    public String addGrade(Float grade, Integer competitionId, String username, Integer isTeam) {
         return gradeService.addGrade(competitionId,grade,username,isTeam);
     }
 
@@ -65,7 +65,7 @@ public class GradeController {
 
     @RequestMapping(value = "/updateGrade",produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
-    public String updateGrade(String id, Integer grade,Integer isTeam,Integer competitionId) {
+    public String updateGrade(String id, Float grade,Integer isTeam,Integer competitionId) {
        return gradeService.updateGrade(grade,id,isTeam,competitionId);
     }
 

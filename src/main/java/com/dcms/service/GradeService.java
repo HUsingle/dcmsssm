@@ -14,13 +14,13 @@ public interface GradeService {
     List<Grade> findAllGradeByCidOrGroupName(Integer competitionId, String groupName, String sort);
 
     //添加成绩
-    String addGrade(Integer competitionId, Integer grade, String username, Integer isTeam);
+    String addGrade(Integer competitionId, Float grade, String username, Integer isTeam);
 
     //删除成绩
     String deleteGrade(String id);
 
     //更新成绩-
-    String updateGrade(Integer grade, String id, Integer isTeam, Integer competitionId);
+    String updateGrade(Float grade, String id, Integer isTeam, Integer competitionId);
 
     //导入成绩
     String importGradeExcel(MultipartFile file, Integer competitionId);
