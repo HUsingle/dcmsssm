@@ -38,7 +38,15 @@ public class LoginController {
        }
        return request.getSession().getAttribute(sessionName).toString();
     }
-    //清除session
+    //注销
+    @RequestMapping("/logout")
+    @ResponseBody
+    public String logout(String sessionName,HttpServletRequest request){
+
+        request.getSession().removeAttribute("userId");
+        request.getSession().invalidate();
+        return "ok";
+    }
 }
 
 

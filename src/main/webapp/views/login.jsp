@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>登录页面</title>
+    <link rel="icon" href="../resources/img/c.png" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="../resources/css/login.css" />
     <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../resources/css/sweet-alert.css">

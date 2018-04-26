@@ -6,16 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html >
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
-
-    <title>Home</title>
-
+    <title>主页</title>
+    <link rel="icon" href="../resources/img/c.png" type="image/x-icon"/>
     <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
     <link  href="../resources/css/fileinput.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../resources/css/font-awesome.min.css">
@@ -85,6 +80,21 @@
             $.post("${pageContext.request.contextPath}/comp/getLatestComp",function (msg) {
                 cccid = msg[0].cid;  //竞赛ID
             },"json");
+            $(".logout").click(function () {
+                $.post("${pageContext.request.contextPath}/logout","json");  //注销
+                swal({
+                        title: "恭喜",
+                        text: "注销成功!",
+                        type: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'OK',
+                        closeOnConfirm: false,
+                    },
+                    function(){
+                        window.location.href="login.jsp";
+                    });
+            })
             //打印模态框
             $(".printExamTicket").click(function () {
                 $.post("${pageContext.request.contextPath}/exam/getStuExamInfo",{stuNo:stuNumber,compId:cccid},function (msg) {
@@ -126,15 +136,16 @@
     <div class="container">
         <div class="navbar-header">
             <!-- Button for smallest screens -->
-            <%--icon--%>
+           <a href="#"> <img src="../resources/img/comm.png" width="130px" alt="icon"></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
                 <li class="active"><a href="apply_index.jsp">主页</a></li>
-                <li><a href="about.html">查询</a></li>
+                <li><a href="upload_answer.jsp"><i class="fa fa-upload"></i> 上传答案</a></li>
                 <li><a href="apply_excel.jsp" id="applyUpload"><i class="fa fa-upload"></i> 上传报名表</a></li>
-                <li><a class="printExamTicket" href="#">打印准考证</a></li>
-                <li ><a class="selfInfo" href="contact.html"></a></li>
+                <li><a class="printExamTicket" href="#"><span class="glyphicon glyphicon-hdd"></span> 打印准考证</a></li>
+                <li ><a class="selfInfo" href="self_info.jsp"></a></li>
+                <li ><a class="logout" href="#"> <i class="glyphicon glyphicon-log-out"></i></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

@@ -129,6 +129,10 @@ public class CompetitionServiceImpl implements CompetitionService {
         return group;
     }
 
+    public List<Competition> qryByPage(String on, String end,String noStart) {
+        return compMapper.qryByPage(on,end,noStart);
+    }
+
     public String updateCompetition(MultipartFile file, HttpServletRequest request) {
         String fileName = "";
         String[] compFieldKey = {"compeStartTime", "compeEndTime", "applyStart", "applyEnd",

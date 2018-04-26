@@ -67,7 +67,7 @@
         <h5 class="page-header" style="border-bottom: 2px solid #91361a">
             <span class="span_icon" >&nbsp;	</span>
             <span class="span_icon_context" >&nbsp;最新竞赛	</span>
-            <a href="#" class="text-muted" style="float: right;line-height: 42px;margin-right: 10px">更多</a>
+            <a href="competiton_detail.jsp" class="text-muted" style="float: right;line-height: 42px;margin-right: 10px">更多</a>
         </h5>
 
         <div class="news_body" style="width: 850px;">
@@ -162,6 +162,7 @@
     }
     $(document).ready(function () {
         //获取最新竞赛
+
         $.ajax({
             url: "${pageContext.request.contextPath}/comp/getLatestComp",
             dataType: "json",

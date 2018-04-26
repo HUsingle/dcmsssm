@@ -1,8 +1,8 @@
 package com.dcms.dao;
 
 import com.dcms.model.Competition;
-import org.springframework.stereotype.Repository;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -33,6 +33,7 @@ public interface CompetitionMapper {
     int findNotUpdCompetitionFileIsExist(@Param("file") String file, @Param("id") int id);//修改时除了自己是否存在文件名一样的
 
     String qryCompGroup(String id); //查询子类别、分组
+    List<Competition> qryByPage(@Param("on")String on, @Param("end")String end, @Param("noStart")String noStart); //分页和条件查询
 
     String findCompetitionName(Integer id);//查询竞赛名字
 

@@ -100,6 +100,19 @@ public class CompetitionController {
         }
         return "ng";
     }
+    @RequestMapping(value = "/qryByPage", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    public String qryByPage(@RequestParam(defaultValue = "1") Integer offset,
+                                 @RequestParam(defaultValue = "10") Integer limit ,String on,String end,String noStart) {
+        PageHelper.startPage(offset, limit);
+        List<Competition> competitionList = cs.qryByPage(on,end,noStart);
+        PageInfo<Competition> pageInfo = new PageInfo<Competition>(competitionList);
+        JSONObject result = new JSONObject();
+        result.put("total", pageInfo.getTotal());
+        result.put("rows", competitionList);
+        return JSON.toJSONString(result,SerializerFeature.DisableCircularReferenceDetect);
+    }
+
     @RequestMapping(value = "/downloadCompetitionFile")
     public void downloadCompetitionFile(Integer id, HttpServletRequest request, HttpServletResponse response) {
         cs.downloadCompetitionFile(id,request,response);
