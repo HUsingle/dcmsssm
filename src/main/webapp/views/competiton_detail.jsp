@@ -19,7 +19,7 @@
 <body style="background-color: #ffffff">
 
 <%@ include file="apply_header.jsp" %>
-<div id="context">
+<div id="context" style="height: 1080px;">
     <div class="btn-group " style="margin-bottom: 10px;">
         <button type="button" class="btn btn-success on_apply">报名进行中</button>
         <button type="button" class="btn btn-danger end_apply">已结束</button>
@@ -36,7 +36,7 @@
         <li><a href="#" id="last">尾页</a></li>
     </ul>
 </div>
-
+<%@ include file="apply_footer.jsp" %>
 <script type="text/javascript">
     $(document).ready(function () {
         var offset=1;
