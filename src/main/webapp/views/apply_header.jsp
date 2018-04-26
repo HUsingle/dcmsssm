@@ -6,15 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html >
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+<%--    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+    <meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">--%>
 
-    <title>Home</title>
+    <title></title>
 
     <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
     <link  href="../resources/css/fileinput.min.css" rel="stylesheet">

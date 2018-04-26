@@ -18,6 +18,23 @@
     <select id="qryIsTeam" resultType="int">
         select c_is_team from db_competition where c_id = #{param1}
     </select>
+    <!--查询所有竞赛-->
+    <select id="findAllCompetition" resultMap="compMap">
+        select * from db_competition
+    </select>
+    <!--条件查询-->
+    <select id="qryByPage" resultMap="compMap">
+        select * from db_competition where 1=1
+        <if test="on != null and on!=''">
+            and c_apply_start &lt; now() and  c_apply_end &gt;now()
+        </if>
+        <if test="end != null and end!=''">
+            and  c_apply_end  &lt;now()
+        </if>
+        <if test="noStart != null and noStart!=''">
+            and  c_apply_start  &gt;now()
+        </if>
+    </select>
 
     <!--查询个人赛信息-->
     <select id="findSingleCompetition" resultMap="compMap">

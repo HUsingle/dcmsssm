@@ -27,6 +27,7 @@ public interface CompetitionService {
     String deleteCompetition(String id,HttpServletRequest request);
     //查询子类别
     String getCompGroup(String id);
+    List<Competition> qryByPage(String on,String end,String noStart);
     //下载文件
     void downloadCompetitionFile(Integer id, HttpServletRequest request, HttpServletResponse response);
 
