@@ -34,12 +34,6 @@ public class CompetitionStatController {
     @RequestMapping(value = "/getCompetitionStatList", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String geCompetitionStatList(@RequestParam("id") Integer id) {
-      /*  PageHelper.startPage(offset, limit);
-        List<Apply> applyList = applyService.findApplyByCidAndGroup(id, groupName, sort);
-        PageInfo<Apply> pageInfo = new PageInfo<Apply>(applyList);
-        JSONObject result = new JSONObject();
-        result.put("total", pageInfo.getTotal());
-        result.put("rows", applyList);*/
         return competitionStatService.getStatInformation(id);
     }
 

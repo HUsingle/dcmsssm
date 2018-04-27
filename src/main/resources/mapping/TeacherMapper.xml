@@ -4,9 +4,11 @@
         "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dcms.dao.TeacherMapper">
     <!--查询所有老师-->
-    <select id="getAllTeacher" resultType="com.dcms.model.Teacher" parameterType="string">
+    <select id="getAllTeacher" resultType="com.dcms.model.Teacher">
         select t_id as id, t_sex as sex,t_password as password, t_phone as phone,t_name as name,
-        t_college as college, t_email as email from db_teacher order by t_id ${sort}
+        t_college as college, t_email as email from db_teacher
+        where t_id!=#{id}
+        order by t_id ${sort}
     </select>
     <!--查询老师id和名字-->
     <select id="getTeacherNameAndId" resultType="com.dcms.model.Teacher">
@@ -15,6 +17,11 @@
     <!--通过老师id查询老师-->
     <select id="findTeacherById" resultType="com.dcms.model.Teacher" parameterType="long">
         select t_id as id,t_name as name,t_phone as phone from db_teacher where t_id=#{id}
+    </select>
+
+    <select id="findTeacherByPhone" resultType="com.dcms.model.Teacher">
+        select  t_id as id, t_sex as sex,t_password as password, t_phone as phone,t_name as name,
+        t_college as college, t_email as email  from db_teacher where t_phone=#{phone}
     </select>
     <!--通过查询老师所有信息-->
     <select id="findAllTeacherIdAndSex" resultType="com.dcms.model.Teacher">
@@ -25,6 +32,10 @@
         update db_teacher set t_name=#{name},t_phone=#{phone},t_password=#{password},
         t_sex=#{sex},t_email=#{email},t_college=#{college} where t_id=#{id}
     </update>
+    <!--更新密码-->
+    <update id="updatePassword">
+        update db_teacher set t_password=#{password} where t_id=#{id}
+    </update>
     <!--删除老师-->
     <delete id="deleteTeacher" parameterType="long">
         delete from db_teacher where t_id in
@@ -32,6 +43,11 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="checkTeacher" resultType="java.lang.Integer">
+        select count(t_id) from db_teacher where t_phone=#{phone}
+        and t_password=#{password}
+    </select>
     <!-- <insert id="addTeacher" parameterType="teacher">
          insert into db_teacher(t_name,t_phone,t_password,t_email,t_college)
          values(#{teacher.name},#{teacher.phone},

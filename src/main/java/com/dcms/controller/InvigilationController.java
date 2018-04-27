@@ -50,6 +50,7 @@ public class InvigilationController {
         return "invigilationManage";
     }
 
+
     @RequestMapping(value = "/getInvigilationList", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String getInvigilationList(
@@ -57,6 +58,20 @@ public class InvigilationController {
           @RequestParam Integer id) {
         PageHelper.startPage(offset, limit);
         List<Invigilation> invigilationList=invigilationService.findInvigilation(id);
+        PageInfo<Invigilation> pageInfo = new PageInfo<Invigilation>(invigilationList);
+        JSONObject result = new JSONObject();
+        result.put("total", pageInfo.getTotal());
+        result.put("rows", invigilationList);
+        return JSON.toJSONString(result, SerializerFeature.DisableCircularReferenceDetect);
+    }
+
+    @RequestMapping(value = "/getInvigilationListByTeacherId", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String getInvigilationListByTeacherId(
+            @RequestParam Integer offset, @RequestParam Integer limit,
+            @RequestParam Long id) {
+        PageHelper.startPage(offset, limit);
+        List<Invigilation> invigilationList=invigilationService.findInvigilationByTeacherId(id);
         PageInfo<Invigilation> pageInfo = new PageInfo<Invigilation>(invigilationList);
         JSONObject result = new JSONObject();
         result.put("total", pageInfo.getTotal());

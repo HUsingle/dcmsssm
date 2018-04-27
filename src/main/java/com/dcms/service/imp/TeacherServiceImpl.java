@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,35 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;
 
-    public List<Teacher> getAllTeacher(String sort) {
-        return teacherMapper.getAllTeacher(sort);
+    public List<Teacher> getAllTeacher(String sort,Long id) {
+        return teacherMapper.getAllTeacher(sort,id);
     }
 
     public List<Teacher> getTeacherNameAndId() {
         return teacherMapper.getTeacherNameAndId();
+    }
+
+    public String updateSelfTeacher(String id, String name, String college, String phone,
+                                    String email, String sex,HttpServletRequest request ,
+                                    String password) {
+        Teacher teacher=new Teacher();
+        teacher.setId(Long.parseLong(id));
+        teacher.setName(name);
+        teacher.setPassword(password);
+        teacher.setEmail(email);
+        teacher.setCollege(college);
+        teacher.setSex(sex);
+        teacher.setPhone(Long.parseLong(phone));
+        int result=teacherMapper.updateTeacher(teacher);
+        if(result>0){
+            request.getSession().removeAttribute("account");
+            request.getSession().setAttribute("account",teacher);
+        }
+        return Tool.result(result);
+    }
+
+    public int updatePassword(Long id, String password) {
+       return teacherMapper.updatePassword(id,password);
     }
 
     //按教师ID查询教师信息
@@ -117,6 +141,10 @@ public class TeacherServiceImpl implements TeacherService {
     public void exportTeacherExcelModel(HttpServletResponse response) {
         String[] head = {"姓名", "性别","密码", "学院", "手机号码", "电子邮箱"};
         ExcelUtil.exportModeExcel(head, "老师信息模板.xls", response,51);
+    }
+
+    public Teacher findTeacherByPhone(String phone) {
+        return teacherMapper.findTeacherByPhone(phone);
     }
 }
 

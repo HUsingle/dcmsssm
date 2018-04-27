@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="${path}/resources/css/myCss.css">
 </head>
 <body>
-<div id="myDiv">
+<%--<div id="myDiv">
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
     <a class="btn bg-purple bt-flat " href="javascript:download()"><i class="fa fa-download"></i> 统计表格</a>
 </form>
@@ -35,9 +35,34 @@
     </div>
     <table id="statTable">
     </table>
+</div>--%>
+
+<div class="box box-default" id="myStat">
+    <div class="box-header with-border">
+        <h3 class="box-title" id="myStatBoxTitle">竞赛统计</h3>
+    </div>
+    <div class="box-body">
+        <div class="row" style="margin-bottom: 17px;margin-top: 11px;">
+            <div class="col-sm-4">
+                <select class="selectpicker form-control" id="competition" name="competition">
+                    <option value="0">所有竞赛</option>
+                    <c:forEach items="${competitionList}" var="competition">
+                        <option value="${competition.cid}">${competition.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="statTable">
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
-
-
 
 
 <script src="${path}/resources/js/jquery.min.js"></script>

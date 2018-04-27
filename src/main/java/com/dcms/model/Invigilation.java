@@ -10,6 +10,15 @@ public class Invigilation {
     private long teacherId;
     private Teacher teacher;
     private Competition competition;
+    private Classroom classroom;
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
+    }
 
     public Teacher getTeacher() {
         return teacher;

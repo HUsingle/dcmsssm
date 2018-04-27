@@ -32,7 +32,9 @@ public class InvigilationServiceImpl implements InvigilationService {
         return invigilationMapper.findInvigilation(competitionId);
     }
 
-
+    public List<Invigilation> findInvigilationByTeacherId(Long id) {
+        return invigilationMapper.findInvigilationByTeacherId(id);
+    }
     @Transactional
     public String insertInvigilation(Integer competitionId, String teacherId, Integer classroomId) {
         Long[] teacher = Tool.getLong(teacherId);

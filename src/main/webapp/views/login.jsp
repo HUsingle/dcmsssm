@@ -12,13 +12,13 @@
 <head>
     <meta charset="UTF-8">
     <title>登录页面</title>
-    <link rel="icon" href="../resources/img/c.png" type="image/x-icon"/>
-    <link rel="stylesheet" type="text/css" href="../resources/css/login.css" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../resources/css/sweet-alert.css">
-    <script src="../resources/js/jquery.min.js"></script>
-    <script src="../resources/js/bootstrap.min.js"></script>
-    <script src="../resources/js/sweet-alert.min.js"></script>
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/c.png" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sweet-alert.css">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sweet-alert.min.js"></script>
 </head>
 
 <body>
@@ -34,30 +34,63 @@
             $(this).css({"color":"white","background-color":"#ee6666"});
         });
 
-        $("button").click(function () {
+        $("#commit").click(function () {
             var account = $(".acc").val();
             var pwd = $(".password").val();
-            $.ajax({
-                url: "${pageContext.request.contextPath}/stuLogin",
-                type:"post",
-                data:{account: account, pwd: pwd},
-                success: function(msg){
-                    if(msg=="ok"){
-                        $.post("${pageContext.request.contextPath}/saveToSession",
-                            { id: account },function (mag) {
-                                if(msg=="ok"){
-                                    window.location.href="apply_index.jsp";
-                                }
-                            } );
+            if(account===""||pwd===""){
+                swal({
+                    title: "提示",
+                    text: "账号或密码不能为空!"
+                });
+                return;
+            }
+            var  type=$('ul').children().find(".selected").text();
+            if(type==="学生"){
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/stuLogin",
+                    type:"post",
+                    data:{account: account, pwd: pwd},
+                    success: function(msg){
+                        if(msg=="ok"){
+                            $.post("${pageContext.request.contextPath}/saveToSession",
+                                { id: account },function (mag) {
+                                    if(msg=="ok"){
+                                        window.location.href="${pageContext.request.contextPath}/views/apply_index.jsp";
+                                    }
+                                } );
 
-                    }else {
-                        swal({
-                            title: "提示",
-                            text: "账号或密码不正确!",
-                        });
+                        }else {
+                            swal({
+                                title: "提示",
+                                text: "账号或密码不正确!"
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/teaLogin",
+                    type:"post",
+                    data:{account: account, pwd: pwd},
+                    success: function(msg){
+                        if(msg=="ok"){
+                            $.post("${pageContext.request.contextPath}/saveTeacherToSession",
+                                { phone: account },function (mag) {
+                                    if(msg=="ok"){
+                                        window.location.href="${pageContext.request.contextPath}/views/manageIndex.jsp";
+                                    }
+                                } );
+
+                        }else {
+                            swal({
+                                title: "提示",
+                                text: "账号或密码不正确!"
+                            });
+                        }
+                    }
+                });
+            }
+
            })
     })
 </script>
@@ -72,18 +105,18 @@
     </ul>
     <form class="form-horizontal" role="form" >
         <div class="account">
-            <img src="../resources/images/account.png" width="27px" height="27px"/>
+            <img src="${pageContext.request.contextPath}/resources/images/account.png" width="27px" height="27px"/>
             <input class="acc" type="text"  name="account" placeholder="请输入账号"/>
         </div>
 
         <div class="account">
-            <img src="../resources/images/pwd.png" width="27px" height="27px"/>
+            <img src="${pageContext.request.contextPath}/resources/images/pwd.png" width="27px" height="27px"/>
             <input class="password" type="password" name="pwd"  placeholder="请输入密码"/>
         </div>
         <div class="form-group">
             <div class="col-sm-10">
                 <button type="button" class="btn btn-danger col-sm-10"
-                        style="width: 300px;height: 50px;margin-top: 10px;">登录</button>
+                        style="width: 300px;height: 50px;margin-top: 10px;" id="commit">登录</button>
             </div>
         </div>
     </form>

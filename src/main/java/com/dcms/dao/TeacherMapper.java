@@ -11,11 +11,14 @@ import java.util.List;
  */
 @Repository
 public interface TeacherMapper {
-     List<Teacher> getAllTeacher(@Param("sort") String sort);
+     List<Teacher> getAllTeacher(@Param("sort") String sort,@Param("id") Long id);
      List<Teacher> getTeacherNameAndId();
      int updateTeacher(Teacher teacher);
      int deleteTeacher(Long[] ids);
      int addTeacher(List<Teacher> teachers);
      Teacher findTeacherById(Long id);
      List<Teacher> findAllTeacherIdAndSex();
+     int checkTeacher(@Param("phone") String phone,@Param("password") String password);
+     Teacher findTeacherByPhone(String phone);
+     int updatePassword(@Param("id") Long id,@Param("password") String password);
 }

@@ -11,6 +11,8 @@ public interface InvigilationService {
     //查询监考安排信息
     List<Invigilation> findInvigilation(Integer competitionId);
 
+    List<Invigilation> findInvigilationByTeacherId(Long id);
+
     //批量插入安排监考信息
     String insertInvigilation(Integer competitionId, String teacherId, Integer classroomId);
 

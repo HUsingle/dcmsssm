@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -24,21 +25,20 @@ import java.util.List;
 public class TeacherController {
     @Autowired
    private TeacherService teacherService;
+
     @RequestMapping(value = "/getTeacherList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     public String getAllTeacher(@RequestParam(defaultValue = "1") Integer offset,
                                 @RequestParam(defaultValue = "10") Integer limit,
-                                @RequestParam(defaultValue = "asc")  String sort) {
+                                @RequestParam(defaultValue = "asc")  String sort,Long id) {
         PageHelper.startPage(offset, limit);
-        List<Teacher> teacherList = teacherService.getAllTeacher(sort);
+        List<Teacher> teacherList = teacherService.getAllTeacher(sort,id);
         PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(teacherList);
         JSONObject result = new JSONObject();
         result.put("total", pageInfo.getTotal());
         result.put("rows", teacherList);
         return result.toJSONString();
     }
-
-   
 
     @RequestMapping(value = "/addTeacher", method = RequestMethod.POST)
     @ResponseBody
@@ -55,6 +55,28 @@ public class TeacherController {
                                 @RequestParam("phone") String phone, @RequestParam("email") String email,
                                 @RequestParam("sex") String sex) {
         return teacherService.updateTeacher(id,name,password,college,phone,email,sex);
+
+    }
+
+    @RequestMapping(value = "/updateSelfTeacher", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateSelfTeacher(@RequestParam("id") String id, @RequestParam("name") String name,
+                                    @RequestParam("password") String password, @RequestParam("college") String college,
+                                    @RequestParam("phone") String phone, @RequestParam("email") String email,
+                                    @RequestParam("sex") String sex, HttpServletRequest request) {
+        return teacherService.updateSelfTeacher(id,name,college,phone,email,sex,request,password);
+
+    }
+
+    @RequestMapping(value = "/updateTeacherPassword")
+    public String updateTeacherPassword(@RequestParam("id") Long id,
+                                @RequestParam("password") String password,HttpServletRequest request){
+     /*   if(teacherService.updatePassword(id,password)>0){
+        request.getSession().removeAttribute("account");
+        request.getSession().invalidate();
+        return "login";
+        }*/
+        return null;
 
     }
 
@@ -83,5 +105,7 @@ public class TeacherController {
     public String getTeacherById(String id){
         return teacherService.getTeacherById(id);
     }
+
+
 
 }

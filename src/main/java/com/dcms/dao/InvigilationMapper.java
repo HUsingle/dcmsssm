@@ -14,6 +14,8 @@ public interface InvigilationMapper {
     //查询监考安排信息
     List<Invigilation> findInvigilation(Integer competitionId);
 
+    List<Invigilation> findInvigilationByTeacherId(Long id);
+
     //查询该老师是否已经安排监考
     int findAlreadyInvigilation(@Param("competitionId") Integer competitionId,
                                                     @Param("teacherId") Long teacherId);

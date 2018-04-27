@@ -44,6 +44,9 @@ public class LoginServiceImpl implements LoginService {
     }
     //检查老师账号
     public boolean checkTea(String account,String pwd) {
+        if(tea.checkTeacher(account,pwd)>0){
+            return true;
+        }
         return false;
     }
 }

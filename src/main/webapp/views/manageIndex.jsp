@@ -40,11 +40,11 @@
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
-            <div style="float:left;color:#fff;padding:15px 10px;">欢迎老师!</div>
+            <div style="float:left;color:#fff;padding:15px 10px;">欢迎${sessionScope.account.name}!</div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
 
-                    <li class="dropdown notifications-menu">
+                <%--    <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
                             <span class="label label-warning">1</span>
@@ -63,11 +63,11 @@
                             <li class="footer"><a href="#">所有通知</a></li>
                         </ul>
                     </li>
-
+--%>
                     <%--  <li><a href="#" data-toggle="modal" data-target="#updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a>--%>
-                    <li><a href="#"><i class="fa fa-power-off"></i> &nbsp;关闭系统</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+                   <%-- <li><a href="#"><i class="fa fa-power-off"></i> &nbsp;关闭系统</a>
+                    </li>--%>
+                    <li><a href="${path}/teacherLogout" ><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
 
                 </ul>
             </div>
@@ -84,18 +84,7 @@
                 <li class="header">导航菜单</li>
                 <!-- Optionally, you can add icons to the links -->
 
-                <li class="treeview">
-                    <a href="##"><i class="fa fa fa-user"></i> <span>个人信息管理</span>
-                        <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="##" target="myFrame"><i class="fa fa-circle-o"></i><span>我的监考</span></a></li>
-                        <li><a href="##" target="myFrame"><i class="fa fa-circle-o"></i><span>个人信息</span></a></li>
-                        <li><a href="##" target="myFrame"><i class="fa fa-circle-o"></i><span>修改密码</span></a></li>
-                    </ul>
-                </li>
+                <li><a href="${path}/views/teacherSelf.jsp" target="myFrame"><i class="fa fa-user"></i><span>个人信息管理</span></a></li>
                 <li class="treeview">
                     <a href="##"><i class="fa fa fa-users"></i> <span>用户管理</span>
                         <span class="pull-right-container">
@@ -169,7 +158,7 @@
 
 
         <section class="content">
-            <iframe scrolling="yes" frameborder="0" style="width:100%;height:700px; overflow:visible;"
+            <iframe scrolling="yes" frameborder="0" style="width:100%;height:570px; overflow:visible;"
                     src="${path}/views/main.html"
                     name="myFrame" id="myFrame"></iframe>
         </section>
@@ -210,7 +199,7 @@
         </div>
     </div>
 
-    <%-- <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     <%--<div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
          <div class="modal-dialog">
              <div class="modal-content">
@@ -221,10 +210,6 @@
                  <div class="modal-body">
                      <form class="form-horizontal">
                          <div class="form-group">
-                             <div class="form-group">
-                                 <div class="col-sm-2 control-label">账号</div>
-                                 <span class="label label-success" style="vertical-align: bottom;"></span>
-                             </div>
                              <div class="form-group">
                                  <div class="col-sm-2 control-label">原密码</div>
                                  <div class="col-sm-9">
@@ -237,6 +222,12 @@
                                      <input type="text" class="form-control" placeholder="新密码"/>
                                  </div>
                              </div>
+                             <div class="form-group">
+                                 <div class="col-sm-2 control-label">确认密码</div>
+                                 <div class="col-sm-9">
+                                     <input type="text" class="form-control" placeholder="再次输入新密码"/>
+                                 </div>
+                             </div>
                          </div>
                      </form>
                  </div>
@@ -246,10 +237,7 @@
                  </div>
              </div><!-- /.modal-content -->
          </div><!-- /.modal -->
-     </div>
- --%>
-</div>
-
+     </div>--%>
 
 <script src="${path}/resources/js/jquery.min.js"></script>
 <script src="${path}/resources/js/bootstrap.min.js"></script>
@@ -262,6 +250,11 @@
         $(".sidebar-menu a").click(function () {
             $("#activeLink").text(($(this).text()));
         });
+        var teacherId="${sessionScope.account.phone}";
+        if(teacherId===""){
+          //  initMessage("请先登录！","error");
+            window.location.href="${path}/views/login.jsp";
+        }
     });
     function initImportExcel(url,extraData) {
         var excelFile = $("#excelFile");

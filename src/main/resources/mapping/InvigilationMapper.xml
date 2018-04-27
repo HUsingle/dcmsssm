@@ -7,6 +7,10 @@
     <select id="findInvigilation" resultMap="InvigilationMap">
         select * from db_exam_monitor where c_id=#{competitionId} order by classroom_id
     </select>
+
+    <select id="findInvigilationByTeacherId" resultMap="InvigilationMap">
+        select * from db_exam_monitor where t_id=#{id}
+    </select>
     
     <!--查看该老师是否已经安排-->
     <select id="findAlreadyInvigilation" resultType="java.lang.Integer">
@@ -42,6 +46,7 @@
         <result property="classroomId" column="classroom_id"/>
         <result property="competitionId" column="c_id"/>
         <result property="teacherId" column="t_id"/>
+        <association property="classroom" column="classroom_id" select="com.dcms.dao.ClassroomMapper.findClassroomById"/>
         <association property="teacher" column="t_id" select="com.dcms.dao.TeacherMapper.findTeacherById"/>
         <association property="competition" column="c_id" select="com.dcms.dao.CompetitionMapper.findCompetitionById"/>
     </resultMap>
