@@ -106,9 +106,9 @@
 <script src="${path}/resources/js/defaults-zh_CN.min.js"></script>
 <script src="${path}/resources/js/create-table.js"></script>
 <script>
-    function initInformation(titleOne, titleTwo, inputFields, deleteUrl, id) {
+    function initInformation(inputFields) {
         $("#add").click(function () {
-            $("#myBoxTitle").text(titleOne);
+            $("#myBoxTitle").text("添加老师");
             for (var i = 0; i < inputFields.length; i++)
                 $('#' + inputFields[i]).val("");
             $('#' + inputFields[0]).attr("disabled", false);
@@ -140,10 +140,10 @@
             } else {
                 var ids = '';
                 for (var i = 0; i < jsonArray.length; i++)
-                    ids += jsonArray[i][id] + ',';
+                    ids += jsonArray[i]["id"] + ',';
                 $.ajax({
                     type: 'POST',
-                    url: deleteUrl,
+                    url: "${path}/teacher/deleteTeacher",
                     data: {
                         'id': ids
                     },
@@ -161,33 +161,74 @@
             }
         });
 
-        /* $("#quit").click(function () {
-         $("#myBox").hide();
-         $("#myDiv").show();
-         });*/
     }
+    function initAddOrUpdate() {
+        $("#quit").click(function () {//点击返回按钮，显示表格，隐藏添加或者修改信息
+            $("#myBox").hide();
+            $("#myDiv").show();
+        });
+        $("#submitButton").click(function () {
+            var phone=$("#phone").val();
+            var password=$("#password").val();
+            if(phone===""||password===""){
+                initMessage("密码或者手机号码不可以为空!","error");
+                return;
+            }
+            var id = $("#id").val();
+                if ($("#myBoxTitle").text() === "添加老师") {
+                    $.ajax({
+                        type: "POST",
+                        url: "${path}/teacher/addTeacher",
+                        dataType: "json",
+                        data: $("#myFrom").serialize(),
+                        success: function (data) {
+                            if (data['result'] > 0) {
+                                if (data['result'] === 1) {
+                                    initMessage("添加成功！", 'success');
+                                } else {
+                                    initMessage("该数据已经存在，更新成功！", 'success');
+                                }
+                                $("#myTable").bootstrapTable('refresh');
+                                $("#myBox").hide();
+                                $("#myDiv").show();
+                            } else {
+                                initMessage("手机号码必须为数字！", 'error');
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "${path}/teacher/updateTeacher",
+                        dataType: "json",
+                        data: "id=" + id + "&" + $("#myFrom").serialize(),
+                        success: function (data) {
+                            if (data['result'] > 0) {
+                                initMessage("修改成功！", 'success');
+                                $("#myTable").bootstrapTable('refresh');
+                                $("#myBox").hide();
+                                $("#myDiv").show();
+                            } else {
+                                initMessage("手机号码必须为数字！", 'error');
+                            }
+                        }
+                    });
+                }
 
+        });
+    }
     $(function () {
         initTable('#myTable', "${path}/teacher/getTeacherList",
             ['id', 'name', 'sex', 'password', 'college', 'phone', 'email'],
             ['编号', '姓名', '性别', '密码', '学院', '手机号码', '电子邮箱'], true, -1);
         $("#myTable").bootstrapTable('hideColumn', 'id');
-
+        initInformation(["id", 'name', 'password', 'college', 'phone', 'email']);
+        $("#importExcel").click(function () {
+            var extraData = {};
+            window.parent.openModel("${path}/teacher/importTeacherExcel", "导入表格", extraData);
+        });
+        initAddOrUpdate();
     });
-    $("document").ready(
-        function () {
-            initInformation("添加老师", "修改老师",["id", 'name', 'password', 'college', 'phone', 'email'],
-                "${path}/teacher/deleteTeacher", "id");
-            $("#importExcel").click(function () {
-                var extraData = {};
-                window.parent.openModel("${path}/teacher/importTeacherExcel", "导入表格", extraData);
-            });
-            initAddAndUpdate("${path}/teacher/addTeacher", "${path}/teacher/updateTeacher", "id=",
-                "", $("#id"), "添加老师", true);
-        }
-
-
-    );
 </script>
 </body>
 </html>

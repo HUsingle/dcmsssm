@@ -19,4 +19,6 @@ public interface ClassroomArrangeService {
     String updateClassroomArrange(Long id,Integer seatNumber,Integer classroomId,Integer competitionId);
     //导出考场信息
     void exportClassroomArrange(Integer competitionId, HttpServletResponse response);
+    //导出缺考名单
+    void exportStudentAbsent(Integer competitionId, HttpServletResponse response);
 }

@@ -21,7 +21,7 @@
 <body>
 <div id="myDiv">
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
-    <a class="btn bg-purple bt-flat " href="javascript:download()"><i class="fa fa-download"></i> 导出参赛名单</a>
+    <a class="btn bg-purple bt-flat " href="javascript:download()"><i class="fa fa-download"></i> 统计表格</a>
 </form>
     <div class="form-group" style="margin-left: -15px;">
         <div class="col-sm-4" style="margin-bottom: 15px;">
@@ -48,16 +48,6 @@
 <script src="${path}/resources/js/bootstrap-select.min.js"></script>
 <script src="${path}/resources/js/defaults-zh_CN.min.js"></script>
 <script>
-    /*  function download() {
-     var data = $("#myTable").bootstrapTable('getData', true);//获取当前页面所有数据
-     if (data.length === 0) {
-     initMessage("没有获奖信息不可以导出！", "error");
-     return;
-     0
-     }
-     var url = "{path}/prize/exportPrizeExcel?competitionId=" + $("#competition").val();
-     window.location.href = url;
-     }*/
     function mergeTable(field, mytable, data) {//一列中如果连续相邻相同则合并
         var temp = data[0][field];
         var ind = 0;

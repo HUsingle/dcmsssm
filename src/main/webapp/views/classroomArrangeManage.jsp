@@ -27,6 +27,7 @@
         <a class="btn bg-purple bt-flat " id="arrange"><i class="fa fa-pencil"></i> 安排考场</a>
         <a class="btn bg-purple bt-flat " id="search"><i class="fa fa-search"></i> 查看考场</a>
         <a class="btn bg-purple bt-flat " href="javascript:download()"><i class="fa fa-download"></i> 导出考场安排信息</a>
+        <a class="btn bg-purple bt-flat " href="javascript:downloadAbsent()"><i class="fa fa-download"></i> 导出缺考名单</a>
 
     </form>
     <div class="form-group" style="margin-left: -15px;">
@@ -99,9 +100,9 @@
                 <div class="col-sm-1 control-label">所在考场</div>
                 <div class="col-sm-3">
                     <select class="selectpicker form-control" id="classroom1" name="classroom1">
-                    <c:forEach items="${classroomList}" var="classroom">
-                        <option value="${classroom.id}">${classroom.site}</option>
-                    </c:forEach>
+                        <c:forEach items="${classroomList}" var="classroom">
+                            <option value="${classroom.id}">${classroom.site}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
@@ -148,6 +149,7 @@
         competitionObject.id = '${competition.cid}';
         competitionObject.name = '${competition.name}';
         competitionObject.group = '${competition.group}';
+        competitionObject.endTime = '${competition.compeEndTime}';
         competitionArray.push(competitionObject);
         </c:forEach>
         return competitionArray;
@@ -164,10 +166,10 @@
             pagination: true,
             sortable: true,
             queryParams: function (params) {
-                var isSelectAll=1;
+                var isSelectAll = 1;
                 var arrays = $("#classroom").val();
-                if(arrays[0]==="0"){
-                    isSelectAll=0;
+                if (arrays[0] === "0") {
+                    isSelectAll = 0;
                 }
                 var temp = {
                     limit: params.limit,
@@ -175,7 +177,7 @@
                     id: $("#competition").val(),
                     groupName: $("#competitionGroup").val(),
                     classroomId: connectString(arrays),
-                    isSelectAll:isSelectAll
+                    isSelectAll: isSelectAll
                 };
                 return temp;
             },
@@ -255,11 +257,28 @@
     }
     function download() {
         var data = $("#myTable").bootstrapTable('getData', true);//获取当前页面所有数据
-        if(data.length===0){
-            initMessage("没有考场信息不可以导出！","error");
+        if (data.length === 0) {
+            initMessage("没有考场信息不可以导出！", "error");
             return;
         }
         var url = "${path}/classroomArrange/exportClassroomArrangeExcel?competitionId=" + $("#competition").val();
+        window.location.href = url;
+    }
+
+    function downloadAbsent() {
+        var compObject = getCompetitionObject();
+        var compEndTime;
+        for (var i = 0; i < compObject.length; i++) {
+            if ($("#competition").val() == compObject[i].id) {
+                compEndTime = compObject[i].endTime;
+                break;
+            }
+        }
+        if(new Date()<new Date(compEndTime)){
+            initMessage("竞赛还没有结束，无法查看缺考情况!","error");
+            return;
+        }
+        var url = "${path}/classroomArrange/exportStudentAbsentExcel?competitionId=" + $("#competition").val();
         window.location.href = url;
     }
     //拼接成字符串，用,隔开
@@ -315,7 +334,7 @@
                 initMessage("查看考场时请选择相关考场!", 'error');
                 return;
             }
-            if (arrays[0]==="0"&&arrays.length>1) {
+            if (arrays[0] === "0" && arrays.length > 1) {
                 initMessage("选择所有考场就不要选择其他考场!", 'error');
                 return;
             }
@@ -330,16 +349,16 @@
 
         });
         $("#arrange").click(function () {
-            var compObject=getCompetitionObject();
-            var groupName="";
-            for(var k=0;i<compObject.length;k++){
-                if(compObject[k].id==$("#competition").val()){
-                    groupName=compObject[k].group;
+            var compObject = getCompetitionObject();
+            var groupName = "";
+            for (var k = 0; i < compObject.length; k++) {
+                if (compObject[k].id == $("#competition").val()) {
+                    groupName = compObject[k].group;
                     break;
                 }
             }
             //alert(groupName);
-            if ($("#competitionGroup").val() === ""&&groupName.length>0) {
+            if ($("#competitionGroup").val() === "" && groupName.length > 0) {
                 initMessage("安排考场时只能一个一个组别安排!", 'error');
                 return;
             }
@@ -367,7 +386,7 @@
             paramData.competitionGroup = $("#competitionGroup").val();
             paramData.examRoom = connectString(arrays);
             paramData.peopleNum = connectString(arrayExamRoomNum);
-            var myTable=$("#myTable");
+            var myTable = $("#myTable");
             $.ajax({
                 type: 'POST',
                 url: '${path}/classroomArrange/arrangeExamRoom',
@@ -420,34 +439,34 @@
                 });
             }
         });
-         $("#submitButton").click(function () {
-             var seatNumber=$("#seatNumber").val();
-             var classroomId= $("#classroom1").val();
-             var classroomObject=getClassroomObject();
-             var number;
-             for(var i=0;i<classroomObject.length;i++){
-                 if(classroomObject[i].id==classroomId){
-                     number=classroomObject[i].number;
-                     break;
-                 }
-             }
-            if(seatNumber.length>0&&!isNaN(seatNumber)){
-                 seatNumber=parseInt(seatNumber);
+        $("#submitButton").click(function () {
+            var seatNumber = $("#seatNumber").val();
+            var classroomId = $("#classroom1").val();
+            var classroomObject = getClassroomObject();
+            var number;
+            for (var i = 0; i < classroomObject.length; i++) {
+                if (classroomObject[i].id == classroomId) {
+                    number = classroomObject[i].number;
+                    break;
+                }
             }
-            if(seatNumber.length===0){
-                initMessage("请填写座位号!","error");
-            }else if(isNaN(seatNumber)){
-                initMessage("座位号要为数字!","error");
-            }else if(seatNumber>number||seatNumber<0){
-                initMessage("座位号不在考场可安排人数范围!","error");
-            }else{
+            if (seatNumber.length > 0 && !isNaN(seatNumber)) {
+                seatNumber = parseInt(seatNumber);
+            }
+            if (seatNumber.length === 0) {
+                initMessage("请填写座位号!", "error");
+            } else if (isNaN(seatNumber)) {
+                initMessage("座位号要为数字!", "error");
+            } else if (seatNumber > number || seatNumber < 0) {
+                initMessage("座位号不在考场可安排人数范围!", "error");
+            } else {
                 var myTable = $("#myTable");
                 var jsonArray = myTable.bootstrapTable('getSelections');
-                var paramData={};
-                paramData.id=jsonArray[0].id;
-                paramData.seatNumber=seatNumber;
-                paramData.classroomId=classroomId;
-                paramData.competitionId=jsonArray[0].competitionId;
+                var paramData = {};
+                paramData.id = jsonArray[0].id;
+                paramData.seatNumber = seatNumber;
+                paramData.classroomId = classroomId;
+                paramData.competitionId = jsonArray[0].competitionId;
                 $.ajax({
                     type: 'POST',
                     url: '${path}/classroomArrange/updateClassroomArrange',
@@ -473,7 +492,7 @@
             }
 
 
-         });
+        });
         $("#competition").change(function () {//竞赛名称改变监听
             var competitionGroup = $("#competitionGroup");
             var selectValue = $("#competition").val();

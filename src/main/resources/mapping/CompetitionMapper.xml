@@ -34,7 +34,7 @@
 
     <!--查询个人赛信息-->
     <select id="findSingleCompetition" resultMap="compMap">
-        select c_id,c_name,c_group from db_competition where c_is_team =0
+        select c_id,c_name,c_group,c_competition_end from db_competition where c_is_team =0
         order by c_publish_time DESC
     </select>
     <!--通过id查询竞赛附件-->

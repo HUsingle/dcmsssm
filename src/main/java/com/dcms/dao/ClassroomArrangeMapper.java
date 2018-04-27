@@ -39,5 +39,10 @@ public interface ClassroomArrangeMapper {
     List<ClassroomArrange> exportClassroomArrange(Integer competitionId);
 
     Integer[] getClassroomArrangeNum(Integer competitionId);
+     //更新缺考的状态-
+    int updateAbsent(@Param("competitionId") Integer competitionId,
+                     @Param("username") Long username);
+    //查看缺考名单
+    List<ClassroomArrange> findAbsentStudent(@Param("competitionId") Integer competitionId);
 
 }

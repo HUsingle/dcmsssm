@@ -82,4 +82,9 @@ public class ClassroomArrangeController {
         classroomArrangeService.exportClassroomArrange(competitionId,response);
     }
 
+    @RequestMapping(value = "/exportStudentAbsentExcel")
+    public void exportStudentAbsentExcel(HttpServletResponse response, Integer competitionId) {
+        classroomArrangeService.exportStudentAbsent(competitionId,response);
+    }
+
 }

@@ -6,6 +6,7 @@ import com.dcms.dao.CompetitionMapper;
 import com.dcms.dao.InvigilationMapper;
 import com.dcms.excel.ClassroomArrangeExcelData;
 import com.dcms.excel.ExcelData;
+import com.dcms.excel.StudentAbsentExcelData;
 import com.dcms.model.Apply;
 import com.dcms.model.ClassroomArrange;
 import com.dcms.model.Invigilation;
@@ -190,6 +191,14 @@ public class ClassroomArrangeServiceImpl implements ClassroomArrangeService {
         String[] head={"座位号","学号","姓名","班级","电话号码","组别"};
         ExcelUtil.exportExcel(head,title+"考场安排表.xls",response,excelData,list,title);
 
+    }
+
+    public void exportStudentAbsent(Integer competitionId, HttpServletResponse response) {
+        ExcelData excelData=new StudentAbsentExcelData();
+        String title=competitionMapper.findCompetitionName(competitionId);
+        List<ClassroomArrange> classroomArrangeList=classroomArrangeMapper.findAbsentStudent(competitionId);
+        String[] head={"座位号","学号","姓名","班级","电话号码","组别"};
+        ExcelUtil.exportExcel(head,title+"缺考名单.xls",response,excelData,classroomArrangeList,title);
     }
 }
 

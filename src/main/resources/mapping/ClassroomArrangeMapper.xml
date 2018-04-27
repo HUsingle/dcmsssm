@@ -76,6 +76,24 @@
         </foreach>
     </insert>
 
+
+    <!--更新缺考的状态-->
+    <update id="updateAbsent">
+        update db_classroom_arrange set is_absent=0
+        where apply_id in
+        (select apply_id from db_apply
+        where c_id=#{competitionId}
+        and s_number=#{username})
+    </update>
+
+    <!--查看缺考名单-->
+    <select id="findAbsentStudent" resultMap="classroomArrangeMap">
+        select * from db_classroom_arrange where is_absent=1
+         and apply_id in
+        (select apply_id from db_apply where c_id=#{competitionId}
+        order by c_group_name)
+    </select>
+
     <resultMap type="com.dcms.model.ClassroomArrange" id="classroomArrangeMap">
         <id property="id" column="ca_id"/>
         <result property="classroomId" column="classroom_id"/>

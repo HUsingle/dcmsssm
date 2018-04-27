@@ -32,7 +32,7 @@
             $("a").removeClass("selected");
             $(this).addClass("selected");
             $(this).css({"color":"white","background-color":"#ee6666"});
-        })
+        });
 
         $("button").click(function () {
             var account = $(".acc").val();
