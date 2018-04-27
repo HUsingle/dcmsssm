@@ -87,7 +87,7 @@
             <button type="button" class="btn btn bg-purple bt-flat" id="quitHome">返回</button>
         </div>
     </div>
-    <div class="row" style="margin-left: -4px;">
+    <div class="row" style="margin-left: -6px;">
         <div class="col-sm-10" style="margin-bottom: 20px;">
             <table id="statTable">
             </table>
@@ -96,7 +96,7 @@
 
 
 </div>
-</div>
+
 
 
 <script src="${path}/resources/js/jquery.min.js"></script>

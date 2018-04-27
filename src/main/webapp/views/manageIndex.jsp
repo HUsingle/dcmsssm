@@ -148,7 +148,7 @@
                         <li><a href="${path}/rise/riseManage" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="fa fa-bar-chart"></i><span>竞赛统计</span></a></li>
+                <li><a href="${path}/competitionStat/competitionStat" target="myFrame"><i class="fa fa-bar-chart"></i><span>竞赛统计</span></a></li>
             </ul>
         </section>
     </aside>

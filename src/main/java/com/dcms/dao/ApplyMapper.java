@@ -63,6 +63,8 @@ public interface ApplyMapper {
     List findNumByGroup(Integer id);
 
     //统计各组别的报名人数
-    List<CompetitionStat> getApplyNumbByGroup(Integer id);
+    List<CompetitionStat> getApplyNumbByGroup(@Param("id")Integer id);
+    //统计各竞赛的报名人数
+    List<CompetitionStat> getApplyNumbById(@Param("id")Integer id);
 
 }

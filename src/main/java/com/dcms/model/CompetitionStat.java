@@ -8,7 +8,7 @@ package com.dcms.model;
 public class CompetitionStat {
     private int competitionId;//竞赛id
     private int applyNumber; //报名人数
-    private int groupName; //组别
+    private String groupName; //组别
     private double average; //平均分
     private int maxGrape;//最高分
     private int minGrape;//最低分
@@ -28,13 +28,12 @@ public class CompetitionStat {
     public void setApplyNumber(int applyNumber) {
         this.applyNumber = applyNumber;
     }
-    
 
-    public int getGroupName() {
+    public String getGroupName() {
         return groupName;
     }
 
-    public void setGroupName(int groupName) {
+    public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 

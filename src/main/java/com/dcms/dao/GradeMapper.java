@@ -42,13 +42,15 @@ public interface GradeMapper {
                             @Param("groupName") String groupName, @Param("num") Integer num);
 
     //查询竞赛的总平均分
-    List<CompetitionStat> getCompetitionAvgById(Integer id);
+    List<CompetitionStat> getCompetitionAvgById(@Param("id")Integer id);
 
     //查询各组别的平均分
-    List<CompetitionStat> getCompetitionAvgByGroup(Integer id);
+    List<CompetitionStat> getCompetitionAvgByGroup(@Param("id")Integer id);
 
     //查询各组别的最高分和最低分
-    List<CompetitionStat> getMaxAndMinGrade(Integer id);
+    List<CompetitionStat> getMaxAndMinGradeByGroup(@Param("id")Integer id);
+    //查询竞赛的最高分和最低分
+    List<CompetitionStat> getMaxAndMinGradeById(@Param("id")Integer id);
 
 
 }

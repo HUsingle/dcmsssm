@@ -77,13 +77,28 @@
         <if test="id!=0">
             where c_id=#{id}
         </if>
-        group by c_group_name
+        group by c_id,c_group_name
+        ORDER BY competitionId
+    </select>
+
+    <!--统计各竞赛的报名人数-->
+    <select id="getApplyNumbById" resultType="com.dcms.model.CompetitionStat">
+        select c_id as competitionId,
+        count(apply_id) as applyNumber
+        from db_apply
+        <if test="id!=0">
+            where c_id=#{id}
+        </if>
+        group by c_id
         ORDER BY competitionId
     </select>
 
     <!--通过竞赛的id和组的名字查询参加该竞赛组别的人数情况-->
     <select id="findApplyNumByGroup" resultType="java.lang.Integer">
-        select count(s_number) from db_apply where c_id=#{id} and c_group_name=#{groupName}
+        select count(s_number) from db_apply where c_id=#{id}
+        <if test="groupName!=''">
+        and c_group_name=#{groupName}
+        </if>
     </select>
     <!--通过竞赛的id和组的名字查询参加该竞赛组别报名id-->
     <select id="findApplyIdByGroupAndCid" resultMap="applyMap">

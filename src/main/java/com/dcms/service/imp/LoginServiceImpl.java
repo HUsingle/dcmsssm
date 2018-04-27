@@ -1,6 +1,5 @@
 package com.dcms.service.imp;
 
-import com.dcms.dao.CompetitionMapper;
 import com.dcms.dao.StudentMapper;
 import com.dcms.dao.TeacherMapper;
 import com.dcms.model.Student;
@@ -14,8 +13,8 @@ public class LoginServiceImpl implements LoginService {
     StudentMapper stu;
     @Autowired
     TeacherMapper tea;
-    @Autowired
-    CompetitionMapper competitionMapper;
+    //@Autowired
+    //CompetitionMapper competitionMapper;
     //检查学生账号
     public boolean checkStu(String account,String pwd) {
         Student student = stu.qryByAccountAndPwd(account,pwd);

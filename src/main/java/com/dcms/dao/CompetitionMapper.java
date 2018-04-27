@@ -20,9 +20,9 @@ public interface CompetitionMapper {
 
     int addCompetition(Competition competition);//添加竞赛信息
 
-    String findCompetitionFile(int id); //根据id查询文件名
+    String findCompetitionFile(Integer id); //根据id查询文件名
 
-    Competition findCompetitionById(int id);//通过id查询竞赛
+    Competition findCompetitionById(Integer id);//通过id查询竞赛
 
     int deleteCompetition(Integer[] ids); //批量删除竞赛记录
 
@@ -33,6 +33,7 @@ public interface CompetitionMapper {
     int findNotUpdCompetitionFileIsExist(@Param("file") String file, @Param("id") int id);//修改时除了自己是否存在文件名一样的
 
     String qryCompGroup(String id); //查询子类别、分组
+
     List<Competition> qryByPage(@Param("on")String on, @Param("end")String end, @Param("noStart")String noStart); //分页和条件查询
 
     String findCompetitionName(Integer id);//查询竞赛名字

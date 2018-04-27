@@ -39,22 +39,34 @@
         where db_apply.s_number=db_grade.s_number
         and db_apply.c_id=db_grade.c_id
         <if test="id!=0">
-            and c_id=#{id}
+            and db_apply.c_id=#{id}
         </if>
         GROUP BY c_group_name,db_grade.c_id
         ORDER BY competitionId
     </select>
     <!--查询各组别的最高分和最低分-->
-    <select id="getMaxAndMinGrade" resultType="com.dcms.model.CompetitionStat">
+    <select id="getMaxAndMinGradeByGroup" resultType="com.dcms.model.CompetitionStat">
         select db_grade.c_id as competitionId ,MAX(grade) as maxGrape,
         MIN(grade) as minGrape,c_group_name as groupName
         FROM db_apply,db_grade
         where db_apply.s_number=db_grade.s_number
         and db_apply.c_id=db_grade.c_id
         <if test="id!=0">
-            and c_id=#{id}
+            and db_apply.c_id=#{id}
         </if>
         GROUP BY c_group_name,db_grade.c_id
+        ORDER BY competitionId
+    </select>
+
+    <!--查询竞赛的最高分和最低分-->
+    <select id="getMaxAndMinGradeById" resultType="com.dcms.model.CompetitionStat">
+        select c_id as competitionId ,MAX(grade) as maxGrape,
+        MIN(grade) as minGrape
+        FROM db_grade
+        <if test="id!=0">
+            where c_id=#{id}
+        </if>
+        GROUP BY c_id
         ORDER BY competitionId
     </select>
     <!--根据成绩排序获取设置获奖人数的学号-->

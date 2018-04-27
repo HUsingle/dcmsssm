@@ -330,7 +330,16 @@
 
         });
         $("#arrange").click(function () {
-            if ($("#competitionGroup").val() === "") {
+            var compObject=getCompetitionObject();
+            var groupName="";
+            for(var k=0;i<compObject.length;k++){
+                if(compObject[k].id==$("#competition").val()){
+                    groupName=compObject[k].group;
+                    break;
+                }
+            }
+            //alert(groupName);
+            if ($("#competitionGroup").val() === ""&&groupName.length>0) {
                 initMessage("安排考场时只能一个一个组别安排!", 'error');
                 return;
             }
