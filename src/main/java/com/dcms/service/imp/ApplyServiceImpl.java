@@ -238,7 +238,9 @@ public class ApplyServiceImpl implements ApplyService {
                 }
             }
             if (dataList.size() > 0) {
-                studentMapper.importStudent(studentList);
+                if (studentList.size() > 0) {
+                    studentMapper.importStudent(studentList);
+                }
                 exResult = applyMapper.importApply(dataList, competitionId);
             }
         }

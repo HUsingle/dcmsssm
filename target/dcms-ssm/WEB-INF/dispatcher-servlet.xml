@@ -75,7 +75,7 @@
     </mvc:annotation-driven>
 
 <!--注册拦截器-->
-   <!-- <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <bean class="com.dcms.interceptor.LoginInterceptor"></bean>

@@ -32,6 +32,12 @@
         update db_teacher set t_name=#{name},t_phone=#{phone},t_password=#{password},
         t_sex=#{sex},t_email=#{email},t_college=#{college} where t_id=#{id}
     </update>
+
+    <!--修改老师-->
+    <update id="updateSelfTeacher" parameterType="com.dcms.model.Teacher">
+        update db_teacher set t_name=#{name},t_phone=#{phone},
+        t_sex=#{sex},t_email=#{email},t_college=#{college} where t_id=#{id}
+    </update>
     <!--更新密码-->
     <update id="updatePassword">
         update db_teacher set t_password=#{password} where t_id=#{id}

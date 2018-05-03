@@ -61,22 +61,18 @@ public class TeacherController {
     @RequestMapping(value = "/updateSelfTeacher", method = RequestMethod.POST)
     @ResponseBody
     public String updateSelfTeacher(@RequestParam("id") String id, @RequestParam("name") String name,
-                                    @RequestParam("password") String password, @RequestParam("college") String college,
+                                    @RequestParam("college") String college,
                                     @RequestParam("phone") String phone, @RequestParam("email") String email,
                                     @RequestParam("sex") String sex, HttpServletRequest request) {
-        return teacherService.updateSelfTeacher(id,name,college,phone,email,sex,request,password);
+        return teacherService.updateSelfTeacher(id,name,college,phone,email,sex,request);
 
     }
 
-    @RequestMapping(value = "/updateTeacherPassword")
+    @RequestMapping(value = "/updateTeacherPassword", method = RequestMethod.POST)
+    @ResponseBody
     public String updateTeacherPassword(@RequestParam("id") Long id,
                                 @RequestParam("password") String password,HttpServletRequest request){
-     /*   if(teacherService.updatePassword(id,password)>0){
-        request.getSession().removeAttribute("account");
-        request.getSession().invalidate();
-        return "login";
-        }*/
-        return null;
+        return teacherService.updatePassword(id,password,request);
 
     }
 

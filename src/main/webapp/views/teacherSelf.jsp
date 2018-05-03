@@ -277,14 +277,6 @@
             $("#myDiv").hide();
             $("#myPasswordBox").show();
         });
-        function teacherLogOut() {
-            $.ajax({
-                type: "POST",
-                url: "${path}/teacherLogout",
-                success: function (data) {
-                }
-            });
-        }
         $("#submitButton").click(function () {
             var phone = $("#phone").val();
             var name = $("#name").val();
@@ -304,7 +296,7 @@
                 type: "POST",
                 url: "${path}/teacher/updateSelfTeacher",
                 dataType: "json",
-                data: "id=" + ${sessionScope.account.id} +"&" + "password=" + ${sessionScope.account.password} +"&" + $("#myFrom").serialize(),
+                data: "id=" + ${sessionScope.account.id} +"&" + $("#myFrom").serialize(),
                 success: function (data) {
                     if (data['result'] > 0) {
                         window.location.href = "${path}/views/teacherSelf.jsp"
@@ -324,6 +316,10 @@
                 initMessage("旧密码不正确!", "error");
                 return;
             }
+            if(newPassword.length<6||newPassword.length>20){
+                initMessage("密码的长度应该在6-20之间!", "error");
+                return;
+            }
             if (newPassword1 !== newPassword) {
                 initMessage("两次新密码不正确!", "error");
                 return;
@@ -338,7 +334,11 @@
                 dataType: "json",
                 success: function (data) {
                     if (data["result"]>0) {
-                       //teacherLogOut();
+                        window.location.href = "${path}/views/teacherSelf.jsp";
+                      //  initMessage("修改成功！","success");
+                       // $("#myPasswordBox").hide();
+                      //  $("#myDiv").show();
+
                     }
                 }
             });

@@ -34,17 +34,15 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     public String updateSelfTeacher(String id, String name, String college, String phone,
-                                    String email, String sex,HttpServletRequest request ,
-                                    String password) {
+                                    String email, String sex,HttpServletRequest request) {
         Teacher teacher=new Teacher();
         teacher.setId(Long.parseLong(id));
         teacher.setName(name);
-        teacher.setPassword(password);
         teacher.setEmail(email);
         teacher.setCollege(college);
         teacher.setSex(sex);
         teacher.setPhone(Long.parseLong(phone));
-        int result=teacherMapper.updateTeacher(teacher);
+        int result=teacherMapper.updateSelfTeacher(teacher);
         if(result>0){
             request.getSession().removeAttribute("account");
             request.getSession().setAttribute("account",teacher);
@@ -52,8 +50,13 @@ public class TeacherServiceImpl implements TeacherService {
         return Tool.result(result);
     }
 
-    public int updatePassword(Long id, String password) {
-       return teacherMapper.updatePassword(id,password);
+    public String updatePassword(Long id, String password,HttpServletRequest request) {
+       int result= teacherMapper.updatePassword(id,password);
+       if(result>0){
+           Teacher teacher=(Teacher) request.getSession().getAttribute("account");
+           teacher.setPassword(password);
+       }
+       return Tool.result(result);
     }
 
     //按教师ID查询教师信息

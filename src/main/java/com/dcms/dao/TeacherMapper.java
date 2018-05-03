@@ -14,6 +14,7 @@ public interface TeacherMapper {
      List<Teacher> getAllTeacher(@Param("sort") String sort,@Param("id") Long id);
      List<Teacher> getTeacherNameAndId();
      int updateTeacher(Teacher teacher);
+     int updateSelfTeacher(Teacher teacher);
      int deleteTeacher(Long[] ids);
      int addTeacher(List<Teacher> teachers);
      Teacher findTeacherById(Long id);

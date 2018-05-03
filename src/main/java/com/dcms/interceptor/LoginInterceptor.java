@@ -10,15 +10,11 @@ import javax.servlet.http.HttpServletResponse;
  * Created by single on 2018/4/7.
  */
 public class LoginInterceptor implements HandlerInterceptor {
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse httpServletResponse, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         if(request.getSession().getAttribute("account")==null){
-           String basePath = request.getServerName() + ":" + request.getServerPort();
-            //System.out.println("hafds");
-           // httpServletResponse.sendRedirect( basePath+"/views/login.jsp");
-            //request.getRequestDispatcher("login.jsp").forward(request,httpServletResponse);
-            //System.out.println("3515213");
-           // request.getRequestDispatcher("new.jsp").forward(request, httpServletResponse);   //转发到new.jsp
-
+           //String basePath = request.getServerName() + ":" + request.getServerPort();
+           // request.getRequestDispatcher("login.jsp").forward(request,response);
+            //response.sendRedirect("/views/login.jsp");
             return false;
         }
         return true;

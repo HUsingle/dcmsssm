@@ -70,6 +70,7 @@ public class StudentExcelData implements ExcelData {
               if(fieldList.get(5).length()!=0&&Tool.isNumber(fieldList.get(5))){
                   student.setPhone(Long.parseLong(fieldList.get(5)));
               }
+           //   System.out.println(fieldList.get(6)+"jnsdfvkn");
               student.setEmail(fieldList.get(6));
               studentList.add(student);
             }

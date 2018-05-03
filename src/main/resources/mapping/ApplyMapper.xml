@@ -130,7 +130,7 @@
         </foreach>
     </insert>
     <!--导入数据-->
-    <insert id="importApply">
+    <insert id="importApply" parameterType="java.util.List">
         insert into db_apply(s_number,c_id,apply_time,c_group_name) values
         <foreach collection="list" item="item" separator=",">
             (#{item.username},#{competitionId},now(),#{item.competitionGroup})

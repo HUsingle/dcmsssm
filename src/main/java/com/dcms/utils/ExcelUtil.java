@@ -193,6 +193,7 @@ public class ExcelUtil {
                 if (row != null) {
                     int lastCellNum = row.getLastCellNum(); //获得最后一个单元格下标
                     //System.out.print(lastCellNum+"/");
+                    //System.out.println(head.length+"  "+lastCellNum);
                     if (lastCellNum != head.length) {//判断下标与表头的长度是否相等
                         errorList.add(Tool.result("字段数目与模板不相符！"));
                         return errorList;
@@ -200,6 +201,7 @@ public class ExcelUtil {
                     if (firstRowNum == i) {//如果是表头
                         for (int k = 0; k < head.length; k++) {
                             Cell headCell = row.getCell(k);
+                           // System.out.println(getCellValue(headCell)+"sfd");
                             if (!head[k].equals(getCellValue(headCell))) {////判断导入表格的表头的字段是否正确
                                 errorList.add(Tool.result("表头字段不对或者顺序不对！"));
                                 return errorList;

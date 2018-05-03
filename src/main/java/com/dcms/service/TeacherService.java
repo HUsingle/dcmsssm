@@ -29,11 +29,10 @@ public interface TeacherService {
                          String phone, String email,String sex);
     //更新个人信息
     String updateSelfTeacher(String id,String name,String college,
-                         String phone, String email,String sex,HttpServletRequest request,
-                             String password);
+                         String phone, String email,String sex,HttpServletRequest request);
 
     //修改密码
-    int updatePassword(Long id,String password);
+    String updatePassword(Long id,String password,HttpServletRequest request);
     //导入老师
     String importTeacherExcel(MultipartFile file);
     //导出老师模板
