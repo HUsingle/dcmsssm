@@ -129,7 +129,7 @@
         <result property="groupName" column="c_group_name"/>
         <result property="isLeader" column="is_group_leader"/>
         <result property="teamName" column="group_name"/>
-        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentById"/>
+        <association property="student" column="s_number" select="com.dcms.dao.StudentMapper.findStudentByUsername"/>
     </resultMap>
 
 </mapper>

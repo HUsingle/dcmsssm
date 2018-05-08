@@ -299,7 +299,7 @@
                 data: "id=" + ${sessionScope.account.id} +"&" + $("#myFrom").serialize(),
                 success: function (data) {
                     if (data['result'] > 0) {
-                        window.location.href = "${path}/views/teacherSelf.jsp"
+                        window.location.href = "${path}/views/teacherSelf.jsp";
                     }
                 }
             });
@@ -316,7 +316,7 @@
                 initMessage("旧密码不正确!", "error");
                 return;
             }
-            if(newPassword.length<6||newPassword.length>20){
+            if (newPassword.length < 6 || newPassword.length > 20) {
                 initMessage("密码的长度应该在6-20之间!", "error");
                 return;
             }
@@ -333,11 +333,11 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data["result"]>0) {
+                    if (data["result"] > 0) {
                         window.location.href = "${path}/views/teacherSelf.jsp";
-                      //  initMessage("修改成功！","success");
-                       // $("#myPasswordBox").hide();
-                      //  $("#myDiv").show();
+                        initMessage("修改成功！", "success");
+                        // $("#myPasswordBox").hide();
+                        //  $("#myDiv").show();
 
                     }
                 }

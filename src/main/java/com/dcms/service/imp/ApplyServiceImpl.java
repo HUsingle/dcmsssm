@@ -223,7 +223,7 @@ public class ApplyServiceImpl implements ApplyService {
         long username;
         List<Student> studentList = new ArrayList<Student>();
         if (dataList.size() == 0) {
-            return Tool.result("缺少行或者学号出错!");
+            return Tool.result("缺少行或者学号出错或者所填数据不是文本类型!");
         } else if (dataList.size() == 1 && (dataList.get(0) instanceof String)) {
             return dataList.get(0).toString();
 

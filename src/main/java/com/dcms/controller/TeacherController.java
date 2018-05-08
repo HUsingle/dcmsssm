@@ -30,7 +30,8 @@ public class TeacherController {
     @ResponseBody
     public String getAllTeacher(@RequestParam(defaultValue = "1") Integer offset,
                                 @RequestParam(defaultValue = "10") Integer limit,
-                                @RequestParam(defaultValue = "asc")  String sort,Long id) {
+                                @RequestParam(defaultValue = "asc")  String sort,
+                                Long id) {
         PageHelper.startPage(offset, limit);
         List<Teacher> teacherList = teacherService.getAllTeacher(sort,id);
         PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(teacherList);

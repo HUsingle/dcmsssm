@@ -93,6 +93,9 @@ public class ExcelUtil {
                 case Cell.CELL_TYPE_STRING://字符串
                     value = cell.getStringCellValue();
                     break;
+                case Cell.CELL_TYPE_NUMERIC://数字
+                    value=cell.getNumericCellValue()+"";
+                    break;
                 default:
                     value = "";
                     break;
@@ -172,6 +175,7 @@ public class ExcelUtil {
     public static List importExcel(MultipartFile file, String[] head, ExcelData excelData) {
         String fileName = file.getOriginalFilename();
         Workbook workbook = null;
+        Cell cell=null;
         List<List<String>> lists = new ArrayList<List<String>>();
         List<String> errorList = new ArrayList<String>();
         try {
@@ -182,35 +186,36 @@ public class ExcelUtil {
                 workbook = new XSSFWorkbook(inputStream);
             }
             Sheet sheet = workbook.getSheetAt(0);//获取表头
-            int firstRowNum = sheet.getFirstRowNum();//获取第一行下标
             int lastRowNum = sheet.getLastRowNum();//获取最后一行下标
+            int lastCellNum;
             if (lastRowNum < 1) {
                 errorList.add(Tool.result("请填入相关数据！"));
                 return errorList;
             }
-            for (int i = firstRowNum; i <= lastRowNum; i++) {//从第一行到最后一行获取数据
+            for (int i = 0; i <= lastRowNum; i++) {//从第一行到最后一行获取数据
                 Row row = sheet.getRow(i);  //获得一行
                 if (row != null) {
-                    int lastCellNum = row.getLastCellNum(); //获得最后一个单元格下标
-                    //System.out.print(lastCellNum+"/");
+                  lastCellNum = row.getLastCellNum(); //获得最后一个单元格下标
+                    //System.out.print(lastCellNum+"/101");
                     //System.out.println(head.length+"  "+lastCellNum);
-                    if (lastCellNum != head.length) {//判断下标与表头的长度是否相等
+                  /*  if (lastCellNum != head.length) {//判断下标与表头的长度是否相等
                         errorList.add(Tool.result("字段数目与模板不相符！"));
                         return errorList;
-                    }
-                    if (firstRowNum == i) {//如果是表头
+                    }*/
+                    if (i== 0) {//如果是表头
                         for (int k = 0; k < head.length; k++) {
-                            Cell headCell = row.getCell(k);
+                           cell = row.getCell(k);
                            // System.out.println(getCellValue(headCell)+"sfd");
-                            if (!head[k].equals(getCellValue(headCell))) {////判断导入表格的表头的字段是否正确
+                            if (!head[k].equals(getCellValue(cell))) {////判断导入表格的表头的字段是否正确
                                 errorList.add(Tool.result("表头字段不对或者顺序不对！"));
                                 return errorList;
                             }
                         }
                     } else {//不是，则将表格的一行数据放在list中，再添加lists中
                         List<String> list = new ArrayList<String>();
-                        for (int j = row.getFirstCellNum(); j < lastCellNum; j++) {
-                            Cell cell = row.getCell(j);
+                        for (int j = 0; j < lastCellNum; j++) {
+                            cell = row.getCell(j);
+                            //System.out.println(getCellValue(cell)+"w");
                             list.add(getCellValue(cell));
                         }
                         lists.add(list);

@@ -1,6 +1,8 @@
 package com.dcms.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.dcms.model.Competition;
 import com.dcms.model.Grade;
 import com.dcms.service.CompetitionService;
@@ -48,7 +50,7 @@ public class GradeController {
         JSONObject result = new JSONObject();
         result.put("total", pageInfo.getTotal());
         result.put("rows", gradeList);
-        return result.toJSONString();
+        return JSON.toJSONString(result, SerializerFeature.DisableCircularReferenceDetect);
     }
 
     @RequestMapping(value = "/addGrade", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)

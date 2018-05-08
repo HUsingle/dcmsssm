@@ -145,7 +145,7 @@ public class PrizeServiceImpl implements PrizeService {
         String result;
         long username;
         if (dataList.size() == 0) {
-            return Tool.result("缺少行或者学号出错!");
+            return Tool.result("缺少行或者学号出错或者所填数据不是文本类型!");
         } else if (dataList.size() == 1 && (dataList.get(0) instanceof String)) {
             return dataList.get(0).toString();
 
@@ -172,7 +172,7 @@ public class PrizeServiceImpl implements PrizeService {
 
     public void exportPrizeExcelModel(HttpServletResponse response) {
         String[] head = {"学号", "奖项",};
-        ExcelUtil.exportModeExcel(head, "获奖导入模板.xls", response, 401);
+        ExcelUtil.exportModeExcel(head, "获奖导入模板.xls", response, 60);
     }
 
     public void exportPrizeExcel(HttpServletResponse response, Integer competitionId) {

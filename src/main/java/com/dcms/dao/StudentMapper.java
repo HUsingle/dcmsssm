@@ -38,6 +38,8 @@ public interface StudentMapper {
 
     //通过id查询学生
     Student findStudentById(Long username);
+    //通过id查询学生
+    Student findStudentByUsername(Long username);
 
     //通过username查询是否有该学生信息
     int isExistStudent(Long username);

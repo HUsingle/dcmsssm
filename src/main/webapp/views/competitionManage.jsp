@@ -301,8 +301,8 @@
     }
     $(function () {
         initTable('#myTable', "${path}/comp/getCompetitionList",
-            ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
-            ['id', '竞赛名称','比赛开始时间', '比赛结束时间', '举办单位','比赛地点','报名开始时间','报名结束时间','文件','竞赛类型','负责人','竞赛组别'], true, -1);
+            ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group','publishTime'],
+            ['id', '竞赛名称','比赛开始时间', '比赛结束时间', '举办单位','比赛地点','报名开始时间','报名结束时间','文件','竞赛类型','负责人','竞赛组别','发布时间'], true, -1);
         $("#myTable").bootstrapTable('hideColumn','cid');
         initUpdateAndAddInformation("添加竞赛", "修改竞赛", ['cid','name','compeStartTime','compeEndTime','host','place','applyStart','applyEnd','file','isTeam','tid','group'],
             "${path}/comp/deleteCompetition", "cid");

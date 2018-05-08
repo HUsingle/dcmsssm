@@ -66,7 +66,7 @@ public class ClassroomServiceImpl implements ClassroomService {
         int exResult = 0;
         String result;
         if (dataList.size() == 0) {
-            return Tool.result("缺少行或者教室数据出错!");
+            return Tool.result("缺少行或者所填数据不是文本类型!");
         } else if (dataList.size() == 1) {
             if ((dataList.get(0) instanceof String)) {
                 return dataList.get(0).toString();

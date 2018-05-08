@@ -39,7 +39,7 @@ public class Tool {
     }
     //判断是否都是数字
     public static boolean isNumber(String text){
-        Pattern pattern=Pattern.compile("[0-9]*");
+        Pattern pattern=Pattern.compile("[0-9.]*");
         Matcher matcher=pattern.matcher(text);
         return matcher.matches();
     }

@@ -12,17 +12,20 @@ import java.util.List;
  * Created by single on 2018/4/21.
  */
 public class GradeExcelData implements ExcelData{
-    public List getExcelData(List<List<String>> list) {
+    public List<Grade> getExcelData(List<List<String>> list) {
         List<Grade> gradeList=new ArrayList<Grade>();
         List<String>  fieldList=null;
         Grade grade=null;
+        //System.out.println(list.size()+"fgsdg");
         for(int i=0;i<list.size();i++){
             fieldList=list.get(i);
-            if(fieldList.get(0).length()!=0&& Tool.isNumber(fieldList.get(0))
-                    &&fieldList.get(1).length()!=0&& Tool.isNumber(fieldList.get(1))){
+            //System.out.println(fieldList.get(0)+"   "+fieldList.get(1));
+            if(fieldList.get(0).length()>0&& Tool.isNumber(fieldList.get(0))
+                    &&fieldList.get(1).length()>0&& Tool.isNumber(fieldList.get(1))){
+                //System.out.println(fieldList.get(0)+fieldList.get(1)+"df");
                 grade=new Grade();
                 grade.setUsername(Long.parseLong(fieldList.get(0)));
-                grade.setGrade(Integer.parseInt(fieldList.get(1)));
+                grade.setGrade(Float.parseFloat(fieldList.get(1)));
                 gradeList.add(grade);
             }
         }
