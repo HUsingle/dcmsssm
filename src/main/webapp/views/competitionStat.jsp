@@ -64,7 +64,7 @@
 
 
 </div>
-<canvas id="barChart" style="height: 230px; width: 510px;display:none;"></canvas>
+<%--<canvas id="barChart" style="height: 230px; width: 510px;display:none;"></canvas>--%>
 <script src="${path}/resources/js/jquery.min.js"></script>
 <script src="${path}/resources/js/bootstrap.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
@@ -75,8 +75,7 @@
 <script src="${path}/resources/js/Chart.min.js"></script>
 <script>
 
-
-    var barChartData = {
+  /*  var barChartData = {
         labels : ["2017","2018"],
         datasets : [
             {
@@ -89,13 +88,13 @@
                 strokeColor : "rgba(151,187,205,1)",
                 data : [49,88]
             }
-            /*{
+            /!*{
                 fillColor : "rgba(151,187,205,0.5)",
                 strokeColor : "rgba(151,187,205,1)",
                 data : [302,388]
-            }*/
+            }*!/
         ]
-    };
+    };*/
   /*  var barChartOptions                  = {
         //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
         scaleBeginAtZero        : true,
@@ -125,12 +124,12 @@
 
     barChartOptions.datasetFill = false;*/
 
-    var barChartCanvas = $('#barChart').get(0).getContext('2d');
+   /* var barChartCanvas = $('#barChart').get(0).getContext('2d');
     //new Chart(ctx).Bar(data,options);//简记，options可缺省
     barChartData.datasets[1].fillColor   = '#605ca8';
     barChartData.datasets[1].strokeColor = '#605ca8';
     barChartData.datasets[1].pointColor  = '#605ca8';
-    var barChart= new Chart(barChartCanvas).Bar(barChartData);
+    var barChart= new Chart(barChartCanvas).Bar(barChartData);*/
 
 
 
