@@ -38,7 +38,7 @@
         <form id="myFrom" class="form-horizontal" method="post" action="##" onsubmit="return false"
               style="margin-left: 2px;">
             <div class="form-group" style="padding-top: 10px;padding-bottom: 4px;">
-                <div class="col-sm-5">
+                <div class="col-sm-8">
                     <input type="file" id="compFile" name="compFile"/>
                 </div>
             </div>
@@ -54,7 +54,7 @@
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="${path}/resources/js/messenger.min.js"></script>
-<script src="${path}/resources/js/create-table.js"></script>
+<script src="${path}/resources/js/actionBar.js"></script>
 <script src="${path}/resources/js/fileinput.min.js"></script>
 <script src="${path}/resources/js/zh.js"></script>
 <script>
@@ -79,11 +79,13 @@
             var result = data.response.result;
             //$(this).fileinput('destroy');
             if (result > 0) {
+                $(this).val("");
                 initMessage("添加成功！", 'success');
                 $("#myTable").bootstrapTable('refresh');
                 $("#myBox").hide();
                 $("#myDiv").show();
-              //  myFile.fileinput('clear');//清空所有文件
+
+              //  $(this).fileinput('clear');//清空所有文件
             } else {
                 initMessage("添加失败,添加的数据存在错误或者服务器异常！", 'error');
             }
@@ -106,6 +108,7 @@
     $(function () {
         initTable('#myTable', "${path}/competitionFile/getCompetitionFileList", ['id', 'fileName', 'uploadTime'],
             ['文件编号', '文件名称', '上传时间'], true, 0);
+        $("#myTable").bootstrapTable('hideColumn','id');
         intFileInput();
         $("#quit").click(function () {
             $("#myBox").hide();

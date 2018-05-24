@@ -29,12 +29,10 @@ public class ClassroomServiceImpl implements ClassroomService {
 
     public String addClassroom(String number, String site) {
         Classroom classroom=new Classroom();
-        if (Tool.isNumber(number) && number.length() != 0) {
-            classroom.setNumber(Integer.parseInt(number));
+        if(classroomMapper.isExistSite(site)>0){
+            return Tool.result("该考场地点已经存在");
         }
-        if(!Tool.isNumber(number)){
-            return Tool.result(0);
-        }
+        classroom.setNumber(Integer.parseInt(number));
         classroom.setSite(site);
         List<Classroom> classroomList=new ArrayList<Classroom>();
         classroomList.add(classroom);
@@ -49,12 +47,7 @@ public class ClassroomServiceImpl implements ClassroomService {
     public String updateClassroom(String id, String number, String site) {
         Classroom classroom=new Classroom();
         classroom.setId(Integer.parseInt(id));
-        if (Tool.isNumber(number) && number.length() != 0) {
-            classroom.setNumber(Integer.parseInt(number));
-        }
-        if(!Tool.isNumber(number)){
-            return Tool.result(0);
-        }
+        classroom.setNumber(Integer.parseInt(number));
         classroom.setSite(site);
         return Tool.result(classroomMapper.updateClassroom(classroom));
     }

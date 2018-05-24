@@ -55,7 +55,7 @@ public class ClassroomController {
 
     @RequestMapping(value = "/addClassroom", method = RequestMethod.POST)
     @ResponseBody
-    public String addClassroom(@RequestParam("id") String id, @RequestParam("number") String number,
+    public String addClassroom(@RequestParam("number") String number,
                              @RequestParam("site") String site) {
         return classroomService.addClassroom(number,site);
     }

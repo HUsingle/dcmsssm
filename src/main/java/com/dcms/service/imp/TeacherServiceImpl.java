@@ -34,12 +34,13 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     public String updateSelfTeacher(String id, String name, String college, String phone,
-                                    String email, String sex,HttpServletRequest request) {
+                                    String email, String sex,String password,HttpServletRequest request) {
         Teacher teacher=new Teacher();
         teacher.setId(Long.parseLong(id));
         teacher.setName(name);
         teacher.setEmail(email);
         teacher.setCollege(college);
+        teacher.setPassword(password);
         teacher.setSex(sex);
         teacher.setPhone(Long.parseLong(phone));
         int result=teacherMapper.updateSelfTeacher(teacher);
@@ -118,7 +119,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     public String importTeacherExcel(MultipartFile file) {
         ExcelData teacherInsertExcelData = new TeacherExcelData();
-        String[] head = {"姓名", "性别","密码", "学院", "手机号码", "电子邮箱"};
+        String[] head = {"姓名", "性别", "学院", "手机号码", "电子邮箱"};
         List dataList = ExcelUtil.importExcel(file, head, teacherInsertExcelData);
         int exResult = 0;
         String result;
@@ -142,12 +143,16 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     public void exportTeacherExcelModel(HttpServletResponse response) {
-        String[] head = {"姓名", "性别","密码", "学院", "手机号码", "电子邮箱"};
+        String[] head = {"姓名", "性别", "学院", "手机号码", "电子邮箱"};
         ExcelUtil.exportModeExcel(head, "老师信息模板.xls", response,51);
     }
 
     public Teacher findTeacherByPhone(String phone) {
         return teacherMapper.findTeacherByPhone(phone);
+    }
+
+    public String isExistPhone(String phone) {
+        return Tool.result(teacherMapper.isExistPhone(phone));
     }
 }
 

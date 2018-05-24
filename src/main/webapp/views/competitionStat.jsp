@@ -58,13 +58,13 @@
                 </table>
             </div>
         </div>
+
     </div>
 
 
 
 </div>
-
-
+<canvas id="barChart" style="height: 230px; width: 510px;display:none;"></canvas>
 <script src="${path}/resources/js/jquery.min.js"></script>
 <script src="${path}/resources/js/bootstrap.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
@@ -72,7 +72,69 @@
 <script src="${path}/resources/js/messenger.min.js"></script>
 <script src="${path}/resources/js/bootstrap-select.min.js"></script>
 <script src="${path}/resources/js/defaults-zh_CN.min.js"></script>
+<script src="${path}/resources/js/Chart.min.js"></script>
 <script>
+
+
+    var barChartData = {
+        labels : ["2017","2018"],
+        datasets : [
+            {
+                fillColor : "rgba(220,220,220,0.5)",
+                strokeColor : "rgba(220,220,220,1)",
+                data : [253,300]
+            },
+            {
+                fillColor : "rgba(151,187,205,0.5)",
+                strokeColor : "rgba(151,187,205,1)",
+                data : [49,88]
+            }
+            /*{
+                fillColor : "rgba(151,187,205,0.5)",
+                strokeColor : "rgba(151,187,205,1)",
+                data : [302,388]
+            }*/
+        ]
+    };
+  /*  var barChartOptions                  = {
+        //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+        scaleBeginAtZero        : true,
+        //Boolean - Whether grid lines are shown across the chart
+        scaleShowGridLines      : true,
+        //String - Colour of the grid lines
+        scaleGridLineColor      : 'rgba(0,0,0,.05)',
+        //Number - Width of the grid lines
+        scaleGridLineWidth      : 1,
+        //Boolean - Whether to show horizontal lines (except X axis)
+        scaleShowHorizontalLines: true,
+        //Boolean - Whether to show vertical lines (except Y axis)
+        scaleShowVerticalLines  : true,
+        //Boolean - If there is a stroke on each bar
+        barShowStroke           : true,
+        //Number - Pixel width of the bar stroke
+        barStrokeWidth          : 2,
+        //Number - Spacing between each of the X value sets
+        barValueSpacing         : 5,
+        //Number - Spacing between data sets within X values
+        barDatasetSpacing       : 1,
+        //String - A legend template
+        //Boolean - whether to make the chart responsive
+        responsive              : true,
+        maintainAspectRatio     : true
+    };
+
+    barChartOptions.datasetFill = false;*/
+
+    var barChartCanvas = $('#barChart').get(0).getContext('2d');
+    //new Chart(ctx).Bar(data,options);//简记，options可缺省
+    barChartData.datasets[1].fillColor   = '#605ca8';
+    barChartData.datasets[1].strokeColor = '#605ca8';
+    barChartData.datasets[1].pointColor  = '#605ca8';
+    var barChart= new Chart(barChartCanvas).Bar(barChartData);
+
+
+
+
     function mergeTable(field, mytable, data) {//一列中如果连续相邻相同则合并
         var temp = data[0][field];
         var ind = 0;

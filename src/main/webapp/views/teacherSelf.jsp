@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="${path}/resources/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="${path}/resources/css/myCss.css">
     <style>
-        li {
+        .nav li {
             padding-bottom: 20px;
             padding-top: 20px;
             font-size: 16px;
@@ -30,27 +30,40 @@
     <form class="form-horizontal" style="margin-left: -3px;margin-bottom: 15px;">
         <a class="btn bg-purple bt-flat " id="updateInformation"><i class="fa fa-edit"></i> 修改个人信息</a>
         <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-trash-o"></i> 修改密码</a>
-        <a class="btn bg-purple bt-flat " id="inv"><i class="fa fa-upload"></i>我的监考</a>
+        <a class="btn bg-purple bt-flat " id="inv"><i class="fa fa-user"></i> 我的监考</a>
     </form>
-
-    <div class="col-md-8" style="margin-left: -12px;">
-        <div class="box box-widget widget-user-2">
-            <div class="box-footer no-padding">
-                <ul class="nav nav-stacked">
-                    <li>&nbsp;手机号码<span
-                            class="pull-right badge bg-purple">${sessionScope.account.phone}&nbsp;&nbsp;</span></li>
-                    <li>&nbsp;姓名<span class="pull-right badge bg-purple">${sessionScope.account.name}&nbsp;&nbsp;</span>
-                    </li>
-                    <li>&nbsp;性别<span class="pull-right badge bg-purple">${sessionScope.account.sex}&nbsp;&nbsp;</span>
-                    </li>
-                    <li>&nbsp;学院<span
-                            class="pull-right badge bg-purple">${sessionScope.account.college}&nbsp;&nbsp;</span></li>
-                    <li>&nbsp;电子邮箱<span
-                            class="pull-right badge bg-purple">${sessionScope.account.email}&nbsp;&nbsp;</span></li>
-                </ul>
-            </div>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">个人信息</h3>
         </div>
-
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>&nbsp;&nbsp;手机号码</td>
+                    <td>${sessionScope.account.phone}</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;姓名</td>
+                    <td>${sessionScope.account.name}</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;性别</td>
+                    <td>${sessionScope.account.sex}</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;学院</td>
+                    <td>${sessionScope.account.college}</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;电子邮箱</td>
+                    <td>${sessionScope.account.email}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
     </div>
 
 </div>
@@ -130,20 +143,20 @@
             <div class="form-group">
                 <div class="col-sm-1 control-label">旧密码</div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="oldPassword" name="oldPassword" placeholder="旧密码"/>
+                    <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="旧密码"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-1 control-label">新密码</div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="newPassword" name="newPassword" placeholder="新密码"/>
+                    <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="新密码"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-1 control-label">确认密码</div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="newPassword1" name="newPassword1"
+                    <input type="password" class="form-control" id="newPassword1" name="newPassword1"
                            placeholder="再次输入新密码"/>
                 </div>
             </div>
@@ -165,7 +178,6 @@
 <script src="${path}/resources/js/messenger.min.js"></script>
 <script src="${path}/resources/js/bootstrap-select.min.js"></script>
 <script src="${path}/resources/js/defaults-zh_CN.min.js"></script>
-
 <script>
     function initMessage(message, state) {
         $._messengerDefaults = {
@@ -218,7 +230,6 @@
                 }
                 if (data["rows"] !== null && data["rows"].length > 0) {
                     var result = data["rows"];
-
                     $.each(result, function (index, content) {//对数组进行循环
                         content["teacherId"] = content["teacher"].name;
                         content["phone"] = content["teacher"].phone;
@@ -238,9 +249,6 @@
             if (params.length !== titles.length)
                 return null;
             var arr = [];
-            var obj = {};
-            obj.checkbox = true;
-            arr.push(obj);
             for (var i = 0; i < params.length; i++) {
                 var obje = {};
                 obje.field = params[i];
@@ -279,27 +287,55 @@
         });
         $("#submitButton").click(function () {
             var phone = $("#phone").val();
-            var name = $("#name").val();
-            if (phone === "" || name === "") {
-                initMessage("手机号码或者姓名不可以为空!", "error");
+            if (phone === "") {
+                initMessage("手机号码不可以为空!", "error");
                 return;
             }
             if (isNaN(phone)) {
                 initMessage("手机号码必须为数字!", "error");
                 return;
             }
-            if (phone.length != 11 || parseInt(phone) <= 0) {
+            if (phone.length !== 11 || parseInt(phone) <= 0) {
                 initMessage("手机号码不正确!", "error");
                 return;
             }
+            var oldPhone =${sessionScope.account.phone};
+            var isExist=false;
+            if (oldPhone != phone) {
+                $.ajax({
+                    type: "POST",
+                    url: "${path}/teacher/isExistPhone",
+                    dataType: "json",
+                    async: false,
+                    data: {'phone': phone},
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            isExist = true;
+                        }
+                    }
+                });
+                if (isExist) {
+                    initMessage("该手机号码已经存在!", "error");
+                    return;
+                }
+            }
+            var paramData = {};
+            paramData.id =${sessionScope.account.id};
+            paramData.name = "${sessionScope.account.name}";
+            paramData.password = "${sessionScope.account.password}";
+            paramData.sex = $("#sex").val();
+            paramData.phone = phone;
+            paramData.email = $("#email").val();
+            paramData.college = $("#college").val();
             $.ajax({
                 type: "POST",
                 url: "${path}/teacher/updateSelfTeacher",
                 dataType: "json",
-                data: "id=" + ${sessionScope.account.id} +"&" + $("#myFrom").serialize(),
+                data: paramData,
                 success: function (data) {
                     if (data['result'] > 0) {
                         window.location.href = "${path}/views/teacherSelf.jsp";
+                        initMessage("修改成功！", "success");
                     }
                 }
             });

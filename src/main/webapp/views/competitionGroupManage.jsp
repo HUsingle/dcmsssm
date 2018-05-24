@@ -64,21 +64,74 @@
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="${path}/resources/js/messenger.min.js"></script>
-<script src="${path}/resources/js/create-table.js"></script>
+<script src="${path}/resources/js/actionBar.js"></script>
 <script>
+    function initMyAddAndUpdate(addUrl, updateUrl, addTitle) {
+        $("#submitButton").click(function () {
+            var id = $("#id").val();
+            var group=$("#name").val();
+            if (id === "" || group === "") {
+                initMessage("竞赛组别编号和竞赛组别名称都不能为空！", "error");
+                return;
+            }
+            if (isNaN(id)) {
+                initMessage("竞赛组别编号必须为数字！", "error");
+                return;
+            }
+            if ($("#myBoxTitle").text() === addTitle) {
+                $.ajax({
+                    type: "POST",
+                    url: addUrl,
+                    dataType: "json",
+                    data: $("#myFrom").serialize(),
+                    //data:fromData,
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            if (data['result'] === 1) {
+                                initMessage("添加成功！", 'success');
+                            } else {
+                                initMessage("该数据已经存在，更新成功！", 'success');
+                            }
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("添加失败，插入数据存在错误或者服务器异常！", 'error');
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: updateUrl,
+                    dataType: "json",
+                    data: $("#myFrom").serialize(),
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            initMessage("修改成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("修改失败,修改的数据存在错误或者服务器异常！", 'error');
+                        }
+                    }
+                });
+            }
+        });
+    }
     $(function () {
         initTable('#myTable', "${path}/competitionGroup/getCompetitionGroupList",
             ['id', 'name'], ['竞赛组别编号', '竞赛组别名称'], true, 0);
-    });
-    $("document").ready(
-        function () {
-            initUpdateInformation("添加竞赛组别", "修改竞赛组别", ['id', 'name'],
-                "${path}/competitionGroup/deleteCompetitionGroup", "id");
+        initAdd("添加竞赛组别",['id', 'name']);
+        initReturn();
+        initDelete("${path}/competitionGroup/deleteCompetitionGroup", "id");
+        initUpdate(['id', 'name'],"修改竞赛组别");
+        initMyAddAndUpdate("${path}/competitionGroup/addCompetitionGroup", "${path}/competitionGroup/updateCompetitionGroup",
+           "添加竞赛组别")
 
-            initAddAndUpdate("${path}/competitionGroup/addCompetitionGroup", "${path}/competitionGroup/updateCompetitionGroup", "id=",
-                "竞赛编号不能为空", $("#id"), "添加竞赛组别", false);
-        }
-    );
+    });
+
 </script>
 </body>
 </html>

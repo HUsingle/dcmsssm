@@ -27,7 +27,7 @@
         </div>
         <a class="btn bg-purple bt-flat " id="searchButton" type="submit"><i class="fa fa-search"></i> 查询</a>
         <a class="btn bg-purple bt-flat " id="add"><i class="fa fa-plus"></i> 添加</a>
-        <a class="btn bg-purple bt-flat " id="update" ><i class="fa fa-edit"></i> 修改</a>
+        <a class="btn bg-purple bt-flat " id="update"><i class="fa fa-edit"></i> 修改</a>
         <a class="btn bg-purple bt-flat " id="delete"><i class="fa fa-trash-o"></i> 删除</a>
         <a class="btn bg-purple bt-flat " id="importExcel"><i class="fa fa-upload"></i> 导入表格</a>
         <%--<a class="btn bg-purple bt-flat " href="${path}/student/exportStudentExcel"><i class="fa fa-download"></i> 导出学生信息</a>--%>
@@ -132,81 +132,87 @@
 <script src="${path}/resources/js/bootstrap-table.min.js"></script>
 <script src="${path}/resources/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="${path}/resources/js/messenger.min.js"></script>
-<script src="${path}/resources/js/create-table.js"></script>
+<script src="${path}/resources/js/actionBar.js"></script>
 <script>
+    function initMyAddAndUpdate(addUrl, updateUrl, addTitle) {
+        $("#submitButton").click(function () {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            if (username === "" || password === "") {
+                initMessage("学号和密码都不能为空！", "error");
+                return;
+            }
+            if(isNaN(username)){
+                initMessage("学号必须为数字！", "error");
+                return;
+            }
+            if (password.length < 6 || password.length > 20) {
+                initMessage("密码长度必须在6到20之间！", "error");
+                return;
+            }
+            if ($("#myBoxTitle").text() === addTitle) {
+                $.ajax({
+                    type: "POST",
+                    url: addUrl,
+                    dataType: "json",
+                    data: $("#myFrom").serialize(),
+                    //data:fromData,
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            if (data['result'] === 1) {
+                                initMessage("添加成功！", 'success');
+                            } else {
+                                initMessage("该数据已经存在，更新成功！", 'success');
+                            }
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("添加失败，插入数据存在错误或者服务器异常！", 'error');
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: updateUrl,
+                    dataType: "json",
+                    data: $("#myFrom").serialize(),
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            initMessage("修改成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("修改失败,修改的数据存在错误或者服务器异常！", 'error');
+                        }
+                    }
+                });
+            }
+        });
+    }
     $(function () {
         initTable('#myTable', "${path}/student/getSearchStudentList",
             ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
-            ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true,0);
+            ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true, 0);
+        initReturn();
+        initAdd("添加学生", ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email']);
+        initUpdate(['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'], "修改学生");
+        initDelete("${path}/student/deleteStudent","username");
+        initMyAddAndUpdate("${path}/student/addStudent", "${path}/student/updateStudent", "添加学生");
+        $("#importExcel").click(function () {
+            var extraData = {};
+            window.parent.openModel("${path}/student/importStudentExcel", "导入表格", extraData);
+        });
+        $("#searchButton").click(function () {
+            $("#myTable").bootstrapTable("destroy");
+            initTable('#myTable', "${path}/student/getSearchStudentList",
+                ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
+                ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true, 0);
+        });
+
     });
-    $("document").ready(
-        function () {
-            initUpdateInformation("添加学生", "修改学生", ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
-                "${path}/student/deleteStudent","username");
-            $("#importExcel").click(function () {
-                var extraData={};
-                window.parent.openModel("${path}/student/importStudentExcel","导入表格",extraData);
-            });
-            initAddAndUpdate("${path}/student/addStudent","${path}/student/updateStudent","username=",
-               "学号不能为空!",$("#username"),"添加学生",false);
-            $("#searchButton").click(function () {
-                $("#myTable").bootstrapTable("destroy");
-                initTable('#myTable', "${path}/student/getSearchStudentList",
-                    ['username', 'name', 'password', 'studentClass', 'college', 'phone', 'email'],
-                    ['学号', '姓名', '密码', '班级', '学院', '手机号码', '电子邮箱'], true,0);
-            });
-      /*      $("#quit").click(function () {
-                $("#myBox").hide();
-                $("#myDiv").show();
-            });
-            $("#submitButton").click(function () {
-                var username=$("#username").val();
-                if (username.length === 0) {
-                    initMessage("学号不能为空!", "error");
-                } else {
-                    if ($("#myBoxTitle").text() === "添加学生") {
-                        $.ajax({
-                            type: "POST",
-                            url: "{path}/student/addStudent",
-                            dataType: "json",
-                            data: $("#myFrom").serialize(),
-                            success: function (data) {
-                                if (data['result'] > 0) {
-                                    if (data['result'] === 1) {
-                                        initMessage("添加成功！", 'success');
-                                    } else {
-                                        initMessage("该数据已经存在，更新成功！", 'success');
-                                    }
-                                    $("#myTable").bootstrapTable('refresh');
-                                    $("#myBox").hide();
-                                    $("#myDiv").show();
-                                } else {
-                                    initMessage("添加失败！", 'error');
-                                }
-                            }
-                        });
-                    } else {
-                        $.ajax({
-                            type: "POST",
-                            url: "{path}/student/updateStudent",
-                            dataType: "json",
-                            data: "username=" + username + "&" + $("#myFrom").serialize(),
-                            success: function (data) {
-                                if (data['result'] > 0) {
-                                    initMessage("修改成功！", 'success');
-                                    $("#myTable").bootstrapTable('refresh');
-                                    $("#myBox").hide();
-                                    $("#myDiv").show();
-                                } else {
-                                    initMessage("修改失败！", 'error');
-                                }
-                            }
-                        });
-                    }
-                }
-            });*/
-        }
-    );
 </script>
 
 

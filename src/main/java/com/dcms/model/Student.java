@@ -40,9 +40,11 @@ public class Student {
     public Long getPhone() {
         return phone;
     }
+
     public void setPhone(Long phone) {
         this.phone = phone;
     }
+
     public String getEmail() {
         return email;
     }

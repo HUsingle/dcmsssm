@@ -298,7 +298,7 @@
 
         } else {//个人赛
             initMyTable(['id', 'username', 'name', 'class', 'phone', 'competitionId', 'competitionGroup', 'applyTime'],
-                ['id', '学号', '姓名', '班级', '电话号码', '报名竞赛', '报名组别', '报名时间'], 1, 's_number ', [5, 10, 15, 50], 10);
+                ['id', '学号', '姓名', '班级', '电话号码', '报名竞赛', '报名组别', '报名时间'], 1, 's_number ', [ 10, 30, 60], 10);
         }
         $("#myTable").bootstrapTable('hideColumn', 'id');
 

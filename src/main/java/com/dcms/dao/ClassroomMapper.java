@@ -16,4 +16,5 @@ public interface ClassroomMapper {
     int deleteClassroom(Integer[] ids);
     int addClassroom(List<Classroom> classrooms);
     Classroom findClassroomById(Integer classroomId);
+    int isExistSite(String site);
 }

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by single on 2018/2/19.
  */
 public class StudentExcelData implements ExcelData {
-    public void exportExcelData(List list, HSSFWorkbook workbook, String[] head,String headTitle) {
+    public void exportExcelData(List list, HSSFWorkbook workbook, String[] head, String headTitle) {
       /*  HSSFSheet sheet=workbook.createSheet();
         Student student=null;
         HSSFRow row=null;
@@ -55,24 +55,22 @@ public class StudentExcelData implements ExcelData {
     }
 
     public List getExcelData(List<List<String>> list) {
-        List<Student> studentList=new ArrayList<Student>();
-        List<String>  fieldList=null;
-        Student student=null;
-        for(int i=0;i<list.size();i++){
-            fieldList=list.get(i);
-            if(fieldList.get(0).length()!=0&&Tool.isNumber(fieldList.get(0))){
-                student=new Student();
-              student.setUsername(Long.parseLong(fieldList.get(0)));
-              student.setName(fieldList.get(1));
-              student.setPassword(fieldList.get(2));
-              student.setStudentClass(fieldList.get(3));
-              student.setCollege(fieldList.get(4));
-              if(fieldList.get(5).length()!=0&&Tool.isNumber(fieldList.get(5))){
-                  student.setPhone(Long.parseLong(fieldList.get(5)));
-              }
-           //   System.out.println(fieldList.get(6)+"jnsdfvkn");
-              student.setEmail(fieldList.get(6));
-              studentList.add(student);
+        List<Student> studentList = new ArrayList<Student>();
+        List<String> fieldList = null;
+        Student student = null;
+        for (int i = 0; i < list.size(); i++) {
+            fieldList = list.get(i);
+            if (fieldList.get(0).length() != 0 && Tool.isNumber(fieldList.get(0)) &&
+                    fieldList.get(4).length() != 0 && Tool.isNumber(fieldList.get(4))) {
+                student = new Student();
+                student.setUsername(Long.parseLong(fieldList.get(0)));
+                student.setName(fieldList.get(1));
+                student.setStudentClass(fieldList.get(2));
+                student.setCollege(fieldList.get(3));
+                student.setPassword(fieldList.get(4));
+                student.setPhone(Long.parseLong(fieldList.get(4)));
+                student.setEmail(fieldList.get(5));
+                studentList.add(student);
             }
         }
         return studentList;

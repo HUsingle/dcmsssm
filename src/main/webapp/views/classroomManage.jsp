@@ -44,12 +44,6 @@
 
     <div class="box-body">
         <form id="myFrom" class="form-horizontal" method="post" action="##" onsubmit="return false">
-            <div class="form-group" style="display:none;">
-                <div class="col-sm-1 control-label">id</div>
-                <div class="col-sm-3">
-                    <input type="text" id="id" class="form-control" name="id" placeholder="id"/>
-                </div>
-            </div>
             <div class="form-group">
                 <div class="col-sm-1 control-label">考场</div>
                 <div class="col-sm-3">
@@ -106,7 +100,7 @@
 <script src="${path}/resources/js/messenger.min.js"></script>
 <script src="${path}/resources/js/bootstrap-select.min.js"></script>
 <script src="${path}/resources/js/defaults-zh_CN.min.js"></script>
-<script src="${path}/resources/js/create-table.js"></script>
+<script src="${path}/resources/js/actionBar.js"></script>
 <script>
     function initStatTable(params, titles) {
         $("#statTable").bootstrapTable({
@@ -163,12 +157,102 @@
             return arr;
         }
     }
+    function initMyAdd(titleOne) {
+        $("#add").click(function () {
+            $("#myBoxTitle").text(titleOne);
+            $('#site' ).attr("disabled", false);
+            $("#site").val("");
+            $("#number").val("");
+            $("#myDiv").hide();
+            $("#myBox").show();
+        });
+    }
+    function initMyUpdate(titleTwo) {
+        $("#update").click(function () {
+            var jsonArray = $("#myTable").bootstrapTable('getSelections');
+            if (jsonArray.length < 1) {
+                initMessage("请选择一条数据!", 'error');
+            } else if (jsonArray.length > 1) {
+                initMessage("请选择一条数据,不要多选!", 'error');
+            } else {
+                $("#site").val(jsonArray[0].site);
+                $("#number").val(jsonArray[0].number);
+                $('#site' ).attr("disabled", true);
+                $("#myDiv").hide();
+                $("#myBox").show();
+            }
+        });
+    }
+    function initMyAddAndUpdate(addUrl, updateUrl, addTitle) {
+        $("#submitButton").click(function () {
+            var site = $("#site").val();
+            var num = $("#number").val();
+            if (site === "" || num === "") {
+                initMessage("考场地点和人数不能为空！", "error");
+                return;
+            }
+            if(isNaN(num)||parseInt(num)<=0){
+                initMessage("考场人数不合法！", "error");
+                return;
+            }
+            if ($("#myBoxTitle").text() === addTitle) {
+                $.ajax({
+                    type: "POST",
+                    url: addUrl,
+                    dataType: "json",
+                    data: $("#myFrom").serialize(),
+                    //data:fromData,
+                    success: function (data) {
+                        var result=data['result'];
+                        if (!isNaN(result)) {
+                            if(parseInt(result)>0){
+                            initMessage("添加成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                            }else{
+                                initMessage("添加失败，网络或者服务器异常！", 'error');
+                            }
+                        } else {
+                            initMessage(result, 'error');
+                        }
+                    }
+                });
+            } else {
+                var jsonArray = $("#myTable").bootstrapTable('getSelections');
+                var paramData={};
+                paramData.id=jsonArray[0].id;
+                paramData.site=site;
+                paramData.number=num;
+                $.ajax({
+                    type: "POST",
+                    url: updateUrl,
+                    dataType: "json",
+                    data: paramData,
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            initMessage("修改成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("修改失败,修改的数据存在错误或者服务器异常！", 'error');
+                        }
+                    }
+                });
+            }
+        });
+    }
     $(function () {
         initTable('#myTable', "${path}/classroom/getClassroomList",
             ['id', 'site', 'number'], ['考场编号', '考场位置', '安排人数'], true, 0);
+        $("#myTable").bootstrapTable('hideColumn', 'id');
         initStatTable(['groupName', 'number'], ['报名组别', '报名人数']);
-        initUpdateInformation("添加考场", "修改考场", ['id', 'site', 'number'],
-            "${path}/classroom/deleteClassroom", "id");
+        initMyAdd("添加考场");
+        initMyUpdate("修改考场");
+        initDelete( "${path}/classroom/deleteClassroom", "id");
+        initReturn();
+        initMyAddAndUpdate("${path}/classroom/addClassroom", "${path}/classroom/updateClassroom","添加考场");
         $("#importExcel").click(function () {
             var extraData={};
             window.parent.openModel("${path}/classroom/importClassroomExcel", "导入表格",extraData);
@@ -181,8 +265,6 @@
             $("#myDiv").show();
             $("#myStat").hide();
         });
-        initAddAndUpdate("${path}/classroom/addClassroom", "${path}/classroom/updateClassroom", "id=",
-            "", $("#id"), "添加考场", true);
         $("#competition").change(function () {
             $("#statTable").bootstrapTable("destroy");
             initStatTable(['groupName', 'number'], ['报名组别', '报名人数']);

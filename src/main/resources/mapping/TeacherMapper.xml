@@ -27,6 +27,10 @@
     <select id="findAllTeacherIdAndSex" resultType="com.dcms.model.Teacher">
         select t_id as id,t_sex as sex from db_teacher
     </select>
+     <!--是否存在电话号码-->
+    <select id="isExistPhone" resultType="java.lang.Integer">
+        select count(t_id) from db_teacher where t_phone=#{phone}
+    </select>
     <!--修改老师-->
     <update id="updateTeacher" parameterType="com.dcms.model.Teacher">
         update db_teacher set t_name=#{name},t_phone=#{phone},t_password=#{password},

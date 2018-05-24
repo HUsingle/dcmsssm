@@ -21,10 +21,10 @@ public class TeacherExcelData implements ExcelData {
                 teacher=new Teacher();
                 teacher.setName(fieldList.get(0));
                 teacher.setSex(fieldList.get(1));
-                teacher.setPassword(fieldList.get(2));
-                teacher.setCollege(fieldList.get(3));
-                teacher.setPhone(Long.parseLong(fieldList.get(4)));
-                teacher.setEmail(fieldList.get(5));
+                teacher.setPassword(fieldList.get(3));
+                teacher.setCollege(fieldList.get(2));
+                teacher.setPhone(Long.parseLong(fieldList.get(3)));
+                teacher.setEmail(fieldList.get(4));
                 teacherList.add(teacher);
             }
         }

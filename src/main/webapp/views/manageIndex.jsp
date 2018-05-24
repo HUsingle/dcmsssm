@@ -44,30 +44,30 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
 
-                <%--    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">1</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">通知</li>
-                            <li>
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 监考信息
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">所有通知</a></li>
-                        </ul>
-                    </li>
---%>
+                    <%--    <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">1</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">通知</li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-aqua"></i> 监考信息
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">所有通知</a></li>
+                            </ul>
+                        </li>
+    --%>
                     <%--  <li><a href="#" data-toggle="modal" data-target="#updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a>--%>
-                   <%-- <li><a href="#"><i class="fa fa-power-off"></i> &nbsp;关闭系统</a>
-                    </li>--%>
-                    <li><a href="${path}/teacherLogout" ><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+                    <%-- <li><a href="#"><i class="fa fa-power-off"></i> &nbsp;关闭系统</a>
+                     </li>--%>
+                    <li><a href="${path}/teacherLogout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
 
                 </ul>
             </div>
@@ -84,60 +84,75 @@
                 <li class="header">导航菜单</li>
                 <!-- Optionally, you can add icons to the links -->
 
-                <li><a href="${path}/views/teacherSelf.jsp" target="myFrame"><i class="fa fa-user"></i><span>个人信息管理</span></a></li>
+                <li><a href="${path}/views/teacherSelf.jsp" target="myFrame"><i
+                        class="fa fa-user"></i><span>个人信息管理</span></a></li>
                 <li class="treeview">
-                    <a href="##"><i class="fa fa fa-users"></i> <span>用户管理</span>
+                    <a href="##"><i class="fa fa-users"></i><span>用户管理</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="${path}/views/studentManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>学生管理</span></a>
+                        <li><a href="${path}/views/studentManage.jsp" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>学生管理</span></a>
                         </li>
-                        <li><a href="${path}/views/teacherManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>老师管理</span></a>
+                        <li><a href="${path}/views/teacherManage.jsp" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>老师管理</span></a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="treeview">
-                    <a href="##"><i class="fa fa fa-list-alt"></i> <span>竞赛管理</span>
+                    <a href="##"><i class="fa fa-list-alt"></i><span>竞赛管理</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="${path}/views/competitionGroupManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛组别管理</span></a></li>
-                        <li><a href="${path}/comp/competitionManage" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛项目管理</span></a></li>
-                        <li><a href="${path}/views/competitionFileManage.jsp" target="myFrame"><i class="fa fa-circle-o"></i><span>竞赛文件管理</span></a></li>
+                        <li><a href="${path}/views/competitionGroupManage.jsp" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>竞赛组别管理</span></a></li>
+                        <li><a href="${path}/comp/competitionManage" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>竞赛项目管理</span></a></li>
+                        <li><a href="${path}/views/competitionFileManage.jsp" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>竞赛文件管理</span></a></li>
                     </ul>
                 </li>
-                <li><a href="${path}/apply/applyManage" target="myFrame"><i class="fa fa-list"></i><span>报名管理</span></a></li>
-                <li class="treeview">
-                    <a href="##"><i class="fa fa fa-university"></i> <span>考试管理</span>
-                        <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="${path}/classroom/classroomManage" target="myFrame"><i class="fa fa-circle-o"></i><span>考场管理</span></a></li>
-                        <li><a href="${path}/invigilation/invigilationManage" target="myFrame"><i class="fa fa-circle-o"></i><span>安排监考管理</span></a></li>
-                        <li><a href="${path}/classroomArrange/classroomArrangeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>安排考场管理</span></a></li>
-                    </ul>
+                <li><a href="${path}/apply/applyManage" target="myFrame"><i class="fa fa-list"></i><span>报名管理</span></a>
                 </li>
                 <li class="treeview">
-                    <a href="##"><i class="fa fa fa-table"></i> <span>成绩管理</span>
+                    <a href="##"><i class="fa fa-university"></i><span>考试管理</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="${path}/key/keyManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生答案管理</span></a></li>
-                        <li><a href="${path}/grade/gradeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生成绩管理</span></a></li>
-                        <li><a href="${path}/prize/prizeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生获奖管理</span></a></li>
-                        <li><a href="${path}/rise/riseManage" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a></li>
+                        <li><a href="${path}/classroom/classroomManage" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>考场管理</span></a></li>
+                        <li><a href="${path}/invigilation/invigilationManage" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>安排监考管理</span></a></li>
+                        <li><a href="${path}/classroomArrange/classroomArrangeManage" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>安排考场管理</span></a></li>
                     </ul>
                 </li>
-                <li><a href="${path}/competitionStat/competitionStat" target="myFrame"><i class="fa fa-bar-chart"></i><span>竞赛统计</span></a></li>
+                <li class="treeview">
+                    <a href="##"><i class="fa fa-table"></i><span>成绩管理</span>
+                        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="${path}/key/keyManage" target="myFrame"><i
+                                class="fa fa-circle-o"></i><span>学生答案管理</span></a></li>
+                        <li><a href="${path}/grade/gradeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生成绩管理</span></a>
+                        </li>
+                        <li><a href="${path}/prize/prizeManage" target="myFrame"><i class="fa fa-circle-o"></i><span>学生获奖管理</span></a>
+                        </li>
+                        <li><a href="${path}/rise/riseManage" target="myFrame"><i class="fa fa-circle-o"></i><span>晋级名单管理</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="${path}/competitionStat/competitionStat" target="myFrame"><i
+                        class="fa fa-bar-chart"></i><span>竞赛统计</span></a></li>
             </ul>
         </section>
     </aside>
@@ -199,119 +214,119 @@
         </div>
     </div>
 
-     <%--<div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-          aria-hidden="true">
-         <div class="modal-dialog">
-             <div class="modal-content">
-                 <div class="modal-header bg-primary">
-                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                     <h4 class="modal-title" id="myModalLabel">修改密码</h4>
-                 </div>
-                 <div class="modal-body">
-                     <form class="form-horizontal">
-                         <div class="form-group">
-                             <div class="form-group">
-                                 <div class="col-sm-2 control-label">原密码</div>
-                                 <div class="col-sm-9">
-                                     <input type="password" class="form-control" placeholder="原密码"/>
-                                 </div>
-                             </div>
-                             <div class="form-group">
-                                 <div class="col-sm-2 control-label">新密码</div>
-                                 <div class="col-sm-9">
-                                     <input type="text" class="form-control" placeholder="新密码"/>
-                                 </div>
-                             </div>
-                             <div class="form-group">
-                                 <div class="col-sm-2 control-label">确认密码</div>
-                                 <div class="col-sm-9">
-                                     <input type="text" class="form-control" placeholder="再次输入新密码"/>
-                                 </div>
-                             </div>
-                         </div>
-                     </form>
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                     <button type="button" class="btn bg-purple bt-flat">提交更改</button>
-                 </div>
-             </div><!-- /.modal-content -->
-         </div><!-- /.modal -->
-     </div>--%>
+    <%--<div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="col-sm-2 control-label">原密码</div>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" placeholder="原密码"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-2 control-label">新密码</div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="新密码"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-2 control-label">确认密码</div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" placeholder="再次输入新密码"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn bg-purple bt-flat">提交更改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>--%>
 
-<script src="${path}/resources/js/jquery.min.js"></script>
-<script src="${path}/resources/js/bootstrap.min.js"></script>
-<script src="${path}/resources/js/adminlte.min.js"></script>
-<script src="${path}/resources/js/fileinput.min.js"></script>
-<script src="${path}/resources/js/zh.js"></script>
-<script src="${path}/resources/js/messenger.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".sidebar-menu a").click(function () {
-            $("#activeLink").text(($(this).text()));
-        });
-        var teacherId="${sessionScope.account.phone}";
-        if(teacherId===""){
-          //  initMessage("请先登录！","error");
-            window.location.href="${path}/views/login.jsp";
-        }
-    });
-    function initImportExcel(url,extraData) {
-        var excelFile = $("#excelFile");
-        excelFile.fileinput({
-            uploadUrl: url,//上传的地址
-            uploadAsync: true,              //异步上传
-            language: "zh",                 //设置语言
-            showCaption: true,              //是否显示标题
-            showUpload: true,               //是否显示上传按钮
-            showRemove: true,               //是否显示移除按钮
-            showPreview: true,             //是否显示预览按钮
-            browseClass: "btn bg-purple", //按钮样式
-            dropZoneEnabled: false,         //是否显示拖拽区域
-            allowedFileExtensions: ["xls", "xlsx"], //接收的文件后缀
-            maxFileCount: 1,                        //最大上传文件数限制
-            enctype: 'multipart/form-data',
-           uploadExtraData:extraData,
-            //previewFileIcon: '<i class="fa fa-file"></i>',
-            initialPreviewAsData: true, // defaults markup
-            preferIconicPreview: false // 是否优先显示图标  false 即优先显示图片
-        });
-
-        excelFile.on("fileuploaded", function (event, data, previewId, index) {
-            var result = data.response.result;
-            $('#excelModal').modal('hide');
-            $(this).fileinput('destroy');
-            if (result === "导入成功!") {
-                $('#myFrame')[0].contentWindow.refreshTable();
-                $('#myFrame')[0].contentWindow.refreshTable();
-                initMessage(result, "success");
-            } else {
-                initMessage(result, "error");
+    <script src="${path}/resources/js/jquery.min.js"></script>
+    <script src="${path}/resources/js/bootstrap.min.js"></script>
+    <script src="${path}/resources/js/adminlte.min.js"></script>
+    <script src="${path}/resources/js/fileinput.min.js"></script>
+    <script src="${path}/resources/js/zh.js"></script>
+    <script src="${path}/resources/js/messenger.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidebar-menu a").click(function () {
+                $("#activeLink").text(($(this).text()));
+            });
+            var teacherId = "${sessionScope.account.phone}";
+            if (teacherId === "") {
+                //  initMessage("请先登录！","error");
+                window.location.href = "${path}/views/login.jsp";
             }
         });
-        excelFile.on('fileerror', function (event, data, msg) {
-            initMessage(msg, "error");
-        });
+        function initImportExcel(url, extraData) {
+            var excelFile = $("#excelFile");
+            excelFile.fileinput({
+                uploadUrl: url,//上传的地址
+                uploadAsync: true,              //异步上传
+                language: "zh",                 //设置语言
+                showCaption: true,              //是否显示标题
+                showUpload: true,               //是否显示上传按钮
+                showRemove: true,               //是否显示移除按钮
+                showPreview: true,             //是否显示预览按钮
+                browseClass: "btn bg-purple", //按钮样式
+                dropZoneEnabled: false,         //是否显示拖拽区域
+                allowedFileExtensions: ["xls", "xlsx"], //接收的文件后缀
+                maxFileCount: 1,                        //最大上传文件数限制
+                enctype: 'multipart/form-data',
+                uploadExtraData: extraData,
+                //previewFileIcon: '<i class="fa fa-file"></i>',
+                initialPreviewAsData: true, // defaults markup
+                preferIconicPreview: false // 是否优先显示图标  false 即优先显示图片
+            });
 
-    }
-    function initMessage(message, state) {
-        $._messengerDefaults = {
-            extraClasses: 'messenger-fixed messenger-theme-future messenger-on-top'
-        };
-        $.globalMessenger().post({
-            message: message,//提示信息
-            type: state,//消息类型。error、info、success
-            hideAfter: 4,//多长时间消失
-            id: 1, //：唯一的ID。 如果提供，则一次只显示一个带有该ID的消息。
-            showCloseButton: true//是否显示关闭按钮
-        });
-    }
-    function openModel(importUrl, modeTitle,extraData) {
-        initImportExcel(importUrl,extraData);
-        $("#myModalLab").text(modeTitle);
-        $("#excelModal").modal();
-    }
+            excelFile.on("fileuploaded", function (event, data, previewId, index) {
+                var result = data.response.result;
+                $('#excelModal').modal('hide');
+                $(this).fileinput('destroy');
+                if (result === "导入成功!") {
+                    $('#myFrame')[0].contentWindow.refreshTable();
+                    $('#myFrame')[0].contentWindow.refreshTable();
+                    initMessage(result, "success");
+                } else {
+                    initMessage(result, "error");
+                }
+            });
+            excelFile.on('fileerror', function (event, data, msg) {
+                initMessage(msg, "error");
+            });
 
-</script>
+        }
+        function initMessage(message, state) {
+            $._messengerDefaults = {
+                extraClasses: 'messenger-fixed messenger-theme-future messenger-on-top'
+            };
+            $.globalMessenger().post({
+                message: message,//提示信息
+                type: state,//消息类型。error、info、success
+                hideAfter: 4,//多长时间消失
+                id: 1, //：唯一的ID。 如果提供，则一次只显示一个带有该ID的消息。
+                showCloseButton: true//是否显示关闭按钮
+            });
+        }
+        function openModel(importUrl, modeTitle, extraData) {
+            initImportExcel(importUrl, extraData);
+            $("#myModalLab").text(modeTitle);
+            $("#excelModal").modal();
+        }
+
+    </script>
 </body>
 </html>

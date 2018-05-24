@@ -11,6 +11,10 @@
     <select id="findClassroomById" resultType="com.dcms.model.Classroom">
         select classroom_site as site from db_classroom where classroom_id=#{classroomId}
     </select>
+    <!--判断考场地点是否存在-->
+    <select id="isExistSite" resultType="java.lang.Integer">
+        select count(classroom_id) from db_classroom where classroom_site=#{site}
+    </select>
     <!--修改竞赛信息-->
     <update id="updateClassroom" parameterType="com.dcms.model.Classroom">
         update db_classroom set classroom_number=#{number},classroom_site=#{site}

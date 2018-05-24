@@ -29,7 +29,7 @@ public interface TeacherService {
                          String phone, String email,String sex);
     //更新个人信息
     String updateSelfTeacher(String id,String name,String college,
-                         String phone, String email,String sex,HttpServletRequest request);
+                         String phone, String email,String sex,String password,HttpServletRequest request);
 
     //修改密码
     String updatePassword(Long id,String password,HttpServletRequest request);
@@ -39,4 +39,6 @@ public interface TeacherService {
     void exportTeacherExcelModel(HttpServletResponse response);
     //获取老师的名字
     Teacher findTeacherByPhone(String phone);
+    //是否存在电话号码
+     String isExistPhone(String phone);
 }

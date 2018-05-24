@@ -22,4 +22,5 @@ public interface TeacherMapper {
      int checkTeacher(@Param("phone") String phone,@Param("password") String password);
      Teacher findTeacherByPhone(String phone);
      int updatePassword(@Param("id") Long id,@Param("password") String password);
+     int isExistPhone(String phone);
 }

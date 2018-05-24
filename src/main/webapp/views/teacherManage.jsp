@@ -122,7 +122,7 @@
     }
     function initMyTable(params, titles) {
         $("#myTable").bootstrapTable({
-            url:  "${path}/teacher/getTeacherList",//请求后台的url
+            url: "${path}/teacher/getTeacherList",//请求后台的url
             method: 'post',
             contentType: "application/x-www-form-urlencoded",//发送到服务器的数据编码类型
             dataType: "json", //服务器返回的数据类型
@@ -143,7 +143,7 @@
             sidePagination: "server",//设置分页方式
             pageNumber: 1,//初始化加载第一页，默认第一页
             pageSize: 10,  //每页显示记录数
-            pageList: [5, 10, 15,50],//可选择每页显示记录数
+            pageList: [5, 10, 15, 50],//可选择每页显示记录数
             search: false, //是否显示表格搜索，为客户端搜索
             strictSearch: false,//设置是否精确查询
             searchOnEnterKey: false,//设置是否回车响应搜索
@@ -201,7 +201,7 @@
                     $('#' + inputFields[i]).val(jsonArray[0][inputFields[i]]);
                 }
                 $('#' + inputFields[0]).attr("disabled", true);
-                $("#sex").selectpicker('val',jsonArray[0].sex);
+                $("#sex").selectpicker('val', jsonArray[0].sex);
                 $("#myDiv").hide();
                 $("#myBox").show();
             }
@@ -242,52 +242,92 @@
             $("#myDiv").show();
         });
         $("#submitButton").click(function () {
-            var phone=$("#phone").val();
-            var password=$("#password").val();
-            if(phone===""||password===""){
-                initMessage("密码或者手机号码不可以为空!","error");
+            var phone = $("#phone").val();
+            var password = $("#password").val();
+            if (phone === "" || password === "") {
+                initMessage("密码或者手机号码不可以为空!", "error");
                 return;
             }
+            if (isNaN(phone) || phone.length !== 11 || parseInt(phone) <= 0) {
+                initMessage("手机号码不合法!", "error");
+                return;
+            }
+            var isExist = false;
             var id = $("#id").val();
-                if ($("#myBoxTitle").text() === "添加老师") {
-                    $.ajax({
-                        type: "POST",
-                        url: "${path}/teacher/addTeacher",
-                        dataType: "json",
-                        data: $("#myFrom").serialize(),
-                        success: function (data) {
-                            if (data['result'] > 0) {
-                                if (data['result'] === 1) {
-                                    initMessage("添加成功！", 'success');
-                                } else {
-                                    initMessage("该数据已经存在，更新成功！", 'success');
-                                }
-                                $("#myTable").bootstrapTable('refresh');
-                                $("#myBox").hide();
-                                $("#myDiv").show();
-                            } else {
-                                initMessage("手机号码必须为数字！", 'error');
-                            }
+            if ($("#myBoxTitle").text() === "添加老师") {
+                $.ajax({
+                    type: "POST",
+                    url: "${path}/teacher/isExistPhone",
+                    dataType: "json",
+                    async: false,
+                    data: {'phone': phone},
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            isExist = true;
                         }
-                    });
-                } else {
-                    $.ajax({
-                        type: "POST",
-                        url: "${path}/teacher/updateTeacher",
-                        dataType: "json",
-                        data: "id=" + id + "&" + $("#myFrom").serialize(),
-                        success: function (data) {
-                            if (data['result'] > 0) {
-                                initMessage("修改成功！", 'success');
-                                $("#myTable").bootstrapTable('refresh');
-                                $("#myBox").hide();
-                                $("#myDiv").show();
-                            } else {
-                                initMessage("手机号码必须为数字！", 'error');
-                            }
-                        }
-                    });
+                    }
+                });
+                if (isExist) {
+                    initMessage("该手机号码已经存在!", "error");
+                    return;
                 }
+                $.ajax({
+                    type: "POST",
+                    url: "${path}/teacher/addTeacher",
+                    dataType: "json",
+                    data: $("#myFrom").serialize(),
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            if (data['result'] === 1) {
+                                initMessage("添加成功！", 'success');
+                            } else {
+                                initMessage("该数据已经存在，更新成功！", 'success');
+                            }
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("手机号码必须为数字！", 'error');
+                        }
+                    }
+                });
+            } else {
+                var jsonArray = $("#myTable").bootstrapTable('getSelections');
+                if(jsonArray[0].phone!=phone){
+                    $.ajax({
+                        type: "POST",
+                        url: "${path}/teacher/isExistPhone",
+                        dataType: "json",
+                        async: false,
+                        data: {'phone': phone},
+                        success: function (data) {
+                            if (data['result'] > 0) {
+                                isExist = true;
+                            }
+                        }
+                    });
+                    if (isExist) {
+                        initMessage("该手机号码已经存在!", "error");
+                        return;
+                    }
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "${path}/teacher/updateTeacher",
+                    dataType: "json",
+                    data: "id=" + id + "&" + $("#myFrom").serialize(),
+                    success: function (data) {
+                        if (data['result'] > 0) {
+                            initMessage("修改成功！", 'success');
+                            $("#myTable").bootstrapTable('refresh');
+                            $("#myBox").hide();
+                            $("#myDiv").show();
+                        } else {
+                            initMessage("手机号码必须为数字！", 'error');
+                        }
+                    }
+                });
+            }
 
         });
     }

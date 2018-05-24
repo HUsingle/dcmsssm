@@ -100,7 +100,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void exportStudentExcelModel(HttpServletResponse response) {
-        String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
+        String[] head = {"学号", "姓名", "班级", "学院", "手机号码", "电子邮箱"};
         ExcelUtil.exportModeExcel(head, "学生信息模板.xls", response,401);
     }
 
@@ -113,7 +113,7 @@ public class StudentServiceImpl implements StudentService {
 
     public String importStudentExcel(MultipartFile excelFile) {
         ExcelData studentInsertExcelData = new StudentExcelData();
-        String[] head = {"学号", "姓名", "密码", "班级", "学院", "手机号码", "电子邮箱"};
+        String[] head = {"学号", "姓名", "班级", "学院", "手机号码", "电子邮箱"};
         List dataList = ExcelUtil.importExcel(excelFile, head, studentInsertExcelData);
         int exResult = 0;
         String result;
